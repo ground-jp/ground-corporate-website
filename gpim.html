@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="GPIM - 物流施設管理 | GROUND Inc.">
+  <meta property="og:description" content="物流施設の設備管理・運用最適化プラットフォーム GPIM。予防保全と可視化で稼働率を最大化します。">
+  <meta property="og:url" content="https://groundinc.co.jp/gpim.html">
+  <meta property="og:site_name" content="GROUND Inc.">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GPIM - 物流施設管理 | GROUND Inc.">
+  <meta name="twitter:description" content="物流施設の設備管理・運用最適化プラットフォーム GPIM。予防保全と可視化で稼働率を最大化します。">
+  <title>GPIM - GROUND Process Improvement Methodology | GROUND Inc.</title>
+  <meta name="description" content="GPIM（GROUND Process Improvement Methodology）は、物流施設の運営を5つのレベルで段階的に進化させるGROUND独自の改善メソドロジーです。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=49">
+  <style>
+    /* ── Page base: white background ── */
+    body { background: #fff !important; }
+
+    /* ── Breadcrumb ── */
+    .gp-bc {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; color: #1A1A1A; padding: 0;
+    }
+    .gp-bc a { color: #1A1A1A; text-decoration: none; transition: color 0.2s; }
+    .gp-bc a:hover { color: #1a1a1a; }
+
+    /* ── Hero ── */
+    .gp-hero {
+      padding: 140px 0 60px;
+      text-align: center;
+    }
+    .gp-hero__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: #1A1A1A;
+      margin-bottom: 20px; display: block;
+    }
+    .gp-hero__title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 700; color: #1a1a1a;
+      letter-spacing: 0.12em; line-height: 1.15;
+      margin: 0 0 12px;
+    }
+    .gp-hero__full {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem; font-weight: 400;
+      color: #1A1A1A; letter-spacing: 0.04em;
+      margin: 0 0 32px;
+    }
+    .gp-hero__desc {
+      font-size: 0.95rem; font-weight: 300;
+      color: #1A1A1A; line-height: 2.0;
+      max-width: 720px; margin: 0 auto;
+    }
+
+    /* ── Chart Section ── */
+    .gp-chart-wrap {
+      padding: 40px 0 60px;
+    }
+    .gp-chart {
+      max-width: 840px; margin: 0 auto;
+    }
+    .gp-chart svg {
+      width: 100%; height: auto;
+    }
+
+    /* ── Concept Section ── */
+    .gp-concept {
+      padding: 60px 0;
+      border-top: 1px solid #E0E0E5;
+    }
+    .gp-concept__inner {
+      display: grid; grid-template-columns: 280px 1fr; gap: 60px;
+      align-items: start;
+    }
+    .gp-concept__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #1A1A1A;
+      margin-bottom: 12px; display: block;
+    }
+    .gp-concept__heading {
+      font-size: 1.4rem; font-weight: 600;
+      color: #1a1a1a; line-height: 1.5;
+    }
+    .gp-concept__text {
+      font-size: 0.9rem; color: #1A1A1A;
+      line-height: 2.1;
+    }
+    .gp-concept__text p { margin: 0 0 24px; }
+    .gp-concept__text p:last-child { margin-bottom: 0; }
+
+    /* ── Levels Section ── */
+    .gp-levels-section {
+      padding: 60px 0;
+      border-top: 1px solid #E0E0E5;
+    }
+    .gp-levels-header {
+      text-align: center; margin-bottom: 48px;
+    }
+    .gp-levels-header__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #1A1A1A;
+      margin-bottom: 12px; display: block;
+    }
+    .gp-levels-header__title {
+      font-size: 1.4rem; font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .gp-levels {
+      display: flex; flex-direction: column; gap: 0;
+      max-width: 860px; margin: 0 auto;
+    }
+    .gp-level {
+      display: grid; grid-template-columns: 80px 180px 1fr; gap: 24px;
+      padding: 32px 0;
+      border-bottom: 1px solid #EEEEF2;
+      align-items: start;
+    }
+    .gp-level:first-child { border-top: 1px solid #EEEEF2; }
+    .gp-level__num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; font-weight: 500;
+      color: #1A1A1A; letter-spacing: 0.06em;
+    }
+    .gp-level__title-wrap {}
+    .gp-level__title {
+      font-size: 1.15rem; font-weight: 600;
+      color: #1a1a1a; margin: 0 0 4px;
+    }
+    .gp-level__en {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem; font-weight: 400;
+      color: #1A1A1A; letter-spacing: 0.04em;
+    }
+    .gp-level__desc {
+      font-size: 0.88rem; color: #1A1A1A;
+      line-height: 1.95;
+    }
+
+    /* ── GWES Relation ── */
+    .gp-gwes {
+      padding: 60px 0;
+      border-top: 1px solid #E0E0E5;
+    }
+    .gp-gwes__inner {
+      display: grid; grid-template-columns: 280px 1fr; gap: 60px;
+      align-items: start;
+    }
+    .gp-gwes__text {
+      font-size: 0.9rem; color: #1A1A1A;
+      line-height: 2.1;
+    }
+    .gp-gwes__text p { margin: 0 0 24px; }
+    .gp-gwes__text p:last-child { margin-bottom: 0; }
+
+    /* ── Principle ── */
+    .gp-principle {
+      padding: 60px 0 80px;
+      border-top: 1px solid #E0E0E5;
+      text-align: center;
+    }
+    .gp-principle__text {
+      font-size: 1.05rem; font-weight: 500;
+      color: #1a1a1a; line-height: 1.9;
+      max-width: 640px; margin: 0 auto;
+    }
+    .gp-principle__sub {
+      font-size: 0.82rem; color: #1A1A1A;
+      margin-top: 16px;
+    }
+
+    /* ── CTA ── */
+    .gp-cta {
+      padding: 60px 0;
+      background: #F5F5F8;
+      text-align: center;
+    }
+    .gp-cta__title {
+      font-size: 1.3rem; font-weight: 600;
+      color: #1a1a1a; margin: 0 0 16px;
+    }
+    .gp-cta__desc {
+      font-size: 0.88rem; color: #1A1A1A;
+      line-height: 1.9; margin: 0 0 28px;
+    }
+    .gp-cta__btn {
+      display: inline-block;
+      padding: 14px 40px;
+      background: #1a1a1a; color: #fff;
+      font-size: 0.85rem; font-weight: 500;
+      border-radius: 6px; text-decoration: none;
+      transition: background 0.3s;
+    }
+    .gp-cta__btn:hover { background: #3F4250; }
+
+    /* ── Fade animation ── */
+    .gp-fade {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .gp-fade.is-visible { opacity: 1; transform: translateY(0); }
+    /* Fallback: show content if JS fails */
+    .no-js .gp-fade, .gp-fade.gp-fade--fallback { opacity: 1; transform: none; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .gp-concept__inner,
+      .gp-gwes__inner { grid-template-columns: 1fr; gap: 24px; }
+      .gp-level { grid-template-columns: 60px 1fr; gap: 12px; }
+      .gp-level__desc { grid-column: 1 / -1; }
+    }
+  </style>
+  <style>
+    .header { z-index: 350 !important; }
+    /* Hamburger + Overlay inline fallback (o9-style v30) */
+    .hamburger { display: flex !important; flex-direction: column; justify-content: center; align-items: center; gap: 6px; width: 52px; height: 52px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 400; position: relative; margin-right: -8px; }
+    .hamburger__line { display: block; width: 26px; height: 1.5px; background: #fff; border-radius: 1px; transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.25s ease; transform-origin: center; }
+    .hamburger.active .hamburger__line:nth-child(1) { transform: rotate(45deg) translate(5.5px,5.5px); }
+    .hamburger.active .hamburger__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active .hamburger__line:nth-child(3) { transform: rotate(-45deg) translate(5.5px,-5.5px); }
+    .overlay-menu { position: fixed; inset: 0; z-index: 300; background: #0A0C14; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-20px); transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s, transform 0.4s cubic-bezier(0.23,1,0.32,1); overflow-y: auto; }
+    .overlay-menu.active { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
+    .overlay-menu__inner { display: grid; grid-template-columns: 280px 1fr 340px; gap: 0 48px; max-width: 1200px; width: 100%; margin: 0 auto; padding: 100px 56px 60px; min-height: 100vh; align-content: start; }
+    .overlay-menu__label { display: block; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px; }
+    .overlay-menu__col-nav { grid-column: 1; }
+    .overlay-menu__nav-list { display: flex; flex-direction: column; gap: 0; }
+    .overlay-menu__nav-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; text-decoration: none; color: #fff; font-size: 17px; font-weight: 500; letter-spacing: 0.01em; cursor: pointer; transition: background 0.15s ease; }
+    .overlay-menu__nav-item:hover, .overlay-menu__nav-item.is-active { background: rgba(255,255,255,0.06); }
+    .overlay-menu__nav-arrow { font-size: 16px; color: rgba(255,255,255,0.4); }
+    .overlay-menu__col-sub { grid-column: 2; }
+    .overlay-menu__panel { display: none; flex-direction: column; gap: 0; }
+    .overlay-menu__panel.is-visible { display: flex; }
+    .overlay-menu__sub-item { display: block; padding: 12px 0; text-decoration: none; color: rgba(255,255,255,0.85); font-size: 16px; font-weight: 400; transition: color 0.15s; }
+    .overlay-menu__sub-item:hover { color: #fff; }
+    .overlay-menu__col-info { grid-column: 3; display: flex; flex-direction: column; justify-content: flex-start; }
+    .overlay-menu__cta-btn { display: block; padding: 16px 32px; border: 1px solid rgba(255,255,255,0.25); color: #fff; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 12px; font-weight: 500; text-align: center; text-decoration: none; letter-spacing: 0.14em; text-transform: uppercase; }
+    .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
+    .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.3); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
+    .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img"></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Fullscreen Overlay Menu (o9-style) -->
+  <div class="overlay-menu" id="overlayMenu">
+    <div class="overlay-menu__inner">
+      <!-- Col 1: Navigation -->
+      <div class="overlay-menu__col-nav">
+        <span class="overlay-menu__label">[NAVIGATION]</span>
+        <div class="overlay-menu__nav-list">
+          <a href="about.html" class="overlay-menu__nav-item" data-panel="company">会社情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="gpim.html" class="overlay-menu__nav-item" data-panel="gpim">GPIM<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="service.html" class="overlay-menu__nav-item" data-panel="service">製品・サービス<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="works.html" class="overlay-menu__nav-item">導入事例</a>
+          <a href="news.html" class="overlay-menu__nav-item">ニュース</a>
+          <a href="blog.html" class="overlay-menu__nav-item">WAREHOUSE TECH WEEKLY</a>
+          <a href="careers.html" class="overlay-menu__nav-item" data-panel="careers">採用情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+        </div>
+      </div>
+      <!-- Col 2: Sub-panels -->
+      <div class="overlay-menu__col-sub">
+        <div class="overlay-menu__panel" data-panel="company">
+          <span class="overlay-menu__label">[会社情報]</span>
+          <a href="about.html" class="overlay-menu__sub-item">会社概要</a>
+          <a href="about.html#ceo" class="overlay-menu__sub-item">CEOメッセージ</a>
+          <a href="about.html#vision" class="overlay-menu__sub-item">ビジョン・ミッション</a>
+          <a href="about.html#bp" class="overlay-menu__sub-item">行動原則(BP)・価値創造(VCP)プロセス</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="service">
+          <span class="overlay-menu__label">[製品・サービス]</span>
+          <a href="gwes.html" class="overlay-menu__sub-item">GWES</a>
+          <a href="gwes.html#technology" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
+          <a href="gwes.html#modules" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
+          <a href="gwes.html#implementation" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
+          <a href="digital-integration.html" class="overlay-menu__sub-item">デジタルインテグレーション</a>
+          <a href="consulting.html" class="overlay-menu__sub-item">コンサルティング＆エンジニアリング</a>
+          <a href="peer.html" class="overlay-menu__sub-item">PEER</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="gpim">
+          <span class="overlay-menu__label">[GPIM]</span>
+          <a href="gpim.html" class="overlay-menu__sub-item">GPIMとは</a>
+          <a href="gpim-consulting.html" class="overlay-menu__sub-item">GPIMコンサルティング</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="careers">
+          <span class="overlay-menu__label">[採用情報]</span>
+          <a href="careers.html" class="overlay-menu__sub-item">募集ポジション</a>
+          <a href="about.html" class="overlay-menu__sub-item">カルチャー</a>
+        </div>
+      </div>
+      <!-- Col 3: CTA + Contact -->
+      <div class="overlay-menu__col-info">
+        <a href="contact.html" class="overlay-menu__cta-btn">お問い合わせ</a>
+        <div class="overlay-menu__contact-info">
+          <span>info@groundinc.co.jp</span>
+          <span>03-6441-2975</span>
+        </div>
+        <p class="overlay-menu__copyright">&copy; GROUND Inc.</p>
+      </div>
+    </div>
+  </div>
+
+    <nav class="breadcrumb-nav" aria-label="パンくずリスト">
+      <ol class="breadcrumb-nav__list">
+        <li class="breadcrumb-nav__item"><a href="index.html" class="breadcrumb-nav__link breadcrumb-nav__link--home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a href="service.html" class="breadcrumb-nav__link">サービス</a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current">GPIM</span></li>
+      </ol>
+    </nav>
+  <section class="gp-hero">
+    <div class="container">
+      <div class="gp-fade">
+        <span class="gp-hero__label">Our Methodology</span>
+        <h1 class="gp-hero__title">GPIM</h1>
+        <p class="gp-hero__full">GROUND Process Improvement Methodology</p>
+        <p class="gp-hero__desc">
+          物流施設の運営を段階的に進化させる、GROUND独自の改善メソドロジー。<br>
+          5つのレベルを正しい順序で踏むことで、物流DXを確実に実現します。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FAN CHART ==================== -->
+  <section class="gp-chart-wrap">
+    <div class="container">
+      <div class="gp-chart gp-fade">
+        <svg viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="gp-g1" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#1a1a1a" stop-opacity="0.06"/><stop offset="100%" stop-color="#1a1a1a" stop-opacity="0.02"/></linearGradient>
+            <linearGradient id="gp-g2" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#1a1a1a" stop-opacity="0.10"/><stop offset="100%" stop-color="#1a1a1a" stop-opacity="0.04"/></linearGradient>
+            <linearGradient id="gp-g3" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#1a1a1a" stop-opacity="0.15"/><stop offset="100%" stop-color="#1a1a1a" stop-opacity="0.06"/></linearGradient>
+            <linearGradient id="gp-g4" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#1a1a1a" stop-opacity="0.22"/><stop offset="100%" stop-color="#1a1a1a" stop-opacity="0.08"/></linearGradient>
+            <linearGradient id="gp-g5" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#1a1a1a" stop-opacity="0.30"/><stop offset="100%" stop-color="#1a1a1a" stop-opacity="0.12"/></linearGradient>
+          </defs>
+          <!-- Axis labels -->
+          <text x="28" y="420" font-size="11" fill="#8A8C9A" font-family="Inter, sans-serif" letter-spacing="0.08em">基盤作り</text>
+          <text x="720" y="420" font-size="11" fill="#8A8C9A" font-family="Inter, sans-serif" letter-spacing="0.08em">目指す姿</text>
+          <!-- Fan arcs -->
+          <path d="M 60,400 A 380,380 0 0,1 740,80 L 680,130 A 310,310 0 0,0 60,400 Z" fill="url(#gp-g5)" stroke="#E0E0E5" stroke-width="0.5"/>
+          <path d="M 60,400 A 310,310 0 0,1 680,130 L 620,175 A 250,250 0 0,0 60,400 Z" fill="url(#gp-g4)" stroke="#E0E0E5" stroke-width="0.5"/>
+          <path d="M 60,400 A 250,250 0 0,1 620,175 L 550,225 A 190,190 0 0,0 60,400 Z" fill="url(#gp-g3)" stroke="#E0E0E5" stroke-width="0.5"/>
+          <path d="M 60,400 A 190,190 0 0,1 550,225 L 470,275 A 130,130 0 0,0 60,400 Z" fill="url(#gp-g2)" stroke="#E0E0E5" stroke-width="0.5"/>
+          <path d="M 60,400 A 130,130 0 0,1 470,275 L 400,320 A 80,80 0 0,0 60,400 Z" fill="url(#gp-g1)" stroke="#E0E0E5" stroke-width="0.5"/>
+          <!-- Level circles -->
+          <circle cx="230" cy="348" r="24" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"/>
+          <text x="230" y="345" text-anchor="middle" font-size="12" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">体系化</text>
+          <text x="230" y="360" text-anchor="middle" font-size="8" fill="#8A8C9A" font-family="Inter, sans-serif" letter-spacing="0.04em">Lv 1</text>
+          <circle cx="350" cy="285" r="26" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"/>
+          <text x="350" y="282" text-anchor="middle" font-size="12" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">可視化</text>
+          <text x="350" y="297" text-anchor="middle" font-size="8" fill="#8A8C9A" font-family="Inter, sans-serif" letter-spacing="0.04em">Lv 2</text>
+          <circle cx="470" cy="225" r="28" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"/>
+          <text x="470" y="222" text-anchor="middle" font-size="12" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">自動化</text>
+          <text x="470" y="237" text-anchor="middle" font-size="8" fill="#8A8C9A" font-family="Inter, sans-serif" letter-spacing="0.04em">Lv 3</text>
+          <circle cx="590" cy="165" r="30" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"/>
+          <text x="590" y="162" text-anchor="middle" font-size="12" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">最適化</text>
+          <text x="590" y="177" text-anchor="middle" font-size="8" fill="#8A8C9A" font-family="Inter, sans-serif" letter-spacing="0.04em">Lv 4</text>
+          <circle cx="710" cy="100" r="32" fill="#1a1a1a" stroke="none"/>
+          <text x="710" y="97" text-anchor="middle" font-size="13" font-weight="600" fill="#fff" font-family="'Noto Sans JP', sans-serif">自律化</text>
+          <text x="710" y="112" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.7)" font-family="Inter, sans-serif" letter-spacing="0.04em">Lv 5</text>
+          <!-- GWES badges -->
+          <rect x="155" y="370" width="60" height="20" rx="3" fill="#1a1a1a"/>
+          <text x="185" y="384" text-anchor="middle" font-size="9" font-weight="600" fill="#fff" font-family="Inter, sans-serif" letter-spacing="0.06em">GWES</text>
+          <rect x="530" y="195" width="60" height="20" rx="3" fill="#1a1a1a"/>
+          <text x="560" y="209" text-anchor="middle" font-size="9" font-weight="600" fill="#fff" font-family="Inter, sans-serif" letter-spacing="0.06em">GWES</text>
+          <!-- Connecting line -->
+          <line x1="215" y1="380" x2="530" y2="205" stroke="#1a1a1a" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.3"/>
+          <!-- Annotations -->
+          <text x="270" y="363" font-size="9" fill="#8A8C9A" font-family="'Noto Sans JP', sans-serif">業務構造の整理・標準化</text>
+          <text x="395" y="298" font-size="9" fill="#8A8C9A" font-family="'Noto Sans JP', sans-serif">データによる定量的把握</text>
+          <text x="515" y="235" font-size="9" fill="#8A8C9A" font-family="'Noto Sans JP', sans-serif">マテハン・ロボット活用</text>
+          <text x="635" y="175" font-size="9" fill="#8A8C9A" font-family="'Noto Sans JP', sans-serif">AI・数理最適化</text>
+          <text x="710" y="145" text-anchor="middle" font-size="9" fill="#8A8C9A" font-family="'Noto Sans JP', sans-serif">完全自律運用</text>
+          <!-- Time axis -->
+          <line x1="60" y1="410" x2="770" y2="410" stroke="#C8CDD8" stroke-width="1"/>
+          <polygon points="770,406 780,410 770,414" fill="#C8CDD8"/>
+          <text x="780" y="414" font-size="10" fill="#8A8C9A" font-family="Inter, sans-serif">時間軸</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== WHAT IS GPIM ==================== -->
+  <section class="gp-concept">
+    <div class="container">
+      <div class="gp-concept__inner gp-fade">
+        <div>
+          <span class="gp-concept__label">What is GPIM</span>
+          <h2 class="gp-concept__heading">GPIMとは何か</h2>
+        </div>
+        <div class="gp-concept__text">
+          <p>GPIM（GROUND Process Improvement Methodology）は、物流施設の運営を「体系化 → 可視化 → 自動化 → 最適化 → 自律化」の5つのレベルで段階的に進化させる、GROUNDが独自に体系化した改善メソドロジーです。</p>
+          <p>物流業界では、EC拡大による多品種少量化、深刻な人手不足、サプライチェーンの複雑化といった課題が同時に押し寄せています。これらに対し、多くの企業がロボットやAIの導入を試みますが、現場の業務プロセスが整理されていない段階でテクノロジーを投入しても、期待した効果は得られません。</p>
+          <p>GPIMは、この「正しい順序」を明確に定義したフレームワークです。各レベルは前段階の完了を前提としており、段階を飛ばした導入は原則として行いません。まず業務を構造化し（Lv.1）、データで現場を見える化し（Lv.2）、その上でロボットによる自動化（Lv.3）、AIによる最適化（Lv.4）と進めていく。この積み上げ型のアプローチこそが、物流DXを確実に実現する唯一の道筋です。</p>
+          <p>2022年にGROUNDが体系化したGPIMは、単なる理論フレームワークではなく、GROUNDの物流施設統合管理・最適化システム「GWES」の設計思想そのものでもあります。GWESの12モジュールは、GPIMの各レベルに対応するかたちで設計されており、顧客の現在のレベルに応じた最適なモジュール構成で段階的に導入することが可能です。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 5 LEVELS ==================== -->
+  <section class="gp-levels-section">
+    <div class="container">
+      <div class="gp-levels-header gp-fade">
+        <span class="gp-levels-header__label">Five Levels</span>
+        <h2 class="gp-levels-header__title">GPIMの5つのレベル</h2>
+      </div>
+      <div class="gp-levels gp-fade">
+        <div class="gp-level">
+          <div class="gp-level__num">LEVEL 01</div>
+          <div class="gp-level__title-wrap">
+            <h3 class="gp-level__title">体系化</h3>
+            <span class="gp-level__en">Systematize</span>
+          </div>
+          <div class="gp-level__desc">
+            物流施設の業務プロセスを体系的に構造化し、属人的なオペレーションを排除する段階です。作業手順・ルール・KPIを標準化し、再現性の高い業務設計を構築します。この「土台づくり」がなければ、後続のすべてのレベルは成立しません。GWESでは、ベースモジュール（BM）とマップエディター（ME）がこの段階を支援します。
+          </div>
+        </div>
+        <div class="gp-level">
+          <div class="gp-level__num">LEVEL 02</div>
+          <div class="gp-level__title-wrap">
+            <h3 class="gp-level__title">可視化</h3>
+            <span class="gp-level__en">Visualize</span>
+          </div>
+          <div class="gp-level__desc">
+            WMS・マテハン・センサー等から収集した実績データを一元的に整理し、複数拠点を横断して現場の状態を客観的に把握可能にする段階です。「経験と勘」から「データに基づく判断」への転換点であり、改善の方向性と優先度を定量的に見極めることができるようになります。GWESのデータコネクター（DC）、ワークロードフォーキャスティング（WF）、プログレスアナライザー（PA）、ワークロードアナライザー（WA）、インベントリアナライザー（IA）がこの段階の中核を担います。
+          </div>
+        </div>
+        <div class="gp-level">
+          <div class="gp-level__num">LEVEL 03</div>
+          <div class="gp-level__title-wrap">
+            <h3 class="gp-level__title">自動化</h3>
+            <span class="gp-level__en">Automate</span>
+          </div>
+          <div class="gp-level__desc">
+            マテリアルハンドリング機器やロボットの導入により、作業の実行そのものを自動化する段階です。体系化され可視化された業務に対して自動化技術を適用することで、安定性・処理能力を飛躍的に向上させます。Lv.1〜2を経ずにロボットを導入するケースが失敗しやすいのは、業務構造とデータ基盤が未整備のまま自動化しようとするためです。
+          </div>
+        </div>
+        <div class="gp-level">
+          <div class="gp-level__num">LEVEL 04</div>
+          <div class="gp-level__title-wrap">
+            <h3 class="gp-level__title">最適化</h3>
+            <span class="gp-level__en">Optimize</span>
+          </div>
+          <div class="gp-level__desc">
+            AIと数理最適化技術を活用し、複数の工程・リソース・KPIを同時に考慮した全体最適を実現する段階です。個々の工程の改善ではなく、施設全体の運営を俯瞰し、人員配置・在庫配置・動線・配送計画を統合的に最適化します。GWESのスロッティングオプティマイザー（SO）、ルーティングオプティマイザー（RO）、リソースアロケーター（RA）、デリバリーオプティマイザー（DO）、ローディングオプティマイザー（LO）がこの段階を担います。
+          </div>
+        </div>
+        <div class="gp-level">
+          <div class="gp-level__num">LEVEL 05</div>
+          <div class="gp-level__title-wrap">
+            <h3 class="gp-level__title">自律化</h3>
+            <span class="gp-level__en">Autonomize</span>
+          </div>
+          <div class="gp-level__desc">
+            人の介在なく、施設自体が環境変化を感知し、自ら判断・実行・学習を繰り返す「完全自律型オペレーション」を実現する最終段階です。GROUNDのビジョンである「Autonomous Warehouse（完全自律型物流施設運営）」はこのレベルの到達を意味します。体系化から最適化まで4つのレベルを確実に積み上げた先にのみ、この最終目標が存在します。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== GWES RELATION ==================== -->
+  <section class="gp-gwes">
+    <div class="container">
+      <div class="gp-gwes__inner gp-fade">
+        <div>
+          <span class="gp-concept__label">GPIM &times; GWES</span>
+          <h2 class="gp-concept__heading">GWESとの関係</h2>
+        </div>
+        <div class="gp-gwes__text">
+          <p>GWESは、GPIMの各レベルに対応するかたちで設計された「物流OS」です。3つのレイヤー（インフラストラクチャ層・可視化レイヤー・最適化レイヤー）に12のモジュールが配置されており、GPIMのレベルに応じて必要なモジュールを段階的に導入していきます。</p>
+          <p>Lv.1（体系化）では、BM（ベースモジュール）とME（マップエディター）により施設の構造・業務定義をデジタル化。Lv.2（可視化）では、DC（データコネクター）を介してWMS・マテハン等のデータを収集し、WF・PA・WA・IAの4つの分析モジュールで現場をリアルタイムに可視化します。Lv.4（最適化）では、SO・RO・RA・DO・LOの5つの最適化モジュールがAI・数理最適化に基づく施設全体の最適運営を実行します。</p>
+          <p>このように、GPIMは「何を」「どの順序で」進めるべきかを定義し、GWESは「それを具体的にどう実現するか」を提供するシステムです。方法論とテクノロジーが一体となっている点がGROUNDの最大の強みです。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CORE PRINCIPLE ==================== -->
+  <section class="gp-principle">
+    <div class="container gp-fade">
+      <p class="gp-principle__text">
+        各レベルは前段階の完了を前提とする。<br>
+        正しい順序で、段階的に進化する ── それがGPIMの根幹です。
+      </p>
+      <p class="gp-principle__sub">
+        段階を飛ばしたDXは、砂上の楼閣に終わる。
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== CTA ==================== -->
+  <section class="gp-cta">
+    <div class="container gp-fade">
+      <h2 class="gp-cta__title">貴社の現在地を診断しませんか</h2>
+      <p class="gp-cta__desc">
+        GPIMに基づき、貴社の物流施設がいまどのレベルにあり、<br>
+        次に何をすべきかを明確にします。
+      </p>
+      <a href="contact.html" class="gp-cta__btn">お問い合わせ &rarr;</a>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <img src="img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
+          <p class="footer__brand-desc">
+            AI・数理最適化・ロボティクスで、<br>
+            物流の未来を変革する。
+          </p>
+        </div>
+        <div>
+          <h4 class="footer__heading">Company</h4>
+          <div class="footer__links">
+            <a href="about.html" class="footer__link">会社概要</a>
+            <a href="about.html#vision" class="footer__link">ビジョン・ミッション</a>
+            <a href="about.html#ceo" class="footer__link">CEOメッセージ</a>
+            <a href="careers.html" class="footer__link">採用情報</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Solutions</h4>
+          <div class="footer__links">
+            <a href="gwes.html" class="footer__link">GWES</a>
+            <a href="digital-integration.html" class="footer__link">デジタルインテグレーション</a>
+            <a href="consulting.html" class="footer__link">コンサルティング</a>
+            <a href="peer.html" class="footer__link">PEER</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Contact</h4>
+          <div class="footer__links">
+            <a href="contact.html" class="footer__link">お問い合わせ</a>
+            <span class="footer__link" style="cursor: default;">TEL: 03-6457-1650</span>
+            <a href="mailto:Info@groundinc.co.jp" class="footer__link">Info@groundinc.co.jp</a>
+            <span class="footer__link" style="cursor: default;">
+              〒101-0041<br>
+              東京都千代田区神田須田町1-3-33<br>
+              Bizflex神田 10F
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 GROUND Inc. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social" aria-label="LinkedIn">in</a>
+          <a href="#" class="footer__social" aria-label="Note">N</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Fade-in observer
+    const gpObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); gpObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.gp-fade').forEach(el => gpObs.observe(el));
+
+    // Fallback: if elements still hidden after 2s, force show
+    setTimeout(() => {
+      document.querySelectorAll('.gp-fade:not(.is-visible)').forEach(el => el.classList.add('is-visible'));
+    }, 2000);
+  </script>
+  <script src="js/main.js?v=31"></script>
+</body>
+</html>

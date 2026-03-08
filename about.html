@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="会社情報 | GROUND Inc.">
+  <meta property="og:description" content="GROUND Inc.の会社概要、ビジョン、経営チーム。物流テクノロジーで社会に新しい価値を創出します。">
+  <meta property="og:url" content="https://groundinc.co.jp/about.html">
+  <meta property="og:site_name" content="GROUND Inc.">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="会社情報 | GROUND Inc.">
+  <meta name="twitter:description" content="GROUND Inc.の会社概要、ビジョン、経営チーム。物流テクノロジーで社会に新しい価値を創出します。">
+  <title>企業情報 | GROUND Inc.</title>
+  <meta name="description" content="GROUND株式会社の企業情報。ビジョン・ミッション、行動原則（BP）、価値創造プロセス（VCP）、会社概要、沿革、代表メッセージ。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=49">
+  <style>
+    /* ===================================================================
+       About Page — Swiss-Inspired, White & Refined
+       Typographic hierarchy, generous whitespace, clean geometry
+       =================================================================== */
+
+    body { background: #FFFFFF; }
+
+    /* ── Utility ── */
+    .ab-container {
+      max-width: 1080px; margin: 0 auto; padding: 0 40px;
+    }
+    .ab-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ── Page Hero ── */
+    .ab-hero {
+      padding: 160px 0 80px;
+      background: #FFFFFF;
+    }
+    .ab-hero__breadcrumb {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem; color: #1A1A1A;
+      letter-spacing: 0.06em; margin-bottom: 32px;
+    }
+    .ab-hero__breadcrumb a { color: #1A1A1A; text-decoration: none; }
+    .ab-hero__breadcrumb a:hover { color: #3F4250; }
+    .ab-hero__row {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; gap: 40px;
+    }
+    .ab-hero__title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(48px, 6vw, 72px);
+      font-weight: 700; color: #1A1A1A;
+      letter-spacing: -0.04em; line-height: 1;
+    }
+    .ab-hero__sub {
+      font-size: 0.8rem; color: #1A1A1A;
+      margin-top: 8px; font-weight: 400;
+    }
+    .ab-hero__meta {
+      text-align: right; font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; color: #1A1A1A;
+      line-height: 2.4; letter-spacing: 0.12em; flex-shrink: 0;
+    }
+    .ab-hero__line {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, #1A1A1A 200px, #EEEEF2 200px);
+      margin-top: 48px;
+    }
+
+    /* ── Section Spacing System ── */
+    .ab-section {
+      padding: 100px 0;
+    }
+    .ab-section--alt {
+      background: #F5F5F8;
+    }
+    .ab-section__divider {
+      width: 100%; height: 1px; background: #EEEEF2;
+    }
+
+    /* ── Section Header ── */
+    .ab-sh {
+      margin-bottom: 64px;
+    }
+    .ab-sh__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: #1A1A1A;
+    }
+    .ab-sh__title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 700; color: #1A1A1A;
+      letter-spacing: -0.03em; line-height: 1.2;
+      margin-top: 8px;
+    }
+    .ab-sh__desc {
+      font-size: 0.85rem; color: #1A1A1A;
+      margin-top: 12px; line-height: 1.8;
+      max-width: 520px;
+    }
+    .ab-sh--center { text-align: center; }
+    .ab-sh--center .ab-sh__desc { margin-left: auto; margin-right: auto; }
+
+    /* ── Vision & Mission — Large Typography Block ── */
+    .ab-philosophy {
+      padding: 120px 0;
+      text-align: center;
+    }
+    .ab-phil__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem; font-weight: 500;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: #1A1A1A;
+    }
+    .ab-phil__line {
+      display: block; width: 1px; height: 32px;
+      background: #EEEEF2; margin: 16px auto 24px;
+    }
+    .ab-phil__en {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 600; color: #1A1A1A;
+      letter-spacing: -0.03em; line-height: 1.45;
+    }
+    .ab-phil__en em {
+      font-style: normal; color: #1A1A1A;
+    }
+    .ab-phil__ja {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 600; color: #1A1A1A;
+      letter-spacing: -0.03em; line-height: 1.45;
+      margin-top: 16px;
+    }
+    .ab-phil--mission .ab-phil__en {
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-weight: 500; line-height: 1.9;
+      max-width: 640px; margin: 0 auto;
+    }
+    .ab-phil--mission .ab-phil__ja {
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-weight: 500; line-height: 1.9;
+      max-width: 640px; margin: 16px auto 0;
+    }
+
+    /* ── BP — Clean Numbered List ── */
+    .ab-bp-list {
+      counter-reset: bp-counter;
+      list-style: none; padding: 0; margin: 0;
+    }
+    .ab-bp-item {
+      counter-increment: bp-counter;
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 0 24px;
+      padding: 32px 0;
+      border-bottom: 1px solid #EEEEF2;
+      transition: background 0.2s;
+    }
+    .ab-bp-item:first-child {
+      border-top: 1px solid #EEEEF2;
+    }
+    .ab-bp-item:hover {
+      background: #FFFFFF;
+    }
+    .ab-bp-item__num {
+      font-family: 'Inter', sans-serif;
+      font-size: 2rem; font-weight: 700;
+      color: #1A1A1A; line-height: 1;
+      padding-top: 2px;
+      grid-row: 1 / 3;
+    }
+    .ab-bp-item__num::before {
+      content: counter(bp-counter, decimal-leading-zero);
+    }
+    .ab-bp-item__head {
+      display: flex; align-items: baseline; gap: 12px;
+      margin-bottom: 8px;
+    }
+    .ab-bp-item__en {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+      font-weight: 600; color: #1A1A1A;
+      letter-spacing: -0.01em;
+    }
+    .ab-bp-item__ja {
+      font-size: 0.9rem; color: #1A1A1A;
+      font-weight: 500;
+    }
+    .ab-bp-item__desc {
+      font-size: 0.92rem; color: #1A1A1A;
+      line-height: 1.8;
+      grid-column: 2;
+    }
+
+    /* ── VCP — Process Steps ── */
+    .ab-vcp-list {
+      counter-reset: vcp-counter;
+      list-style: none; padding: 0; margin: 0;
+    }
+    .ab-vcp-item {
+      counter-increment: vcp-counter;
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 0 24px;
+      padding: 32px 0;
+      border-bottom: 1px solid #EEEEF2;
+      position: relative;
+    }
+    .ab-vcp-item:first-child {
+      border-top: 1px solid #EEEEF2;
+    }
+    .ab-vcp-item__num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; font-weight: 500;
+      color: #1A1A1A; line-height: 1;
+      padding-top: 6px;
+      grid-row: 1 / 3;
+      letter-spacing: 0.05em;
+    }
+    .ab-vcp-item__num::before {
+      content: counter(vcp-counter, decimal-leading-zero);
+    }
+    .ab-vcp-item__head {
+      display: flex; align-items: baseline; gap: 12px;
+      margin-bottom: 6px;
+    }
+    .ab-vcp-item__en {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.15rem; font-weight: 600; color: #1A1A1A;
+      letter-spacing: -0.01em;
+    }
+    .ab-vcp-item__ja {
+      font-size: 0.88rem; color: #1A1A1A;
+      font-weight: 500;
+    }
+    .ab-vcp-item__desc {
+      font-size: 0.9rem; color: #1A1A1A;
+      line-height: 1.8;
+      grid-column: 2;
+    }
+    /* Arrow connector between VCP steps */
+    .ab-vcp-item::after {
+      content: '';
+      position: absolute; left: 27px; bottom: -5px;
+      width: 6px; height: 6px;
+      border-right: 1.5px solid #E0E0E5;
+      border-bottom: 1.5px solid #E0E0E5;
+      transform: rotate(45deg);
+      background: #FFFFFF;
+    }
+    .ab-section--alt .ab-vcp-item::after { background: #F5F5F8; }
+    .ab-vcp-item:last-child::after { display: none; }
+
+    /* ── Company Info ── */
+    .ab-company-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2px; background: #EEEEF2;
+      border: 1px solid #EEEEF2; border-radius: 8px;
+      overflow: hidden;
+    }
+    .ab-company-card {
+      background: #FFFFFF; padding: 40px 36px;
+    }
+    .ab-company-card__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #1A1A1A;
+      margin-bottom: 20px;
+    }
+    .ab-company-table {
+      width: 100%; border-collapse: collapse;
+    }
+    .ab-company-table tr {
+      border-bottom: 1px solid #F5F5F8;
+    }
+    .ab-company-table tr:last-child { border-bottom: none; }
+    .ab-company-table td {
+      padding: 10px 0; font-size: 0.82rem; vertical-align: top;
+    }
+    .ab-company-table td:first-child {
+      color: #1A1A1A; width: 100px;
+      font-size: 0.78rem;
+    }
+    .ab-company-table td:last-child { color: #1A1A1A; }
+    .ab-company-table a { color: #1A1A1A; text-decoration: underline; text-underline-offset: 2px; }
+
+    .ab-hq__name {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem; font-weight: 600;
+      color: #1A1A1A; margin-bottom: 2px;
+    }
+    .ab-hq__name-ja {
+      font-size: 0.78rem; color: #1A1A1A;
+      margin-bottom: 20px;
+    }
+    .ab-hq__addr {
+      font-size: 0.82rem; color: #1A1A1A;
+      line-height: 1.9; padding-left: 14px;
+      border-left: 2px solid #EEEEF2;
+      margin-bottom: 28px;
+    }
+    .ab-stats {
+      display: flex; gap: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #F5F5F8;
+    }
+    .ab-stat__val {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: #1A1A1A; line-height: 1;
+    }
+    .ab-stat__lbl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem; color: #1A1A1A;
+      letter-spacing: 0.12em; margin-top: 4px;
+    }
+
+    /* ── Map ── */
+    .ab-map {
+      margin-top: 28px;
+      position: relative;
+    }
+    .ab-map__frame {
+      position: relative;
+      width: 100%;
+      height: 280px;
+      border: 1px solid #EEEEF2;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .ab-map__frame iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      filter: grayscale(1) contrast(1.05) brightness(1.02);
+      transition: filter 0.6s ease;
+    }
+    .ab-map__frame:hover iframe {
+      filter: grayscale(0.3) contrast(1.02) brightness(1.0);
+    }
+    .ab-map__footer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 10px 0 0;
+    }
+    .ab-map__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      color: #3F4250;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: color 0.25s;
+    }
+    .ab-map__link:hover { color: #1A1A1A; }
+    .ab-map__link svg {
+      transition: transform 0.25s;
+    }
+    .ab-map__link:hover svg { transform: translate(1px, -1px); }
+
+    /* ── Timeline ── */
+    .ab-timeline {
+      position: relative;
+      max-width: 640px; margin: 0 auto;
+      padding-left: 40px;
+    }
+    .ab-timeline::before {
+      content: ''; position: absolute;
+      left: 7px; top: 8px; bottom: 8px;
+      width: 1px; background: #EEEEF2;
+    }
+    .ab-tl-item {
+      position: relative;
+      padding: 0 0 40px;
+    }
+    .ab-tl-item:last-child { padding-bottom: 0; }
+    .ab-tl-dot {
+      position: absolute; left: -40px; top: 6px;
+      width: 14px; height: 14px;
+      border: 2px solid #C8CDD8; border-radius: 50%;
+      background: #FFFFFF;
+    }
+    .ab-tl-item:first-child .ab-tl-dot {
+      border-color: #3F4250;
+      background: #3F4250;
+    }
+    .ab-tl-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; font-weight: 500;
+      color: #3F4250; letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+    .ab-tl-title {
+      font-size: 0.92rem; font-weight: 600;
+      color: #1A1A1A; margin-bottom: 4px;
+    }
+    .ab-tl-desc {
+      font-size: 0.78rem; color: #1A1A1A;
+      line-height: 1.8;
+    }
+
+    /* ── CEO Message ── */
+    .ab-ceo-grid {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 64px; align-items: start;
+    }
+    .ab-ceo-photo {
+      text-align: center; position: sticky; top: 100px;
+    }
+    .ab-ceo-avatar {
+      width: 200px; height: 260px;
+      border-radius: 6px; overflow: hidden;
+      background: #F5F5F8;
+    }
+    .ab-ceo-avatar img {
+      display: block;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      filter: grayscale(100%) contrast(1.1) brightness(1.05);
+      transition: filter 0.5s;
+    }
+    .ab-ceo-avatar:hover img {
+      filter: grayscale(30%) contrast(1.05) brightness(1.02);
+    }
+    .ab-ceo-name {
+      font-size: 0.95rem; font-weight: 600;
+      color: #1A1A1A; margin-top: 16px;
+    }
+    .ab-ceo-role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem; color: #1A1A1A;
+      letter-spacing: 0.1em; margin-top: 4px;
+    }
+    .ab-ceo-msg__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: #1A1A1A;
+      margin-bottom: 20px;
+    }
+    .ab-ceo-msg__title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      font-weight: 600; color: #1A1A1A;
+      letter-spacing: -0.02em; line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .ab-ceo-msg__text {
+      font-size: 0.85rem; color: #1A1A1A;
+      line-height: 2.1; margin-bottom: 20px;
+    }
+    .ab-ceo-msg__highlight {
+      font-size: 0.92rem; color: #1A1A1A;
+      font-weight: 500; margin-top: 36px;
+      padding-left: 16px;
+      border-left: 2px solid #3F4250;
+      line-height: 1.8;
+    }
+
+    /* ── CTA ── */
+    .ab-cta {
+      padding: 80px 0;
+      text-align: center;
+      border-top: 1px solid #EEEEF2;
+    }
+    .ab-cta__title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.3rem; font-weight: 600;
+      color: #1A1A1A; margin-bottom: 12px;
+    }
+    .ab-cta__desc {
+      font-size: 0.82rem; color: #1A1A1A;
+      margin-bottom: 32px; line-height: 1.8;
+    }
+    .ab-cta__actions {
+      display: flex; gap: 12px;
+      justify-content: center; flex-wrap: wrap;
+    }
+
+    /* ── Footer overrides ── */
+    .footer { border-top: 1px solid #EEEEF2; }
+
+    /* ── Fade-in animation ── */
+    .ab-fade {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .ab-fade.is-visible {
+      opacity: 1; transform: translateY(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .ab-hero__row { flex-direction: column; align-items: flex-start; }
+      .ab-hero__meta { display: none; }
+      .ab-hero__line { background: #EEEEF2; }
+      .ab-company-grid { grid-template-columns: 1fr; }
+      .ab-ceo-grid { grid-template-columns: 1fr; gap: 48px; }
+      .ab-ceo-photo { position: static; }
+      .ab-ceo-avatar { width: 160px; height: 210px; margin: 0 auto; }
+      .ab-stats { gap: 28px; }
+    }
+    @media (max-width: 600px) {
+      .ab-container { padding: 0 24px; }
+      .ab-section { padding: 72px 0; }
+      .ab-philosophy { padding: 80px 0; }
+      .ab-bp-item, .ab-vcp-item {
+        grid-template-columns: 1fr;
+        gap: 4px 0;
+      }
+      .ab-bp-item__num, .ab-vcp-item__num {
+        grid-row: auto;
+        margin-bottom: 4px;
+      }
+      .ab-bp-item__desc, .ab-vcp-item__desc { grid-column: 1; }
+      .ab-vcp-item::after { display: none; }
+      .ab-company-card { padding: 28px 24px; }
+      .ab-stats { flex-wrap: wrap; }
+    }
+  </style>
+  <style>
+    .header { z-index: 350 !important; }
+    /* Hamburger + Overlay inline fallback (o9-style v30) */
+    .hamburger { display: flex !important; flex-direction: column; justify-content: center; align-items: center; gap: 6px; width: 52px; height: 52px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 400; position: relative; margin-right: -8px; }
+    .hamburger__line { display: block; width: 26px; height: 1.5px; background: #fff; border-radius: 1px; transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.25s ease; transform-origin: center; }
+    .hamburger.active .hamburger__line:nth-child(1) { transform: rotate(45deg) translate(5.5px,5.5px); }
+    .hamburger.active .hamburger__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active .hamburger__line:nth-child(3) { transform: rotate(-45deg) translate(5.5px,-5.5px); }
+    .overlay-menu { position: fixed; inset: 0; z-index: 300; background: #0A0C14; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-20px); transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s, transform 0.4s cubic-bezier(0.23,1,0.32,1); overflow-y: auto; }
+    .overlay-menu.active { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
+    .overlay-menu__inner { display: grid; grid-template-columns: 280px 1fr 340px; gap: 0 48px; max-width: 1200px; width: 100%; margin: 0 auto; padding: 100px 56px 60px; min-height: 100vh; align-content: start; }
+    .overlay-menu__label { display: block; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px; }
+    .overlay-menu__col-nav { grid-column: 1; }
+    .overlay-menu__nav-list { display: flex; flex-direction: column; gap: 0; }
+    .overlay-menu__nav-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; text-decoration: none; color: #fff; font-size: 17px; font-weight: 500; letter-spacing: 0.01em; cursor: pointer; transition: background 0.15s ease; }
+    .overlay-menu__nav-item:hover, .overlay-menu__nav-item.is-active { background: rgba(255,255,255,0.06); }
+    .overlay-menu__nav-arrow { font-size: 16px; color: rgba(255,255,255,0.4); }
+    .overlay-menu__col-sub { grid-column: 2; }
+    .overlay-menu__panel { display: none; flex-direction: column; gap: 0; }
+    .overlay-menu__panel.is-visible { display: flex; }
+    .overlay-menu__sub-item { display: block; padding: 12px 0; text-decoration: none; color: rgba(255,255,255,0.85); font-size: 16px; font-weight: 400; transition: color 0.15s; }
+    .overlay-menu__sub-item:hover { color: #fff; }
+    .overlay-menu__col-info { grid-column: 3; display: flex; flex-direction: column; justify-content: flex-start; }
+    .overlay-menu__cta-btn { display: block; padding: 16px 32px; border: 1px solid rgba(255,255,255,0.25); color: #fff; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 12px; font-weight: 500; text-align: center; text-decoration: none; letter-spacing: 0.14em; text-transform: uppercase; }
+    .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
+    .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.3); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
+    .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
+  </style>
+</head>
+<body>
+
+  <!-- Header (shared) -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img"></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Fullscreen Overlay Menu (o9-style) -->
+  <div class="overlay-menu" id="overlayMenu">
+    <div class="overlay-menu__inner">
+      <!-- Col 1: Navigation -->
+      <div class="overlay-menu__col-nav">
+        <span class="overlay-menu__label">[NAVIGATION]</span>
+        <div class="overlay-menu__nav-list">
+          <a href="about.html" class="overlay-menu__nav-item" data-panel="company">会社情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="gpim.html" class="overlay-menu__nav-item" data-panel="gpim">GPIM<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="service.html" class="overlay-menu__nav-item" data-panel="service">製品・サービス<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="works.html" class="overlay-menu__nav-item">導入事例</a>
+          <a href="news.html" class="overlay-menu__nav-item">ニュース</a>
+          <a href="blog.html" class="overlay-menu__nav-item">WAREHOUSE TECH WEEKLY</a>
+          <a href="careers.html" class="overlay-menu__nav-item" data-panel="careers">採用情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+        </div>
+      </div>
+      <!-- Col 2: Sub-panels -->
+      <div class="overlay-menu__col-sub">
+        <div class="overlay-menu__panel" data-panel="company">
+          <span class="overlay-menu__label">[会社情報]</span>
+          <a href="about.html" class="overlay-menu__sub-item">会社概要</a>
+          <a href="about.html#ceo" class="overlay-menu__sub-item">CEOメッセージ</a>
+          <a href="about.html#vision" class="overlay-menu__sub-item">ビジョン・ミッション</a>
+          <a href="about.html#bp" class="overlay-menu__sub-item">行動原則(BP)・価値創造(VCP)プロセス</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="service">
+          <span class="overlay-menu__label">[製品・サービス]</span>
+          <a href="gwes.html" class="overlay-menu__sub-item">GWES</a>
+          <a href="gwes.html#technology" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
+          <a href="gwes.html#modules" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
+          <a href="gwes.html#implementation" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
+          <a href="digital-integration.html" class="overlay-menu__sub-item">デジタルインテグレーション</a>
+          <a href="consulting.html" class="overlay-menu__sub-item">コンサルティング＆エンジニアリング</a>
+          <a href="peer.html" class="overlay-menu__sub-item">PEER</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="gpim">
+          <span class="overlay-menu__label">[GPIM]</span>
+          <a href="gpim.html" class="overlay-menu__sub-item">GPIMとは</a>
+          <a href="gpim-consulting.html" class="overlay-menu__sub-item">GPIMコンサルティング</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="careers">
+          <span class="overlay-menu__label">[採用情報]</span>
+          <a href="careers.html" class="overlay-menu__sub-item">募集ポジション</a>
+          <a href="about.html" class="overlay-menu__sub-item">カルチャー</a>
+        </div>
+      </div>
+      <!-- Col 3: CTA + Contact -->
+      <div class="overlay-menu__col-info">
+        <a href="contact.html" class="overlay-menu__cta-btn">お問い合わせ</a>
+        <div class="overlay-menu__contact-info">
+          <span>info@groundinc.co.jp</span>
+          <span>03-6441-2975</span>
+        </div>
+        <p class="overlay-menu__copyright">&copy; GROUND Inc.</p>
+      </div>
+    </div>
+  </div>
+
+    <nav class="breadcrumb-nav breadcrumb-nav--light" aria-label="パンくずリスト">
+      <ol class="breadcrumb-nav__list">
+        <li class="breadcrumb-nav__item"><a href="index.html" class="breadcrumb-nav__link breadcrumb-nav__link--home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current">企業情報</span></li>
+      </ol>
+    </nav>
+  <section class="ab-hero">
+    <div class="ab-container">
+      <div class="ab-hero__row">
+        <div>
+          <h1 class="ab-hero__title">About Us</h1>
+          <p class="ab-hero__sub">企業情報</p>
+        </div>
+        <div class="ab-hero__meta">
+          EST. 2015 / TOKYO, JAPAN<br>
+          INTELLIGENT LOGISTICS<br>
+          AI · OPTIMIZATION · ROBOTICS
+        </div>
+      </div>
+      <div class="ab-hero__line"></div>
+    </div>
+  </section>
+
+  <!-- ==================== VISION ==================== -->
+  <section class="ab-philosophy ab-fade" id="vision">
+    <div class="ab-container">
+      <span class="ab-phil__label">Vision</span>
+      <span class="ab-phil__line"></span>
+      <h2 class="ab-phil__en">We <em>drive</em> the future<br>of logistics.</h2>
+      <p class="ab-phil__ja">私たちが、物流の未来を動かす。</p>
+    </div>
+  </section>
+
+  <div class="ab-container"><div class="ab-section__divider"></div></div>
+
+  <!-- ==================== MISSION ==================== -->
+  <section class="ab-philosophy ab-phil--mission ab-fade" id="mission">
+    <div class="ab-container">
+      <span class="ab-phil__label">Mission</span>
+      <span class="ab-phil__line"></span>
+      <p class="ab-phil__en"><em>Drive</em> structural transformation in logistics<br>through technology and unlock quantum-leap innovation.</p>
+      <p class="ab-phil__ja">テクノロジーで物流の構造を変え、クオンタムリープの扉を開く。</p>
+    </div>
+  </section>
+
+  <!-- ==================== BEHAVIORAL PRINCIPLES ==================== -->
+  <section class="ab-section ab-section--alt" id="bp">
+    <div class="ab-container">
+      <div class="ab-sh ab-fade">
+        <span class="ab-sh__label">Behavioral Principles</span>
+        <h2 class="ab-sh__title">行動原則</h2>
+        <p class="ab-sh__desc">自由と裁量を持つがゆえに、守るべき行動指針・原則</p>
+      </div>
+
+      <ol class="ab-bp-list">
+        <li class="ab-bp-item ab-fade">
+          <span class="ab-bp-item__num"></span>
+          <div class="ab-bp-item__head">
+            <span class="ab-bp-item__en">Uphold Principles</span>
+            <span class="ab-bp-item__ja">筋を通す</span>
+          </div>
+          <p class="ab-bp-item__desc">誠実で一貫した判断と行動を取り、短期的な損得や感情に流されず、長期的な信頼を築く。</p>
+        </li>
+        <li class="ab-bp-item ab-fade">
+          <span class="ab-bp-item__num"></span>
+          <div class="ab-bp-item__head">
+            <span class="ab-bp-item__en">Pursue Essence</span>
+            <span class="ab-bp-item__ja">本質を追う</span>
+          </div>
+          <p class="ab-bp-item__desc">表層にとらわれず物事の本質を見極め、最小の力で最大の成果を上げるための洞察と思考を磨き続ける。</p>
+        </li>
+        <li class="ab-bp-item ab-fade">
+          <span class="ab-bp-item__num"></span>
+          <div class="ab-bp-item__head">
+            <span class="ab-bp-item__en">Take Ownership</span>
+            <span class="ab-bp-item__ja">当事者意識を持つ</span>
+          </div>
+          <p class="ab-bp-item__desc">自分の役割と責任に真正面から向き合い、課題を他人事にせず、自らの意志で解決に動く。</p>
+        </li>
+        <li class="ab-bp-item ab-fade">
+          <span class="ab-bp-item__num"></span>
+          <div class="ab-bp-item__head">
+            <span class="ab-bp-item__en">Keep Improving</span>
+            <span class="ab-bp-item__ja">向上し続ける</span>
+          </div>
+          <p class="ab-bp-item__desc">現状に満足せず常に学び、挑戦し、個人としてもチームとしても成長し続ける姿勢を持つ。</p>
+        </li>
+        <li class="ab-bp-item ab-fade">
+          <span class="ab-bp-item__num"></span>
+          <div class="ab-bp-item__head">
+            <span class="ab-bp-item__en">Show Respect</span>
+            <span class="ab-bp-item__ja">敬意を払う</span>
+          </div>
+          <p class="ab-bp-item__desc">多様な背景や価値観を持つ仲間に敬意を示し、信頼をベースとした建設的な対話を通じて、共に成果を生み出す。</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ==================== VALUE CREATION PRINCIPLES ==================== -->
+  <section class="ab-section" id="vcp">
+    <div class="ab-container">
+      <div class="ab-sh ab-fade">
+        <span class="ab-sh__label">Value Creation Principles</span>
+        <h2 class="ab-sh__title">価値創造プロセス</h2>
+        <p class="ab-sh__desc">私たちが再現性高く成果を生むための"仕事の型"</p>
+      </div>
+
+      <ol class="ab-vcp-list">
+        <li class="ab-vcp-item ab-fade">
+          <span class="ab-vcp-item__num"></span>
+          <div class="ab-vcp-item__head">
+            <span class="ab-vcp-item__en">Structuring</span>
+            <span class="ab-vcp-item__ja">事象を構造化する</span>
+          </div>
+          <p class="ab-vcp-item__desc">複雑な事象や情報を整理し、構造化することで全体像を把握し、的確な判断の土台を築く。</p>
+        </li>
+        <li class="ab-vcp-item ab-fade">
+          <span class="ab-vcp-item__num"></span>
+          <div class="ab-vcp-item__head">
+            <span class="ab-vcp-item__en">Identifying</span>
+            <span class="ab-vcp-item__ja">問題の核心を見抜く</span>
+          </div>
+          <p class="ab-vcp-item__desc">表面的な事象にとらわれず、本質的な問題点を特定し、的確なアプローチを導き出す。</p>
+        </li>
+        <li class="ab-vcp-item ab-fade">
+          <span class="ab-vcp-item__num"></span>
+          <div class="ab-vcp-item__head">
+            <span class="ab-vcp-item__en">Designing</span>
+            <span class="ab-vcp-item__ja">あるべき姿を設計する</span>
+          </div>
+          <p class="ab-vcp-item__desc">理想とする姿を明確に描き、それを実現するための具体的な設計とロードマップを作成する。</p>
+        </li>
+        <li class="ab-vcp-item ab-fade">
+          <span class="ab-vcp-item__num"></span>
+          <div class="ab-vcp-item__head">
+            <span class="ab-vcp-item__en">Leveraging</span>
+            <span class="ab-vcp-item__ja">最新の知とテクノロジーを活かす</span>
+          </div>
+          <p class="ab-vcp-item__desc">先端技術と最新の知見を貪欲に取り入れ、課題解決に最適なソリューションを構築する。</p>
+        </li>
+        <li class="ab-vcp-item ab-fade">
+          <span class="ab-vcp-item__num"></span>
+          <div class="ab-vcp-item__head">
+            <span class="ab-vcp-item__en">Embedding</span>
+            <span class="ab-vcp-item__ja">価値が続く形にする</span>
+          </div>
+          <p class="ab-vcp-item__desc">一過性ではなく持続的に価値を生み出す仕組みとして組織に根付かせ、継続的な改善を実現する。</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ==================== COMPANY INFO ==================== -->
+  <section class="ab-section ab-section--alt" id="company">
+    <div class="ab-container">
+      <div class="ab-sh ab-sh--center ab-fade">
+        <span class="ab-sh__label">Company Info</span>
+        <h2 class="ab-sh__title">会社概要</h2>
+      </div>
+
+      <div class="ab-company-grid ab-fade">
+        <div class="ab-company-card">
+          <p class="ab-company-card__label">Corporate Data</p>
+          <table class="ab-company-table">
+            <tbody>
+              <tr><td>会社名</td><td>GROUND株式会社</td></tr>
+              <tr><td>英語名</td><td>GROUND Inc.</td></tr>
+              <tr><td>設立</td><td>2015年4月</td></tr>
+              <tr><td>代表取締役</td><td>宮田 啓友</td></tr>
+              <tr><td>TEL</td><td>03-6457-1650</td></tr>
+              <tr><td>Email</td><td><a href="mailto:Info@groundinc.co.jp">Info@groundinc.co.jp</a></td></tr>
+              <tr><td>URL</td><td><a href="https://groundinc.co.jp">groundinc.co.jp</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ab-company-card">
+          <p class="ab-company-card__label">Headquarters</p>
+          <h3 class="ab-hq__name">GROUND Inc.</h3>
+          <p class="ab-hq__name-ja">GROUND株式会社</p>
+          <div class="ab-hq__addr">
+            〒101-0041<br>
+            東京都千代田区神田須田町1-3-33<br>
+            Bizflex神田 10F
+          </div>
+          <div class="ab-stats">
+            <div>
+              <div class="ab-stat__val">2015</div>
+              <div class="ab-stat__lbl">EST.</div>
+            </div>
+            <div>
+              <div class="ab-stat__val">50+</div>
+              <div class="ab-stat__lbl">MEMBERS</div>
+            </div>
+            <div>
+              <div class="ab-stat__val">100+</div>
+              <div class="ab-stat__lbl">SITES</div>
+            </div>
+          </div>
+          <!-- Google Map -->
+          <div class="ab-map">
+            <div class="ab-map__frame">
+              <iframe
+                src="https://maps.google.com/maps?q=東京都千代田区神田須田町1-3-33+Bizflex神田&amp;t=m&amp;z=16&amp;output=embed&amp;iwloc=near&amp;hl=ja"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                title="GROUND Inc. 本社所在地"></iframe>
+            </div>
+            <div class="ab-map__footer">
+              <a href="https://www.google.com/maps/search/東京都千代田区神田須田町1-3-33+Bizflex神田" target="_blank" rel="noopener" class="ab-map__link">
+                Google Maps で開く
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TIMELINE ==================== -->
+  <section class="ab-section" id="history">
+    <div class="ab-container">
+      <div class="ab-sh ab-sh--center ab-fade">
+        <span class="ab-sh__label">Our Journey</span>
+        <h2 class="ab-sh__title">沿革</h2>
+      </div>
+      <div class="ab-timeline">
+        <div class="ab-tl-item ab-fade">
+          <div class="ab-tl-dot"></div>
+          <div class="ab-tl-year">2015</div>
+          <h3 class="ab-tl-title">企業設立</h3>
+          <p class="ab-tl-desc">GROUND株式会社を東京に設立。物流産業の変革を目指す。</p>
+        </div>
+        <div class="ab-tl-item ab-fade">
+          <div class="ab-tl-dot"></div>
+          <div class="ab-tl-year">2016</div>
+          <h3 class="ab-tl-title">AI物流最適化プラットフォーム開発開始</h3>
+          <p class="ab-tl-desc">機械学習を活用した物流最適化の研究開発をスタート。</p>
+        </div>
+        <div class="ab-tl-item ab-fade">
+          <div class="ab-tl-dot"></div>
+          <div class="ab-tl-year">2018</div>
+          <h3 class="ab-tl-title">GWES初版リリース</h3>
+          <p class="ab-tl-desc">GROUNDスマート物流システム（GWES）v1.0をリリース。複数の物流企業での導入がスタート。</p>
+        </div>
+        <div class="ab-tl-item ab-fade">
+          <div class="ab-tl-dot"></div>
+          <div class="ab-tl-year">2019</div>
+          <h3 class="ab-tl-title">AMR「PEER」導入開始</h3>
+          <p class="ab-tl-desc">自律型移動ロボット（AMR）「PEER」の商用導入を開始。物流現場での自動化を推進。</p>
+        </div>
+        <div class="ab-tl-item ab-fade">
+          <div class="ab-tl-dot"></div>
+          <div class="ab-tl-year">2020</div>
+          <h3 class="ab-tl-title">大手物流企業との提携拡大</h3>
+          <p class="ab-tl-desc">国内主要物流企業との戦略的パートナーシップを複数締結。導入施設数が50を突破。</p>
+        </div>
+        <div class="ab-tl-item ab-fade">
+          <div class="ab-tl-dot"></div>
+          <div class="ab-tl-year">2022</div>
+          <h3 class="ab-tl-title">GPIM方法論の体系化</h3>
+          <p class="ab-tl-desc">GROUND物流改善方法論（GPIM）を確立し、コンサルティングサービスを強化。</p>
+        </div>
+        <div class="ab-tl-item ab-fade">
+          <div class="ab-tl-dot"></div>
+          <div class="ab-tl-year">2024</div>
+          <h3 class="ab-tl-title">新経営体制へ移行</h3>
+          <p class="ab-tl-desc">グローバル展開に向けた新経営体制を導入。アジア太平洋地域への事業拡大を開始。</p>
+        </div>
+        <div class="ab-tl-item ab-fade">
+          <div class="ab-tl-dot"></div>
+          <div class="ab-tl-year">2025</div>
+          <h3 class="ab-tl-title">GWES v3.0リリース</h3>
+          <p class="ab-tl-desc">次世代物流システムGWES v3.0をリリース。AI予測精度の飛躍的向上とユーザビリティを実現。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CEO MESSAGE ==================== -->
+  <section class="ab-section ab-section--alt" id="ceo">
+    <div class="ab-container">
+      <div class="ab-ceo-grid">
+        <div class="ab-ceo-photo ab-fade">
+          <div class="ab-ceo-avatar"><img src="img/ceo.jpg" alt="宮田 啓友 — GROUND Inc. 代表取締役CEO"></div>
+          <h3 class="ab-ceo-name">宮田 啓友</h3>
+          <p class="ab-ceo-role">Chief Executive Officer</p>
+        </div>
+        <div class="ab-fade">
+          <p class="ab-ceo-msg__label">CEO Message</p>
+          <h2 class="ab-ceo-msg__title">テクノロジーの力で、<br>物流の未来を創造する。</h2>
+          <p class="ab-ceo-msg__text">
+            物流は、あらゆる産業を支える根幹インフラです。しかし現在、深刻な課題に直面しています。人手不足、環境負荷、オペレーション効率の停滞——。これらの課題は、テクノロジーなしには解決できません。
+          </p>
+          <p class="ab-ceo-msg__text">
+            GROUNDは、このミッションに応えるために創設されました。AIとロボティクスを組み合わせることで、物流オペレーションを根本的に変革する。それが私たちの信念です。私たちのソリューションは、単なるテクノロジーではなく、お客様のビジネスをサポートするパートナーです。
+          </p>
+          <p class="ab-ceo-msg__text">
+            2015年の設立から、今日までの10年間で、私たちは多くのお客様の信頼を得てきました。しかし、ここはスタートに過ぎません。これからも、テクノロジーの力で、物流の未来を創造していく。その強い覚悟で、前に進み続けます。
+          </p>
+          <p class="ab-ceo-msg__highlight">
+            一緒に、物流の未来を創造しませんか。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA ==================== -->
+  <section class="ab-cta">
+    <div class="ab-container ab-fade">
+      <h2 class="ab-cta__title">GROUNDのソリューション、<br>実際に見てみませんか？</h2>
+      <p class="ab-cta__desc">
+        AIと自律型ロボットで物流オペレーションを次のレベルへ。<br>
+        まずはお気軽にご相談ください。
+      </p>
+      <div class="ab-cta__actions">
+        <a href="contact.html" class="btn btn--primary">お問い合わせ <span class="btn__arrow">&rarr;</span></a>
+        <a href="service.html" class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">製品・サービス詳細を見る</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <img src="img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
+          <p class="footer__brand-desc">
+            AI・数理最適化・ロボティクスで、<br>
+            物流の未来を変革する。
+          </p>
+        </div>
+        <div>
+          <h4 class="footer__heading">Company</h4>
+          <div class="footer__links">
+            <a href="about.html" class="footer__link">会社概要</a>
+            <a href="about.html#vision" class="footer__link">ビジョン・ミッション</a>
+            <a href="about.html#ceo" class="footer__link">CEOメッセージ</a>
+            <a href="careers.html" class="footer__link">採用情報</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Solutions</h4>
+          <div class="footer__links">
+            <a href="gwes.html" class="footer__link">GWES</a>
+            <a href="digital-integration.html" class="footer__link">デジタルインテグレーション</a>
+            <a href="consulting.html" class="footer__link">コンサルティング</a>
+            <a href="peer.html" class="footer__link">PEER</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Contact</h4>
+          <div class="footer__links">
+            <a href="contact.html" class="footer__link">お問い合わせ</a>
+            <span class="footer__link" style="cursor: default;">TEL: 03-6457-1650</span>
+            <a href="mailto:Info@groundinc.co.jp" class="footer__link">Info@groundinc.co.jp</a>
+            <span class="footer__link" style="cursor: default;">
+              〒101-0041<br>
+              東京都千代田区神田須田町1-3-33<br>
+              Bizflex神田 10F
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 GROUND Inc. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social" aria-label="LinkedIn">in</a>
+          <a href="#" class="footer__social" aria-label="Note">N</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=31"></script>
+  <script>
+    // Intersection Observer for fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.ab-fade').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="製品・サービス一覧 | GROUND Inc.">
+  <meta property="og:description" content="GWES、PEER、デジタルインテグレーション、コンサルティング。GROUNDの製品・サービスラインナップをご紹介します。">
+  <meta property="og:url" content="https://groundinc.co.jp/service.html">
+  <meta property="og:site_name" content="GROUND Inc.">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="製品・サービス一覧 | GROUND Inc.">
+  <meta name="twitter:description" content="GWES、PEER、デジタルインテグレーション、コンサルティング。GROUNDの製品・サービスラインナップをご紹介します。">
+  <title>製品・サービス | GROUND Inc.</title>
+  <meta name="description" content="GROUND株式会社の製品・サービス。GWES、デジタルインテグレーション、コンサルティング＆エンジニアリング、PEERで物流を変革します。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=49">
+  <style>
+    /* ===================================================================
+       Service Page — Dense, Refined, Zero Waste
+       Typography-driven. Let spacing and restraint do the work.
+       =================================================================== */
+
+    :root {
+      --sv-bg: #0A0C14;
+      --sv-surface: rgba(255,255,255,0.03);
+      --sv-border: rgba(255,255,255,0.06);
+      --sv-border-hover: rgba(255,255,255,0.12);
+      --sv-text-1: rgba(255,255,255,0.92);
+      --sv-text-2: rgba(255,255,255,0.50);
+      --sv-text-3: rgba(255,255,255,0.44);
+      --sv-accent: #3B82F6;
+    }
+
+    body { background: var(--sv-bg) !important; }
+    .header { background: var(--sv-bg) !important; }
+
+    /* ── Breadcrumb ── */
+    .page-header { padding: 0; }
+    .sv-bc {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; color: var(--sv-text-3);
+    }
+    .sv-bc a { color: var(--sv-text-3); text-decoration: none; transition: color 0.2s; }
+    .sv-bc a:hover { color: var(--sv-text-2); }
+
+    /* ── Hero ── */
+    .sv-hero {
+      padding: 80px 0 0;
+      background: var(--sv-bg);
+    }
+    .sv-hero__inner {
+      max-width: 700px;
+    }
+    .sv-hero__badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--sv-text-3);
+      margin-bottom: 32px;
+    }
+    .sv-hero__title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(2.6rem, 5vw, 3.8rem);
+      font-weight: 600; color: #FFFFFF;
+      letter-spacing: -0.04em; line-height: 1.1;
+      margin: 0 0 24px;
+    }
+    .sv-hero__desc {
+      font-size: 0.9rem; font-weight: 300;
+      color: var(--sv-text-2); line-height: 2.0;
+      max-width: 520px;
+    }
+    .sv-hero__line {
+      width: 100%; height: 1px;
+      background: var(--sv-border);
+      margin-top: 80px;
+    }
+
+    /* ── Approach ── */
+    .sv-approach {
+      padding: 80px 0;
+      background: var(--sv-bg);
+    }
+    .sv-approach__grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 80px;
+    }
+    .sv-approach__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--sv-accent);
+      opacity: 0.7; margin-bottom: 12px; display: block;
+    }
+    .sv-approach__heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.4rem; font-weight: 600;
+      color: var(--sv-text-1); letter-spacing: -0.02em;
+      line-height: 1.4;
+    }
+    .sv-approach__body {
+      column-count: 2; column-gap: 48px;
+    }
+    .sv-approach__body p {
+      font-size: 0.85rem; color: var(--sv-text-2);
+      line-height: 2.0; margin: 0 0 16px;
+    }
+    .sv-approach__line {
+      width: 100%; height: 1px;
+      background: var(--sv-border);
+    }
+
+    /* ── Solutions ── */
+    .sv-solutions {
+      padding: 80px 0;
+      background: var(--sv-bg);
+    }
+    .sv-solutions__header {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 80px;
+      margin-bottom: 0;
+    }
+    .sv-solutions__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--sv-accent);
+      opacity: 0.7;
+    }
+    .sv-solutions__desc {
+      font-size: 0.85rem; color: var(--sv-text-2);
+      line-height: 1.9;
+    }
+
+    /* Solution item */
+    .sv-sol {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 80px;
+      padding: 64px 0;
+      border-top: 1px solid var(--sv-border);
+      transition: background 0.4s ease;
+    }
+    .sv-sol:last-child {
+      border-bottom: 1px solid var(--sv-border);
+    }
+    .sv-sol:hover {
+      background: rgba(255,255,255,0.008);
+    }
+
+    .sv-sol__left {}
+    .sv-sol__num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem; letter-spacing: 0.15em;
+      color: var(--sv-text-3); margin-bottom: 20px;
+      display: block;
+    }
+    .sv-sol__name {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.8rem; font-weight: 600;
+      color: var(--sv-text-1);
+      letter-spacing: -0.03em; line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .sv-sol__sub {
+      font-size: 0.72rem; color: var(--sv-text-3);
+      line-height: 1.5;
+    }
+    .sv-sol__link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.82rem; font-weight: 600;
+      color: #FFFFFF; text-decoration: none;
+      margin-top: 28px; transition: all 0.3s ease;
+      padding: 10px 22px;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+    }
+    .sv-sol__link:hover {
+      color: #FFFFFF; gap: 12px;
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.45);
+    }
+    .sv-sol__link-arrow {
+      transition: transform 0.25s; display: inline-block;
+      font-size: 0.9rem;
+    }
+    .sv-sol:hover .sv-sol__link-arrow { transform: translateX(4px); }
+
+    .sv-sol__right {}
+    .sv-sol__desc {
+      font-size: 0.85rem; color: var(--sv-text-2);
+      line-height: 2.0; margin-bottom: 32px;
+      max-width: 520px;
+    }
+    .sv-sol__tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .sv-sol__tag {
+      font-size: 0.68rem; color: var(--sv-text-2);
+      background: transparent;
+      border: 1px solid var(--sv-border);
+      border-radius: 100px; padding: 5px 14px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .sv-sol__tag:hover {
+      border-color: var(--sv-border-hover);
+      color: var(--sv-text-1);
+    }
+
+    /* ── CTA ── */
+    .sv-cta {
+      padding: 100px 0;
+      background: var(--sv-bg);
+      border-top: 1px solid var(--sv-border);
+    }
+    .sv-cta__inner {
+      text-align: center; max-width: 480px; margin: 0 auto;
+    }
+    .sv-cta__title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.4rem; font-weight: 600;
+      color: var(--sv-text-1);
+      letter-spacing: -0.02em; line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .sv-cta__desc {
+      font-size: 0.82rem; color: var(--sv-text-2);
+      line-height: 1.9; margin-bottom: 32px;
+    }
+    .sv-cta__actions {
+      display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    }
+    .sv-btn--primary {
+      background: #FFFFFF; color: #1A1A1A; border: none; font-weight: 600;
+      padding: 10px 28px; border-radius: 6px; font-size: 0.82rem;
+      letter-spacing: 0.01em; transition: all 0.2s; cursor: pointer;
+      text-decoration: none; display: inline-block;
+    }
+    .sv-btn--primary:hover { background: rgba(255,255,255,0.85); }
+    .sv-btn--outline {
+      border: 1px solid rgba(255,255,255,0.10); color: var(--sv-text-2);
+      padding: 10px 28px; border-radius: 6px; font-size: 0.82rem;
+      transition: all 0.2s; background: transparent; cursor: pointer;
+      text-decoration: none; display: inline-block;
+    }
+    .sv-btn--outline:hover {
+      border-color: rgba(255,255,255,0.20); color: var(--sv-text-1);
+    }
+
+    /* ── Fade ── */
+    .sv-fade {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .sv-fade.is-visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .sv-approach__grid,
+      .sv-solutions__header,
+      .sv-sol {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .sv-approach__body { column-count: 1; }
+      .sv-sol { padding: 48px 0; }
+      .sv-hero { padding: 56px 0 0; }
+      .sv-hero__line { margin-top: 56px; }
+    }
+    @media (max-width: 600px) {
+      .sv-hero__title { font-size: 2rem; }
+      .sv-sol__name { font-size: 1.4rem; }
+      .sv-approach, .sv-solutions { padding: 56px 0; }
+      .sv-cta { padding: 64px 0; }
+    }
+  </style>
+  <style>
+    .header { z-index: 350 !important; }
+    /* Hamburger + Overlay inline fallback (o9-style v30) */
+    .hamburger { display: flex !important; flex-direction: column; justify-content: center; align-items: center; gap: 6px; width: 52px; height: 52px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 400; position: relative; margin-right: -8px; }
+    .hamburger__line { display: block; width: 26px; height: 1.5px; background: #fff; border-radius: 1px; transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.25s ease; transform-origin: center; }
+    .hamburger.active .hamburger__line:nth-child(1) { transform: rotate(45deg) translate(5.5px,5.5px); }
+    .hamburger.active .hamburger__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active .hamburger__line:nth-child(3) { transform: rotate(-45deg) translate(5.5px,-5.5px); }
+    .overlay-menu { position: fixed; inset: 0; z-index: 300; background: #0A0C14; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-20px); transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s, transform 0.4s cubic-bezier(0.23,1,0.32,1); overflow-y: auto; }
+    .overlay-menu.active { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
+    .overlay-menu__inner { display: grid; grid-template-columns: 280px 1fr 340px; gap: 0 48px; max-width: 1200px; width: 100%; margin: 0 auto; padding: 100px 56px 60px; min-height: 100vh; align-content: start; }
+    .overlay-menu__label { display: block; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px; }
+    .overlay-menu__col-nav { grid-column: 1; }
+    .overlay-menu__nav-list { display: flex; flex-direction: column; gap: 0; }
+    .overlay-menu__nav-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; text-decoration: none; color: #fff; font-size: 17px; font-weight: 500; letter-spacing: 0.01em; cursor: pointer; transition: background 0.15s ease; }
+    .overlay-menu__nav-item:hover, .overlay-menu__nav-item.is-active { background: rgba(255,255,255,0.06); }
+    .overlay-menu__nav-arrow { font-size: 16px; color: rgba(255,255,255,0.4); }
+    .overlay-menu__col-sub { grid-column: 2; }
+    .overlay-menu__panel { display: none; flex-direction: column; gap: 0; }
+    .overlay-menu__panel.is-visible { display: flex; }
+    .overlay-menu__sub-item { display: block; padding: 12px 0; text-decoration: none; color: rgba(255,255,255,0.85); font-size: 16px; font-weight: 400; transition: color 0.15s; }
+    .overlay-menu__sub-item:hover { color: #fff; }
+    .overlay-menu__col-info { grid-column: 3; display: flex; flex-direction: column; justify-content: flex-start; }
+    .overlay-menu__cta-btn { display: block; padding: 16px 32px; border: 1px solid rgba(255,255,255,0.25); color: #fff; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 12px; font-weight: 500; text-align: center; text-decoration: none; letter-spacing: 0.14em; text-transform: uppercase; }
+    .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
+    .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.3); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
+    .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img"></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Fullscreen Overlay Menu (o9-style) -->
+  <div class="overlay-menu" id="overlayMenu">
+    <div class="overlay-menu__inner">
+      <!-- Col 1: Navigation -->
+      <div class="overlay-menu__col-nav">
+        <span class="overlay-menu__label">[NAVIGATION]</span>
+        <div class="overlay-menu__nav-list">
+          <a href="about.html" class="overlay-menu__nav-item" data-panel="company">会社情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="gpim.html" class="overlay-menu__nav-item" data-panel="gpim">GPIM<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="service.html" class="overlay-menu__nav-item" data-panel="service">製品・サービス<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="works.html" class="overlay-menu__nav-item">導入事例</a>
+          <a href="news.html" class="overlay-menu__nav-item">ニュース</a>
+          <a href="blog.html" class="overlay-menu__nav-item">WAREHOUSE TECH WEEKLY</a>
+          <a href="careers.html" class="overlay-menu__nav-item" data-panel="careers">採用情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+        </div>
+      </div>
+      <!-- Col 2: Sub-panels -->
+      <div class="overlay-menu__col-sub">
+        <div class="overlay-menu__panel" data-panel="company">
+          <span class="overlay-menu__label">[会社情報]</span>
+          <a href="about.html" class="overlay-menu__sub-item">会社概要</a>
+          <a href="about.html#ceo" class="overlay-menu__sub-item">CEOメッセージ</a>
+          <a href="about.html#vision" class="overlay-menu__sub-item">ビジョン・ミッション</a>
+          <a href="about.html#bp" class="overlay-menu__sub-item">行動原則(BP)・価値創造(VCP)プロセス</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="service">
+          <span class="overlay-menu__label">[製品・サービス]</span>
+          <a href="gwes.html" class="overlay-menu__sub-item">GWES</a>
+          <a href="gwes.html#technology" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
+          <a href="gwes.html#modules" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
+          <a href="gwes.html#implementation" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
+          <a href="digital-integration.html" class="overlay-menu__sub-item">デジタルインテグレーション</a>
+          <a href="consulting.html" class="overlay-menu__sub-item">コンサルティング＆エンジニアリング</a>
+          <a href="peer.html" class="overlay-menu__sub-item">PEER</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="gpim">
+          <span class="overlay-menu__label">[GPIM]</span>
+          <a href="gpim.html" class="overlay-menu__sub-item">GPIMとは</a>
+          <a href="gpim-consulting.html" class="overlay-menu__sub-item">GPIMコンサルティング</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="careers">
+          <span class="overlay-menu__label">[採用情報]</span>
+          <a href="careers.html" class="overlay-menu__sub-item">募集ポジション</a>
+          <a href="about.html" class="overlay-menu__sub-item">カルチャー</a>
+        </div>
+      </div>
+      <!-- Col 3: CTA + Contact -->
+      <div class="overlay-menu__col-info">
+        <a href="contact.html" class="overlay-menu__cta-btn">お問い合わせ</a>
+        <div class="overlay-menu__contact-info">
+          <span>info@groundinc.co.jp</span>
+          <span>03-6441-2975</span>
+        </div>
+        <p class="overlay-menu__copyright">&copy; GROUND Inc.</p>
+      </div>
+    </div>
+  </div><!-- Mobile Menu -->
+  <!-- Breadcrumb -->
+    <nav class="breadcrumb-nav" aria-label="パンくずリスト">
+      <ol class="breadcrumb-nav__list">
+        <li class="breadcrumb-nav__item"><a href="index.html" class="breadcrumb-nav__link breadcrumb-nav__link--home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current">製品・サービス</span></li>
+      </ol>
+    </nav>
+  <div class="page-header">
+    <div class="container">
+    </div>
+  </div>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="sv-hero">
+    <div class="container">
+      <div class="sv-hero__inner sv-fade">
+        <span class="sv-hero__badge">Products & Services</span>
+        <h1 class="sv-hero__title">物流を、知性で<br>再定義する</h1>
+        <p class="sv-hero__desc">
+          AI・数理最適化・ロボティクスを統合した包括的ソリューションで、物流施設の運営を根本から変革。戦略立案からシステム導入、運営最適化まで、end-to-end で伴走します。
+        </p>
+      </div>
+      <div class="sv-hero__line"></div>
+    </div>
+  </section>
+
+  <!-- ==================== APPROACH ==================== -->
+  <section class="sv-approach">
+    <div class="container">
+      <div class="sv-approach__grid sv-fade">
+        <div class="sv-approach__left">
+          <span class="sv-approach__label">Integrated Approach</span>
+          <h2 class="sv-approach__heading">GROUNDの<br>統合アプローチ</h2>
+        </div>
+        <div class="sv-approach__body">
+          <p>GROUNDは、単なるソフトウェアベンダーではありません。物流施設の「あるべき姿」を描き、その実現を技術と戦略の両面から推進するテクノロジーパートナーです。</p>
+          <p>GWESを核とした統合プラットフォームに、デジタルインテグレーション、コンサルティング＆エンジニアリング、ロボティクスを組み合わせることで、個別最適ではなく施設全体の最適化を実現します。</p>
+          <p>現場の課題抽出から、システム設計・構築、運用定着まで。一気通貫の支援体制で、確実な成果に導きます。</p>
+        </div>
+      </div>
+      <div class="sv-approach__line" style="margin-top: 0;"></div>
+    </div>
+  </section>
+
+  <!-- ==================== SOLUTIONS ==================== -->
+  <section class="sv-solutions" id="solutions">
+    <div class="container">
+      <div class="sv-solutions__header sv-fade" style="margin-bottom: 0;">
+        <div>
+          <span class="sv-solutions__label">Solutions</span>
+        </div>
+        <p class="sv-solutions__desc">
+          物流DXを実現する4つのソリューション。それぞれが有機的に連携し、施設全体の自律化を段階的に推進します。
+        </p>
+      </div>
+
+      <!-- 01 GWES -->
+      <div class="sv-sol sv-fade" id="gwes">
+        <div class="sv-sol__left">
+          <span class="sv-sol__num">01</span>
+          <h3 class="sv-sol__name">GWES</h3>
+          <span class="sv-sol__sub">GROUND Warehouse<br>Execution System</span>
+          <a href="gwes.html" class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳しく見る</span></a>
+        </div>
+        <div class="sv-sol__right">
+          <p class="sv-sol__desc">
+            物流施設全体の運営を俯瞰し、最適化・自律化を推進する「物流OS」。WMSが作業指示を制御する実行系システムであるのに対し、GWESは施設全体の管理・意思決定を担います。3レイヤー・12モジュール構成で、GPIMに基づく段階的な導入が可能です。
+          </p>
+          <div class="sv-sol__tags">
+            <span class="sv-sol__tag">リアルタイム可視化</span>
+            <span class="sv-sol__tag">動線最適化</span>
+            <span class="sv-sol__tag">人員・ロボット統合管理</span>
+            <span class="sv-sol__tag">需要予測</span>
+            <span class="sv-sol__tag">WMS連携</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 Digital Integration -->
+      <div class="sv-sol sv-fade" id="integration">
+        <div class="sv-sol__left">
+          <span class="sv-sol__num">02</span>
+          <h3 class="sv-sol__name">デジタル<br>インテグレーション</h3>
+          <span class="sv-sol__sub">Digital Integration</span>
+          <a href="digital-integration.html" class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳しく見る</span></a>
+        </div>
+        <div class="sv-sol__right">
+          <p class="sv-sol__desc">
+            既存のWMS・ERP・各種マテハンシステムとGWESをシームレスに接続し、施設横断のデータ統合を実現。サイロ化した情報を一元化し、拠点全体を俯瞰したオペレーション管理を可能にします。
+          </p>
+          <div class="sv-sol__tags">
+            <span class="sv-sol__tag">API連携基盤</span>
+            <span class="sv-sol__tag">リアルタイムデータ統合</span>
+            <span class="sv-sol__tag">マルチ拠点管理</span>
+            <span class="sv-sol__tag">段階的移行支援</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 Consulting & Engineering -->
+      <div class="sv-sol sv-fade" id="consulting">
+        <div class="sv-sol__left">
+          <span class="sv-sol__num">03</span>
+          <h3 class="sv-sol__name">コンサルティング<br>＆エンジニアリング</h3>
+          <span class="sv-sol__sub">Consulting &<br>Engineering Service</span>
+          <a href="consulting.html" class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳しく見る</span></a>
+        </div>
+        <div class="sv-sol__right">
+          <p class="sv-sol__desc">
+            物流戦略の策定から施設設計・構築、運営の最適化まで、専門家チームがプロジェクト全体を伴走。現場のリアルな課題に向き合い、テクノロジーと運用の両面から物流DXの成功を確実にします。
+          </p>
+          <div class="sv-sol__tags">
+            <span class="sv-sol__tag">現状分析・課題抽出</span>
+            <span class="sv-sol__tag">自動化戦略策定</span>
+            <span class="sv-sol__tag">施設設計支援</span>
+            <span class="sv-sol__tag">運営最適化</span>
+            <span class="sv-sol__tag">人材育成</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 PEER -->
+      <div class="sv-sol sv-fade" id="peer">
+        <div class="sv-sol__left">
+          <span class="sv-sol__num">04</span>
+          <h3 class="sv-sol__name">PEER</h3>
+          <span class="sv-sol__sub">Platform for Effective<br>Execution of Resources</span>
+          <a href="peer.html" class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳しく見る</span></a>
+        </div>
+        <div class="sv-sol__right">
+          <p class="sv-sol__desc">
+            GWESと連携し、施設内の搬送作業を自動化する自律型移動ロボット（AMR）プラットフォーム。人との協働を前提に設計されており、既存のオペレーションを止めることなく段階的に導入できます。
+          </p>
+          <div class="sv-sol__tags">
+            <span class="sv-sol__tag">自律走行</span>
+            <span class="sv-sol__tag">GWES連携</span>
+            <span class="sv-sol__tag">人協働設計</span>
+            <span class="sv-sol__tag">柔軟レイアウト対応</span>
+            <span class="sv-sol__tag">迅速な投資回収</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA ==================== -->
+  <section class="sv-cta">
+    <div class="container">
+      <div class="sv-cta__inner sv-fade">
+        <h2 class="sv-cta__title">物流の未来を、共に。</h2>
+        <p class="sv-cta__desc">
+          GROUNDのソリューションが貴社にどのような価値をもたらすか、<br>
+          まずはお気軽にご相談ください。
+        </p>
+        <div class="sv-cta__actions">
+          <a href="contact.html" class="sv-btn--primary">お問い合わせ</a>
+          <a href="works.html" class="sv-btn--outline">導入事例を見る</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <img src="img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
+          <p class="footer__brand-desc">
+            AI・数理最適化・ロボティクスで、<br>
+            物流の未来を変革する。
+          </p>
+        </div>
+        <div>
+          <h4 class="footer__heading">Company</h4>
+          <div class="footer__links">
+            <a href="about.html" class="footer__link">会社概要</a>
+            <a href="about.html#vision" class="footer__link">ビジョン・ミッション</a>
+            <a href="about.html#ceo" class="footer__link">CEOメッセージ</a>
+            <a href="careers.html" class="footer__link">採用情報</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Solutions</h4>
+          <div class="footer__links">
+            <a href="gwes.html" class="footer__link">GWES</a>
+            <a href="digital-integration.html" class="footer__link">デジタルインテグレーション</a>
+            <a href="consulting.html" class="footer__link">コンサルティング</a>
+            <a href="peer.html" class="footer__link">PEER</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Contact</h4>
+          <div class="footer__links">
+            <a href="contact.html" class="footer__link">お問い合わせ</a>
+            <span class="footer__link" style="cursor: default;">TEL: 03-6457-1650</span>
+            <a href="mailto:Info@groundinc.co.jp" class="footer__link">Info@groundinc.co.jp</a>
+            <span class="footer__link" style="cursor: default;">
+              〒101-0041<br>
+              東京都千代田区神田須田町1-3-33<br>
+              Bizflex神田 10F
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 GROUND Inc. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social" aria-label="LinkedIn">in</a>
+          <a href="#" class="footer__social" aria-label="Note">N</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=31"></script>
+  <script>
+    const svObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); svObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.sv-fade').forEach(el => svObs.observe(el));
+  </script>
+</body>
+</html>

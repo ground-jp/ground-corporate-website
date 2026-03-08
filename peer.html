@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PEER - 自律協調型ロボット | GROUND Inc.">
+  <meta property="og:description" content="自律協調型ロボットPEER。RaaS（Robot as a Service）モデルで初期投資を抑えた倉庫自動化を実現します。">
+  <meta property="og:url" content="https://groundinc.co.jp/peer.html">
+  <meta property="og:site_name" content="GROUND Inc.">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PEER - 自律協調型ロボット | GROUND Inc.">
+  <meta name="twitter:description" content="自律協調型ロボットPEER。RaaS（Robot as a Service）モデルで初期投資を抑えた倉庫自動化を実現します。">
+  <title>PEER - 自律型協働ロボット（AMR） | GROUND Inc.</title>
+  <meta name="description" content="PEER 100は、SLAM技術とAIで自律走行する協働型搬送ロボット（AMR）です。ピッキング生産性を最大2倍に向上。人と協働し、物流施設のオペレーションを変革します。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=49">
+  <style>
+    :root {
+      --pr-bg: #0A0C14;
+      --pr-surface: #161822;
+      --pr-surface-2: #1A1A1A;
+      --pr-border: #3F4250;
+      --pr-border-hover: #545867;
+      --pr-text-1: #FFFFFF;
+      --pr-text-2: rgba(255,255,255,0.92);
+      --pr-text-3: rgba(255,255,255,0.55);
+      --pr-accent: #34D399;
+      --pr-accent-2: #3B82F6;
+      --pr-teal: #34D399;
+    }
+
+    body { background: var(--pr-bg) !important; }
+    .header { background: var(--pr-bg) !important; }
+
+    /* ── Breadcrumb ── */
+    .page-header { padding: 0; }
+    .pr-bc {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; color: var(--pr-text-3);
+    }
+    .pr-bc a { color: var(--pr-text-3); text-decoration: none; transition: color 0.2s; }
+    .pr-bc a:hover { color: var(--pr-text-2); }
+
+    /* ── Hero Banner ── */
+    .pr-hero-banner {
+      position: relative;
+      width: 100%;
+      height: clamp(280px, 40vw, 480px);
+      overflow: hidden;
+    }
+    .pr-hero-banner__img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      display: block;
+    }
+    .pr-hero-banner__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(10,10,15,0.0) 0%, rgba(10,10,15,0.15) 40%, rgba(10,10,15,0.6) 80%, rgba(10,10,15,0.85) 100%);
+    }
+    .pr-hero-banner__content {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 0 0 40px;
+      text-align: center;
+    }
+
+    /* ── Hero ── */
+    .pr-hero {
+      padding: 48px 0 60px;
+      text-align: center;
+    }
+    .pr-hero__badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px; border-radius: 20px;
+      background: rgba(52,211,153,0.08);
+      border: 1px solid rgba(52,211,153,0.2);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.64rem; letter-spacing: 0.1em;
+      color: var(--pr-accent);
+      margin-bottom: 28px;
+    }
+    .pr-hero__title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 700; color: #FFFFFF;
+      letter-spacing: 0.18em; line-height: 1.1;
+      margin: 0 0 12px;
+    }
+    .pr-hero__subtitle {
+      font-size: 1.05rem; font-weight: 400;
+      color: var(--pr-accent); margin: 0 0 28px;
+      letter-spacing: 0.02em;
+    }
+    .pr-hero__desc {
+      font-size: 0.88rem; font-weight: 300;
+      color: var(--pr-text-2); line-height: 2.0;
+      max-width: 680px; margin: 0 auto;
+      text-align: left;
+    }
+
+    /* ── Robot Showcase ── */
+    .pr-showcase {
+      padding: 0 0 60px;
+      display: flex; justify-content: center;
+    }
+    .pr-showcase__visual {
+      position: relative;
+      width: 100%; max-width: 480px;
+    }
+    .pr-showcase__robot {
+      width: 100%; height: auto; display: block;
+      border-radius: 16px;
+      background: #fff;
+    }
+    .pr-showcase__glow {
+      position: absolute;
+      inset: -40px;
+      z-index: -1;
+      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(52,211,153,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      filter: blur(40px);
+    }
+
+    /* ── Section ── */
+    .pr-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--pr-border);
+    }
+    .pr-section__label {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--pr-accent);
+      margin-bottom: 16px;
+    }
+    .pr-section__heading {
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--pr-text-1); line-height: 1.5;
+      margin: 0 0 16px;
+    }
+    .pr-section__text {
+      font-size: 0.84rem; color: var(--pr-text-3);
+      line-height: 2.0; max-width: 680px;
+    }
+
+    /* ── AMR Explainer ── */
+    .pr-amr-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      margin-top: 48px; align-items: start;
+    }
+    .pr-amr-compare {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .pr-amr-card {
+      padding: 28px;
+      border-radius: 12px;
+      border: 1px solid var(--pr-border);
+    }
+    .pr-amr-card--agv {
+      background: rgba(255,255,255,0.02);
+    }
+    .pr-amr-card--amr {
+      background: rgba(52,211,153,0.04);
+      border-color: rgba(52,211,153,0.15);
+    }
+    .pr-amr-card__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px; display: block;
+    }
+    .pr-amr-card--agv .pr-amr-card__label { color: var(--pr-text-3); }
+    .pr-amr-card--amr .pr-amr-card__label { color: var(--pr-accent); }
+    .pr-amr-card__title {
+      font-size: 0.92rem; font-weight: 600;
+      color: var(--pr-text-1); margin-bottom: 12px;
+    }
+    .pr-amr-card__desc {
+      font-size: 0.76rem; color: var(--pr-text-3);
+      line-height: 1.9;
+    }
+    .pr-amr-card__list {
+      list-style: none; padding: 0; margin: 12px 0 0;
+    }
+    .pr-amr-card__list li {
+      font-size: 0.74rem; color: var(--pr-text-3);
+      line-height: 1.8; padding-left: 16px;
+      position: relative;
+    }
+    .pr-amr-card__list li::before {
+      content: '—';
+      position: absolute; left: 0;
+      color: var(--pr-border-hover);
+    }
+    .pr-amr-card--amr .pr-amr-card__list li::before {
+      content: '✓';
+      color: var(--pr-accent);
+    }
+
+    .pr-amr-detail {
+      font-size: 0.82rem; color: var(--pr-text-3);
+      line-height: 2.0;
+    }
+    .pr-amr-detail p { margin: 0 0 16px; }
+    .pr-amr-detail strong { color: var(--pr-text-2); }
+
+    /* ── PEER 100 Spec ── */
+    .pr-product {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      align-items: start; margin-top: 48px;
+    }
+    .pr-product__visual {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(ellipse at 50% 50%, rgba(52,211,153,0.04) 0%, transparent 70%);
+      border-radius: 16px;
+      border: 1px solid var(--pr-border);
+      padding: 48px;
+      min-height: 320px;
+    }
+    .pr-product__img {
+      max-width: 360px; width: 100%; height: auto;
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .pr-spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 24px;
+    }
+    .pr-spec-table tr {
+      border-bottom: 1px solid var(--pr-border);
+    }
+    .pr-spec-table th {
+      text-align: left; padding: 14px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.66rem; font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--pr-text-3);
+      width: 140px; vertical-align: top;
+    }
+    .pr-spec-table td {
+      padding: 14px 0;
+      font-size: 0.82rem; color: var(--pr-text-2);
+      line-height: 1.7;
+    }
+
+    /* ── Features Grid ── */
+    .pr-features {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+      margin-top: 48px;
+    }
+    .pr-feature {
+      padding: 32px 28px;
+      background: var(--pr-surface);
+      border: 1px solid var(--pr-border);
+      border-radius: 12px;
+      transition: border-color 0.3s;
+    }
+    .pr-feature:hover { border-color: var(--pr-border-hover); }
+    .pr-feature__icon {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 10px;
+      background: rgba(52,211,153,0.08);
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+    .pr-feature__title {
+      font-size: 0.9rem; font-weight: 600;
+      color: var(--pr-text-1); margin-bottom: 8px;
+    }
+    .pr-feature__desc {
+      font-size: 0.76rem; color: var(--pr-text-3);
+      line-height: 1.9;
+    }
+
+    /* ── Workflow ── */
+    .pr-workflow {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+      margin-top: 48px;
+    }
+    .pr-workflow__step {
+      position: relative;
+      padding: 28px 20px;
+      background: var(--pr-surface);
+      border: 1px solid var(--pr-border);
+      border-radius: 12px;
+      text-align: center;
+    }
+    .pr-workflow__num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem; font-weight: 500;
+      color: var(--pr-accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 14px; display: block;
+    }
+    .pr-workflow__title {
+      font-size: 0.84rem; font-weight: 600;
+      color: var(--pr-text-1); margin-bottom: 8px;
+    }
+    .pr-workflow__desc {
+      font-size: 0.7rem; color: var(--pr-text-3);
+      line-height: 1.8;
+    }
+    .pr-workflow__arrow {
+      position: absolute;
+      right: -14px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.72rem;
+      color: var(--pr-border-hover);
+      z-index: 1;
+    }
+
+    /* ── Case Study ── */
+    .pr-cases {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+      margin-top: 48px;
+    }
+    .pr-case {
+      padding: 32px;
+      background: var(--pr-surface);
+      border: 1px solid var(--pr-border);
+      border-radius: 12px;
+      transition: border-color 0.3s;
+    }
+    .pr-case:hover { border-color: var(--pr-border-hover); }
+    .pr-case__client {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--pr-accent);
+      margin-bottom: 12px; display: block;
+    }
+    .pr-case__title {
+      font-size: 0.96rem; font-weight: 600;
+      color: var(--pr-text-1); margin-bottom: 10px;
+    }
+    .pr-case__desc {
+      font-size: 0.76rem; color: var(--pr-text-3);
+      line-height: 1.9; margin-bottom: 16px;
+    }
+    .pr-case__metrics {
+      display: flex; gap: 24px;
+    }
+    .pr-case__metric-value {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--pr-accent);
+    }
+    .pr-case__metric-label {
+      font-size: 0.62rem; color: var(--pr-text-3);
+      margin-top: 2px;
+    }
+
+    /* ── KPI Highlight ── */
+    .pr-kpi-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+      margin-top: 48px;
+    }
+    .pr-kpi {
+      text-align: center;
+      padding: 28px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--pr-border);
+      background: var(--pr-surface);
+    }
+    .pr-kpi__value {
+      font-family: 'Inter', sans-serif;
+      font-size: 2rem; font-weight: 700;
+      color: var(--pr-accent);
+      line-height: 1;
+    }
+    .pr-kpi__unit {
+      font-size: 0.88rem; font-weight: 400;
+    }
+    .pr-kpi__label {
+      font-size: 0.68rem; color: var(--pr-text-3);
+      margin-top: 8px; line-height: 1.5;
+    }
+
+    /* ── CTA ── */
+    .pr-cta {
+      padding: 80px 0;
+      text-align: center;
+      border-top: 1px solid var(--pr-border);
+    }
+    .pr-cta__title {
+      font-size: 1.4rem; font-weight: 600;
+      color: var(--pr-text-1); margin-bottom: 16px;
+    }
+    .pr-cta__desc {
+      font-size: 0.88rem; color: var(--pr-text-3);
+      line-height: 2.0; max-width: 560px;
+      margin: 0 auto 32px;
+    }
+    .pr-cta__buttons {
+      display: flex; gap: 16px; justify-content: center;
+    }
+    .pr-cta__btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px; border-radius: 6px;
+      font-size: 0.84rem; font-weight: 500;
+      text-decoration: none; transition: all 0.3s;
+    }
+    .pr-cta__btn--primary {
+      background: var(--pr-accent); color: #0A0C14;
+    }
+    .pr-cta__btn--primary:hover { background: #34D399; }
+    .pr-cta__btn--outline {
+      border: 1px solid var(--pr-border-hover);
+      color: var(--pr-text-2);
+    }
+    .pr-cta__btn--outline:hover {
+      border-color: var(--pr-text-3);
+      background: rgba(255,255,255,0.03);
+    }
+
+    /* ── Fade ── */
+    .pr-fade {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .pr-fade.is-visible {
+      opacity: 1; transform: translateY(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .pr-amr-grid { grid-template-columns: 1fr; gap: 32px; }
+      .pr-amr-compare { grid-template-columns: 1fr; }
+      .pr-product { grid-template-columns: 1fr; gap: 32px; }
+      .pr-features { grid-template-columns: 1fr; }
+      .pr-workflow { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .pr-workflow__arrow { display: none; }
+      .pr-cases { grid-template-columns: 1fr; }
+      .pr-kpi-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+  <style>
+    .header { z-index: 350 !important; }
+    /* Hamburger + Overlay inline fallback (o9-style v30) */
+    .hamburger { display: flex !important; flex-direction: column; justify-content: center; align-items: center; gap: 6px; width: 52px; height: 52px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 400; position: relative; margin-right: -8px; }
+    .hamburger__line { display: block; width: 26px; height: 1.5px; background: #fff; border-radius: 1px; transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.25s ease; transform-origin: center; }
+    .hamburger.active .hamburger__line:nth-child(1) { transform: rotate(45deg) translate(5.5px,5.5px); }
+    .hamburger.active .hamburger__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active .hamburger__line:nth-child(3) { transform: rotate(-45deg) translate(5.5px,-5.5px); }
+    .overlay-menu { position: fixed; inset: 0; z-index: 300; background: #0A0C14; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-20px); transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s, transform 0.4s cubic-bezier(0.23,1,0.32,1); overflow-y: auto; }
+    .overlay-menu.active { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
+    .overlay-menu__inner { display: grid; grid-template-columns: 280px 1fr 340px; gap: 0 48px; max-width: 1200px; width: 100%; margin: 0 auto; padding: 100px 56px 60px; min-height: 100vh; align-content: start; }
+    .overlay-menu__label { display: block; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px; }
+    .overlay-menu__col-nav { grid-column: 1; }
+    .overlay-menu__nav-list { display: flex; flex-direction: column; gap: 0; }
+    .overlay-menu__nav-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; text-decoration: none; color: #fff; font-size: 17px; font-weight: 500; letter-spacing: 0.01em; cursor: pointer; transition: background 0.15s ease; }
+    .overlay-menu__nav-item:hover, .overlay-menu__nav-item.is-active { background: rgba(255,255,255,0.06); }
+    .overlay-menu__nav-arrow { font-size: 16px; color: rgba(255,255,255,0.4); }
+    .overlay-menu__col-sub { grid-column: 2; }
+    .overlay-menu__panel { display: none; flex-direction: column; gap: 0; }
+    .overlay-menu__panel.is-visible { display: flex; }
+    .overlay-menu__sub-item { display: block; padding: 12px 0; text-decoration: none; color: rgba(255,255,255,0.85); font-size: 16px; font-weight: 400; transition: color 0.15s; }
+    .overlay-menu__sub-item:hover { color: #fff; }
+    .overlay-menu__col-info { grid-column: 3; display: flex; flex-direction: column; justify-content: flex-start; }
+    .overlay-menu__cta-btn { display: block; padding: 16px 32px; border: 1px solid rgba(255,255,255,0.25); color: #fff; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 12px; font-weight: 500; text-align: center; text-decoration: none; letter-spacing: 0.14em; text-transform: uppercase; }
+    .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
+    .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.3); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
+    .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HEADER (shared) ==================== -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img"></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Fullscreen Overlay Menu (o9-style) -->
+  <div class="overlay-menu" id="overlayMenu">
+    <div class="overlay-menu__inner">
+      <!-- Col 1: Navigation -->
+      <div class="overlay-menu__col-nav">
+        <span class="overlay-menu__label">[NAVIGATION]</span>
+        <div class="overlay-menu__nav-list">
+          <a href="about.html" class="overlay-menu__nav-item" data-panel="company">会社情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="gpim.html" class="overlay-menu__nav-item" data-panel="gpim">GPIM<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="service.html" class="overlay-menu__nav-item" data-panel="service">製品・サービス<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="works.html" class="overlay-menu__nav-item">導入事例</a>
+          <a href="news.html" class="overlay-menu__nav-item">ニュース</a>
+          <a href="blog.html" class="overlay-menu__nav-item">WAREHOUSE TECH WEEKLY</a>
+          <a href="careers.html" class="overlay-menu__nav-item" data-panel="careers">採用情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+        </div>
+      </div>
+      <!-- Col 2: Sub-panels -->
+      <div class="overlay-menu__col-sub">
+        <div class="overlay-menu__panel" data-panel="company">
+          <span class="overlay-menu__label">[会社情報]</span>
+          <a href="about.html" class="overlay-menu__sub-item">会社概要</a>
+          <a href="about.html#ceo" class="overlay-menu__sub-item">CEOメッセージ</a>
+          <a href="about.html#vision" class="overlay-menu__sub-item">ビジョン・ミッション</a>
+          <a href="about.html#bp" class="overlay-menu__sub-item">行動原則(BP)・価値創造(VCP)プロセス</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="service">
+          <span class="overlay-menu__label">[製品・サービス]</span>
+          <a href="gwes.html" class="overlay-menu__sub-item">GWES</a>
+          <a href="gwes.html#technology" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
+          <a href="gwes.html#modules" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
+          <a href="gwes.html#implementation" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
+          <a href="digital-integration.html" class="overlay-menu__sub-item">デジタルインテグレーション</a>
+          <a href="consulting.html" class="overlay-menu__sub-item">コンサルティング＆エンジニアリング</a>
+          <a href="peer.html" class="overlay-menu__sub-item">PEER</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="gpim">
+          <span class="overlay-menu__label">[GPIM]</span>
+          <a href="gpim.html" class="overlay-menu__sub-item">GPIMとは</a>
+          <a href="gpim-consulting.html" class="overlay-menu__sub-item">GPIMコンサルティング</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="careers">
+          <span class="overlay-menu__label">[採用情報]</span>
+          <a href="careers.html" class="overlay-menu__sub-item">募集ポジション</a>
+          <a href="about.html" class="overlay-menu__sub-item">カルチャー</a>
+        </div>
+      </div>
+      <!-- Col 3: CTA + Contact -->
+      <div class="overlay-menu__col-info">
+        <a href="contact.html" class="overlay-menu__cta-btn">お問い合わせ</a>
+        <div class="overlay-menu__contact-info">
+          <span>info@groundinc.co.jp</span>
+          <span>03-6441-2975</span>
+        </div>
+        <p class="overlay-menu__copyright">&copy; GROUND Inc.</p>
+      </div>
+    </div>
+  </div><!-- ==================== BREADCRUMB ==================== -->
+    <nav class="breadcrumb-nav" aria-label="パンくずリスト">
+      <ol class="breadcrumb-nav__list">
+        <li class="breadcrumb-nav__item"><a href="index.html" class="breadcrumb-nav__link breadcrumb-nav__link--home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a href="service.html" class="breadcrumb-nav__link">サービス</a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current">PEER</span></li>
+      </ol>
+    </nav>
+  <div class="page-header">
+    <div class="container">
+    </div>
+  </div>
+
+  <!-- ==================== HERO BANNER ==================== -->
+  <div class="pr-hero-banner">
+    <img src="https://www.groundinc.co.jp/dcms_media/image/services-robot-peer_speedmaplus_mv.jpg" alt="PEER シリーズ" class="pr-hero-banner__img">
+    <div class="pr-hero-banner__overlay"></div>
+    <div class="pr-hero-banner__content">
+      <div class="container">
+        <span class="pr-hero__badge">Autonomous Mobile Robot</span>
+        <h1 class="pr-hero__title">PEER</h1>
+        <p class="pr-hero__subtitle">人と協働する、自律型搬送ロボット</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="pr-hero">
+    <div class="container">
+      <p class="pr-hero__desc">
+        PEER（ピア）は、物流施設のピッキング工程において、人と協働しながら作業支援を行う自律型協働ロボット（AMR）です。磁気テープやガイドレールを必要としないSLAM技術により自律走行し、作業者が商品をピックアップしてPEERが搬送する——このシンプルな役割分担が、ピッキング生産性を飛躍的に向上させます。
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== ROBOT SHOWCASE ==================== -->
+  <div class="pr-showcase">
+    <div class="pr-showcase__visual">
+      <div class="pr-showcase__glow"></div>
+      <img src="https://www.groundinc.co.jp/dcms_media/image/service_robot_peer100.jpg" alt="PEER 100 自律型協働ロボット" class="pr-showcase__robot">
+    </div>
+  </div>
+
+  <!-- ==================== KPI HIGHLIGHTS ==================== -->
+  <section class="pr-section">
+    <div class="container">
+      <div class="pr-kpi-row">
+        <div class="pr-kpi pr-fade">
+          <div class="pr-kpi__value">~2<span class="pr-kpi__unit">倍</span></div>
+          <div class="pr-kpi__label">ピッキング生産性向上</div>
+        </div>
+        <div class="pr-kpi pr-fade">
+          <div class="pr-kpi__value">100<span class="pr-kpi__unit">kg</span></div>
+          <div class="pr-kpi__label">最大可搬重量</div>
+        </div>
+        <div class="pr-kpi pr-fade">
+          <div class="pr-kpi__value">8-10<span class="pr-kpi__unit">h</span></div>
+          <div class="pr-kpi__label">連続稼働時間</div>
+        </div>
+        <div class="pr-kpi pr-fade">
+          <div class="pr-kpi__value">50<span class="pr-kpi__unit">%</span></div>
+          <div class="pr-kpi__label">作業人員削減</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== AMR EXPLAINER ==================== -->
+  <section class="pr-section" id="amr">
+    <div class="container">
+      <span class="pr-section__label pr-fade">What is AMR?</span>
+      <h2 class="pr-section__heading pr-fade">AMR（自律走行搬送ロボット）とは</h2>
+      <p class="pr-section__text pr-fade">
+        AMR（Autonomous Mobile Robot）は、カメラやLiDARなどのセンサーとSLAM技術により、自ら環境を認識し、最適な経路を算出して自律走行する搬送ロボットです。従来のAGV（無人搬送車）とは根本的にコンセプトが異なります。
+      </p>
+
+      <div class="pr-amr-grid pr-fade">
+        <!-- Compare Cards -->
+        <div class="pr-amr-compare">
+          <div class="pr-amr-card pr-amr-card--agv">
+            <span class="pr-amr-card__label">AGV</span>
+            <div class="pr-amr-card__title">無人搬送車</div>
+            <div class="pr-amr-card__desc">磁気テープやガイドワイヤーに沿って、あらかじめ設定されたルートのみを走行する搬送機械。</div>
+            <ul class="pr-amr-card__list">
+              <li>固定ルートのみ走行</li>
+              <li>レイアウト変更にテープ再敷設が必要</li>
+              <li>障害物は停止して待機</li>
+              <li>導入に大規模な環境整備が必要</li>
+              <li>人との共有空間に制約あり</li>
+            </ul>
+          </div>
+          <div class="pr-amr-card pr-amr-card--amr">
+            <span class="pr-amr-card__label">AMR</span>
+            <div class="pr-amr-card__title">自律走行搬送ロボット</div>
+            <div class="pr-amr-card__desc">SLAM技術で環境地図を自律生成し、人や障害物を回避しながら最適経路で走行する協働ロボット。</div>
+            <ul class="pr-amr-card__list">
+              <li>環境を自律認識し最適経路を算出</li>
+              <li>レイアウト変更に柔軟に対応</li>
+              <li>人・障害物を検知し自動回避</li>
+              <li>ガイドレール不要で導入が容易</li>
+              <li>人との協働を前提とした設計</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Detail -->
+        <div class="pr-amr-detail">
+          <p>AGVが「ある地点からある地点まで決められたルートを運ぶ搬送機械」であるのに対し、AMRは<strong>「人との稼働範囲の共有を前提とした自律型ロボット」</strong>です。</p>
+          <p>物流施設では、季節波動やレイアウト変更が頻繁に発生します。固定ルートのAGVではそのたびにガイドの再敷設が必要ですが、AMRは<strong>周囲の環境をリアルタイムに認識し、最適な走行経路を自動で再計算</strong>するため、変化の多い現場にこそ大きな効果を発揮します。</p>
+          <p>さらに、人と同じ空間を安全に共有できるため、既存の作業動線を維持したまま段階的に導入できる点も、物流施設におけるAMR活用の大きなメリットです。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PEER 100 PRODUCT ==================== -->
+  <section class="pr-section" id="peer100">
+    <div class="container">
+      <span class="pr-section__label pr-fade">Product</span>
+      <h2 class="pr-section__heading pr-fade">PEER 100</h2>
+      <p class="pr-section__text pr-fade">
+        GROUNDが提供する自律型協働ロボット。SLAM技術とカメラ・LiDARセンサーにより自律走行し、ピッキング作業や工程間搬送を人と協働しながら支援します。WMSとの連携により、作業指示の受信からタブレット表示、搬送先への自律移動までをシームレスに実行します。
+      </p>
+
+      <div class="pr-product pr-fade">
+        <div class="pr-product__visual">
+          <img src="https://www.groundinc.co.jp/dcms_media/image/service_robot_peer100.jpg" alt="PEER 100" class="pr-product__img">
+        </div>
+        <div>
+          <table class="pr-spec-table">
+            <tr>
+              <th>製品名</th>
+              <td>PEER 100</td>
+            </tr>
+            <tr>
+              <th>種別</th>
+              <td>自律型協働ロボット（AMR）</td>
+            </tr>
+            <tr>
+              <th>最大可搬重量</th>
+              <td>100 kg</td>
+            </tr>
+            <tr>
+              <th>ナビゲーション</th>
+              <td>SLAM（Simultaneous Localization and Mapping）<br>カメラ + LiDARセンサー</td>
+            </tr>
+            <tr>
+              <th>障害物回避</th>
+              <td>リアルタイム検知・自動経路再計算</td>
+            </tr>
+            <tr>
+              <th>連続稼働</th>
+              <td>約 8〜10 時間（自動充電機能搭載）</td>
+            </tr>
+            <tr>
+              <th>インターフェース</th>
+              <td>搭載タブレットによる作業指示表示<br>WMS / WES 連携</td>
+            </tr>
+            <tr>
+              <th>カスタマイズ</th>
+              <td>架台・バスケット等の搭載治具を<br>用途に応じて柔軟に対応</td>
+            </tr>
+            <tr>
+              <th>提供形態</th>
+              <td>RaaS（Robot as a Service）</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FEATURES ==================== -->
+  <section class="pr-section" id="features">
+    <div class="container">
+      <span class="pr-section__label pr-fade">Features</span>
+      <h2 class="pr-section__heading pr-fade">PEERの特長</h2>
+
+      <div class="pr-features">
+        <div class="pr-feature pr-fade">
+          <div class="pr-feature__icon">🗺️</div>
+          <div class="pr-feature__title">ガイドレス自律走行</div>
+          <div class="pr-feature__desc">磁気テープやガイドワイヤーは不要。SLAM技術で環境地図を生成し、自ら最適経路を算出して走行します。レイアウト変更にも柔軟に対応。</div>
+        </div>
+        <div class="pr-feature pr-fade">
+          <div class="pr-feature__icon">🤝</div>
+          <div class="pr-feature__title">人との安全な協働</div>
+          <div class="pr-feature__desc">人や障害物をリアルタイムに検知し、自動で回避。既存の作業動線を変えることなく、人とロボットが同じ空間で安全に作業できます。</div>
+        </div>
+        <div class="pr-feature pr-fade">
+          <div class="pr-feature__icon">📋</div>
+          <div class="pr-feature__title">WMS / WES 連携</div>
+          <div class="pr-feature__desc">WMS（倉庫管理システム）と連携し、出荷指示を搭載タブレットに表示。作業者はピッキング指示を目視とタブレットのダブルチェックで確認できます。</div>
+        </div>
+        <div class="pr-feature pr-fade">
+          <div class="pr-feature__icon">📦</div>
+          <div class="pr-feature__title">マルチオーダーピッキング</div>
+          <div class="pr-feature__desc">1台あたり複数オーダーを同時に処理するマルチピッキングに対応。バスケットや架台のカスタマイズにより、多様な商材と作業形態に適合します。</div>
+        </div>
+        <div class="pr-feature pr-fade">
+          <div class="pr-feature__icon">🔋</div>
+          <div class="pr-feature__title">長時間連続稼働</div>
+          <div class="pr-feature__desc">1回の充電で約8〜10時間の連続稼働が可能。運用状況に応じた最適なタイミングで自動充電ステーションへ帰還し、稼働率を最大化します。</div>
+        </div>
+        <div class="pr-feature pr-fade">
+          <div class="pr-feature__icon">⚡</div>
+          <div class="pr-feature__title">容易な導入・スケール</div>
+          <div class="pr-feature__desc">環境整備不要で短期導入が可能。RaaS（Robot as a Service）モデルにより初期投資を抑え、物量波動に合わせた台数の増減も柔軟に対応します。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== HOW IT WORKS ==================== -->
+  <section class="pr-section" id="workflow">
+    <div class="container">
+      <span class="pr-section__label pr-fade">How It Works</span>
+      <h2 class="pr-section__heading pr-fade">ピッキング協働ワークフロー</h2>
+      <p class="pr-section__text pr-fade">
+        作業者とPEERが役割分担することで、移動のムダを削減し、ピッキング工程全体の生産性を飛躍的に向上させます。
+      </p>
+
+      <div class="pr-workflow pr-fade">
+        <div class="pr-workflow__step">
+          <span class="pr-workflow__num">STEP 01</span>
+          <div class="pr-workflow__title">指示受信</div>
+          <div class="pr-workflow__desc">WMSからの出荷指示をPEERが受信し、搭載タブレットにピッキングリストを表示</div>
+          <span class="pr-workflow__arrow">→</span>
+        </div>
+        <div class="pr-workflow__step">
+          <span class="pr-workflow__num">STEP 02</span>
+          <div class="pr-workflow__title">棚前へ走行</div>
+          <div class="pr-workflow__desc">PEERが対象ロケーションまで自律走行し、作業者を先導して最適な巡回ルートで案内</div>
+          <span class="pr-workflow__arrow">→</span>
+        </div>
+        <div class="pr-workflow__step">
+          <span class="pr-workflow__num">STEP 03</span>
+          <div class="pr-workflow__title">ピック＆積載</div>
+          <div class="pr-workflow__desc">作業者が棚から商品をピックし、PEERのバスケットに投入。タブレットで品目と数量を確認</div>
+          <span class="pr-workflow__arrow">→</span>
+        </div>
+        <div class="pr-workflow__step">
+          <span class="pr-workflow__num">STEP 04</span>
+          <div class="pr-workflow__title">搬送・仕分</div>
+          <div class="pr-workflow__desc">全ピック完了後、PEERが梱包エリアまで自律搬送。作業者は次のPEERと合流し、連続してピッキングを継続</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CASE STUDIES ==================== -->
+  <section class="pr-section" id="cases">
+    <div class="container">
+      <span class="pr-section__label pr-fade">Case Studies</span>
+      <h2 class="pr-section__heading pr-fade">導入事例</h2>
+
+      <div class="pr-cases">
+        <div class="pr-case pr-fade">
+          <span class="pr-case__client">Autobacs Seven</span>
+          <div class="pr-case__title">オートバックスセブン様</div>
+          <div class="pr-case__desc">
+            EC物流部門の物量波動と人員確保の課題に対し、東日本ロジスティクスセンターにPEER 100を7台導入。1台あたり6オーダーのマルチピッキングにより、稼働後わずか1ヶ月でピッキング生産性が約2倍に向上。全台稼働により作業人員を導入前の半数に削減。
+          </div>
+          <div class="pr-case__metrics">
+            <div>
+              <div class="pr-case__metric-value">~2×</div>
+              <div class="pr-case__metric-label">生産性向上</div>
+            </div>
+            <div>
+              <div class="pr-case__metric-value">7台</div>
+              <div class="pr-case__metric-label">導入台数</div>
+            </div>
+            <div>
+              <div class="pr-case__metric-value">50%</div>
+              <div class="pr-case__metric-label">人員削減</div>
+            </div>
+          </div>
+        </div>
+        <div class="pr-case pr-fade">
+          <span class="pr-case__client">NX / Nippon Express</span>
+          <div class="pr-case__title">日本通運様</div>
+          <div class="pr-case__desc">
+            「誰にもやさしい倉庫」プロジェクトにPEER 100を3台導入。身体的な制約のある作業者も含め、誰もが物流施設内で活躍できるユニバーサルな作業環境を実現。AMRが搬送を担うことで、歩行困難な方も施設内作業に従事できる環境を構築。
+          </div>
+          <div class="pr-case__metrics">
+            <div>
+              <div class="pr-case__metric-value">3台</div>
+              <div class="pr-case__metric-label">導入台数</div>
+            </div>
+            <div>
+              <div class="pr-case__metric-value">Universal</div>
+              <div class="pr-case__metric-label">誰にもやさしい倉庫</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA ==================== -->
+  <section class="pr-cta">
+    <div class="container">
+      <h2 class="pr-cta__title pr-fade">PEERの導入をご検討ですか？</h2>
+      <p class="pr-cta__desc pr-fade">
+        RaaS（Robot as a Service）モデルにより、初期投資を抑えた導入が可能です。現場の課題とご要件に合わせた最適なプランをご提案します。
+      </p>
+      <div class="pr-cta__buttons pr-fade">
+        <a href="contact.html" class="pr-cta__btn pr-cta__btn--primary">お問い合わせ</a>
+        <a href="service.html" class="pr-cta__btn pr-cta__btn--outline">製品・サービス一覧 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER (shared) ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <img src="img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
+          <p class="footer__brand-desc">
+            AI・数理最適化・ロボティクスで、<br>
+            物流の未来を変革する。
+          </p>
+        </div>
+        <div>
+          <h4 class="footer__heading">Company</h4>
+          <div class="footer__links">
+            <a href="about.html" class="footer__link">会社概要</a>
+            <a href="about.html#vision" class="footer__link">ビジョン・ミッション</a>
+            <a href="about.html#ceo" class="footer__link">CEOメッセージ</a>
+            <a href="careers.html" class="footer__link">採用情報</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Solutions</h4>
+          <div class="footer__links">
+            <a href="gwes.html" class="footer__link">GWES</a>
+            <a href="digital-integration.html" class="footer__link">デジタルインテグレーション</a>
+            <a href="consulting.html" class="footer__link">コンサルティング</a>
+            <a href="peer.html" class="footer__link">PEER</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Contact</h4>
+          <div class="footer__links">
+            <a href="contact.html" class="footer__link">お問い合わせ</a>
+            <span class="footer__link" style="cursor: default;">TEL: 03-6457-1650</span>
+            <a href="mailto:Info@groundinc.co.jp" class="footer__link">Info@groundinc.co.jp</a>
+            <span class="footer__link" style="cursor: default;">
+              〒101-0041<br>
+              東京都千代田区神田須田町1-3-33<br>
+              Bizflex神田 10F
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 GROUND Inc. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social" aria-label="LinkedIn">in</a>
+          <a href="#" class="footer__social" aria-label="Note">N</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== SCROLL ANIMATION ==================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.pr-fade').forEach(el => io.observe(el));
+    });
+  </script>
+
+  <script src="js/main.js?v=31"></script>
+</body>
+</html>

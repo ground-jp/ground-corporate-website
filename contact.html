@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="お問い合わせ | GROUND Inc.">
+  <meta property="og:description" content="製品デモ・導入相談・パートナーシップのお問い合わせはこちらから。">
+  <meta property="og:url" content="https://groundinc.co.jp/contact.html">
+  <meta property="og:site_name" content="GROUND Inc.">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="お問い合わせ | GROUND Inc.">
+  <meta name="twitter:description" content="製品デモ・導入相談・パートナーシップのお問い合わせはこちらから。">
+  <title>お問い合わせ | GROUND Inc.</title>
+  <meta name="description" content="GROUNDへのお問い合わせ。製品のご相談、導入に関するご質問など、お気軽にご連絡ください。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=49">
+  <style>
+    .contact-header {
+      background-color: #0A0C14;
+    }
+
+    .contact-form-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      margin-top: 48px;
+      margin-bottom: 64px;
+    }
+
+    .contact-form {
+      max-width: 600px;
+    }
+
+    .contact-form-group {
+      margin-bottom: 32px;
+    }
+
+    .contact-form-label {
+      display: block;
+      color: #8A8C9A;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .contact-form-required {
+      color: #C8CDD8;
+      margin-left: 4px;
+    }
+
+    .contact-form-input,
+    .contact-form-select,
+    .contact-form-textarea {
+      width: 100%;
+      background-color: #161822;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #C8CDD8;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, background-color 0.2s;
+      box-sizing: border-box;
+    }
+
+    .contact-form-input:focus,
+    .contact-form-select:focus,
+    .contact-form-textarea:focus {
+      outline: none;
+      border-color: #636A78;
+      background-color: #161822;
+    }
+
+    .contact-form-textarea {
+      resize: vertical;
+      min-height: 160px;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .contact-form-select {
+      cursor: pointer;
+      background-color: #161822;
+    }
+
+    .contact-form-select option {
+      background-color: #161822;
+      color: #C8CDD8;
+    }
+
+    .contact-submit-btn {
+      width: 100%;
+      padding: 16px;
+      background-color: #3F4250;
+      color: #C8CDD8;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      font-family: 'Noto Sans JP', sans-serif;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-top: 8px;
+    }
+
+    .contact-submit-btn:hover {
+      background-color: #545867;
+    }
+
+    .contact-submit-btn:active {
+      background-color: #3F4250;
+    }
+
+    .contact-sidebar {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-info-card {
+      background-color: #161822;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 40px;
+    }
+
+    .contact-info-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #F5F5F8;
+      margin-bottom: 32px;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .contact-info-block {
+      margin-bottom: 32px;
+    }
+
+    .contact-info-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .contact-info-block-heading {
+      font-size: 0.85rem;
+      color: #8A8C9A;
+      font-weight: 600;
+      margin-bottom: 12px;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .contact-info-block-content {
+      color: #C8CDD8;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .contact-info-block-content a {
+      color: #C8CDD8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-info-block-content a:hover {
+      color: #8A8C9A;
+    }
+
+    .contact-map {
+      margin-top: 24px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .contact-map iframe {
+      display: block;
+      width: 100%;
+      height: 300px;
+      border: none;
+    }
+
+    @media (max-width: 768px) {
+      .contact-form-wrapper {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .contact-form {
+        max-width: 100%;
+      }
+
+      .contact-info-card {
+        padding: 32px;
+      }
+    }
+  </style>
+  <style>
+    .header { z-index: 350 !important; }
+    /* Hamburger + Overlay inline fallback (o9-style v30) */
+    .hamburger { display: flex !important; flex-direction: column; justify-content: center; align-items: center; gap: 6px; width: 52px; height: 52px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 400; position: relative; margin-right: -8px; }
+    .hamburger__line { display: block; width: 26px; height: 1.5px; background: #fff; border-radius: 1px; transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.25s ease; transform-origin: center; }
+    .hamburger.active .hamburger__line:nth-child(1) { transform: rotate(45deg) translate(5.5px,5.5px); }
+    .hamburger.active .hamburger__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active .hamburger__line:nth-child(3) { transform: rotate(-45deg) translate(5.5px,-5.5px); }
+    .overlay-menu { position: fixed; inset: 0; z-index: 300; background: #0A0C14; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-20px); transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s, transform 0.4s cubic-bezier(0.23,1,0.32,1); overflow-y: auto; }
+    .overlay-menu.active { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
+    .overlay-menu__inner { display: grid; grid-template-columns: 280px 1fr 340px; gap: 0 48px; max-width: 1200px; width: 100%; margin: 0 auto; padding: 100px 56px 60px; min-height: 100vh; align-content: start; }
+    .overlay-menu__label { display: block; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px; }
+    .overlay-menu__col-nav { grid-column: 1; }
+    .overlay-menu__nav-list { display: flex; flex-direction: column; gap: 0; }
+    .overlay-menu__nav-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; text-decoration: none; color: #fff; font-size: 17px; font-weight: 500; letter-spacing: 0.01em; cursor: pointer; transition: background 0.15s ease; }
+    .overlay-menu__nav-item:hover, .overlay-menu__nav-item.is-active { background: rgba(255,255,255,0.06); }
+    .overlay-menu__nav-arrow { font-size: 16px; color: rgba(255,255,255,0.4); }
+    .overlay-menu__col-sub { grid-column: 2; }
+    .overlay-menu__panel { display: none; flex-direction: column; gap: 0; }
+    .overlay-menu__panel.is-visible { display: flex; }
+    .overlay-menu__sub-item { display: block; padding: 12px 0; text-decoration: none; color: rgba(255,255,255,0.85); font-size: 16px; font-weight: 400; transition: color 0.15s; }
+    .overlay-menu__sub-item:hover { color: #fff; }
+    .overlay-menu__col-info { grid-column: 3; display: flex; flex-direction: column; justify-content: flex-start; }
+    .overlay-menu__cta-btn { display: block; padding: 16px 32px; border: 1px solid rgba(255,255,255,0.25); color: #fff; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 12px; font-weight: 500; text-align: center; text-decoration: none; letter-spacing: 0.14em; text-transform: uppercase; }
+    .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
+    .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.3); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
+    .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img"></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Fullscreen Overlay Menu (o9-style) -->
+  <div class="overlay-menu" id="overlayMenu">
+    <div class="overlay-menu__inner">
+      <!-- Col 1: Navigation -->
+      <div class="overlay-menu__col-nav">
+        <span class="overlay-menu__label">[NAVIGATION]</span>
+        <div class="overlay-menu__nav-list">
+          <a href="about.html" class="overlay-menu__nav-item" data-panel="company">会社情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="gpim.html" class="overlay-menu__nav-item" data-panel="gpim">GPIM<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="service.html" class="overlay-menu__nav-item" data-panel="service">製品・サービス<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="works.html" class="overlay-menu__nav-item">導入事例</a>
+          <a href="news.html" class="overlay-menu__nav-item">ニュース</a>
+          <a href="blog.html" class="overlay-menu__nav-item">WAREHOUSE TECH WEEKLY</a>
+          <a href="careers.html" class="overlay-menu__nav-item" data-panel="careers">採用情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+        </div>
+      </div>
+      <!-- Col 2: Sub-panels -->
+      <div class="overlay-menu__col-sub">
+        <div class="overlay-menu__panel" data-panel="company">
+          <span class="overlay-menu__label">[会社情報]</span>
+          <a href="about.html" class="overlay-menu__sub-item">会社概要</a>
+          <a href="about.html#ceo" class="overlay-menu__sub-item">CEOメッセージ</a>
+          <a href="about.html#vision" class="overlay-menu__sub-item">ビジョン・ミッション</a>
+          <a href="about.html#bp" class="overlay-menu__sub-item">行動原則(BP)・価値創造(VCP)プロセス</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="service">
+          <span class="overlay-menu__label">[製品・サービス]</span>
+          <a href="gwes.html" class="overlay-menu__sub-item">GWES</a>
+          <a href="gwes.html#technology" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
+          <a href="gwes.html#modules" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
+          <a href="gwes.html#implementation" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
+          <a href="digital-integration.html" class="overlay-menu__sub-item">デジタルインテグレーション</a>
+          <a href="consulting.html" class="overlay-menu__sub-item">コンサルティング＆エンジニアリング</a>
+          <a href="peer.html" class="overlay-menu__sub-item">PEER</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="gpim">
+          <span class="overlay-menu__label">[GPIM]</span>
+          <a href="gpim.html" class="overlay-menu__sub-item">GPIMとは</a>
+          <a href="gpim-consulting.html" class="overlay-menu__sub-item">GPIMコンサルティング</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="careers">
+          <span class="overlay-menu__label">[採用情報]</span>
+          <a href="careers.html" class="overlay-menu__sub-item">募集ポジション</a>
+          <a href="about.html" class="overlay-menu__sub-item">カルチャー</a>
+        </div>
+      </div>
+      <!-- Col 3: CTA + Contact -->
+      <div class="overlay-menu__col-info">
+        <a href="contact.html" class="overlay-menu__cta-btn">お問い合わせ</a>
+        <div class="overlay-menu__contact-info">
+          <span>info@groundinc.co.jp</span>
+          <span>03-6441-2975</span>
+        </div>
+        <p class="overlay-menu__copyright">&copy; GROUND Inc.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Hero -->
+    <nav class="breadcrumb-nav" aria-label="パンくずリスト">
+      <ol class="breadcrumb-nav__list">
+        <li class="breadcrumb-nav__item"><a href="index.html" class="breadcrumb-nav__link breadcrumb-nav__link--home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current">お問い合わせ</span></li>
+      </ol>
+    </nav>
+  <section class="page-header contact-header">
+    <div class="container">
+      <nav style="font-size:0.75rem;color:rgba(255,255,255,0.4);margin-bottom:32px;font-family:'Inter',sans-serif;letter-spacing:0.06em;">
+        <a href="index.html" style="color:rgba(255,255,255,0.4);text-decoration:none;">Home</a> / お問い合わせ
+      </nav>
+      <h1 style="font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#fff;font-family:'Inter','Noto Sans JP',sans-serif;letter-spacing:-0.03em;margin-bottom:16px;">Contact Us</h1>
+      <p style="font-size:0.92rem;color:rgba(255,255,255,0.5);max-width:520px;line-height:1.8;">製品のご相談、導入に関するご質問など、お気軽にご連絡ください。</p>
+    </div>
+  </section>
+
+  <!-- Contact Form Section -->
+  <section style="padding:80px 0;background:#0A0C14;">
+    <div class="container">
+      <div class="contact-form-wrapper">
+        <!-- Left: Form -->
+        <div class="contact-form">
+          <div class="contact-form-group">
+            <label class="contact-form-label">会社名</label>
+            <input type="text" class="contact-form-input" placeholder="例：GROUND株式会社">
+          </div>
+          <div class="contact-form-group">
+            <label class="contact-form-label">お名前 <span class="contact-form-required">*</span></label>
+            <input type="text" class="contact-form-input" placeholder="例：山田 太郎" required>
+          </div>
+          <div class="contact-form-group">
+            <label class="contact-form-label">メールアドレス <span class="contact-form-required">*</span></label>
+            <input type="email" class="contact-form-input" placeholder="例：yamada@example.com" required>
+          </div>
+          <div class="contact-form-group">
+            <label class="contact-form-label">電話番号</label>
+            <input type="tel" class="contact-form-input" placeholder="例：03-1234-5678">
+          </div>
+          <div class="contact-form-group">
+            <label class="contact-form-label">お問い合わせ種別</label>
+            <select class="contact-form-select">
+              <option value="">選択してください</option>
+              <option value="solution">ソリューション導入のご相談</option>
+              <option value="consulting">コンサルティングのご依頼</option>
+              <option value="careers">採用に関するお問い合わせ</option>
+              <option value="media">メディア・取材のご依頼</option>
+              <option value="other">その他</option>
+            </select>
+          </div>
+          <div class="contact-form-group">
+            <label class="contact-form-label">お問い合わせ内容 <span class="contact-form-required">*</span></label>
+            <textarea class="contact-form-textarea" placeholder="お問い合わせ内容をご記入ください" required></textarea>
+          </div>
+          <button type="submit" class="contact-submit-btn">送信する</button>
+        </div>
+
+        <!-- Right: Sidebar -->
+        <div class="contact-sidebar">
+          <div class="contact-info-card">
+            <h3 class="contact-info-title">会社情報</h3>
+            <div class="contact-info-block">
+              <h4 class="contact-info-block-heading">会社名</h4>
+              <p class="contact-info-block-content">GROUND株式会社</p>
+            </div>
+            <div class="contact-info-block">
+              <h4 class="contact-info-block-heading">所在地</h4>
+              <p class="contact-info-block-content">〒101-0041<br>東京都千代田区神田須田町1-3-33<br>Bizflex神田 10F</p>
+            </div>
+            <div class="contact-info-block">
+              <h4 class="contact-info-block-heading">電話番号</h4>
+              <p class="contact-info-block-content"><a href="tel:03-6457-1650">03-6457-1650</a></p>
+            </div>
+            <div class="contact-info-block">
+              <h4 class="contact-info-block-heading">メール</h4>
+              <p class="contact-info-block-content"><a href="mailto:Info@groundinc.co.jp">Info@groundinc.co.jp</a></p>
+            </div>
+          </div>
+          <div class="contact-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.5!2d139.77!3d35.69!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z5p2x5Lqs6YO95Y2D5Luj55Sw5Yy656We55Sw6aCI55Sw55S6MS0zLTMz!5e0!3m2!1sja!2sjp!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <img src="img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
+          <p class="footer__brand-desc">
+            AI・数理最適化・ロボティクスで、<br>
+            物流の未来を変革する。
+          </p>
+        </div>
+        <div>
+          <h4 class="footer__heading">Company</h4>
+          <div class="footer__links">
+            <a href="about.html" class="footer__link">会社概要</a>
+            <a href="about.html#vision" class="footer__link">ビジョン・ミッション</a>
+            <a href="about.html#ceo" class="footer__link">CEOメッセージ</a>
+            <a href="careers.html" class="footer__link">採用情報</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Solutions</h4>
+          <div class="footer__links">
+            <a href="gwes.html" class="footer__link">GWES</a>
+            <a href="digital-integration.html" class="footer__link">デジタルインテグレーション</a>
+            <a href="consulting.html" class="footer__link">コンサルティング</a>
+            <a href="peer.html" class="footer__link">PEER</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Contact</h4>
+          <div class="footer__links">
+            <a href="contact.html" class="footer__link">お問い合わせ</a>
+            <span class="footer__link" style="cursor: default;">TEL: 03-6457-1650</span>
+            <a href="mailto:Info@groundinc.co.jp" class="footer__link">Info@groundinc.co.jp</a>
+            <span class="footer__link" style="cursor: default;">
+              〒101-0041<br>
+              東京都千代田区神田須田町1-3-33<br>
+              Bizflex神田 10F
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 GROUND Inc. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social" aria-label="LinkedIn">in</a>
+          <a href="#" class="footer__social" aria-label="Note">N</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=31"></script>
+</body>
+</html>

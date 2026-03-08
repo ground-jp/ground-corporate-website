@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+Thumbs.db
+
+# Backup / archive files
+*.zip
+GROUND_Website/
+GROUND_Website_v2/
+ground-website/
+ground-website 2/
+images/
+zii1pqL7
+convert-video.sh
+
+# Editor
+*.swp
+*.swo
+*~
+.vscode/
+
+# Node (future use)
+node_modules/

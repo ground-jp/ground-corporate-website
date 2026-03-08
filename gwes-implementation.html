@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>導入・効果 | GWES - 物流OS | GROUND Inc.</title>
+  <meta name="description" content="GWES の段階的導入アプローチ（4フェーズ）と、導入効果。計画業務工数75%削減、歩行距離40%短縮などの実績をご紹介します。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=49">
+  <style>
+    :root {
+      --gw-bg: #0A0C14;
+      --gw-surface: #161822;
+      --gw-surface-2: #1A1A1A;
+      --gw-border: #3F4250;
+      --gw-border-hover: #545867;
+      --gw-text-1: #FFFFFF;
+      --gw-text-2: rgba(255,255,255,0.92);
+      --gw-text-3: rgba(255,255,255,0.55);
+      --gw-accent: #3B82F6;
+      --gw-infra: #8A8C9A;
+      --gw-l2: #60A5FA;
+      --gw-l4: #3B82F6;
+      --gw-green: #34D399;
+      --gw-box-bg: #1A1A1A;
+      --gw-box-border: #545867;
+    }
+
+    body { background: var(--gw-bg) !important; }
+    .header { background: var(--gw-bg) !important; }
+
+    /* ── Breadcrumb ── */
+    .page-header { padding: 0; }
+    .gw-bc {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; color: var(--gw-text-3);
+    }
+    .gw-bc a { color: var(--gw-text-3); text-decoration: none; transition: color 0.2s; }
+    .gw-bc a:hover { color: var(--gw-text-2); }
+
+    /* ── GWES Logo (centered hero) ── */
+    .gw-logo {
+      display: flex; align-items: center; justify-content: center;
+      gap: 28px;
+    }
+    .gw-logo__mark {
+      width: 72px; height: 72px;
+      flex-shrink: 0;
+    }
+    .gw-logo__mark img {
+      width: 100%; height: 100%;
+      display: block;
+    }
+    .gw-logo__text {
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .gw-logo__name {
+      font-family: 'Inter', sans-serif;
+      font-size: 3.4rem; font-weight: 700;
+      color: #FFFFFF; letter-spacing: 0.22em;
+      line-height: 1;
+    }
+    .gw-logo__full {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem; font-weight: 400;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.3;
+    }
+
+    /* ── Hero ── */
+    .gw-hero {
+      padding: 80px 0 0;
+      background: var(--gw-bg);
+      text-align: center;
+    }
+    .gw-hero__logo-row {
+      display: flex; justify-content: center;
+      margin-bottom: 36px;
+    }
+    .gw-hero__title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 2.6rem);
+      font-weight: 600; color: #FFFFFF;
+      letter-spacing: -0.02em; line-height: 1.3;
+      margin: 0 0 12px;
+    }
+    .gw-hero__subtitle {
+      font-size: 1.05rem; font-weight: 400;
+      color: var(--gw-accent); margin: 0 0 24px;
+      letter-spacing: 0.02em;
+    }
+    .gw-hero__desc {
+      font-size: 0.88rem; font-weight: 300;
+      color: var(--gw-text-2); line-height: 2.0;
+      max-width: 680px; margin: 0 auto;
+      text-align: left;
+    }
+
+    /* ── UI Showcase: Laptop in Dark ── */
+    .gw-showcase {
+      padding: 40px 0 0;
+      background: var(--gw-bg);
+      overflow: hidden;
+    }
+    .gw-showcase__viewport {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    /* ── Laptop Assembly ── */
+    .gw-laptop {
+      position: relative;
+      width: 100%;
+      /* 3D perspective for subtle tilt */
+      perspective: 1800px;
+    }
+    .gw-laptop__body {
+      position: relative;
+      transform: rotateX(2deg);
+      transform-origin: bottom center;
+    }
+    /* Screen (lid) */
+    .gw-laptop__screen {
+      position: relative;
+      background: #0A0C14;
+      border-radius: 12px 12px 0 0;
+      padding: 14px 14px 0;
+      /* Bezel effect */
+      border: 1.5px solid rgba(255,255,255,0.06);
+      border-bottom: none;
+    }
+    .gw-laptop__screen::before {
+      /* Webcam dot */
+      content: '';
+      position: absolute;
+      top: 7px; left: 50%;
+      transform: translateX(-50%);
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+    }
+    .gw-laptop__display {
+      position: relative;
+      border-radius: 4px 4px 0 0;
+      overflow: hidden;
+    }
+    .gw-laptop__display img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: brightness(1.08) saturate(1.15);
+    }
+    /* Screen glow: light bleeds out from the display */
+    .gw-laptop__screen-glow {
+      position: absolute;
+      inset: -60px -80px -20px -80px;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 40%,
+          rgba(108,156,255,0.08) 0%,
+          rgba(91,192,235,0.04) 40%,
+          transparent 70%);
+      pointer-events: none;
+      filter: blur(30px);
+    }
+    /* Keyboard base — thin sliver */
+    .gw-laptop__base {
+      position: relative;
+      height: 8px;
+      background: linear-gradient(
+        to bottom,
+        #161822 0%,
+        #0A0C14 60%,
+        #0A0C14 100%
+      );
+      border-radius: 0 0 2px 2px;
+      border: 1px solid rgba(255,255,255,0.04);
+      border-top: 1px solid rgba(255,255,255,0.025);
+    }
+    /* Keyboard texture: very subtle hint */
+    .gw-laptop__keys {
+      position: absolute;
+      top: 2px; left: 15%; right: 15%; bottom: 2px;
+      background:
+        repeating-linear-gradient(
+          to right,
+          rgba(255,255,255,0.012) 0px,
+          rgba(255,255,255,0.012) 4px,
+          transparent 4px,
+          transparent 5.5px
+        );
+      border-radius: 1px;
+      mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
+    }
+    /* Trackpad — hidden at this scale */
+    .gw-laptop__trackpad { display: none; }
+    /* Front lip/hinge edge */
+    .gw-laptop__lip {
+      height: 2px;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.035),
+        rgba(255,255,255,0.005)
+      );
+      border-radius: 0 0 6px 6px;
+      margin: 0 4%;
+    }
+    /* Desk surface reflection */
+    .gw-laptop__reflection {
+      margin-top: 2px;
+      height: 60px;
+      background: linear-gradient(
+        to bottom,
+        rgba(108,156,255,0.015) 0%,
+        transparent 100%
+      );
+      mask-image: linear-gradient(to bottom, white, transparent);
+      -webkit-mask-image: linear-gradient(to bottom, white, transparent);
+      border-radius: 0 0 12px 12px;
+    }
+    /* Edge fade to seamlessly blend into page bg */
+    .gw-showcase__fade {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      background:
+        linear-gradient(to right, var(--gw-bg) 0%, transparent 12%, transparent 88%, var(--gw-bg) 100%),
+        linear-gradient(to bottom, transparent 60%, var(--gw-bg) 100%);
+    }
+    .gw-hero__line {
+      width: 100%; height: 1px;
+      background: #3F4250;
+      margin-top: 48px;
+    }
+
+    /* ── Section Common ── */
+    .gw-section {
+      padding: 80px 0;
+      background: var(--gw-bg);
+    }
+    .gw-section--alt {
+      background: #0A0C14;
+    }
+    .gw-section__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gw-accent);
+      opacity: 1; margin-bottom: 12px; display: block;
+    }
+    .gw-section__heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--gw-text-1); letter-spacing: -0.02em;
+      line-height: 1.4; margin-bottom: 16px;
+    }
+    .gw-section__desc {
+      font-size: 0.85rem; color: var(--gw-text-2);
+      line-height: 2.0; max-width: 640px;
+      margin-bottom: 48px;
+    }
+    .gw-divider {
+      width: 100%; height: 1px;
+      background: #3F4250;
+    }
+
+    /* ── Concept: Logistics OS ── */
+    .gw-concept {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 80px;
+      margin-bottom: 64px;
+    }
+    .gw-concept__text {
+      font-size: 0.85rem; color: var(--gw-text-2);
+      line-height: 2.0;
+    }
+    .gw-concept__text p { margin: 0 0 16px; }
+
+    /* ── Before/After ── */
+    .gw-compare {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 0;
+      margin-top: 48px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #545867;
+    }
+    .gw-compare__card {
+      padding: 40px 36px;
+    }
+    .gw-compare__card--before {
+      background: #1A1A1A;
+    }
+    .gw-compare__arrow {
+      display: flex; align-items: center; justify-content: center;
+      width: 56px; background: #161822;
+      border-left: 1px solid #545867;
+      border-right: 1px solid #545867;
+      font-size: 1.4rem; color: var(--gw-accent);
+    }
+    .gw-compare__card--after {
+      background: #161822;
+    }
+    .gw-compare__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem; letter-spacing: 0.15em;
+      text-transform: uppercase; font-weight: 700;
+      margin-bottom: 28px; display: flex;
+      align-items: center; gap: 12px;
+    }
+    .gw-compare__label--before { color: rgba(255,255,255,0.7); }
+    .gw-compare__label--after { color: var(--gw-accent); }
+    .gw-compare__label::before {
+      content: '';
+      width: 32px; height: 2px;
+    }
+    .gw-compare__label--before::before { background: rgba(255,255,255,0.30); }
+    .gw-compare__label--after::before { background: var(--gw-accent); }
+    .gw-compare__item {
+      font-size: 0.88rem; color: #FFFFFF;
+      line-height: 1.7; padding: 16px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+    }
+    .gw-compare__card--before .gw-compare__item {
+      background: #3F4250;
+      border: 1px solid #3F4250;
+    }
+    .gw-compare__card--after .gw-compare__item {
+      background: #1A1A1A;
+      border: 1px solid #3F4250;
+    }
+    .gw-compare__item:last-child { margin-bottom: 0; }
+    .gw-compare__head {
+      font-size: 0.72rem; color: rgba(255,255,255,0.5);
+      font-weight: 600; display: block;
+      margin-bottom: 6px; letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .gw-compare__card--before .gw-compare__head {
+      color: rgba(255,255,255,0.5);
+    }
+    .gw-compare__card--after .gw-compare__head {
+      color: var(--gw-accent);
+    }
+
+    /* ── 4 Values ── */
+    .gw-values {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+      counter-reset: val-counter;
+    }
+    .gw-value {
+      background: var(--gw-box-bg);
+      border: 1px solid var(--gw-box-border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      transition: border-color 0.35s, background 0.35s, box-shadow 0.35s;
+      counter-increment: val-counter;
+      position: relative;
+    }
+    .gw-value:hover {
+      border-color: #636A78;
+      background: #3F4250;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+    .gw-value::before {
+      content: "0" counter(val-counter);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem; letter-spacing: 0.08em;
+      color: var(--gw-accent); opacity: 1;
+      display: block; margin-bottom: 16px;
+      font-weight: 600;
+    }
+    .gw-value__name {
+      font-size: 1.05rem; font-weight: 600;
+      color: #FFFFFF; margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+    .gw-value__desc {
+      font-size: 0.86rem; color: rgba(255,255,255,0.92);
+      line-height: 1.85;
+    }
+
+    /* ── Module Architecture ── */
+    .gw-arch-intro {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 80px;
+      margin-bottom: 56px;
+    }
+
+    .gw-layer {
+      margin-bottom: 56px;
+    }
+    .gw-layer__header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 24px;
+    }
+    .gw-layer__badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; letter-spacing: 0.12em;
+      padding: 6px 16px; border-radius: 100px;
+      display: inline-block; font-weight: 600;
+    }
+    .gw-layer__badge--infra {
+      background: rgba(139,149,165,0.20);
+      color: #C8CDD8; border: 1px solid rgba(139,149,165,0.35);
+    }
+    .gw-layer__badge--l2 {
+      background: rgba(91,192,235,0.15);
+      color: #93C5FD; border: 1px solid rgba(91,192,235,0.30);
+    }
+    .gw-layer__badge--l4 {
+      background: rgba(108,156,255,0.15);
+      color: #60A5FA; border: 1px solid rgba(108,156,255,0.30);
+    }
+    .gw-layer__name {
+      font-size: 1.2rem; font-weight: 600;
+      color: var(--gw-text-1);
+    }
+    .gw-layer__desc {
+      font-size: 0.82rem; color: var(--gw-text-2);
+      line-height: 1.9; margin-bottom: 24px;
+      max-width: 640px;
+    }
+
+    .gw-modules {
+      display: grid;
+      gap: 16px;
+      align-items: stretch;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .gw-mod {
+      background: var(--gw-box-bg);
+      border: 1px solid var(--gw-box-border);
+      border-radius: 12px;
+      padding: 24px 22px;
+      transition: border-color 0.35s ease, background 0.35s ease, box-shadow 0.35s ease;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+    }
+    .gw-mod:hover {
+      border-color: #636A78;
+      background: #3F4250;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+    .gw-mod__top {
+      display: flex; align-items: center;
+      gap: 10px; margin-bottom: 8px;
+    }
+    .gw-mod__abbr {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--gw-text-1); letter-spacing: 0.08em;
+    }
+    .gw-mod__levels {
+      display: flex; gap: 4px;
+    }
+    .gw-mod__level-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.08em;
+      padding: 3px 10px; border-radius: 100px; font-weight: 500;
+    }
+    .gw-mod__level-tag--infra { background: rgba(139,149,165,0.20); color: #C8CDD8; }
+    .gw-mod__level-tag--l2 { background: rgba(91,192,235,0.15); color: #93C5FD; }
+    .gw-mod__level-tag--l4 { background: rgba(108,156,255,0.15); color: #60A5FA; }
+    .gw-mod__level-tag--l5 { background: rgba(52,211,153,0.15); color: #34D399; }
+    .gw-mod__name {
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--gw-text-1); margin-bottom: 4px;
+      text-align: left;
+      line-height: 1.4;
+      min-height: 2.3em;
+    }
+    .gw-mod__desc {
+      font-size: 0.76rem; color: var(--gw-text-2);
+      line-height: 1.85; text-align: left;
+      margin-top: 10px;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ── Module Icon ── */
+    .gw-mod__icon {
+      width: 44px; height: 44px;
+      margin: 0 0 14px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 10px;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+    .gw-mod__icon svg { width: 24px; height: 24px; }
+    .gw-mod__icon--infra { background: #1A1A1A; color: #C8CDD8; }
+    .gw-mod__icon--l2 { background: #161822; color: #93C5FD; }
+    .gw-mod__icon--l4 { background: #161822; color: #60A5FA; }
+
+    /* (Module detail pages handle expanded content) */
+
+    /* ── KPI ── */
+    .gw-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      margin-top: 48px;
+      background: #545867;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .gw-kpi {
+      background: var(--gw-box-bg);
+      padding: 28px 24px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    .gw-kpi:hover { background: #3F4250; }
+    .gw-kpi__value {
+      font-family: 'Inter', sans-serif;
+      font-size: 2rem; font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .gw-kpi__label {
+      font-size: 0.82rem; color: var(--gw-text-2);
+      line-height: 1.5;
+    }
+    .gw-kpi__module {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem; color: rgba(255,255,255,0.75);
+      margin-top: 8px; display: block;
+    }
+
+    /* ── Implementation ── */
+    .gw-phases {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+    .gw-phase {
+      background: var(--gw-box-bg);
+      border: 1px solid var(--gw-box-border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      position: relative;
+      transition: border-color 0.35s, background 0.35s;
+    }
+    .gw-phase:hover {
+      border-color: #636A78;
+      background: #3F4250;
+    }
+    .gw-phase__num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem; letter-spacing: 0.12em;
+      color: var(--gw-accent); display: block;
+      margin-bottom: 10px; opacity: 0.8;
+    }
+    .gw-phase__name {
+      font-size: 0.92rem; font-weight: 600;
+      color: var(--gw-text-1); margin-bottom: 6px;
+    }
+    .gw-phase__gpim {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem; color: var(--gw-text-3);
+      margin-bottom: 14px; display: block;
+    }
+    .gw-phase__desc {
+      font-size: 0.78rem; color: var(--gw-text-2);
+      line-height: 1.85;
+    }
+
+    /* ── CTA ── */
+    .gw-cta {
+      padding: 100px 0;
+      background: var(--gw-bg);
+      border-top: 1px solid #3F4250;
+    }
+    .gw-cta__inner {
+      text-align: center; max-width: 500px; margin: 0 auto;
+    }
+    .gw-cta__title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.4rem; font-weight: 600;
+      color: var(--gw-text-1);
+      letter-spacing: -0.02em; line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .gw-cta__desc {
+      font-size: 0.82rem; color: var(--gw-text-2);
+      line-height: 1.9; margin-bottom: 32px;
+    }
+    .gw-cta__actions {
+      display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    }
+    .gw-btn--primary {
+      background: #FFFFFF; color: #0A0C14; border: none; font-weight: 600;
+      padding: 11px 32px; border-radius: 8px; font-size: 0.82rem;
+      letter-spacing: 0.01em; transition: all 0.25s ease; cursor: pointer;
+      text-decoration: none; display: inline-block;
+    }
+    .gw-btn--primary:hover {
+      background: rgba(255,255,255,0.90);
+      box-shadow: 0 2px 16px rgba(255,255,255,0.10);
+    }
+    .gw-btn--outline {
+      border: 1px solid #3F4250; color: var(--gw-text-2);
+      padding: 11px 32px; border-radius: 8px; font-size: 0.82rem;
+      transition: all 0.25s ease; background: transparent; cursor: pointer;
+      text-decoration: none; display: inline-block;
+    }
+    .gw-btn--outline:hover {
+      border-color: #545867; color: var(--gw-text-1);
+    }
+
+    /* ── Module Link ── */
+    .gw-mod { cursor: pointer; position: relative; }
+    .gw-mod__link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.7rem; color: var(--gw-accent);
+      margin-top: auto; padding-top: 12px; transition: color 0.2s;
+      text-decoration: none;
+    }
+    .gw-mod:hover .gw-mod__link { color: #60A5FA; }
+    .gw-mod__link::after {
+      content: '→'; font-size: 0.8rem;
+    }
+
+    /* ── Fade ── */
+    .gw-fade {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .gw-fade.is-visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Technology Platform Section ── */
+    .gw-tech-chart {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .gw-tech-col {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.02);
+    }
+    .gw-tech-col--active {
+      border-color: rgba(78,130,255,0.3);
+      background: rgba(78,130,255,0.04);
+    }
+    .gw-tech-col__header {
+      padding: 16px 20px;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--gw-text-2);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .gw-tech-col--active .gw-tech-col__header {
+      color: #fff;
+      background: rgba(78,130,255,0.08);
+    }
+    .gw-tech-layer {
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      min-height: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .gw-tech-layer:last-child { border-bottom: none; }
+    .gw-tech-layer__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gw-accent);
+      margin-bottom: 6px;
+      opacity: 0.7;
+    }
+    .gw-tech-layer__content {
+      font-size: 0.82rem;
+      color: var(--gw-text-2);
+      line-height: 1.6;
+    }
+    .gw-tech-col--active .gw-tech-layer__content {
+      color: rgba(255,255,255,0.9);
+    }
+    .gw-tech-algo {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .gw-tech-algo__item {
+      font-size: 0.8rem;
+      padding: 3px 0;
+    }
+    .gw-tech-desc {
+      margin-top: 56px;
+    }
+    .gw-tech-desc__title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    .gw-tech-items {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+    }
+    .gw-tech-item {
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.02);
+    }
+    .gw-tech-item__num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--gw-accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .gw-tech-item__name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .gw-tech-item__name-en {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--gw-text-3);
+      margin-bottom: 12px;
+    }
+    .gw-tech-item__text {
+      font-size: 0.82rem;
+      color: var(--gw-text-2);
+      line-height: 1.9;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1000px) {
+      .gw-modules { grid-template-columns: repeat(2, 1fr); }
+      .gw-kpis { grid-template-columns: repeat(2, 1fr); }
+      .gw-concept, .gw-arch-intro {
+        grid-template-columns: 1fr; gap: 24px;
+      }
+    }
+    @media (max-width: 768px) {
+      .gw-logo__mark { width: 48px; height: 48px; }
+      .gw-logo { gap: 16px; }
+      .gw-logo__name { font-size: 2rem; }
+      .gw-logo__full { font-size: 0.55rem; }
+      .gw-laptop__screen { padding: 10px 10px 0; border-radius: 8px 8px 0 0; }
+      .gw-laptop__base { height: 6px; }
+      .gw-laptop__screen-glow { inset: -30px -40px -10px -40px; }
+      .gw-compare { grid-template-columns: 1fr; }
+      .gw-compare__arrow {
+        width: auto; height: 48px;
+        border-left: none; border-right: none;
+        border-top: 1px solid #3F4250;
+        border-bottom: 1px solid #3F4250;
+      }
+      .gw-values { grid-template-columns: repeat(2, 1fr); }
+      .gw-modules { grid-template-columns: 1fr; }
+      .gw-phases { grid-template-columns: repeat(2, 1fr); }
+      .gw-hero { padding: 56px 0 0; }
+      .gw-hero__line { margin-top: 56px; }
+      .gw-tech-chart { grid-template-columns: 1fr; }
+      .gw-tech-items { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .gw-hero__title { font-size: 1.8rem; }
+      .gw-values { grid-template-columns: 1fr; }
+      .gw-kpis { grid-template-columns: 1fr; }
+      .gw-phases { grid-template-columns: 1fr; }
+      .gw-section { padding: 56px 0; }
+      .gw-cta { padding: 64px 0; }
+    }
+  </style>
+  <style>
+    .header { z-index: 350 !important; }
+    /* Hamburger + Overlay inline fallback (o9-style v30) */
+    .hamburger { display: flex !important; flex-direction: column; justify-content: center; align-items: center; gap: 6px; width: 52px; height: 52px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 400; position: relative; margin-right: -8px; }
+    .hamburger__line { display: block; width: 26px; height: 1.5px; background: #fff; border-radius: 1px; transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.25s ease; transform-origin: center; }
+    .hamburger.active .hamburger__line:nth-child(1) { transform: rotate(45deg) translate(5.5px,5.5px); }
+    .hamburger.active .hamburger__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active .hamburger__line:nth-child(3) { transform: rotate(-45deg) translate(5.5px,-5.5px); }
+    .overlay-menu { position: fixed; inset: 0; z-index: 300; background: #0A0C14; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-20px); transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s, transform 0.4s cubic-bezier(0.23,1,0.32,1); overflow-y: auto; }
+    .overlay-menu.active { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
+    .overlay-menu__inner { display: grid; grid-template-columns: 280px 1fr 340px; gap: 0 48px; max-width: 1200px; width: 100%; margin: 0 auto; padding: 100px 56px 60px; min-height: 100vh; align-content: start; }
+    .overlay-menu__label { display: block; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px; }
+    .overlay-menu__col-nav { grid-column: 1; }
+    .overlay-menu__nav-list { display: flex; flex-direction: column; gap: 0; }
+    .overlay-menu__nav-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; text-decoration: none; color: #fff; font-size: 17px; font-weight: 500; letter-spacing: 0.01em; cursor: pointer; transition: background 0.15s ease; }
+    .overlay-menu__nav-item:hover, .overlay-menu__nav-item.is-active { background: rgba(255,255,255,0.06); }
+    .overlay-menu__nav-arrow { font-size: 16px; color: rgba(255,255,255,0.4); }
+    .overlay-menu__col-sub { grid-column: 2; }
+    .overlay-menu__panel { display: none; flex-direction: column; gap: 0; }
+    .overlay-menu__panel.is-visible { display: flex; }
+    .overlay-menu__sub-item { display: block; padding: 12px 0; text-decoration: none; color: rgba(255,255,255,0.85); font-size: 16px; font-weight: 400; transition: color 0.15s; }
+    .overlay-menu__sub-item:hover { color: #fff; }
+    .overlay-menu__col-info { grid-column: 3; display: flex; flex-direction: column; justify-content: flex-start; }
+    .overlay-menu__cta-btn { display: block; padding: 16px 32px; border: 1px solid rgba(255,255,255,0.25); color: #fff; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 12px; font-weight: 500; text-align: center; text-decoration: none; letter-spacing: 0.14em; text-transform: uppercase; }
+    .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
+    .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.3); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
+    .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
+  
+    /* ── GWES Solutions Navigation Cards ── */
+    .gw-nav-cards {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;
+      margin-top: 48px;
+    }
+    .gw-nav-card {
+      display: flex; flex-direction: column;
+      padding: 32px; border-radius: 12px;
+      background: var(--gw-surface); border: 1px solid var(--gw-border);
+      text-decoration: none; color: inherit;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .gw-nav-card:hover {
+      border-color: var(--gw-accent); background: var(--gw-surface);
+      transform: translateY(-4px);
+    }
+    .gw-nav-card__icon {
+      width: 48px; height: 48px; margin-bottom: 20px;
+      color: var(--gw-accent);
+    }
+    .gw-nav-card__icon svg {
+      width: 100%; height: 100%; display: block;
+    }
+    .gw-nav-card__title {
+      font-size: 1.2rem; font-weight: 600;
+      color: var(--gw-text-1); margin: 0 0 12px;
+    }
+    .gw-nav-card__desc {
+      font-size: 0.85rem; color: var(--gw-text-3);
+      line-height: 1.6; margin: 0 0 auto;
+      flex-grow: 1;
+    }
+    .gw-nav-card__link {
+      display: inline-block; margin-top: 16px;
+      font-size: 0.8rem; color: var(--gw-accent);
+      font-weight: 500; text-decoration: none;
+    }
+    .gw-nav-card:hover .gw-nav-card__link {
+      color: var(--gw-text-1);
+    }
+</style>
+</head>
+<body>
+<header class="header" id="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img"></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Fullscreen Overlay Menu (o9-style) -->
+  <div class="overlay-menu" id="overlayMenu">
+    <div class="overlay-menu__inner">
+      <!-- Col 1: Navigation -->
+      <div class="overlay-menu__col-nav">
+        <span class="overlay-menu__label">[NAVIGATION]</span>
+        <div class="overlay-menu__nav-list">
+          <a href="about.html" class="overlay-menu__nav-item" data-panel="company">会社情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="gpim.html" class="overlay-menu__nav-item" data-panel="gpim">GPIM<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="service.html" class="overlay-menu__nav-item" data-panel="service">製品・サービス<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="works.html" class="overlay-menu__nav-item">導入事例</a>
+          <a href="news.html" class="overlay-menu__nav-item">ニュース</a>
+          <a href="blog.html" class="overlay-menu__nav-item">WAREHOUSE TECH WEEKLY</a>
+          <a href="careers.html" class="overlay-menu__nav-item" data-panel="careers">採用情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+        </div>
+      </div>
+      <!-- Col 2: Sub-panels -->
+      <div class="overlay-menu__col-sub">
+        <div class="overlay-menu__panel" data-panel="company">
+          <span class="overlay-menu__label">[会社情報]</span>
+          <a href="about.html" class="overlay-menu__sub-item">会社概要</a>
+          <a href="about.html#ceo" class="overlay-menu__sub-item">CEOメッセージ</a>
+          <a href="about.html#vision" class="overlay-menu__sub-item">ビジョン・ミッション</a>
+          <a href="about.html#bp" class="overlay-menu__sub-item">行動原則(BP)・価値創造(VCP)プロセス</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="service">
+          <span class="overlay-menu__label">[製品・サービス]</span>
+          <a href="gwes.html" class="overlay-menu__sub-item">GWES</a>
+          <a href="gwes-technology.html" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
+          <a href="gwes-modules.html" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
+          <a href="gwes-implementation.html" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
+          <a href="digital-integration.html" class="overlay-menu__sub-item">デジタルインテグレーション</a>
+          <a href="consulting.html" class="overlay-menu__sub-item">コンサルティング＆エンジニアリング</a>
+          <a href="peer.html" class="overlay-menu__sub-item">PEER</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="gpim">
+          <span class="overlay-menu__label">[GPIM]</span>
+          <a href="gpim.html" class="overlay-menu__sub-item">GPIMとは</a>
+          <a href="gpim-consulting.html" class="overlay-menu__sub-item">GPIMコンサルティング</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="careers">
+          <span class="overlay-menu__label">[採用情報]</span>
+          <a href="careers.html" class="overlay-menu__sub-item">募集ポジション</a>
+          <a href="about.html" class="overlay-menu__sub-item">カルチャー</a>
+        </div>
+      </div>
+      <!-- Col 3: CTA + Contact -->
+      <div class="overlay-menu__col-info">
+        <a href="contact.html" class="overlay-menu__cta-btn">お問い合わせ</a>
+        <div class="overlay-menu__contact-info">
+          <span>info@groundinc.co.jp</span>
+          <span>03-6441-2975</span>
+        </div>
+        <p class="overlay-menu__copyright">&copy; GROUND Inc.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Breadcrumb -->
+    <nav class="breadcrumb-nav" aria-label="パンくずリスト">
+      <ol class="breadcrumb-nav__list">
+        <li class="breadcrumb-nav__item"><a href="index.html" class="breadcrumb-nav__link breadcrumb-nav__link--home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a href="service.html" class="breadcrumb-nav__link">サービス</a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a href="gwes.html" class="breadcrumb-nav__link">GWES</a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current">導入・効果</span></li>
+      </ol>
+    </nav>
+  <div class="page-header">
+    <div class="container">
+    </div>
+  </div>
+
+<!-- ==================== IMPLEMENTATION APPROACH ==================== -->
+  <section class="gw-section">
+    <div class="container">
+      <div class="gw-fade">
+        <span class="gw-section__label">Implementation</span>
+        <h2 class="gw-section__heading">段階的導入アプローチ</h2>
+        <p class="gw-section__desc">
+          GWES導入は4つのフェーズで段階的に進めます。各フェーズで効果を確認しながら次のステップに進むため、投資リスクを最小化できます。ROIは通常12〜18ヶ月で回収されます。
+        </p>
+      </div>
+      <div class="gw-phases gw-fade">
+        <div class="gw-phase">
+          <span class="gw-phase__num">PHASE 1</span>
+          <div class="gw-phase__name">現状診断</div>
+          <span class="gw-phase__gpim">体系化</span>
+          <div class="gw-phase__desc">現状の業務プロセスを体系的に診断し、各領域の成熟度を評価。改善ロードマップを策定します。</div>
+        </div>
+        <div class="gw-phase">
+          <span class="gw-phase__num">PHASE 2</span>
+          <div class="gw-phase__name">可視化基盤構築</div>
+          <span class="gw-phase__gpim">可視化</span>
+          <div class="gw-phase__desc">WF+PA+WAを導入し、データ基盤を構築。作業量予測・進捗可視化・負荷分析を実現します。</div>
+        </div>
+        <div class="gw-phase">
+          <span class="gw-phase__num">PHASE 3</span>
+          <div class="gw-phase__name">最適化展開</div>
+          <span class="gw-phase__gpim">最適化</span>
+          <div class="gw-phase__desc">SO+RO+RA等を導入し、在庫配置・動線・人員配分の最適化を実現。効果を定量的に測定します。</div>
+        </div>
+        <div class="gw-phase">
+          <span class="gw-phase__num">PHASE 4</span>
+          <div class="gw-phase__name">全拠点展開・自律化</div>
+          <span class="gw-phase__gpim">自律化</span>
+          <div class="gw-phase__desc">実証済みモジュールを全拠点に展開。最適化ロジックの自律実行を段階的に実現します。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+<!-- ==================== KPI / RESULTS ==================== -->
+  <section class="gw-section gw-section--alt">
+    <div class="container">
+      <div class="gw-fade">
+        <span class="gw-section__label">Results</span>
+        <h2 class="gw-section__heading">導入効果・KPI</h2>
+        <p class="gw-section__desc">GWESの導入により、物流現場と経営の双方で定量的な効果が確認されています。</p>
+      </div>
+      <div class="gw-kpis gw-fade">
+        <div class="gw-kpi">
+          <div class="gw-kpi__value">75%</div>
+          <div class="gw-kpi__label">計画業務工数削減</div>
+          <span class="gw-kpi__module">WF / RA</span>
+        </div>
+        <div class="gw-kpi">
+          <div class="gw-kpi__value">90%+</div>
+          <div class="gw-kpi__label">作業量予測精度</div>
+          <span class="gw-kpi__module">WF</span>
+        </div>
+        <div class="gw-kpi">
+          <div class="gw-kpi__value">40%</div>
+          <div class="gw-kpi__label">歩行距離短縮</div>
+          <span class="gw-kpi__module">SO / RO</span>
+        </div>
+        <div class="gw-kpi">
+          <div class="gw-kpi__value">25%</div>
+          <div class="gw-kpi__label">配送コスト削減</div>
+          <span class="gw-kpi__module">DO / LO</span>
+        </div>
+        <div class="gw-kpi">
+          <div class="gw-kpi__value">10-20%</div>
+          <div class="gw-kpi__label">作業生産性向上</div>
+          <span class="gw-kpi__module">RO / RA</span>
+        </div>
+        <div class="gw-kpi">
+          <div class="gw-kpi__value">80%</div>
+          <div class="gw-kpi__label">異常対応時間短縮</div>
+          <span class="gw-kpi__module">PA</span>
+        </div>
+        <div class="gw-kpi">
+          <div class="gw-kpi__value">30-40%</div>
+          <div class="gw-kpi__label">人件費削減</div>
+          <span class="gw-kpi__module">WF / RA</span>
+        </div>
+        <div class="gw-kpi">
+          <div class="gw-kpi__value">100+</div>
+          <div class="gw-kpi__label">グローバル導入拠点</div>
+          <span class="gw-kpi__module">全モジュール</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+<!-- ==================== CTA ==================== -->
+  <section class="gw-cta">
+    <div class="container">
+      <div class="gw-cta__inner gw-fade">
+        <h2 class="gw-cta__title">GWESで、物流の未来を。</h2>
+        <p class="gw-cta__desc">
+          貴社の物流施設がどのレベルにあり、次に何をすべきか。<br>
+          現状診断から始めてみませんか。
+        </p>
+        <div class="gw-cta__actions">
+          <a href="contact.html" class="gw-btn--primary">お問い合わせ</a>
+          <a href="service.html" class="gw-btn--outline">製品・サービス一覧</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <img src="img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
+          <p class="footer__brand-desc">
+            AI・数理最適化・ロボティクスで、<br>
+            物流の未来を変革する。
+          </p>
+        </div>
+        <div>
+          <h4 class="footer__heading">Company</h4>
+          <div class="footer__links">
+            <a href="about.html" class="footer__link">会社概要</a>
+            <a href="about.html#vision" class="footer__link">ビジョン・ミッション</a>
+            <a href="about.html#ceo" class="footer__link">CEOメッセージ</a>
+            <a href="careers.html" class="footer__link">採用情報</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Solutions</h4>
+          <div class="footer__links">
+            <a href="gwes.html" class="footer__link">GWES</a>
+            <a href="digital-integration.html" class="footer__link">デジタルインテグレーション</a>
+            <a href="consulting.html" class="footer__link">コンサルティング</a>
+            <a href="peer.html" class="footer__link">PEER</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Contact</h4>
+          <div class="footer__links">
+            <a href="contact.html" class="footer__link">お問い合わせ</a>
+            <span class="footer__link" style="cursor: default;">TEL: 03-6457-1650</span>
+            <a href="mailto:Info@groundinc.co.jp" class="footer__link">Info@groundinc.co.jp</a>
+            <span class="footer__link" style="cursor: default;">
+              〒101-0041<br>
+              東京都千代田区神田須田町1-3-33<br>
+              Bizflex神田 10F
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 GROUND Inc. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social" aria-label="LinkedIn">in</a>
+          <a href="#" class="footer__social" aria-label="Note">N</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<script src="js/main.js?v=31"></script>
+  <script>
+    const gwObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); gwObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.gw-fade').forEach(el => gwObs.observe(el));
+  </script>
+</body>
+</html>

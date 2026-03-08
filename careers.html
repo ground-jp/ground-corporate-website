@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="採用情報 | GROUND Inc.">
+  <meta property="og:description" content="GROUNDでは物流×テクノロジーの未来を共に創るメンバーを募集しています。">
+  <meta property="og:url" content="https://groundinc.co.jp/careers.html">
+  <meta property="og:site_name" content="GROUND Inc.">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="採用情報 | GROUND Inc.">
+  <meta name="twitter:description" content="GROUNDでは物流×テクノロジーの未来を共に創るメンバーを募集しています。">
+  <title>採用情報 | GROUND Inc.</title>
+  <meta name="description" content="GROUND株式会社の採用情報。共に、物流の未来へ。Vision・Mission・Valueに共感するメンバーを募集しています。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=49">
+  <style>
+    :root {
+      --cr-bg: #0A0C14;
+      --cr-surface: #0A0C14;
+      --cr-surface2: #161822;
+      --cr-border: rgba(255,255,255,0.06);
+      --cr-border-hover: rgba(255,255,255,0.12);
+      --cr-accent: #3B82F6;
+      --cr-accent-dim: rgba(108,156,255,0.12);
+      --cr-text: #EEEEF2;
+      --cr-text-sub: rgba(240,240,245,0.55);
+      --cr-text-muted: rgba(240,240,245,0.35);
+    }
+
+    /* ── Hero ── */
+    .cr-hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--cr-bg);
+    }
+
+    .cr-hero__bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://static.wixstatic.com/media/409c45_3bd21b67c3a24f138b09e3dfbed8ebc9~mv2.jpg/v1/fill/w_1920,h_1080,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/409c45_3bd21b67c3a24f138b09e3dfbed8ebc9~mv2.jpg') center/cover no-repeat;
+      opacity: 0.25;
+    }
+
+    .cr-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10,10,15,0.3) 0%, rgba(10,10,15,0.85) 100%);
+    }
+
+    .cr-hero__inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+      width: 100%;
+    }
+
+    .cr-hero__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cr-accent);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: crFadeUp 0.8s ease 0.2s forwards;
+    }
+
+    .cr-hero__title {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 800;
+      color: var(--cr-text);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: crFadeUp 0.8s ease 0.4s forwards;
+    }
+
+    .cr-hero__subtitle {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      color: var(--cr-text-sub);
+      line-height: 1.7;
+      max-width: 560px;
+      font-weight: 300;
+      opacity: 0;
+      animation: crFadeUp 0.8s ease 0.6s forwards;
+    }
+
+    .cr-hero__cta {
+      margin-top: 48px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 36px;
+      background: var(--cr-accent);
+      color: #0A0C14;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      opacity: 0;
+      animation: crFadeUp 0.8s ease 0.8s forwards;
+    }
+
+    .cr-hero__cta:hover {
+      background: #60A5FA;
+      transform: translateY(-2px);
+    }
+
+    .cr-hero__cta svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.3s ease;
+    }
+
+    .cr-hero__cta:hover svg {
+      transform: translateX(4px);
+    }
+
+    .cr-hero__scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: crFadeUp 0.8s ease 1s forwards;
+    }
+
+    .cr-hero__scroll span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--cr-text-muted);
+      text-transform: uppercase;
+    }
+
+    .cr-hero__scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(180deg, var(--cr-accent), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes crFadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Section Commons ── */
+    .cr-section {
+      padding: 120px 0;
+    }
+
+    .cr-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .cr-section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cr-accent);
+      margin-bottom: 16px;
+    }
+
+    .cr-section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--cr-text);
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+      margin-bottom: 24px;
+    }
+
+    .cr-section-desc {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--cr-text-sub);
+      max-width: 680px;
+    }
+
+    .cr-divider {
+      width: 48px;
+      height: 1px;
+      background: var(--cr-accent);
+      margin: 48px 0;
+      opacity: 0.4;
+    }
+
+    /* ── Message Section ── */
+    .cr-message {
+      background: var(--cr-surface);
+      border-top: 1px solid var(--cr-border);
+      border-bottom: 1px solid var(--cr-border);
+    }
+
+    .cr-message__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .cr-message__text p {
+      font-size: 1.05rem;
+      line-height: 2;
+      color: var(--cr-text-sub);
+      margin-bottom: 24px;
+    }
+
+    .cr-message__text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .cr-message__visual {
+      position: relative;
+    }
+
+    .cr-message__quote {
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--cr-text);
+      line-height: 1.8;
+      letter-spacing: 0.02em;
+      border-left: 2px solid var(--cr-accent);
+      padding-left: 32px;
+    }
+
+    .cr-message__quote em {
+      font-style: normal;
+      color: var(--cr-accent);
+    }
+
+    /* ── Strengths Section ── */
+    .cr-strengths {
+      background: var(--cr-bg);
+    }
+
+    .cr-strengths__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 64px;
+      background: var(--cr-border);
+      border: 1px solid var(--cr-border);
+    }
+
+    .cr-strength-card {
+      background: var(--cr-bg);
+      padding: 48px 40px;
+      transition: all 0.4s ease;
+      position: relative;
+    }
+
+    .cr-strength-card:hover {
+      background: var(--cr-surface);
+    }
+
+    .cr-strength-card__num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--cr-accent);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cr-strength-card__num::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--cr-border);
+    }
+
+    .cr-strength-card__title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--cr-text);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .cr-strength-card__desc {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--cr-text-sub);
+    }
+
+    /* ── People Section ── */
+    .cr-people {
+      background: var(--cr-surface);
+      border-top: 1px solid var(--cr-border);
+      border-bottom: 1px solid var(--cr-border);
+    }
+
+    .cr-people__header {
+      margin-bottom: 64px;
+    }
+
+    .cr-people__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .cr-person-card {
+      background: var(--cr-bg);
+      border: 1px solid var(--cr-border);
+      border-radius: 4px;
+      padding: 36px 32px;
+      transition: all 0.4s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cr-person-card:hover {
+      border-color: var(--cr-border-hover);
+      transform: translateY(-4px);
+    }
+
+    .cr-person-card__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
+    .cr-person-card__initial {
+      width: 48px;
+      height: 48px;
+      background: var(--cr-accent-dim);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--cr-accent);
+    }
+
+    .cr-person-card__year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--cr-text-muted);
+    }
+
+    .cr-person-card__dept {
+      font-size: 0.85rem;
+      color: var(--cr-accent);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .cr-person-card__quote {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--cr-text);
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+
+    /* ── Entry CTA Section ── */
+    .cr-entry {
+      background: var(--cr-bg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cr-entry::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--cr-accent-dim) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cr-entry__inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cr-entry__title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: var(--cr-text);
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .cr-entry__desc {
+      font-size: 1.1rem;
+      color: var(--cr-text-sub);
+      line-height: 1.8;
+      max-width: 520px;
+      margin: 0 auto 48px;
+    }
+
+    .cr-entry__buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cr-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 36px;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .cr-btn--primary {
+      background: var(--cr-accent);
+      color: #0A0C14;
+    }
+
+    .cr-btn--primary:hover {
+      background: #60A5FA;
+      transform: translateY(-2px);
+    }
+
+    .cr-btn--outline {
+      background: transparent;
+      color: var(--cr-text-sub);
+      border: 1px solid var(--cr-border-hover);
+    }
+
+    .cr-btn--outline:hover {
+      color: var(--cr-text);
+      border-color: var(--cr-text-sub);
+    }
+
+    .cr-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ── Fade-in Animation ── */
+    .cr-fade {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .cr-fade.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .cr-message__inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .cr-strengths__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cr-people__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .cr-container {
+        padding: 0 24px;
+      }
+
+      .cr-section {
+        padding: 80px 0;
+      }
+
+      .cr-hero__inner {
+        padding: 0 24px;
+      }
+
+      .cr-people__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cr-strength-card {
+        padding: 36px 28px;
+      }
+    }
+  </style>
+  <style>
+    .header { z-index: 350 !important; }
+    /* Hamburger + Overlay inline fallback (o9-style v30) */
+    .hamburger { display: flex !important; flex-direction: column; justify-content: center; align-items: center; gap: 6px; width: 52px; height: 52px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 400; position: relative; margin-right: -8px; }
+    .hamburger__line { display: block; width: 26px; height: 1.5px; background: #fff; border-radius: 1px; transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.25s ease; transform-origin: center; }
+    .hamburger.active .hamburger__line:nth-child(1) { transform: rotate(45deg) translate(5.5px,5.5px); }
+    .hamburger.active .hamburger__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active .hamburger__line:nth-child(3) { transform: rotate(-45deg) translate(5.5px,-5.5px); }
+    .overlay-menu { position: fixed; inset: 0; z-index: 300; background: #0A0C14; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-20px); transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s, transform 0.4s cubic-bezier(0.23,1,0.32,1); overflow-y: auto; }
+    .overlay-menu.active { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
+    .overlay-menu__inner { display: grid; grid-template-columns: 280px 1fr 340px; gap: 0 48px; max-width: 1200px; width: 100%; margin: 0 auto; padding: 100px 56px 60px; min-height: 100vh; align-content: start; }
+    .overlay-menu__label { display: block; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px; }
+    .overlay-menu__col-nav { grid-column: 1; }
+    .overlay-menu__nav-list { display: flex; flex-direction: column; gap: 0; }
+    .overlay-menu__nav-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; text-decoration: none; color: #fff; font-size: 17px; font-weight: 500; letter-spacing: 0.01em; cursor: pointer; transition: background 0.15s ease; }
+    .overlay-menu__nav-item:hover, .overlay-menu__nav-item.is-active { background: rgba(255,255,255,0.06); }
+    .overlay-menu__nav-arrow { font-size: 16px; color: rgba(255,255,255,0.4); }
+    .overlay-menu__col-sub { grid-column: 2; }
+    .overlay-menu__panel { display: none; flex-direction: column; gap: 0; }
+    .overlay-menu__panel.is-visible { display: flex; }
+    .overlay-menu__sub-item { display: block; padding: 12px 0; text-decoration: none; color: rgba(255,255,255,0.85); font-size: 16px; font-weight: 400; transition: color 0.15s; }
+    .overlay-menu__sub-item:hover { color: #fff; }
+    .overlay-menu__col-info { grid-column: 3; display: flex; flex-direction: column; justify-content: flex-start; }
+    .overlay-menu__cta-btn { display: block; padding: 16px 32px; border: 1px solid rgba(255,255,255,0.25); color: #fff; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 12px; font-weight: 500; text-align: center; text-decoration: none; letter-spacing: 0.14em; text-transform: uppercase; }
+    .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
+    .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.3); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
+    .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img"></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Fullscreen Overlay Menu (o9-style) -->
+  <div class="overlay-menu" id="overlayMenu">
+    <div class="overlay-menu__inner">
+      <!-- Col 1: Navigation -->
+      <div class="overlay-menu__col-nav">
+        <span class="overlay-menu__label">[NAVIGATION]</span>
+        <div class="overlay-menu__nav-list">
+          <a href="about.html" class="overlay-menu__nav-item" data-panel="company">会社情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="gpim.html" class="overlay-menu__nav-item" data-panel="gpim">GPIM<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="service.html" class="overlay-menu__nav-item" data-panel="service">製品・サービス<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="works.html" class="overlay-menu__nav-item">導入事例</a>
+          <a href="news.html" class="overlay-menu__nav-item">ニュース</a>
+          <a href="blog.html" class="overlay-menu__nav-item">WAREHOUSE TECH WEEKLY</a>
+          <a href="careers.html" class="overlay-menu__nav-item" data-panel="careers">採用情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+        </div>
+      </div>
+      <!-- Col 2: Sub-panels -->
+      <div class="overlay-menu__col-sub">
+        <div class="overlay-menu__panel" data-panel="company">
+          <span class="overlay-menu__label">[会社情報]</span>
+          <a href="about.html" class="overlay-menu__sub-item">会社概要</a>
+          <a href="about.html#ceo" class="overlay-menu__sub-item">CEOメッセージ</a>
+          <a href="about.html#vision" class="overlay-menu__sub-item">ビジョン・ミッション</a>
+          <a href="about.html#bp" class="overlay-menu__sub-item">行動原則(BP)・価値創造(VCP)プロセス</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="service">
+          <span class="overlay-menu__label">[製品・サービス]</span>
+          <a href="gwes.html" class="overlay-menu__sub-item">GWES</a>
+          <a href="gwes.html#technology" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
+          <a href="gwes.html#modules" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
+          <a href="gwes.html#implementation" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
+          <a href="digital-integration.html" class="overlay-menu__sub-item">デジタルインテグレーション</a>
+          <a href="consulting.html" class="overlay-menu__sub-item">コンサルティング＆エンジニアリング</a>
+          <a href="peer.html" class="overlay-menu__sub-item">PEER</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="gpim">
+          <span class="overlay-menu__label">[GPIM]</span>
+          <a href="gpim.html" class="overlay-menu__sub-item">GPIMとは</a>
+          <a href="gpim-consulting.html" class="overlay-menu__sub-item">GPIMコンサルティング</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="careers">
+          <span class="overlay-menu__label">[採用情報]</span>
+          <a href="careers.html" class="overlay-menu__sub-item">募集ポジション</a>
+          <a href="about.html" class="overlay-menu__sub-item">カルチャー</a>
+        </div>
+      </div>
+      <!-- Col 3: CTA + Contact -->
+      <div class="overlay-menu__col-info">
+        <a href="contact.html" class="overlay-menu__cta-btn">お問い合わせ</a>
+        <div class="overlay-menu__contact-info">
+          <span>info@groundinc.co.jp</span>
+          <span>03-6441-2975</span>
+        </div>
+        <p class="overlay-menu__copyright">&copy; GROUND Inc.</p>
+      </div>
+    </div>
+  </div><!-- Mobile Menu -->
+    <nav class="breadcrumb-nav" aria-label="パンくずリスト">
+      <ol class="breadcrumb-nav__list">
+        <li class="breadcrumb-nav__item"><a href="index.html" class="breadcrumb-nav__link breadcrumb-nav__link--home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current">採用情報</span></li>
+      </ol>
+    </nav>
+  <main>
+    <!-- ═══ Hero ═══ -->
+    <section class="cr-hero">
+      <div class="cr-hero__bg"></div>
+      <div class="cr-hero__overlay"></div>
+      <div class="cr-hero__inner">
+        <p class="cr-hero__label">Careers at GROUND</p>
+        <h1 class="cr-hero__title">NEXT<br>GROUND</h1>
+        <p class="cr-hero__subtitle">共に、物流の未来へ。<br>Vision・Mission・Valueに共感し、挑戦と成長を重ねていく仲間を探しています。</p>
+        <a href="#entry" class="cr-hero__cta">
+          エントリーはこちら
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="cr-hero__scroll">
+        <span>Scroll</span>
+        <div class="cr-hero__scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ═══ Message ═══ -->
+    <section class="cr-section cr-message">
+      <div class="cr-container">
+        <div class="cr-message__inner">
+          <div class="cr-message__text cr-fade">
+            <p class="cr-section-label">Message</p>
+            <h2 class="cr-section-title">GROUNDが<br>大切にしているもの</h2>
+            <div class="cr-divider"></div>
+            <p>GROUNDには、とても大切にしているVision、Mission、Valueがあります。GROUNDで働くメンバーは、経営陣をはじめ、一人ひとりがVisionである「すべての人にとって永遠に持続可能な物流の未来へ」を目指し、日々仕事に取り組んでいます。</p>
+            <p>仕事で迷った時、挑戦する後押しが欲しい時、自分の専門や得意なことを通じてどうやって会社へ貢献できるか考えた時、立ち返るのがValueです。</p>
+            <p>GROUNDは2015年に生まれた、まだまだ未熟なスタートアップ。これまでも、これからも、メンバー一人ひとりが挑戦と成長を繰り返して創り上げていく企業です。</p>
+          </div>
+          <div class="cr-message__visual cr-fade">
+            <blockquote class="cr-message__quote">
+              GROUNDの個性溢れるメンバーを一つにつなげ、<em>One Team</em>にしているのが<br>Vision、Mission、Value。
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ Strengths ═══ -->
+    <section class="cr-section cr-strengths">
+      <div class="cr-container">
+        <div class="cr-fade">
+          <p class="cr-section-label">Strength</p>
+          <h2 class="cr-section-title">GROUNDの強み</h2>
+          <p class="cr-section-desc">「すべての人にとって永久に持続可能な物流の未来へ」をVisionに掲げ、物流業界において新しい価値創出を目指しています。私たちの強み・優位性は3つあります。</p>
+        </div>
+
+        <div class="cr-strengths__grid cr-fade">
+          <div class="cr-strength-card">
+            <div class="cr-strength-card__num">POINT 01</div>
+            <h3 class="cr-strength-card__title">最先端のロボット<br>エンジニアリングノウハウ</h3>
+            <p class="cr-strength-card__desc">物流現場向けAMR（自律型移動ロボット）の導入設計から運用保守まで、豊富な実績と知見を有しています。ロボティクス技術の最前線で経験を積むことができます。</p>
+          </div>
+
+          <div class="cr-strength-card">
+            <div class="cr-strength-card__num">POINT 02</div>
+            <h3 class="cr-strength-card__title">AIを使った<br>ソフトウェアの自社開発</h3>
+            <p class="cr-strength-card__desc">AI・数理最適化技術を活用した倉庫実行管理システム「GWES」を自社開発。プロダクト開発のプロセス全体に関わり、技術的挑戦を通じた成長機会があります。</p>
+          </div>
+
+          <div class="cr-strength-card">
+            <div class="cr-strength-card__num">POINT 03</div>
+            <h3 class="cr-strength-card__title">物流オペレーション<br>実務に対する深い知見</h3>
+            <p class="cr-strength-card__desc">テクノロジーだけでなく、物流オペレーションの実務を深く理解しているからこそ、現場に真に役立つソリューションを提供できます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ People ═══ -->
+    <section class="cr-section cr-people">
+      <div class="cr-container">
+        <div class="cr-people__header cr-fade">
+          <p class="cr-section-label">People</p>
+          <h2 class="cr-section-title">働く人を知る</h2>
+          <p class="cr-section-desc">GROUNDで働くメンバーの声をご紹介します。多様なバックグラウンドを持つメンバーが、それぞれの専門性を活かして活躍しています。</p>
+        </div>
+
+        <div class="cr-people__grid">
+          <div class="cr-person-card cr-fade">
+            <div class="cr-person-card__top">
+              <div class="cr-person-card__initial">Y.I.</div>
+              <span class="cr-person-card__year">2021年9月入社</span>
+            </div>
+            <p class="cr-person-card__dept">管理本部 総務法務部</p>
+            <p class="cr-person-card__quote">ルーティンではない"予想外"の発生が新鮮で楽しい</p>
+          </div>
+
+          <div class="cr-person-card cr-fade">
+            <div class="cr-person-card__top">
+              <div class="cr-person-card__initial">R.M.</div>
+              <span class="cr-person-card__year">2021年4月入社</span>
+            </div>
+            <p class="cr-person-card__dept">開発本部 プロダクト開発部</p>
+            <p class="cr-person-card__quote">ソフトウェア開発を通じて「物流業界のあり方を変える」</p>
+          </div>
+
+          <div class="cr-person-card cr-fade">
+            <div class="cr-person-card__top">
+              <div class="cr-person-card__initial">Y.I</div>
+              <span class="cr-person-card__year">2017年7月入社</span>
+            </div>
+            <p class="cr-person-card__dept">開発本部 プロダクト開発部</p>
+            <p class="cr-person-card__quote">主体性を持って働くことが成長につながる</p>
+          </div>
+
+          <div class="cr-person-card cr-fade">
+            <div class="cr-person-card__top">
+              <div class="cr-person-card__initial">K.H.</div>
+              <span class="cr-person-card__year">2017年9月入社</span>
+            </div>
+            <p class="cr-person-card__dept">ソリューション本部 プロダクトセールス部</p>
+            <p class="cr-person-card__quote">物流をサステナブルに変えていく牽引役でありたい</p>
+          </div>
+
+          <div class="cr-person-card cr-fade">
+            <div class="cr-person-card__top">
+              <div class="cr-person-card__initial">J.B.</div>
+              <span class="cr-person-card__year">2023年5月入社</span>
+            </div>
+            <p class="cr-person-card__dept">開発本部 プロダクト企画部</p>
+            <p class="cr-person-card__quote">上下関係ではなく"コラボレーション"なのがいい</p>
+          </div>
+
+          <div class="cr-person-card cr-fade">
+            <div class="cr-person-card__top">
+              <div class="cr-person-card__initial">M.I.</div>
+              <span class="cr-person-card__year">2017年8月入社</span>
+            </div>
+            <p class="cr-person-card__dept">テクニカル・サポート本部 フィールドテクニカルセンター</p>
+            <p class="cr-person-card__quote">物流のイメージを洗練させて、人材増加に貢献したい</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ Entry CTA ═══ -->
+    <section id="entry" class="cr-section cr-entry">
+      <div class="cr-container">
+        <div class="cr-entry__inner cr-fade">
+          <p class="cr-section-label">Entry</p>
+          <h2 class="cr-entry__title">中途採用のエントリーはこちら</h2>
+          <p class="cr-entry__desc">GROUNDのVision、Mission、Valueに共感し、一緒に働きたいと思ってくださる方に一人でも多く出会えますように。</p>
+          <div class="cr-entry__buttons">
+            <a href="https://www.groundinc.co.jp/careers/" target="_blank" class="cr-btn cr-btn--primary">
+              募集職種一覧を見る
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </a>
+            <a href="contact.html" class="cr-btn cr-btn--outline">
+              お問い合わせ
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <img src="img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
+          <p class="footer__brand-desc">
+            AI・数理最適化・ロボティクスで、<br>
+            物流の未来を変革する。
+          </p>
+        </div>
+        <div>
+          <h4 class="footer__heading">Company</h4>
+          <div class="footer__links">
+            <a href="about.html" class="footer__link">会社概要</a>
+            <a href="about.html#vision" class="footer__link">ビジョン・ミッション</a>
+            <a href="about.html#ceo" class="footer__link">CEOメッセージ</a>
+            <a href="careers.html" class="footer__link">採用情報</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Solutions</h4>
+          <div class="footer__links">
+            <a href="gwes.html" class="footer__link">GWES</a>
+            <a href="digital-integration.html" class="footer__link">デジタルインテグレーション</a>
+            <a href="consulting.html" class="footer__link">コンサルティング</a>
+            <a href="peer.html" class="footer__link">PEER</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Contact</h4>
+          <div class="footer__links">
+            <a href="contact.html" class="footer__link">お問い合わせ</a>
+            <span class="footer__link" style="cursor: default;">TEL: 03-6457-1650</span>
+            <a href="mailto:Info@groundinc.co.jp" class="footer__link">Info@groundinc.co.jp</a>
+            <span class="footer__link" style="cursor: default;">
+              〒101-0041<br>
+              東京都千代田区神田須田町1-3-33<br>
+              Bizflex神田 10F
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 GROUND Inc. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social" aria-label="LinkedIn">in</a>
+          <a href="#" class="footer__social" aria-label="Note">N</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=31"></script>
+  <script>
+    // Scroll fade-in
+    const crFades = document.querySelectorAll('.cr-fade');
+    const crObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          crObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    crFades.forEach(el => crObserver.observe(el));
+  </script>
+</body>
+</html>

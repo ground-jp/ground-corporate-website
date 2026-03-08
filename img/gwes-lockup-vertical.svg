@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <rect width="600" height="400" fill="#0A0C14"/>
+
+  <!-- Particle Grid Icon — scale 1.1, balanced within card -->
+  <g transform="translate(142, -20) scale(0.95)">
+    <circle cx="133.3" cy="66.7" r="5.2" fill="#6ac6ec" opacity="0.17"/>
+    <circle cx="166.7" cy="66.7" r="5.5" fill="#72c9ed" opacity="0.24"/>
+    <circle cx="200.0" cy="66.7" r="5.2" fill="#6ac6ec" opacity="0.17"/>
+    <circle cx="100.0" cy="100.0" r="5.6" fill="#7accee" opacity="0.32"/>
+    <circle cx="133.3" cy="100.0" r="6.4" fill="#96d6f2" opacity="0.54"/>
+    <circle cx="166.7" cy="100.0" r="6.7" fill="#a1dbf3" opacity="0.62"/>
+    <circle cx="200.0" cy="100.0" r="6.4" fill="#96d6f2" opacity="0.54"/>
+    <circle cx="233.3" cy="100.0" r="5.6" fill="#7accee" opacity="0.32"/>
+    <circle cx="66.7" cy="133.3" r="5.2" fill="#6ac6ec" opacity="0.17"/>
+    <circle cx="100.0" cy="133.3" r="6.4" fill="#96d6f2" opacity="0.54"/>
+    <circle cx="133.3" cy="133.3" r="7.3" fill="#bce5f6" opacity="0.77"/>
+    <circle cx="166.7" cy="133.3" r="14.1" fill="#d0edf9" opacity="0.014"/>
+    <circle cx="166.7" cy="133.3" r="7.9" fill="#d0edf9" opacity="0.84"/>
+    <circle cx="200.0" cy="133.3" r="7.3" fill="#bce5f6" opacity="0.77"/>
+    <circle cx="233.3" cy="133.3" r="6.4" fill="#96d6f2" opacity="0.54"/>
+    <circle cx="266.7" cy="133.3" r="5.2" fill="#6ac6ec" opacity="0.17"/>
+    <circle cx="66.7" cy="166.7" r="5.5" fill="#72c9ed" opacity="0.24"/>
+    <circle cx="100.0" cy="166.7" r="6.7" fill="#a1dbf3" opacity="0.62"/>
+    <circle cx="133.3" cy="166.7" r="14.1" fill="#d0edf9" opacity="0.014"/>
+    <circle cx="133.3" cy="166.7" r="7.9" fill="#d0edf9" opacity="0.84"/>
+    <circle cx="166.7" cy="166.7" r="16.4" fill="#ffffff" opacity="0.048"/>
+    <circle cx="166.7" cy="166.7" r="9.1" fill="#ffffff" opacity="0.92"/>
+    <circle cx="200.0" cy="166.7" r="14.1" fill="#d0edf9" opacity="0.014"/>
+    <circle cx="200.0" cy="166.7" r="7.9" fill="#d0edf9" opacity="0.84"/>
+    <circle cx="233.3" cy="166.7" r="6.7" fill="#a1dbf3" opacity="0.62"/>
+    <circle cx="266.7" cy="166.7" r="5.5" fill="#72c9ed" opacity="0.24"/>
+    <circle cx="66.7" cy="200.0" r="5.2" fill="#6ac6ec" opacity="0.17"/>
+    <circle cx="100.0" cy="200.0" r="6.4" fill="#96d6f2" opacity="0.54"/>
+    <circle cx="133.3" cy="200.0" r="7.3" fill="#bce5f6" opacity="0.77"/>
+    <circle cx="166.7" cy="200.0" r="14.1" fill="#d0edf9" opacity="0.014"/>
+    <circle cx="166.7" cy="200.0" r="7.9" fill="#d0edf9" opacity="0.84"/>
+    <circle cx="200.0" cy="200.0" r="7.3" fill="#bce5f6" opacity="0.77"/>
+    <circle cx="233.3" cy="200.0" r="6.4" fill="#96d6f2" opacity="0.54"/>
+    <circle cx="266.7" cy="200.0" r="5.2" fill="#6ac6ec" opacity="0.17"/>
+    <circle cx="100.0" cy="233.3" r="5.6" fill="#7accee" opacity="0.32"/>
+    <circle cx="133.3" cy="233.3" r="6.4" fill="#96d6f2" opacity="0.54"/>
+    <circle cx="166.7" cy="233.3" r="6.7" fill="#a1dbf3" opacity="0.62"/>
+    <circle cx="200.0" cy="233.3" r="6.4" fill="#96d6f2" opacity="0.54"/>
+    <circle cx="233.3" cy="233.3" r="5.6" fill="#7accee" opacity="0.32"/>
+    <circle cx="133.3" cy="266.7" r="5.2" fill="#6ac6ec" opacity="0.17"/>
+    <circle cx="166.7" cy="266.7" r="5.5" fill="#72c9ed" opacity="0.24"/>
+    <circle cx="200.0" cy="266.7" r="5.2" fill="#6ac6ec" opacity="0.17"/>
+  </g>
+
+  <!-- GWES Wordmark — tight with grid bottom -->
+  <text x="300" y="300" text-anchor="middle" font-family="'Liberation Sans', 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="42" letter-spacing="8" fill="#C8CDD8">GWES</text>
+
+  <!-- Tagline -->
+  <text x="300" y="330" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-weight="400" font-size="13" fill="#FFFFFF" opacity="0.85">The OS for Autonomous Warehouse</text>
+</svg>
