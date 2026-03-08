@@ -1,0 +1,123 @@
+backend:
+  name: github
+  repo: hiratomomiyata/ground-corporate-website
+  branch: main
+
+# Netlify Identity で認証（無料）
+# site_url は Netlify のドメインを設定
+site_url: https://super-pastelito-06a52d.netlify.app
+
+# メディアファイルの保存先
+media_folder: "img"
+public_folder: "/img"
+
+# 日本語UI
+locale: "ja"
+
+# エディター設定
+slug:
+  encoding: "ascii"
+  clean_accents: true
+
+collections:
+  # ===== ニュース記事 =====
+  - name: "news"
+    label: "ニュース"
+    label_singular: "ニュース記事"
+    folder: "_news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "タイトル", name: "title", widget: "string" }
+      - { label: "日付", name: "date", widget: "datetime", format: "YYYY/MM/DD" }
+      - { label: "カテゴリ", name: "category", widget: "select",
+          options: ["プレスリリース", "メディア掲載", "イベント", "お知らせ"] }
+      - { label: "サムネイル画像", name: "thumbnail", widget: "image", required: false }
+      - { label: "本文", name: "body", widget: "markdown" }
+
+  # ===== ブログ記事 (Warehouse Tech Weekly) =====
+  - name: "blog"
+    label: "Warehouse Tech Weekly"
+    label_singular: "ブログ記事"
+    folder: "_blog"
+    create: true
+    slug: "weekly-{{slug}}"
+    fields:
+      - { label: "タイトル", name: "title", widget: "string" }
+      - { label: "Vol.", name: "volume", widget: "number" }
+      - { label: "日付", name: "date", widget: "datetime", format: "YYYY/MM/DD" }
+      - { label: "著者", name: "author", widget: "string", default: "Tomo Miyata" }
+      - { label: "サムネイル画像", name: "thumbnail", widget: "image", required: false }
+      - { label: "本文", name: "body", widget: "markdown" }
+
+  # ===== 導入事例 =====
+  - name: "works"
+    label: "導入事例"
+    label_singular: "事例"
+    folder: "_works"
+    create: true
+    fields:
+      - { label: "クライアント名", name: "title", widget: "string" }
+      - { label: "業種", name: "industry", widget: "string" }
+      - { label: "導入製品", name: "product", widget: "select",
+          options: ["GWES", "デジタルインテグレーション", "コンサルティング", "PEER"] }
+      - { label: "サムネイル画像", name: "thumbnail", widget: "image", required: false }
+      - { label: "概要", name: "summary", widget: "text" }
+      - { label: "本文", name: "body", widget: "markdown" }
+
+  # ===== 固定ページ編集 =====
+  - name: "pages"
+    label: "ページ編集"
+    files:
+      # ── ホームページ ──
+      - label: "ホームページ"
+        name: "home"
+        file: "_data/home.yml"
+        fields:
+          - { label: "ヒーロータイトル", name: "hero_title", widget: "string", default: "Autonomous Warehouse" }
+          - { label: "ヒーローサブタイトル", name: "hero_subtitle", widget: "string", default: "完全自律型物流施設運営へ" }
+          - { label: "Weekly Bar テキスト", name: "weekly_text", widget: "string" }
+          - { label: "Weekly Bar 見出し", name: "weekly_headline", widget: "string" }
+          - label: "ニュースカード"
+            name: "news_cards"
+            widget: "list"
+            max: 3
+            fields:
+              - { label: "タイトル", name: "title", widget: "string" }
+              - { label: "日付", name: "date", widget: "string" }
+              - { label: "カテゴリ", name: "category", widget: "string" }
+              - { label: "画像URL", name: "image", widget: "string" }
+              - { label: "リンク先", name: "url", widget: "string", default: "news.html" }
+
+      # ── 会社情報 ──
+      - label: "会社情報"
+        name: "about"
+        file: "_data/about.yml"
+        fields:
+          - { label: "CEOメッセージタイトル", name: "ceo_title", widget: "string" }
+          - { label: "CEOメッセージ本文", name: "ceo_message", widget: "markdown" }
+          - { label: "CEO名前", name: "ceo_name", widget: "string", default: "宮田 啓友" }
+          - { label: "CEO肩書き", name: "ceo_role", widget: "string", default: "代表取締役社長" }
+          - { label: "会社名", name: "company_name", widget: "string", default: "GROUND株式会社" }
+          - { label: "設立", name: "founded", widget: "string" }
+          - { label: "資本金", name: "capital", widget: "string" }
+          - { label: "所在地", name: "address", widget: "string" }
+          - { label: "代表者", name: "representative", widget: "string" }
+          - { label: "事業内容", name: "business", widget: "text" }
+
+      # ── 採用情報 ──
+      - label: "採用情報"
+        name: "careers"
+        file: "_data/careers.yml"
+        fields:
+          - { label: "ページタイトル", name: "title", widget: "string", default: "採用情報" }
+          - { label: "説明文", name: "description", widget: "markdown" }
+          - label: "募集ポジション"
+            name: "positions"
+            widget: "list"
+            fields:
+              - { label: "ポジション名", name: "title", widget: "string" }
+              - { label: "部署", name: "department", widget: "string" }
+              - { label: "雇用形態", name: "type", widget: "string" }
+              - { label: "説明", name: "description", widget: "text" }
+              - { label: "応募URL", name: "url", widget: "string", required: false }

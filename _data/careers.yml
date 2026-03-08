@@ -1,0 +1,16 @@
+title: "採用情報"
+description: >
+  GROUNDは、物流の未来を変革する仲間を募集しています。
+  テクノロジーで社会に貢献したいエンジニア、コンサルタント、
+  ビジネス開発メンバーを歓迎します。
+positions:
+  - title: "ソフトウェアエンジニア"
+    department: "プロダクト開発部"
+    type: "正社員"
+    description: "GWESの開発・改善を担当するエンジニアを募集"
+    url: ""
+  - title: "物流DXコンサルタント"
+    department: "コンサルティング部"
+    type: "正社員"
+    description: "物流施設の最適化コンサルティングを担当"
+    url: ""
