@@ -3,7 +3,6 @@ backend:
   branch: main
 
 # Netlify Identity で認証（無料）
-# site_url は Netlify のドメインを設定
 site_url: https://super-pastelito-06a52d.netlify.app
 
 # メディアファイルの保存先
@@ -64,6 +63,18 @@ collections:
       - { label: "概要", name: "summary", widget: "text" }
       - { label: "本文", name: "body", widget: "markdown" }
 
+  # ===== デザイン設定 =====
+  - name: "design"
+    label: "デザイン設定"
+    files:
+      - label: "サイトデザイン"
+        name: "design"
+        file: "_data/design.yml"
+        fields:
+          - { label: "ロゴの高さ (px)", name: "logo_height", widget: "number", default: 26, min: 16, max: 80, hint: "ヘッダーロゴの高さ（ピクセル）。標準は26" }
+          - { label: "ロゴ上マージン (px)", name: "logo_margin_top", widget: "number", default: 0, min: -20, max: 20, hint: "ロゴの上方向の位置調整" }
+          - { label: "ロゴ左マージン (px)", name: "logo_margin_left", widget: "number", default: 0, min: -20, max: 40, hint: "ロゴの左方向の位置調整" }
+
   # ===== 固定ページ編集 =====
   - name: "pages"
     label: "ページ編集"
@@ -120,3 +131,259 @@ collections:
               - { label: "雇用形態", name: "type", widget: "string" }
               - { label: "説明", name: "description", widget: "text" }
               - { label: "応募URL", name: "url", widget: "string", required: false }
+
+      # ── 製品・サービス ──
+      - label: "製品・サービス"
+        name: "service"
+        file: "_data/service.yml"
+        fields:
+          - { label: "ヒーローバッジ", name: "hero_badge", widget: "string", default: "Products & Services" }
+          - { label: "ヒーロータイトル", name: "hero_title", widget: "string" }
+          - { label: "ヒーロー説明", name: "hero_description", widget: "text" }
+          - { label: "アプローチラベル", name: "approach_label", widget: "string" }
+          - { label: "アプローチタイトル", name: "approach_title", widget: "string" }
+          - { label: "アプローチ本文", name: "approach_text", widget: "text" }
+          - { label: "ソリューションラベル", name: "solutions_label", widget: "string" }
+          - { label: "ソリューション説明", name: "solutions_description", widget: "text" }
+          - label: "ソリューション一覧"
+            name: "solutions"
+            widget: "list"
+            fields:
+              - { label: "名前", name: "name", widget: "string" }
+
+      # ── GWES ──
+      - label: "GWES"
+        name: "gwes"
+        file: "_data/gwes.yml"
+        fields:
+          - { label: "ヒーロータイトル", name: "hero_title", widget: "string" }
+          - { label: "ヒーローサブタイトル", name: "hero_subtitle", widget: "string" }
+          - { label: "ヒーロー説明", name: "hero_description", widget: "text" }
+          - { label: "コンセプトラベル", name: "concept_label", widget: "string" }
+          - { label: "コンセプト見出し", name: "concept_heading", widget: "string" }
+          - label: "コンセプト特徴"
+            name: "concept_features"
+            widget: "list"
+            field: { label: "特徴", name: "feature", widget: "string" }
+          - label: "コアバリュー"
+            name: "values"
+            widget: "list"
+            field: { label: "バリュー", name: "value", widget: "string" }
+
+      # ── GWESモジュール詳細 ──
+      - label: "GWESモジュール詳細"
+        name: "gwes_detail"
+        file: "_data/gwes_detail.yml"
+        fields:
+          - { label: "ページタイトル", name: "page_title", widget: "string" }
+          - { label: "説明", name: "description", widget: "text" }
+          - label: "レイヤー"
+            name: "layers"
+            widget: "list"
+            fields:
+              - { label: "レイヤー名", name: "name", widget: "string" }
+              - { label: "ラベル", name: "label", widget: "string" }
+              - { label: "説明", name: "description", widget: "text" }
+
+      # ── GWESテクノロジー ──
+      - label: "GWESテクノロジー"
+        name: "gwes_technology"
+        file: "_data/gwes_technology.yml"
+        fields:
+          - { label: "ページタイトル", name: "page_title", widget: "string" }
+          - { label: "ヒーロータイトル", name: "hero_title", widget: "string" }
+          - { label: "ヒーローサブタイトル", name: "hero_subtitle", widget: "string" }
+          - { label: "説明", name: "description", widget: "text" }
+          - label: "テクノロジー"
+            name: "technologies"
+            widget: "list"
+            fields:
+              - { label: "技術名", name: "name", widget: "string" }
+              - { label: "説明", name: "description", widget: "text" }
+
+      # ── GWES導入・効果 ──
+      - label: "GWES導入・効果"
+        name: "gwes_implementation"
+        file: "_data/gwes_implementation.yml"
+        fields:
+          - { label: "ページタイトル", name: "page_title", widget: "string" }
+          - { label: "ヒーロータイトル", name: "hero_title", widget: "string" }
+          - { label: "説明", name: "description", widget: "text" }
+          - label: "導入フェーズ"
+            name: "phases"
+            widget: "list"
+            fields:
+              - { label: "フェーズ名", name: "phase", widget: "string" }
+              - { label: "説明", name: "description", widget: "text" }
+          - label: "主要成果"
+            name: "improvements"
+            widget: "list"
+            fields:
+              - { label: "指標名", name: "metric", widget: "string" }
+              - { label: "数値", name: "value", widget: "string" }
+
+      # ── GWESモジュール一覧 ──
+      - label: "GWESモジュール一覧"
+        name: "gwes_modules"
+        file: "_data/gwes_modules.yml"
+        fields:
+          - { label: "ページタイトル", name: "page_title", widget: "string" }
+          - { label: "説明", name: "description", widget: "text" }
+          - label: "モジュール"
+            name: "modules"
+            widget: "list"
+            fields:
+              - { label: "略称", name: "abbr", widget: "string" }
+              - { label: "モジュール名", name: "name", widget: "string" }
+              - { label: "説明", name: "description", widget: "text" }
+
+      # ── PEER ──
+      - label: "PEER"
+        name: "peer"
+        file: "_data/peer.yml"
+        fields:
+          - { label: "ヒーローバッジ", name: "hero_badge", widget: "string" }
+          - { label: "ヒーロータイトル", name: "hero_title", widget: "string" }
+          - { label: "ヒーローサブタイトル", name: "hero_subtitle", widget: "string" }
+          - { label: "ヒーロー説明", name: "hero_description", widget: "text" }
+          - { label: "製品名", name: "product_name", widget: "string" }
+          - { label: "製品サブタイトル", name: "product_subtitle", widget: "string" }
+          - label: "主要機能"
+            name: "features"
+            widget: "list"
+            fields:
+              - { label: "機能名", name: "title", widget: "string" }
+              - { label: "説明", name: "description", widget: "text" }
+          - label: "スペック"
+            name: "specifications"
+            widget: "object"
+            fields:
+              - { label: "積載量", name: "payload", widget: "string" }
+              - { label: "速度", name: "speed", widget: "string" }
+              - { label: "稼働時間", name: "runtime", widget: "string" }
+              - { label: "充電時間", name: "charging_time", widget: "string" }
+
+      # ── コンサルティング ──
+      - label: "コンサルティング"
+        name: "consulting"
+        file: "_data/consulting.yml"
+        fields:
+          - { label: "ヒーローバッジ", name: "hero_badge", widget: "string" }
+          - { label: "ヒーロータイトル", name: "hero_title", widget: "string" }
+          - { label: "ヒーロー説明", name: "hero_description", widget: "text" }
+          - label: "サービス領域"
+            name: "services"
+            widget: "list"
+            fields:
+              - { label: "サービス名", name: "title", widget: "string" }
+              - { label: "説明", name: "description", widget: "text" }
+          - { label: "GPIM理念", name: "gpim_principle", widget: "text" }
+          - { label: "パートナー名", name: "partner_name", widget: "string" }
+          - { label: "パートナー説明", name: "partner_description", widget: "text" }
+
+      # ── デジタルインテグレーション ──
+      - label: "デジタルインテグレーション"
+        name: "digital_integration"
+        file: "_data/digital_integration.yml"
+        fields:
+          - { label: "ヒーローバッジ", name: "hero_badge", widget: "string" }
+          - { label: "ヒーロータイトル", name: "hero_title", widget: "string" }
+          - { label: "ヒーローサブタイトル", name: "hero_subtitle", widget: "string" }
+          - { label: "ヒーロー説明", name: "hero_description", widget: "text" }
+          - label: "2つの柱"
+            name: "pillars"
+            widget: "list"
+            fields:
+              - { label: "ラベル", name: "label", widget: "string" }
+              - { label: "タイトル", name: "title", widget: "string" }
+              - { label: "説明", name: "description", widget: "text" }
+              - label: "特徴"
+                name: "features"
+                widget: "list"
+                field: { label: "特徴", name: "feature", widget: "string" }
+          - label: "テクノロジースタック"
+            name: "technologies"
+            widget: "list"
+            fields:
+              - { label: "技術名", name: "name", widget: "string" }
+              - { label: "説明", name: "description", widget: "text" }
+
+      # ── GPIM ──
+      - label: "GPIM"
+        name: "gpim"
+        file: "_data/gpim.yml"
+        fields:
+          - { label: "ページラベル", name: "page_label", widget: "string" }
+          - { label: "ページタイトル", name: "page_title", widget: "string" }
+          - { label: "正式名称", name: "page_full_title", widget: "string" }
+          - { label: "説明", name: "page_description", widget: "text" }
+          - label: "GPIMレベル"
+            name: "levels"
+            widget: "list"
+            fields:
+              - { label: "レベル番号", name: "level", widget: "number" }
+              - { label: "レベル名（日本語）", name: "name", widget: "string" }
+              - { label: "レベル名（英語）", name: "en_name", widget: "string" }
+              - { label: "説明", name: "description", widget: "text" }
+          - { label: "GWESとの関係", name: "gwes_relation", widget: "text" }
+
+      # ── お問い合わせ ──
+      - label: "お問い合わせ"
+        name: "contact"
+        file: "_data/contact.yml"
+        fields:
+          - { label: "ページタイトル", name: "page_title", widget: "string" }
+          - { label: "ページ説明", name: "page_description", widget: "text" }
+          - { label: "会社名", name: "company_name", widget: "string" }
+          - { label: "住所", name: "address", widget: "string" }
+          - { label: "電話番号", name: "phone", widget: "string" }
+          - { label: "メールアドレス", name: "email", widget: "string" }
+          - label: "お問い合わせ種別"
+            name: "inquiry_types"
+            widget: "list"
+            fields:
+              - { label: "値", name: "value", widget: "string" }
+              - { label: "表示名", name: "label", widget: "string" }
+
+      # ── ニュース一覧ページ ──
+      - label: "ニュース一覧ページ"
+        name: "news_page"
+        file: "_data/news_page.yml"
+        fields:
+          - { label: "ページラベル", name: "page_label", widget: "string" }
+          - { label: "ページタイトル", name: "page_title", widget: "string" }
+          - { label: "ページ説明", name: "page_description", widget: "text" }
+          - { label: "注目記事タイトル", name: "featured_title", widget: "string" }
+          - { label: "注目記事日付", name: "featured_date", widget: "string" }
+          - { label: "注目記事カテゴリ", name: "featured_category", widget: "string" }
+          - { label: "注目記事概要", name: "featured_excerpt", widget: "text" }
+
+      # ── ブログ一覧ページ ──
+      - label: "ブログ一覧ページ"
+        name: "blog_page"
+        file: "_data/blog_page.yml"
+        fields:
+          - { label: "ページラベル", name: "page_label", widget: "string" }
+          - { label: "ページタイトル", name: "page_title", widget: "string" }
+          - { label: "ページサブタイトル", name: "page_subtitle", widget: "string" }
+          - { label: "ページ説明", name: "page_description", widget: "text" }
+          - { label: "著者名（日本語）", name: "author_name", widget: "string" }
+          - { label: "著者名（英語）", name: "author_en", widget: "string" }
+          - { label: "著者肩書き", name: "author_role", widget: "string" }
+          - { label: "著者紹介", name: "author_bio", widget: "text" }
+
+      # ── 導入事例一覧ページ ──
+      - label: "導入事例一覧ページ"
+        name: "works_page"
+        file: "_data/works_page.yml"
+        fields:
+          - { label: "ページラベル", name: "page_label", widget: "string" }
+          - { label: "ページタイトル", name: "page_title", widget: "string" }
+          - { label: "ページ説明", name: "page_description", widget: "text" }
+          - { label: "注目事例ラベル", name: "featured_label", widget: "string" }
+          - { label: "注目事例タイトル", name: "featured_title", widget: "string" }
+          - { label: "注目事例説明", name: "featured_description", widget: "text" }
+          - { label: "CTAタイトル", name: "cta_title", widget: "string" }
+          - { label: "CTA説明", name: "cta_description", widget: "text" }
+          - { label: "CTAボタン（メイン）", name: "cta_primary_btn", widget: "string" }
+          - { label: "CTAボタン（サブ）", name: "cta_secondary_btn", widget: "string" }

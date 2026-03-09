@@ -1,0 +1,25 @@
+# News page content
+page_label: "News"
+page_title: "ニュース"
+page_description: "プレスリリース、メディア掲載、イベント情報など、GROUND Inc.の最新情報をお届けします。"
+
+# Filter categories
+filter_categories:
+  - id: "all"
+    label: "All"
+    active: true
+  - id: "press"
+    label: "Press Release"
+  - id: "media"
+    label: "Media"
+  - id: "product"
+    label: "Product"
+  - id: "event"
+    label: "Event"
+
+# Featured news item
+featured_date: "2025.07.29"
+featured_category: "Press Release"
+featured_title: "GROUND、自律型協働ロボット「PEER 100」をオートバックスセブンへ導入"
+featured_excerpt: "オートバックスセブンの物流センターへ自律型協働ロボット「PEER 100」を導入。ピッキング生産性が約2倍に向上しました。"
+featured_link: "記事を読む"

@@ -1,0 +1,15 @@
+# GWES Detail page content
+page_title: "GWESモジュール詳細"
+description: "GWESの3レイヤー・12モジュール構成を段階的に導入することで、物流施設全体の最適化を実現します。"
+
+# Module categories
+layers:
+  - name: "インフラストラクチャレイヤー"
+    label: "INFRA"
+    description: "基盤システム統合・データ管理"
+  - name: "最適化レイヤー"
+    label: "L2"
+    description: "動線最適化・需要予測"
+  - name: "自律化レイヤー"
+    label: "L4"
+    description: "AI・数理最適化による自動意思決定"

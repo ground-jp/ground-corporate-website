@@ -1,0 +1,28 @@
+# GWES Modules page content
+page_title: "GWESモジュール一覧"
+description: "GWESは3レイヤー・12モジュール構成により、物流施設の段階的な最適化を実現します。"
+
+# Module architecture overview
+architecture:
+  infra_layer: "インフラストラクチャレイヤー"
+  l2_layer: "最適化レイヤー"
+  l4_layer: "自律化レイヤー"
+
+# Module listing
+modules:
+  - abbr: "DI"
+    name: "Data Integration"
+    layers: ["INFRA"]
+    description: "既存システムとのシームレスな連携基盤"
+  - abbr: "VI"
+    name: "Visibility & Intelligence"
+    layers: ["INFRA", "L2"]
+    description: "リアルタイム可視化と分析"
+  - abbr: "OP"
+    name: "Optimization Planning"
+    layers: ["L2", "L4"]
+    description: "動線最適化と計画生成"
+  - abbr: "RM"
+    name: "Resource Management"
+    layers: ["L2", "L4"]
+    description: "人員・ロボット統合管理"

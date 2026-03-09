@@ -1,0 +1,20 @@
+# Blog page content
+page_label: "WAREHOUSE TECH WEEKLY"
+page_title: "WAREHOUSE TECH WEEKLY"
+page_subtitle: "Global Insights by Tomo Miyata"
+page_description: "物流テクノロジーのグローバルトレンドを、GROUND創業者・宮田啓友が独自の視点で毎週解説。倉庫自動化、AI、ロボティクス、サプライチェーンDXの最前線。"
+
+# Author information
+author_name: "宮田 啓友"
+author_en: "Tomo Miyata"
+author_role: "GROUND CEO & Founder"
+author_bio: "物流テクノロジー業界の第一人者。倉庫自動化、AI、ロボティクス、サプライチェーンDXの最新トレンドを毎週発信。"
+author_stats:
+  - label: "Episodes"
+    value: "150+"
+  - label: "Readers"
+    value: "50K+"
+
+# Featured section
+featured_label: "Featured"
+featured_section_title: "最新エピソード"

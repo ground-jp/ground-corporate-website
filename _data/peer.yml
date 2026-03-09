@@ -1,0 +1,27 @@
+# PEER page content
+hero_badge: "自律協調型ロボット"
+hero_title: "PEER"
+hero_subtitle: "PEER 100"
+hero_description: "SLAM技術とAIで自律走行する協働型搬送ロボット（AMR）です。ピッキング生産性を最大2倍に向上させ、人と協働し、物流施設のオペレーションを変革します。"
+
+# Product name
+product_name: "PEER 100"
+product_subtitle: "自律型協働ロボット（AMR）"
+
+# Key features
+features:
+  - title: "自律走行"
+    description: "SLAM技術による環境認識と自動経路生成"
+  - title: "人と協働"
+    description: "安全機構により人との協働作業を実現"
+  - title: "生産性向上"
+    description: "ピッキング生産性を最大2倍に向上"
+  - title: "導入しやすい"
+    description: "RaaS（Robot as a Service）モデルで初期投資を削減"
+
+# Specifications
+specifications:
+  payload: "最大100kg"
+  speed: "最大1.5m/s"
+  runtime: "最大8時間連続稼働"
+  charging_time: "30分で80%充電"

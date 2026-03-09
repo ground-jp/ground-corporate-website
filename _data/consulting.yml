@@ -1,0 +1,22 @@
+# Consulting & Engineering page content
+hero_badge: "Consulting & Engineering"
+hero_title: "コンサルティング＆エンジニアリング"
+hero_description: "物流施設の設計・運用最適化コンサルティング。現場の課題を可視化し、テクノロジーを活用した改善策を提案します。"
+
+# Service areas
+services:
+  - title: "物流戦略策定"
+    description: "拠点ネットワーク最適化と自動化戦略の立案"
+  - title: "施設設計・エンジニアリング"
+    description: "レイアウト設計からマテハン導入計画まで"
+  - title: "オペレーション設計"
+    description: "業務フロー標準化と運用体制構築"
+  - title: "デジタル化支援"
+    description: "システム導入と運用プロセス最適化"
+
+# GPIM approach
+gpim_principle: "GROUND Process Improvement Methodology（GPIM）に基づいた段階的な改善を支援します。物流施設の運営を5つのレベルで段階的に進化させることで、確実な成果を創出します。"
+
+# Partners
+partner_name: "コーネンコンサルティング"
+partner_description: "日本有数の物流コンサルティング企業との連携により、戦略から実行までを一貫してサポートします。"

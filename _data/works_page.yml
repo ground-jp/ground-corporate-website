@@ -1,0 +1,27 @@
+# Works (Case Studies) page content
+page_label: "Case Studies"
+page_title: "導入事例"
+page_description: "大手3PL事業者、製造業、小売・EC企業など、多様な業種・規模の物流現場において、GWESおよびPEERシリーズが課題解決と定量的な成果を創出しています。"
+
+# Featured cases section
+featured_label: "Featured Cases"
+featured_title: "主要導入事例"
+featured_description: "AIを活用した物流施設統合管理・最適化システム「GWES」および自律型協働ロボット「PEER」シリーズの導入により、生産性向上・コスト低減を実現した事例をご紹介します。"
+
+# Case study list preview
+cases_overview:
+  - order: 1
+    product: "GWES"
+    company: "花王株式会社"
+  - order: 2
+    product: "GWES"
+    company: "日本通運"
+  - order: 3
+    product: "PEER"
+    company: "オートバックスセブン"
+
+# CTA section
+cta_title: "導入のご相談"
+cta_description: "物流DX、自動化、最適化に関するご相談は、GROUNDにお気軽にお問い合わせください。"
+cta_primary_btn: "お問い合わせ"
+cta_secondary_btn: "資料請求"

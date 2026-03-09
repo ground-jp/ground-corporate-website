@@ -1,0 +1,31 @@
+# Contact page content
+page_title: "Contact Us"
+page_description: "製品のご相談、導入に関するご質問など、お気軽にご連絡ください。"
+
+# Contact info
+company_name: "GROUND株式会社"
+address: "〒101-0041 東京都千代田区神田須田町1-3-33 Bizflex神田 10F"
+phone: "03-6457-1650"
+email: "Info@groundinc.co.jp"
+
+# Form labels
+form_labels:
+  company: "会社名"
+  name: "お名前"
+  email: "メールアドレス"
+  phone: "電話番号"
+  inquiry_type: "お問い合わせ種別"
+  message: "お問い合わせ内容"
+
+# Inquiry types
+inquiry_types:
+  - value: "solution"
+    label: "ソリューション導入のご相談"
+  - value: "consulting"
+    label: "コンサルティングのご依頼"
+  - value: "careers"
+    label: "採用に関するお問い合わせ"
+  - value: "media"
+    label: "メディア・取材のご依頼"
+  - value: "other"
+    label: "その他"

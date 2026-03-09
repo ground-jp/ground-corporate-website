@@ -1,0 +1,22 @@
+# GWES Implementation page content
+page_title: "導入・効果"
+hero_title: "導入・効果"
+description: "GWESの導入により、データドリブンな意思決定の定着と、定量的な生産性向上を実現できます。"
+
+# Implementation phases
+phases:
+  - phase: "現状分析・課題抽出"
+    description: "物流施設のオペレーションを徹底分析し、改善機会を可視化"
+  - phase: "システム設計・構築"
+    description: "GPIMに基づいた段階的な導入計画を策定・実行"
+  - phase: "運用最適化"
+    description: "データ分析による継続的な改善と最適化の推進"
+
+# Key metrics
+improvements:
+  - metric: "生産性向上"
+    value: "最大40%"
+  - metric: "コスト削減"
+    value: "最大30%"
+  - metric: "リードタイム短縮"
+    value: "最大25%"

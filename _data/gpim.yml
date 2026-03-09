@@ -1,0 +1,35 @@
+# GPIM page content
+page_label: "Our Methodology"
+page_title: "GPIM"
+page_full_title: "GROUND Process Improvement Methodology"
+page_description: "物流施設の運営を段階的に進化させる、GROUND独自の改善メソドロジー。5つのレベルを正しい順序で踏むことで、物流DXを確実に実現します。"
+
+# GPIM Levels
+levels:
+  - level: 1
+    name: "体系化"
+    en_name: "Systematization"
+    description: "業務構造の整理・標準化。現場のナレッジを可視化し、運用を体系化します。"
+  
+  - level: 2
+    name: "可視化"
+    en_name: "Visualization"
+    description: "データによる定量的把握。KPIダッシュボード構築で現状を可視化。"
+  
+  - level: 3
+    name: "自動化"
+    en_name: "Automation"
+    description: "マテハン・ロボット活用。マテリアルハンドリング自動化で生産性向上。"
+  
+  - level: 4
+    name: "最適化"
+    en_name: "Optimization"
+    description: "AI・数理最適化。複雑な制約条件下での最適計画生成。"
+  
+  - level: 5
+    name: "自律化"
+    en_name: "Autonomization"
+    description: "完全自律運用。施設全体の自律的な意思決定と実行。"
+
+# GWES and GPIM relationship
+gwes_relation: "GWESは、GPIMのレベル1からレベル5までを段階的に実装・活用することで、物流施設全体の最適化を実現するプラットフォームです。"

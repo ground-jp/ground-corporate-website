@@ -1,0 +1,36 @@
+# Digital Integration page content
+hero_badge: "Digital Integration"
+hero_title: "デジタルインテグレーション"
+hero_subtitle: "System Integration"
+hero_description: "既存のWMS・ERP・各種マテハンシステムとGWESをシームレスに接続し、施設横断のデータ統合を実現。サイロ化した情報を一元化し、拠点全体を俯瞰したオペレーション管理を可能にします。"
+
+# Two pillars
+pillars:
+  - label: "System Integration"
+    title: "システムインテグレーション"
+    description: "既存システムとの統合・連携を実現"
+    features:
+      - "API連携基盤"
+      - "WMS連携"
+      - "マテハン制御統合"
+      - "リアルタイムデータ同期"
+  
+  - label: "Digital Optimization"
+    title: "デジタル最適化"
+    description: "データドリブンな意思決定を支援"
+    features:
+      - "リアルタイム分析"
+      - "ダッシュボード提供"
+      - "異常検知"
+      - "予測分析"
+
+# Technology stack
+technologies:
+  - name: "API Integration"
+    description: "REST/GraphQL による柔軟なAPI接続"
+  - name: "Data Warehouse"
+    description: "大規模データの統合・管理"
+  - name: "Real-time Processing"
+    description: "ストリーミングデータのリアルタイム処理"
+  - name: "Analytics Platform"
+    description: "分析・BI機能の提供"

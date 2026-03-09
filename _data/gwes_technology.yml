@@ -1,0 +1,16 @@
+# GWES Technology page content
+page_title: "テクノロジー・プラットフォーム"
+hero_title: "GWES テクノロジー"
+hero_subtitle: "独自アルゴリズムで物流を知能化"
+description: "GWES のテクノロジー・プラットフォームは、4つの独自アルゴリズム（数理最適化、LLM、識別回帰モデル、時系列分析）により物流施設の知能化を実現します。"
+
+# Key technologies
+technologies:
+  - name: "数理最適化"
+    description: "複雑な制約条件下での最適な物流運用計画を自動生成"
+  - name: "大規模言語モデル（LLM）"
+    description: "自然言語による問い合わせと異常検知"
+  - name: "識別回帰モデル"
+    description: "作業量予測と精度向上"
+  - name: "時系列分析"
+    description: "需要予測と季節性の分析"

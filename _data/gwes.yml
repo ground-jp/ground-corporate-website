@@ -1,0 +1,21 @@
+# GWES page content
+hero_title: "GWES"
+hero_subtitle: "GROUND Warehouse Execution System"
+hero_description: "物流施設全体の運営を俯瞰し、最適化・自律化を推進する「物流OS」。WMSが作業指示を制御する実行系システムであるのに対し、GWESは施設全体の管理・意思決定を担います。3レイヤー・12モジュール構成で、GPIMに基づく段階的な導入が可能です。"
+
+# Key concept
+concept_label: "Concept"
+concept_heading: "物流OSとしてのGWES"
+concept_features:
+  - "リアルタイム可視化"
+  - "動線最適化"
+  - "人員・ロボット統合管理"
+  - "需要予測"
+  - "WMS連携"
+
+# Core values
+values:
+  - "リアルタイム最適化"
+  - "データドリブン意思決定"
+  - "人とロボットの統合管理"
+  - "段階的な導入・進化"
