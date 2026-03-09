@@ -1,20 +1,211 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GROUND Inc. | コンテンツ管理</title>
-  <!-- Netlify Identity Widget (認証用 - CMSより先に読み込む) -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <style>
-    /* CMS管理画面のカスタムスタイル */
-    [data-slate-editor] {
-      font-family: 'Inter', 'Noto Sans JP', sans-serif !important;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GDE — GROUND Design Editor</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230A0C14'/><text x='16' y='22' text-anchor='middle' font-family='Inter,sans-serif' font-weight='700' font-size='16' fill='%233B82F6'>G</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0A0C14;--surface:#161822;--surface2:#1e2030;--border:#2a2d3a;
+  --accent:#3B82F6;--accent-hover:#2563EB;--accent-glow:rgba(59,130,246,0.15);
+  --text:#e0e0e0;--text-dim:#8a8c9a;--text-bright:#fff;
+  --success:#22c55e;--warning:#f59e0b;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* ── BG Grid Pattern ── */
+.bg-grid{position:fixed;inset:0;background-image:
+  linear-gradient(rgba(59,130,246,0.03) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(59,130,246,0.03) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none;z-index:0}
+.bg-glow{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:600px;
+  background:radial-gradient(ellipse,rgba(59,130,246,0.08) 0%,transparent 70%);pointer-events:none;z-index:0}
+
+/* ── Nav ── */
+.nav{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(10,12,20,0.85);
+  backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:100;
+  display:flex;align-items:center;padding:0 32px}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo{width:32px;height:32px;background:linear-gradient(135deg,#3B82F6,#60A5FA);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:16px;color:#fff;letter-spacing:-0.5px}
+.nav-title{font-size:14px;font-weight:600;color:var(--text-bright);letter-spacing:0.02em}
+.nav-subtitle{font-size:10px;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase;margin-top:1px}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:16px}
+.nav-link{font-size:12px;color:var(--text-dim);text-decoration:none;transition:color 0.2s}
+.nav-link:hover{color:var(--text-bright)}
+.nav-version{font-size:10px;color:var(--text-dim);font-family:'JetBrains Mono',monospace;
+  background:var(--surface);padding:3px 8px;border-radius:4px;border:1px solid var(--border)}
+
+/* ── Hero ── */
+.hero{position:relative;z-index:1;padding:140px 32px 80px;text-align:center;max-width:720px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-glow);
+  border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:5px 14px;
+  font-size:11px;font-weight:500;color:var(--accent);margin-bottom:24px;letter-spacing:0.02em}
+.hero-badge .dot{width:6px;height:6px;background:var(--success);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero h1{font-size:48px;font-weight:700;color:var(--text-bright);line-height:1.1;letter-spacing:-0.03em;margin-bottom:16px}
+.hero h1 span{background:linear-gradient(135deg,#3B82F6,#60A5FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:16px;color:var(--text-dim);line-height:1.7;max-width:500px;margin:0 auto 40px}
+
+/* ── CTA ── */
+.cta-group{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cta{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:10px;
+  font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s;cursor:pointer;border:none;font-family:inherit}
+.cta-primary{background:var(--accent);color:#fff;box-shadow:0 4px 20px rgba(59,130,246,0.3)}
+.cta-primary:hover{background:var(--accent-hover);transform:translateY(-1px);box-shadow:0 6px 28px rgba(59,130,246,0.4)}
+.cta-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.cta-secondary:hover{border-color:var(--accent);color:var(--text-bright)}
+.cta svg{width:16px;height:16px}
+
+/* ── Features Grid ── */
+.features{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:40px 32px 80px}
+.features-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;
+  color:var(--text-dim);text-align:center;margin-bottom:32px}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feature-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:24px;transition:all 0.2s}
+.feature-card:hover{border-color:rgba(59,130,246,0.3);transform:translateY(-2px);
+  box-shadow:0 8px 30px rgba(0,0,0,0.2)}
+.feature-icon{width:40px;height:40px;background:var(--accent-glow);border:1px solid rgba(59,130,246,0.15);
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:18px;margin-bottom:14px}
+.feature-card h3{font-size:14px;font-weight:600;color:var(--text-bright);margin-bottom:6px}
+.feature-card p{font-size:12px;color:var(--text-dim);line-height:1.6}
+
+/* ── Quick Start ── */
+.quick-start{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:0 32px 80px}
+.qs-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:32px;text-align:center}
+.qs-card h2{font-size:18px;font-weight:600;color:var(--text-bright);margin-bottom:8px}
+.qs-card p{font-size:13px;color:var(--text-dim);line-height:1.7;margin-bottom:20px}
+.qs-steps{display:flex;gap:24px;justify-content:center;text-align:left;flex-wrap:wrap}
+.qs-step{display:flex;gap:12px;align-items:flex-start}
+.qs-num{width:28px;height:28px;background:var(--accent-glow);border:1px solid rgba(59,130,246,0.2);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:var(--accent);flex-shrink:0}
+.qs-text{font-size:12px;color:var(--text-dim);line-height:1.5}
+.qs-text strong{color:var(--text);font-weight:500}
+
+/* ── Footer ── */
+.footer{position:relative;z-index:1;text-align:center;padding:24px 32px;border-top:1px solid var(--border)}
+.footer p{font-size:11px;color:var(--text-dim)}
+.footer a{color:var(--accent);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+/* ── Responsive ── */
+@media(max-width:768px){
+  .hero h1{font-size:32px}
+  .features-grid{grid-template-columns:1fr}
+  .qs-steps{flex-direction:column}
+  .nav{padding:0 16px}
+  .hero,.features,.quick-start{padding-left:16px;padding-right:16px}
+}
+</style>
 </head>
 <body>
-  <!-- Decap CMS (bodyの中で読み込む) -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<!-- ── Navigation ── -->
+<nav class="nav">
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo">G</div>
+    <div>
+      <div class="nav-title">GDE</div>
+      <div class="nav-subtitle">Ground Design Editor</div>
+    </div>
+  </a>
+  <div class="nav-right">
+    <a href="../index.html" class="nav-link">コーポレートサイト →</a>
+    <span class="nav-version">v1.0</span>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    ブラウザで動作 — インストール不要
+  </div>
+  <h1>GROUND <span>Design Editor</span></h1>
+  <p>コーポレートサイトのデザインをブラウザ上で直感的に編集。コードの知識は不要です。</p>
+  <div class="cta-group">
+    <a href="design-editor.html" class="cta cta-primary">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      エディターを開く
+    </a>
+    <a href="#features" class="cta cta-secondary">機能を見る</a>
+  </div>
+</section>
+
+<!-- ── Features ── -->
+<section class="features" id="features">
+  <div class="features-title">主な機能</div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🖱️</div>
+      <h3>ドラッグ＆ドロップ</h3>
+      <p>要素をクリックして選択し、そのままドラッグで位置を調整。直感的な操作で自由にレイアウトを変更できます。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">✏️</div>
+      <h3>テキスト直接編集</h3>
+      <p>テキスト要素をダブルクリックするだけで、その場で内容を書き換え。ページを離れることなく文言を更新。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎨</div>
+      <h3>カラー＆スタイル</h3>
+      <p>カラーピッカーとスライダーで色、フォントサイズ、余白、角丸などのプロパティをリアルタイム調整。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📐</div>
+      <h3>リサイズ＆比率維持</h3>
+      <p>四隅のハンドルでアスペクト比を維持しながらリサイズ。画像やカードのサイズ調整が簡単。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <h3>レスポンシブプレビュー</h3>
+      <p>デスクトップ・タブレット・モバイルの表示切り替え。各デバイスでの見え方をリアルタイムに確認。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💾</div>
+      <h3>HTML直接保存</h3>
+      <p>編集内容はHTMLファイルに直接反映。変更したファイルをダウンロードしてデプロイするだけ。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Quick Start ── -->
+<section class="quick-start">
+  <div class="qs-card">
+    <h2>クイックスタート</h2>
+    <p>3ステップで編集を始められます</p>
+    <div class="qs-steps">
+      <div class="qs-step">
+        <div class="qs-num">1</div>
+        <div class="qs-text"><strong>ページを選択</strong><br>上部のドロップダウンから編集したいページを選びます</div>
+      </div>
+      <div class="qs-step">
+        <div class="qs-num">2</div>
+        <div class="qs-text"><strong>要素をクリック</strong><br>変更したい箇所をクリックして選択、サイドパネルで調整</div>
+      </div>
+      <div class="qs-step">
+        <div class="qs-num">3</div>
+        <div class="qs-text"><strong>保存してデプロイ</strong><br>「保存」ボタンでHTMLをダウンロード、サイトに反映</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <p>GDE v1.0 — Built for <a href="../index.html">GROUND Inc.</a></p>
+</footer>
+
 </body>
 </html>
