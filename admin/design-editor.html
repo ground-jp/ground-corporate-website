@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GDE — GROUND Design Editor</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230A0C14'/><text x='16' y='22' text-anchor='middle' font-family='Inter,sans-serif' font-weight='700' font-size='16' fill='%233B82F6'>G</text></svg>">
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -103,7 +104,14 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 .color-apply-btn:hover { background: #7ad0f5; }
 .save-btn { padding: 4px 14px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; background: linear-gradient(135deg, #28a745, #20c997); color: #fff; border-radius: 6px; font-family: inherit; transition: all 0.2s; white-space: nowrap; animation: savePulse 2s infinite; }
 .save-btn:hover { background: linear-gradient(135deg, #218838, #1abc9c); transform: scale(1.05); }
+.save-btn:disabled { opacity: 0.5; cursor: not-allowed; animation: none; transform: none; }
 @keyframes savePulse { 0%,100% { box-shadow: 0 0 0 0 rgba(40,167,69,0.4); } 50% { box-shadow: 0 0 8px 3px rgba(40,167,69,0.3); } }
+.dl-btn { padding: 4px 10px; font-size: 11px; font-weight: 500; cursor: pointer; border: 1px solid #2a2d3a; background: #1e2030; color: #a0a3b0; border-radius: 6px; font-family: inherit; transition: all 0.2s; white-space: nowrap; }
+.dl-btn:hover { border-color: #5BC0EB; color: #5BC0EB; }
+.auth-btn { padding: 4px 10px; font-size: 11px; font-weight: 500; cursor: pointer; border: 1px solid #2a2d3a; background: #1e2030; color: #a0a3b0; border-radius: 5px; font-family: inherit; transition: all 0.2s; white-space: nowrap; }
+.auth-btn:hover { border-color: #5BC0EB; color: #5BC0EB; }
+.auth-btn.logged-in { border-color: #28a745; color: #28a745; }
+.auth-btn.logged-in:hover { border-color: #dc3545; color: #dc3545; }
 
 /* ── ドラッグ選択ボックス・ハンドル ── */
 .drag-box { position: absolute; border: 2px solid #5BC0EB; pointer-events: none; z-index: 6; display: none; }
@@ -359,7 +367,9 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
         <button class="mode-btn" id="modePreview" title="ページを通常操作（ナビゲーション等）">👁 操作</button>
       </div>
       <span class="click-mode-hint" id="modeHint">✏️ 要素をクリックで選択</span>
-      <button id="savePageBtn" class="save-btn" style="display:none;">💾 保存</button>
+      <button id="dlPageBtn" class="dl-btn" style="display:none;" title="HTMLファイルとしてダウンロード">⬇ DL</button>
+      <button id="savePageBtn" class="save-btn" style="display:none;">💾 ページ保存</button>
+      <button id="authBtn" class="auth-btn" title="Netlify Identity でログイン">🔑 ログイン</button>
     </div>
     <div class="preview-frame" id="previewFrameWrap">
       <iframe id="previewFrame" src="/"></iframe>
@@ -411,16 +421,84 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
   }
   function updateSaveButton() {
     var btn = document.getElementById('savePageBtn');
+    var dlBtn = document.getElementById('dlPageBtn');
     if (!btn) return;
     var count = Object.keys(pendingChanges).length;
     if (count > 0) {
       btn.style.display = '';
+      if (dlBtn) dlBtn.style.display = '';
       btn.textContent = '💾 ページ保存';
       btn.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
     } else {
       btn.style.display = 'none';
+      if (dlBtn) dlBtn.style.display = 'none';
     }
   }
+
+  // ── Netlify Identity 認証管理 ──
+  var netlifyIdentity = window.netlifyIdentity;
+  var authBtn = document.getElementById('authBtn');
+
+  function getGitToken() {
+    try {
+      if (netlifyIdentity) {
+        var user = netlifyIdentity.currentUser();
+        if (user) {
+          return user.token.access_token;
+        }
+      }
+      // フォールバック: localStorage
+      var stored = JSON.parse(localStorage.getItem('gotrue.user'));
+      if (stored && stored.token && stored.token.access_token) return stored.token.access_token;
+    } catch(e) {}
+    return null;
+  }
+
+  function refreshToken() {
+    return new Promise(function(resolve, reject) {
+      if (!netlifyIdentity) { reject('no identity'); return; }
+      var user = netlifyIdentity.currentUser();
+      if (!user) { reject('not logged in'); return; }
+      user.jwt().then(function(token) {
+        resolve(token);
+      }).catch(reject);
+    });
+  }
+
+  function updateAuthUI() {
+    if (!authBtn) return;
+    var user = netlifyIdentity && netlifyIdentity.currentUser();
+    if (user) {
+      authBtn.textContent = '✓ ' + (user.email || 'ログイン中');
+      authBtn.className = 'auth-btn logged-in';
+      authBtn.title = 'クリックでログアウト';
+    } else {
+      authBtn.textContent = '🔑 ログイン';
+      authBtn.className = 'auth-btn';
+      authBtn.title = 'Netlify Identity でログイン（保存に必要）';
+    }
+  }
+
+  if (authBtn) {
+    authBtn.addEventListener('click', function() {
+      if (!netlifyIdentity) { showStatus('⚠️ 認証システムの読み込みに失敗しました', true); return; }
+      var user = netlifyIdentity.currentUser();
+      if (user) {
+        netlifyIdentity.logout();
+      } else {
+        netlifyIdentity.open();
+      }
+    });
+  }
+
+  if (netlifyIdentity) {
+    netlifyIdentity.on('login', function() { updateAuthUI(); showStatus('✓ ログインしました'); });
+    netlifyIdentity.on('logout', function() { updateAuthUI(); showStatus('ログアウトしました'); });
+    netlifyIdentity.on('init', function() { updateAuthUI(); });
+    // 初期化
+    netlifyIdentity.init({ APIUrl: 'https://super-pastelito-06a52d.netlify.app/.netlify/identity' });
+  }
+  updateAuthUI();
 
   // ── 初期設定読み込み ──
   fetch('/_data/design.yml')
@@ -1480,59 +1558,61 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     }, 300);
   });
 
-  // ── ページ保存ボタン（要素スタイル変更をHTMLに保存）──
-  document.getElementById('savePageBtn').addEventListener('click', function() {
-    try {
-      var doc = frame.contentDocument || frame.contentWindow.document;
-      if (!doc) { showStatus('⚠️ ページが読み込まれていません', true); return; }
-
-      // design-editor-overrides の style タグを取得
-      var overrideStyle = doc.getElementById('design-editor-overrides');
-
-      // data-de-id 属性をクリーンアップ（保存後に不要）
-      // ただし、インラインスタイルは残す
-      // overrideStyleの中身をまとめてページの<head>内の<style>に統合
-      if (overrideStyle) {
-        // 既存の editor-saved-styles があれば統合
-        var savedStyle = doc.getElementById('editor-saved-styles');
-        if (!savedStyle) {
-          savedStyle = doc.createElement('style');
-          savedStyle.id = 'editor-saved-styles';
-          doc.head.appendChild(savedStyle);
-        }
-        savedStyle.textContent += '\n' + overrideStyle.textContent;
-        overrideStyle.remove();
+  // ── HTML取得（保存・ダウンロード共通）──
+  function getEditedHtml() {
+    var doc = frame.contentDocument || frame.contentWindow.document;
+    if (!doc) return null;
+    // design-editor-overrides を editor-saved-styles に統合
+    var overrideStyle = doc.getElementById('design-editor-overrides');
+    if (overrideStyle) {
+      var savedStyle = doc.getElementById('editor-saved-styles');
+      if (!savedStyle) {
+        savedStyle = doc.createElement('style');
+        savedStyle.id = 'editor-saved-styles';
+        doc.head.appendChild(savedStyle);
       }
+      savedStyle.textContent += '\n' + overrideStyle.textContent;
+      overrideStyle.remove();
+    }
+    return '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+  }
 
-      // HTMLを取得
-      var html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+  function getFilePath() {
+    var pagePath = document.getElementById('pageSelect').value;
+    return pagePath.startsWith('/') ? pagePath.substring(1) : pagePath;
+  }
 
-      // data-de-id は保持（再編集時に必要）
+  // ── ページ保存ボタン（Git Gateway で上書き保存、ダウンロードしない）──
+  document.getElementById('savePageBtn').addEventListener('click', function() {
+    var btn = this;
+    try {
+      var html = getEditedHtml();
+      if (!html) { showStatus('⚠️ ページが読み込まれていません', true); return; }
 
-      // Netlify Git Gateway で保存を試行
       var pagePath = document.getElementById('pageSelect').value;
-      var filePath = pagePath.startsWith('/') ? pagePath.substring(1) : pagePath;
+      var filePath = getFilePath();
 
-      var token = null;
-      try {
-        var user = JSON.parse(localStorage.getItem('gotrue.user'));
-        if (user && user.token && user.token.access_token) token = user.token.access_token;
-      } catch(e) {}
-
-      if (token) {
+      // トークンを refreshToken() で取得（期限切れ対策）
+      refreshToken().then(function(token) {
         var siteUrl = 'https://super-pastelito-06a52d.netlify.app';
-        showStatus('💾 保存中...');
-        fetch(siteUrl + '/.netlify/git/github/contents/' + filePath, {
+        btn.disabled = true;
+        btn.textContent = '💾 保存中...';
+        showStatus('💾 ' + filePath + ' を保存中...');
+
+        return fetch(siteUrl + '/.netlify/git/github/contents/' + filePath, {
           method: 'GET',
           headers: { 'Authorization': 'Bearer ' + token }
         })
-        .then(function(r) { return r.json(); })
+        .then(function(r) {
+          if (!r.ok) throw new Error('ファイル情報の取得に失敗 (' + r.status + ')');
+          return r.json();
+        })
         .then(function(data) {
           return fetch(siteUrl + '/.netlify/git/github/contents/' + filePath, {
             method: 'PUT',
             headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              message: 'Update ' + filePath + ' via design editor',
+              message: 'Update ' + filePath + ' via GDE',
               content: btoa(unescape(encodeURIComponent(html))),
               sha: data.sha
             })
@@ -1544,23 +1624,39 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
             updateSaveButton();
             showStatus('✓ ' + filePath + ' を保存しました！');
           } else {
-            showStatus('⚠️ 保存に失敗しました。ダウンロードで保存します。', true);
-            downloadHtml(html, filePath);
+            return r.text().then(function(body) {
+              throw new Error('保存API失敗 (' + r.status + '): ' + body.substring(0, 100));
+            });
           }
-        })
-        .catch(function() {
-          showStatus('⚠️ Git保存に失敗。ダウンロードで保存します。', true);
-          downloadHtml(html, filePath);
         });
-      } else {
-        // トークンがない場合はダウンロードで保存
-        downloadHtml(html, filePath);
-        delete pendingChanges[pagePath];
+      }).catch(function(err) {
+        var msg = (typeof err === 'string') ? err : (err.message || '不明なエラー');
+        if (msg === 'not logged in' || msg === 'no identity') {
+          showStatus('⚠️ 保存するにはログインが必要です。右上の「🔑 ログイン」ボタンからログインしてください。', true);
+          if (netlifyIdentity) netlifyIdentity.open();
+        } else {
+          showStatus('⚠️ 保存に失敗: ' + msg, true);
+        }
+      }).finally(function() {
+        btn.disabled = false;
         updateSaveButton();
-        showStatus('💾 ファイルをダウンロードしました。サイトに反映するにはファイルを置き換えてください。');
-      }
+      });
     } catch(e) {
       showStatus('⚠️ 保存エラー: ' + e.message, true);
+      btn.disabled = false;
+    }
+  });
+
+  // ── ダウンロードボタン（HTMLファイルとしてダウンロード）──
+  document.getElementById('dlPageBtn').addEventListener('click', function() {
+    try {
+      var html = getEditedHtml();
+      if (!html) { showStatus('⚠️ ページが読み込まれていません', true); return; }
+      var filePath = getFilePath();
+      downloadHtml(html, filePath);
+      showStatus('⬇ ' + filePath.split('/').pop() + ' をダウンロードしました');
+    } catch(e) {
+      showStatus('⚠️ ダウンロードエラー: ' + e.message, true);
     }
   });
 
@@ -1613,40 +1709,37 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     yaml += 'footer_bg_color: "' + settings.footer_bg_color + '"\n';
     yaml += 'footer_text_color: "' + settings.footer_text_color + '"\n';
 
-    var token = null;
-    try {
-      var user = JSON.parse(localStorage.getItem('gotrue.user'));
-      if (user && user.token && user.token.access_token) token = user.token.access_token;
-    } catch(e) {}
-
-    if (!token) {
-      showStatus('⚠️ ログインが必要です。CMS からログインしてください。', true);
-      window.open('/admin/', '_blank');
-      return;
-    }
-
-    var siteUrl = 'https://super-pastelito-06a52d.netlify.app';
-    fetch(siteUrl + '/.netlify/git/github/contents/_data/design.yml', {
-      method: 'GET',
-      headers: { 'Authorization': 'Bearer ' + token }
-    })
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
+    refreshToken().then(function(token) {
+      var siteUrl = 'https://super-pastelito-06a52d.netlify.app';
+      showStatus('💾 設定を保存中...');
       return fetch(siteUrl + '/.netlify/git/github/contents/_data/design.yml', {
-        method: 'PUT',
-        headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: 'Update design settings via visual editor', content: btoa(unescape(encodeURIComponent(yaml))), sha: data.sha })
+        method: 'GET',
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        return fetch(siteUrl + '/.netlify/git/github/contents/_data/design.yml', {
+          method: 'PUT',
+          headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: 'Update design settings via GDE', content: btoa(unescape(encodeURIComponent(yaml))), sha: data.sha })
+        });
+      })
+      .then(function(r) {
+        if (r.ok) {
+          showStatus('✓ 設定を保存しました！');
+          originalSettings = JSON.parse(JSON.stringify(settings));
+        } else {
+          showStatus('⚠️ 設定の保存に失敗しました。再度ログインしてください。', true);
+        }
       });
-    })
-    .then(function(r) {
-      if (r.ok) {
-        showStatus('✓ 保存しました！');
-        originalSettings = JSON.parse(JSON.stringify(settings));
+    }).catch(function(err) {
+      if (err === 'not logged in' || err === 'no identity') {
+        showStatus('⚠️ ログインが必要です。右上の「🔑 ログイン」ボタンからログインしてください。', true);
+        if (netlifyIdentity) netlifyIdentity.open();
       } else {
-        showStatus('⚠️ 保存に失敗しました。CMS で再ログインしてください。', true);
+        showStatus('⚠️ 保存に失敗しました: ' + (err.message || err), true);
       }
-    })
-    .catch(function() { showStatus('⚠️ 保存に失敗しました。', true); });
+    });
   });
 
   // ── リセット ──
