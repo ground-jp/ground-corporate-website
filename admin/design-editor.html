@@ -111,8 +111,8 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 .auth-btn:hover { border-color: #5BC0EB; color: #5BC0EB; }
 .auth-btn.logged-in { border-color: #28a745; color: #28a745; }
 .auth-btn.logged-in:hover { border-color: #dc3545; color: #dc3545; }
-.undo-redo-group { display: flex; gap: 2px; }
-.ur-btn { width: 28px; height: 28px; background: none; border: 1px solid #2a2d3a; border-radius: 4px; color: #8a8c9a; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+.undo-redo-group { display: flex; gap: 2px; flex-shrink: 0; }
+.ur-btn { width: 32px; height: 28px; background: #1e2030; border: 1px solid #2a2d3a; border-radius: 4px; color: #c0c3d0; cursor: pointer; font-size: 15px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
 .ur-btn:hover:not(:disabled) { border-color: #5BC0EB; color: #5BC0EB; }
 .ur-btn:disabled { opacity: 0.3; cursor: default; }
 .ur-btn .count { position: absolute; top: -4px; right: -4px; font-size: 8px; background: #5BC0EB; color: #0f1117; border-radius: 6px; padding: 0 3px; min-width: 12px; text-align: center; font-weight: 700; }
