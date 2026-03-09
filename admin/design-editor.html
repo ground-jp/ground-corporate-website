@@ -111,10 +111,8 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 .auth-btn:hover { border-color: #5BC0EB; color: #5BC0EB; }
 .auth-btn.logged-in { border-color: #28a745; color: #28a745; }
 .auth-btn.logged-in:hover { border-color: #dc3545; color: #dc3545; }
-.undo-redo-bar { display: flex; gap: 6px; padding: 8px 16px; border-bottom: 1px solid #2a2d3a; }
-.ur-btn { flex: 1; height: 32px; padding: 0 10px; background: #1e2030; border: 1px solid #3a3d5a; border-radius: 6px; color: #c0c3d0; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; gap: 5px; transition: all 0.15s; font-family: inherit; white-space: nowrap; }
-.ur-btn:hover:not(:disabled) { border-color: #5BC0EB; color: #5BC0EB; background: #252840; }
-.ur-btn:disabled { opacity: 0.45; cursor: default; }
+#undoBtn:disabled, #redoBtn:disabled { opacity: 0.45; cursor: default; }
+#undoBtn:not(:disabled):hover, #redoBtn:not(:disabled):hover { color: #5BC0EB !important; border-color: #5BC0EB !important; }
 
 
 /* ── ドラッグ選択ボックス・ハンドル ── */
@@ -165,11 +163,8 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
         <div style="font-size:9px;color:#8a8c9a;letter-spacing:0.08em;text-transform:uppercase;margin-top:1px">Ground Design Editor</div>
       </div>
       <a href="index.html" style="margin-left:auto;font-size:10px;color:#5a5d6a;text-decoration:none;padding:4px 8px;border:1px solid #2a2d3a;border-radius:4px;transition:all 0.2s" onmouseover="this.style.color='#5BC0EB';this.style.borderColor='#5BC0EB'" onmouseout="this.style.color='#5a5d6a';this.style.borderColor='#2a2d3a'" title="ホームに戻る">← ホーム</a>
-    </div>
-
-    <div id="undoRedoBar" style="display:flex !important;gap:6px;padding:10px 16px;border-bottom:2px solid #5BC0EB;flex-shrink:0;background:#1e2a3a;visibility:visible !important;opacity:1 !important;height:auto !important;overflow:visible !important;min-height:44px;">
-      <button id="undoBtn" disabled title="元に戻す (Ctrl+Z)" style="flex:1;height:34px;padding:0 10px;background:#253550;border:1px solid #5BC0EB;border-radius:6px;color:#fff;cursor:pointer;font-size:13px;font-weight:bold;display:flex !important;align-items:center;justify-content:center;gap:5px;font-family:inherit;visibility:visible !important;opacity:1 !important;">↩ 元に戻す</button>
-      <button id="redoBtn" disabled title="やり直す (Ctrl+Shift+Z)" style="flex:1;height:34px;padding:0 10px;background:#253550;border:1px solid #5BC0EB;border-radius:6px;color:#fff;cursor:pointer;font-size:13px;font-weight:bold;display:flex !important;align-items:center;justify-content:center;gap:5px;font-family:inherit;visibility:visible !important;opacity:1 !important;">↪ やり直す</button>
+      <button id="undoBtn" disabled title="元に戻す (Ctrl+Z)" style="padding:4px 8px;background:none;border:1px solid #3a3d5a;border-radius:4px;color:#5a5d6a;cursor:pointer;font-size:14px;transition:all 0.2s;line-height:1" onmouseover="this.style.color='#5BC0EB';this.style.borderColor='#5BC0EB'" onmouseout="this.style.color=this.disabled?'#3a3d5a':'#5a5d6a';this.style.borderColor=this.disabled?'#2a2d3a':'#3a3d5a'">↩</button>
+      <button id="redoBtn" disabled title="やり直す (Ctrl+Shift+Z)" style="padding:4px 8px;background:none;border:1px solid #3a3d5a;border-radius:4px;color:#5a5d6a;cursor:pointer;font-size:14px;transition:all 0.2s;line-height:1" onmouseover="this.style.color='#5BC0EB';this.style.borderColor='#5BC0EB'" onmouseout="this.style.color=this.disabled?'#3a3d5a':'#5a5d6a';this.style.borderColor=this.disabled?'#2a2d3a':'#3a3d5a'">↪</button>
     </div>
 
     <div class="selected-hint" id="selectedHint">
@@ -513,10 +508,14 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     if (undoBtn) {
       undoBtn.disabled = undoStack.length === 0;
       undoBtn.title = '元に戻す (Ctrl+Z)' + (undoStack.length ? ' [' + undoStack.length + ']' : '');
+      undoBtn.style.color = undoBtn.disabled ? '#3a3d5a' : '#5BC0EB';
+      undoBtn.style.borderColor = undoBtn.disabled ? '#2a2d3a' : '#5BC0EB';
     }
     if (redoBtn) {
       redoBtn.disabled = redoStack.length === 0;
       redoBtn.title = 'やり直す (Ctrl+Shift+Z)' + (redoStack.length ? ' [' + redoStack.length + ']' : '');
+      redoBtn.style.color = redoBtn.disabled ? '#3a3d5a' : '#5BC0EB';
+      redoBtn.style.borderColor = redoBtn.disabled ? '#2a2d3a' : '#5BC0EB';
     }
   }
 
