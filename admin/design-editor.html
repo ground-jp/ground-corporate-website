@@ -672,7 +672,6 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     var hex;
 
     if (hasAlpha) {
-      // 背景色を取得して見た目の色を計算
       var alpha = parseFloat(alphaMatch[4]);
       var fgR = parseInt(alphaMatch[1]), fgG = parseInt(alphaMatch[2]), fgB = parseInt(alphaMatch[3]);
       var bgColor = getEffectiveBackground(el);
@@ -690,10 +689,10 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     var div = document.createElement('div');
     div.className = 'control';
     div.innerHTML = '<div class="control-label"><span>' + label +
-      (hasAlpha ? ' <span style="font-size:10px;color:#f0ad4e;">(透明度' + Math.round(parseFloat(alphaMatch[4]) * 100) + '%)</span>' : '') +
+      (hasAlpha ? ' <span style="font-size:10px;color:#f0ad4e;">(透明度' + Math.round(parseFloat(alphaMatch[4]) * 100) + '% → 選んだ色で完全不透明に)</span>' : '') +
       '</span></div>' +
       '<div class="color-row"><div class="color-input-wrap"><input type="color" value="' + hex + '"></div>' +
-      '<input type="text" class="color-hex" value="' + hex + '" style="flex:1;">' +
+      '<input type="text" class="color-hex" value="' + hex + '" placeholder="#ffffff" style="flex:1;">' +
       '<button class="color-apply-btn" title="色を適用">適用</button></div>';
 
     var colorInput = div.querySelector('input[type="color"]');
@@ -702,106 +701,67 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 
     function applyColor(v) {
       if (v.charAt(0) !== '#') v = '#' + v;
-      console.log('[DE] applyColor called:', v, 'prop:', kebabProp, 'el:', el.tagName, el.className, el.textContent && el.textContent.substring(0, 40));
-
-      // ── 方法1: クロージャの el に直接適用 ──
-      try {
-        el.style.setProperty(kebabProp, v, 'important');
-        console.log('[DE] method1 (closure el): applied');
-      } catch(e) { console.warn('[DE] method1 failed:', e); }
-
-      // ── 方法2: data-de-id でiframeから再取得して適用 ──
-      try {
-        var doc = frame.contentDocument || frame.contentWindow.document;
-        if (doc) {
-          // data-de-id がなければ付与
-          if (!el.getAttribute('data-de-id')) {
-            el.setAttribute('data-de-id', 'de-' + (++styleOverrideCounter));
-          }
-          var deId = el.getAttribute('data-de-id');
-          var freshEl = doc.querySelector('[data-de-id="' + deId + '"]');
-          if (freshEl) {
-            freshEl.style.setProperty(kebabProp, v, 'important');
-            // cssText で追加確認
-            var existing = freshEl.style.cssText || '';
-            if (existing.indexOf(kebabProp) === -1) {
-              freshEl.style.cssText = existing + ' ' + kebabProp + ': ' + v + ' !important;';
-            }
-            console.log('[DE] method2 (fresh query): applied to', freshEl.tagName, freshEl.className);
-            // 子要素にも適用
-            if (kebabProp === 'color') {
-              freshEl.querySelectorAll('*').forEach(function(child) {
-                child.style.setProperty('color', v, 'important');
-              });
-            }
-          } else {
-            console.warn('[DE] method2: data-de-id element not found in iframe');
-          }
-        }
-      } catch(e) { console.warn('[DE] method2 failed:', e); }
-
-      // ── 方法3: <style> タグ注入（最高優先度） ──
+      // 直接スタイル設定（!important で上書き）
+      try { el.style.setProperty(kebabProp, v, 'important'); } catch(e) {}
+      // <style>タグ注入（CSSルール経由で確実に上書き）
       injectStyleOverride(el, kebabProp, v);
+      // color プロパティの場合は子要素にも適用
       if (kebabProp === 'color') {
-        el.querySelectorAll('*').forEach(function(child) {
-          injectStyleOverride(child, 'color', v);
-        });
+        try {
+          el.querySelectorAll('*').forEach(function(child) {
+            child.style.setProperty('color', v, 'important');
+            injectStyleOverride(child, 'color', v);
+          });
+        } catch(e) {}
       }
-
-      // ── 方法4: setAttribute で style 属性を直接書き換え ──
-      try {
-        var currentStyle = el.getAttribute('style') || '';
-        // 既存の同プロパティを除去して追加
-        var regex = new RegExp(kebabProp + '\\s*:[^;]*(!important)?;?', 'gi');
-        currentStyle = currentStyle.replace(regex, '');
-        currentStyle = currentStyle.trim();
-        if (currentStyle && currentStyle.charAt(currentStyle.length - 1) !== ';') currentStyle += ';';
-        currentStyle += ' ' + kebabProp + ': ' + v + ' !important;';
-        el.setAttribute('style', currentStyle);
-        console.log('[DE] method4 (setAttribute): applied, style=', currentStyle.substring(0, 100));
-      } catch(e) { console.warn('[DE] method4 failed:', e); }
-
-      // 変更を追跡
       trackChange(el, kebabProp, v);
-
-      // 適用後は透明度バッジを消す
+      // 透明度バッジを消す
       var badge = div.querySelector('.control-label span[style]');
       if (badge) badge.style.display = 'none';
-
-      // ── 視覚フィードバック（一瞬アウトラインを光らせる） ──
-      try {
-        el.style.setProperty('outline', '3px solid #00ff00', 'important');
-        setTimeout(function() {
-          try { el.style.removeProperty('outline'); } catch(e2) {}
-        }, 300);
-      } catch(e) {}
-
-      // 適用結果を確認ログ
-      try {
-        var afterStyle = frame.contentWindow.getComputedStyle(el)[prop];
-        console.log('[DE] After apply: computedStyle.' + prop + ' =', afterStyle);
-      } catch(e) {}
     }
+
+    // カラーピッカーのイベント
     colorInput.addEventListener('input', function() {
-      console.log('[DE] color input event:', this.value);
-      applyColor(this.value);
       hexInput.value = this.value;
+      applyColor(this.value);
     });
     colorInput.addEventListener('change', function() {
-      console.log('[DE] color change event:', this.value);
-      applyColor(this.value);
       hexInput.value = this.value;
+      applyColor(this.value);
     });
+
+    // hex入力フィールド: changeイベント + Enterキー
     hexInput.addEventListener('change', function() {
       var v = this.value;
       if (v.charAt(0) !== '#') v = '#' + v;
-      console.log('[DE] hex change event:', v);
-      applyColor(v);
       colorInput.value = v;
+      applyColor(v);
     });
+    hexInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        var v = this.value;
+        if (v.charAt(0) !== '#') v = '#' + v;
+        colorInput.value = v;
+        applyColor(v);
+      }
+    });
+
+    // 適用ボタン: 常に強制適用（同じ色でも適用される）
     applyBtn.addEventListener('click', function() {
-      console.log('[DE] apply button clicked:', hexInput.value);
-      applyColor(hexInput.value);
+      var v = hexInput.value;
+      if (v.charAt(0) !== '#') v = '#' + v;
+      colorInput.value = v;
+      applyColor(v);
+    });
+
+    // ── カラーピッカーを閉じた時のフォールバック ──
+    // ブラウザによってはpicker閉じ時にchangeが発火しない場合がある
+    colorInput.addEventListener('blur', function() {
+      if (this.value !== hexInput.value) {
+        hexInput.value = this.value;
+        applyColor(this.value);
+      }
     });
 
     container.appendChild(div);
@@ -855,8 +815,8 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       var newRule = '[data-de-id="' + deId + '"] { ' + prop + ': ' + value + ' !important; }';
       lines.push(newRule + ' /* ' + ruleId + ' */');
       styleEl.textContent = lines.join('\n');
-      console.log('[DE] injectStyleOverride: deId=' + deId + ', rule=' + newRule);
-      console.log('[DE] style tag content:', styleEl.textContent.substring(0, 200));
+      // debug log (can be removed)
+      // console.log('[DE] injectStyleOverride:', deId, newRule);
     } catch(e) {
       console.warn('[DE] Style injection failed:', e);
     }
@@ -1121,7 +1081,99 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     showSelectedHint(getElLabel(el));
   });
 
-  // ダブルクリック → テキスト編集
+  // ダブルクリック → インライン直接テキスト編集
+  var inlineEditEl = null;
+  var inlineEditOriginal = '';
+
+  function startInlineEdit(el) {
+    if (inlineEditEl) finishInlineEdit(); // 前の編集を完了
+    inlineEditEl = el;
+    inlineEditOriginal = el.innerHTML;
+
+    // オーバーレイを非表示にしてiframe内を直接操作可能に
+    overlay.style.pointerEvents = 'none';
+    dragBox.classList.remove('show');
+
+    // contentEditable を有効化
+    el.setAttribute('contenteditable', 'true');
+    el.style.setProperty('outline', '2px solid #5BC0EB', 'important');
+    el.style.setProperty('outline-offset', '4px', 'important');
+    el.style.setProperty('cursor', 'text', 'important');
+    el.style.setProperty('min-height', '1em', 'important');
+    el.focus();
+
+    // テキスト全選択
+    try {
+      var range = frame.contentDocument.createRange();
+      range.selectNodeContents(el);
+      var sel = frame.contentWindow.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } catch(e) {}
+
+    // 編集ヒント表示
+    showStatus('✏️ 直接テキスト編集中... クリック外で確定 / Escでキャンセル');
+  }
+
+  function finishInlineEdit(cancel) {
+    if (!inlineEditEl) return;
+    var el = inlineEditEl;
+
+    if (cancel) {
+      el.innerHTML = inlineEditOriginal;
+      showStatus('❌ テキスト編集をキャンセルしました');
+    } else {
+      if (el.innerHTML !== inlineEditOriginal) {
+        trackChange(el, 'textContent', '');
+        showStatus('✅ テキストを変更しました');
+      }
+    }
+
+    el.removeAttribute('contenteditable');
+    el.style.removeProperty('cursor');
+    el.style.removeProperty('min-height');
+    // ハイライトは維持（選択状態のまま）
+
+    // オーバーレイを復帰
+    overlay.style.pointerEvents = 'auto';
+    inlineEditEl = null;
+    inlineEditOriginal = '';
+
+    // ドラッグボックスを再表示
+    if (selectedEl) updateDragBoxPosition();
+  }
+
+  // iframe内のクリック（テキスト編集外）を検知して確定
+  function onIframeClick(e) {
+    if (inlineEditEl && e.target !== inlineEditEl && !inlineEditEl.contains(e.target)) {
+      finishInlineEdit(false);
+    }
+  }
+
+  // iframe内のキーダウンを検知（Escape でキャンセル）
+  function onIframeKeydown(e) {
+    if (inlineEditEl && e.key === 'Escape') {
+      e.preventDefault();
+      finishInlineEdit(true);
+    }
+  }
+
+  // iframe ロード時にイベントリスナーを設定
+  function setupInlineEditListeners() {
+    try {
+      var doc = frame.contentDocument || frame.contentWindow.document;
+      doc.addEventListener('click', onIframeClick);
+      doc.addEventListener('keydown', onIframeKeydown);
+    } catch(e) {}
+  }
+
+  // iframeが読み込まれるたびにリスナーを再設定
+  frame.addEventListener('load', function() {
+    setupInlineEditListeners();
+  });
+  // 初回も設定
+  setTimeout(setupInlineEditListeners, 1000);
+
   overlay.addEventListener('dblclick', function(e) {
     var raw = getIframeElementAtPoint(e.clientX, e.clientY);
     var el = findEditableTarget(raw);
@@ -1130,7 +1182,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     if (el.textContent.trim().length > 0) {
       clearHoverHighlight();
       highlightIframeElement(el);
-      openTextEditModal(el, getElLabel(el));
+      startInlineEdit(el);
     }
   });
 
