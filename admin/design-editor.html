@@ -653,14 +653,29 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     // camelCase → kebab-case 変換（setPropertyに必要）
     var kebabProp = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
 
+    function applyColor(v) {
+      if (v.charAt(0) !== '#') v = '#' + v;
+      el.style.setProperty(kebabProp, v, 'important');
+      // 子要素にも色を適用（spanなどが色を上書きしている場合）
+      el.querySelectorAll('*').forEach(function(child) {
+        var childCS = frame.contentWindow.getComputedStyle(child);
+        if (kebabProp === 'color' && childCS.color) {
+          child.style.setProperty('color', v, 'important');
+        }
+      });
+    }
     colorInput.addEventListener('input', function() {
-      el.style.setProperty(kebabProp, this.value, 'important');
+      applyColor(this.value);
+      hexInput.value = this.value;
+    });
+    colorInput.addEventListener('change', function() {
+      applyColor(this.value);
       hexInput.value = this.value;
     });
     hexInput.addEventListener('change', function() {
       var v = this.value;
       if (v.charAt(0) !== '#') v = '#' + v;
-      el.style.setProperty(kebabProp, v, 'important');
+      applyColor(v);
       colorInput.value = v;
     });
 
