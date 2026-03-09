@@ -160,7 +160,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       <div class="icon" style="background:linear-gradient(135deg,#3B82F6,#60A5FA);font-size:13px;font-weight:700;color:#fff;font-family:'Inter',sans-serif;letter-spacing:-0.5px">G</div>
       <div>
         <h1 style="font-size:14px;line-height:1.2">GDE</h1>
-        <div style="font-size:9px;color:#8a8c9a;letter-spacing:0.08em;text-transform:uppercase;margin-top:1px">Ground Design Editor</div>
+        <div style="font-size:9px;color:#8a8c9a;letter-spacing:0.08em;text-transform:uppercase;margin-top:1px">Ground Design Editor <span style="color:#5BC0EB">v2.1</span></div>
       </div>
       <a href="index.html" style="margin-left:auto;font-size:10px;color:#5a5d6a;text-decoration:none;padding:4px 8px;border:1px solid #2a2d3a;border-radius:4px;transition:all 0.2s" onmouseover="this.style.color='#5BC0EB';this.style.borderColor='#5BC0EB'" onmouseout="this.style.color='#5a5d6a';this.style.borderColor='#2a2d3a'" title="ホームに戻る">← ホーム</a>
     </div>
@@ -782,6 +782,25 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     container.innerHTML = '';
     container.style.display = 'block';
     document.getElementById('elementEmpty').style.display = 'none';
+
+    // ── Undo/Redo ボタン（プロパティパネル最上部） ──
+    var urBar = document.createElement('div');
+    urBar.style.cssText = 'display:flex;gap:8px;margin-bottom:12px;';
+    var uB = document.createElement('button');
+    uB.id = 'undoBtn';
+    uB.disabled = undoStack.length === 0;
+    uB.innerHTML = '↩ 戻す';
+    uB.style.cssText = 'flex:1;height:28px;background:#1e2030;border:1px solid ' + (undoStack.length ? '#5BC0EB' : '#3a3d5a') + ';border-radius:6px;color:' + (undoStack.length ? '#5BC0EB' : '#6a6d7a') + ';cursor:pointer;font-size:11px;font-family:inherit;';
+    uB.onclick = performUndo;
+    var rB = document.createElement('button');
+    rB.id = 'redoBtn';
+    rB.disabled = redoStack.length === 0;
+    rB.innerHTML = '↪ やり直す';
+    rB.style.cssText = 'flex:1;height:28px;background:#1e2030;border:1px solid ' + (redoStack.length ? '#5BC0EB' : '#3a3d5a') + ';border-radius:6px;color:' + (redoStack.length ? '#5BC0EB' : '#6a6d7a') + ';cursor:pointer;font-size:11px;font-family:inherit;';
+    rB.onclick = performRedo;
+    urBar.appendChild(uB);
+    urBar.appendChild(rB);
+    container.appendChild(urBar);
 
     var cs = null;
     try { cs = frame.contentWindow.getComputedStyle(el); } catch(e) { return; }
