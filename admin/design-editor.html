@@ -98,6 +98,20 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 .mode-btn.active { background: #5BC0EB; color: #0f1117; }
 .mode-btn:hover:not(.active) { color: #c0c0c0; }
 
+/* ── ドラッグ選択ボックス・ハンドル ── */
+.drag-box { position: absolute; border: 2px solid #5BC0EB; pointer-events: none; z-index: 6; display: none; }
+.drag-box.show { display: block; pointer-events: auto; cursor: move; }
+.drag-handle { position: absolute; width: 10px; height: 10px; background: #5BC0EB; border: 1px solid #fff; border-radius: 2px; pointer-events: auto; z-index: 7; }
+.drag-handle.tl { top: -5px; left: -5px; cursor: nwse-resize; }
+.drag-handle.tr { top: -5px; right: -5px; cursor: nesw-resize; }
+.drag-handle.bl { bottom: -5px; left: -5px; cursor: nesw-resize; }
+.drag-handle.br { bottom: -5px; right: -5px; cursor: nwse-resize; }
+.drag-handle.tm { top: -5px; left: 50%; margin-left: -5px; cursor: ns-resize; }
+.drag-handle.bm { bottom: -5px; left: 50%; margin-left: -5px; cursor: ns-resize; }
+.drag-handle.ml { top: 50%; left: -5px; margin-top: -5px; cursor: ew-resize; }
+.drag-handle.mr { top: 50%; right: -5px; margin-top: -5px; cursor: ew-resize; }
+.drag-size-label { position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%); font-size: 10px; color: #5BC0EB; background: rgba(15,17,23,0.85); padding: 1px 6px; border-radius: 3px; white-space: nowrap; pointer-events: none; }
+
 /* ── テキスト編集モーダル ── */
 .text-edit-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; justify-content: center; align-items: center; }
 .text-edit-overlay.show { display: flex; }
@@ -317,6 +331,17 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     <div class="preview-frame" id="previewFrameWrap">
       <iframe id="previewFrame" src="/"></iframe>
       <div class="click-overlay" id="clickOverlay"></div>
+      <div class="drag-box" id="dragBox">
+        <div class="drag-handle tl" data-dir="tl"></div>
+        <div class="drag-handle tr" data-dir="tr"></div>
+        <div class="drag-handle bl" data-dir="bl"></div>
+        <div class="drag-handle br" data-dir="br"></div>
+        <div class="drag-handle tm" data-dir="tm"></div>
+        <div class="drag-handle bm" data-dir="bm"></div>
+        <div class="drag-handle ml" data-dir="ml"></div>
+        <div class="drag-handle mr" data-dir="mr"></div>
+        <div class="drag-size-label" id="dragSizeLabel"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -451,6 +476,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
   function hideSelectedHint() {
     document.getElementById('selectedHint').classList.remove('show');
     clearIframeHighlight();
+    if (typeof hideDragBox === 'function') hideDragBox();
     document.getElementById('elementControls').style.display = 'none';
     document.getElementById('elementEmpty').style.display = '';
   }
@@ -702,14 +728,141 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     clearHoverHighlight();
   });
 
-  // シングルクリック → プロパティパネル表示
+  // ===================================================
+  // ドラッグ選択ボックス & リサイズ/移動
+  // ===================================================
+  var dragBox = document.getElementById('dragBox');
+  var dragSizeLabel = document.getElementById('dragSizeLabel');
+  var selectedEl = null;
+  var dragState = null; // { type:'move'|'resize', dir, startX, startY, origRect, origStyle }
+
+  function showDragBox(el) {
+    selectedEl = el;
+    updateDragBoxPosition();
+  }
+
+  function hideDragBox() {
+    dragBox.classList.remove('show');
+    selectedEl = null;
+  }
+
+  function updateDragBoxPosition() {
+    if (!selectedEl) return;
+    try {
+      var elRect = selectedEl.getBoundingClientRect();
+      var frameRect = frame.getBoundingClientRect();
+      // オーバーレイの親(preview-frame)を基準に計算
+      var wrapRect = document.getElementById('previewFrameWrap').getBoundingClientRect();
+      var left = frameRect.left - wrapRect.left + elRect.left;
+      var top = frameRect.top - wrapRect.top + elRect.top;
+      dragBox.style.left = left + 'px';
+      dragBox.style.top = top + 'px';
+      dragBox.style.width = elRect.width + 'px';
+      dragBox.style.height = elRect.height + 'px';
+      dragBox.classList.add('show');
+      dragSizeLabel.textContent = Math.round(elRect.width) + ' × ' + Math.round(elRect.height);
+    } catch(e) {}
+  }
+
+  // ドラッグボックス本体 → 移動
+  dragBox.addEventListener('mousedown', function(e) {
+    if (e.target !== dragBox) return; // ハンドルは別処理
+    if (!selectedEl) return;
+    e.preventDefault();
+    e.stopPropagation();
+    var cs = frame.contentWindow.getComputedStyle(selectedEl);
+    dragState = {
+      type: 'move',
+      startX: e.clientX,
+      startY: e.clientY,
+      origMarginTop: parseFloat(cs.marginTop) || 0,
+      origMarginLeft: parseFloat(cs.marginLeft) || 0,
+    };
+  });
+
+  // ハンドル → リサイズ
+  dragBox.querySelectorAll('.drag-handle').forEach(function(h) {
+    h.addEventListener('mousedown', function(e) {
+      if (!selectedEl) return;
+      e.preventDefault();
+      e.stopPropagation();
+      var elRect = selectedEl.getBoundingClientRect();
+      var cs = frame.contentWindow.getComputedStyle(selectedEl);
+      dragState = {
+        type: 'resize',
+        dir: h.getAttribute('data-dir'),
+        startX: e.clientX,
+        startY: e.clientY,
+        origW: elRect.width,
+        origH: elRect.height,
+        origMarginTop: parseFloat(cs.marginTop) || 0,
+        origMarginLeft: parseFloat(cs.marginLeft) || 0,
+      };
+    });
+  });
+
+  // ドラッグ中（document全体で追跡）
+  document.addEventListener('mousemove', function(e) {
+    if (!dragState || !selectedEl) return;
+    e.preventDefault();
+    var dx = e.clientX - dragState.startX;
+    var dy = e.clientY - dragState.startY;
+
+    // ドラッグ中のカーソル
+    if (dragState.type === 'move') {
+      document.body.style.cursor = 'move';
+      overlay.style.cursor = 'move';
+    } else {
+      var curMap = { tl:'nwse-resize', tr:'nesw-resize', bl:'nesw-resize', br:'nwse-resize', tm:'ns-resize', bm:'ns-resize', ml:'ew-resize', mr:'ew-resize' };
+      document.body.style.cursor = curMap[dragState.dir] || 'nwse-resize';
+      overlay.style.cursor = document.body.style.cursor;
+    }
+
+    if (dragState.type === 'move') {
+      selectedEl.style.marginTop = (dragState.origMarginTop + dy) + 'px';
+      selectedEl.style.marginLeft = (dragState.origMarginLeft + dx) + 'px';
+      updateDragBoxPosition();
+    } else if (dragState.type === 'resize') {
+      var dir = dragState.dir;
+      var newW = dragState.origW;
+      var newH = dragState.origH;
+
+      if (dir === 'br' || dir === 'tr' || dir === 'mr') newW += dx;
+      if (dir === 'bl' || dir === 'tl' || dir === 'ml') { newW -= dx; selectedEl.style.marginLeft = (dragState.origMarginLeft + dx) + 'px'; }
+      if (dir === 'br' || dir === 'bl' || dir === 'bm') newH += dy;
+      if (dir === 'tl' || dir === 'tr' || dir === 'tm') { newH -= dy; selectedEl.style.marginTop = (dragState.origMarginTop + dy) + 'px'; }
+
+      if (newW > 10) selectedEl.style.width = newW + 'px';
+      if (newH > 10) selectedEl.style.height = newH + 'px';
+      updateDragBoxPosition();
+    }
+  });
+
+  // ドラッグ終了
+  document.addEventListener('mouseup', function(e) {
+    if (dragState && selectedEl) {
+      wasDragging = true; // クリック誤発火防止
+      // パネルを更新
+      buildElementPanel(selectedEl);
+      dragState = null;
+      document.body.style.cursor = '';
+      overlay.style.cursor = 'crosshair';
+    }
+  });
+
+  // ドラッグ直後のクリック誤発火を防ぐフラグ
+  var wasDragging = false;
+
+  // シングルクリック → プロパティパネル表示 + ドラッグボックス
   overlay.addEventListener('click', function(e) {
+    if (wasDragging) { wasDragging = false; return; }
     var raw = getIframeElementAtPoint(e.clientX, e.clientY);
     var el = findEditableTarget(raw);
-    if (!el) return;
+    if (!el) { hideDragBox(); return; }
 
     clearHoverHighlight();
     highlightIframeElement(el);
+    showDragBox(el);
     switchTab('element');
     buildElementPanel(el);
     showSelectedHint(getElLabel(el));
@@ -728,12 +881,19 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     }
   });
 
+  // スクロール時にドラッグボックス位置を更新
+  function onIframeScroll() {
+    updateDragBoxPosition();
+  }
+
   // オーバーレイ上でのスクロールをiframeに転送
   overlay.addEventListener('wheel', function(e) {
     try {
       var doc = frame.contentDocument || frame.contentWindow.document;
       if (doc && doc.defaultView) {
         doc.defaultView.scrollBy(e.deltaX, e.deltaY);
+        // スクロール後にドラッグボックス位置を追従
+        setTimeout(onIframeScroll, 16);
       }
     } catch(err) {}
     e.preventDefault();
@@ -759,6 +919,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     isEditMode = false;
     overlay.classList.add('hidden');
     clearHoverHighlight();
+    hideDragBox();
     editBtn.classList.remove('active');
     previewBtn.classList.add('active');
     modeHint.textContent = '👁 ページ操作モード（ナビ等）';
