@@ -102,15 +102,15 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 /* ── ドラッグ選択ボックス・ハンドル ── */
 .drag-box { position: absolute; border: 2px solid #5BC0EB; pointer-events: none; z-index: 6; display: none; }
 .drag-box.show { display: block; pointer-events: auto; cursor: move; }
-.drag-handle { position: absolute; width: 10px; height: 10px; background: #5BC0EB; border: 1px solid #fff; border-radius: 2px; pointer-events: auto; z-index: 7; }
-.drag-handle.tl { top: -5px; left: -5px; cursor: nwse-resize; }
-.drag-handle.tr { top: -5px; right: -5px; cursor: nesw-resize; }
-.drag-handle.bl { bottom: -5px; left: -5px; cursor: nesw-resize; }
-.drag-handle.br { bottom: -5px; right: -5px; cursor: nwse-resize; }
-.drag-handle.tm { top: -5px; left: 50%; margin-left: -5px; cursor: ns-resize; }
-.drag-handle.bm { bottom: -5px; left: 50%; margin-left: -5px; cursor: ns-resize; }
-.drag-handle.ml { top: 50%; left: -5px; margin-top: -5px; cursor: ew-resize; }
-.drag-handle.mr { top: 50%; right: -5px; margin-top: -5px; cursor: ew-resize; }
+.drag-handle { position: absolute; width: 14px; height: 14px; background: #5BC0EB; border: 2px solid #fff; border-radius: 3px; pointer-events: auto; z-index: 7; box-shadow: 0 0 3px rgba(0,0,0,0.3); }
+.drag-handle.tl { top: -7px; left: -7px; cursor: nwse-resize; }
+.drag-handle.tr { top: -7px; right: -7px; cursor: nesw-resize; }
+.drag-handle.bl { bottom: -7px; left: -7px; cursor: nesw-resize; }
+.drag-handle.br { bottom: -7px; right: -7px; cursor: nwse-resize; }
+.drag-handle.tm { top: -7px; left: 50%; margin-left: -7px; cursor: ns-resize; }
+.drag-handle.bm { bottom: -7px; left: 50%; margin-left: -7px; cursor: ns-resize; }
+.drag-handle.ml { top: 50%; left: -7px; margin-top: -7px; cursor: ew-resize; }
+.drag-handle.mr { top: 50%; right: -7px; margin-top: -7px; cursor: ew-resize; }
 .drag-size-label { position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%); font-size: 10px; color: #5BC0EB; background: rgba(15,17,23,0.85); padding: 1px 6px; border-radius: 3px; white-space: nowrap; pointer-events: none; }
 
 /* ── テキスト編集モーダル ── */
@@ -844,8 +844,8 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     }
 
     if (dragState.type === 'move') {
-      selectedEl.style.marginTop = (dragState.origMarginTop + dy) + 'px';
-      selectedEl.style.marginLeft = (dragState.origMarginLeft + dx) + 'px';
+      selectedEl.style.setProperty('margin-top', (dragState.origMarginTop + dy) + 'px', 'important');
+      selectedEl.style.setProperty('margin-left', (dragState.origMarginLeft + dx) + 'px', 'important');
       updateDragBoxPosition();
     } else if (dragState.type === 'resize') {
       var dir = dragState.dir;
@@ -867,21 +867,30 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
         newH = dragState.origH * scale;
 
         if (dir === 'tl' || dir === 'bl') {
-          selectedEl.style.marginLeft = (dragState.origMarginLeft + (dragState.origW - newW)) + 'px';
+          selectedEl.style.setProperty('margin-left', (dragState.origMarginLeft + (dragState.origW - newW)) + 'px', 'important');
         }
         if (dir === 'tl' || dir === 'tr') {
-          selectedEl.style.marginTop = (dragState.origMarginTop + (dragState.origH - newH)) + 'px';
+          selectedEl.style.setProperty('margin-top', (dragState.origMarginTop + (dragState.origH - newH)) + 'px', 'important');
         }
       } else {
         // 辺ハンドル → 自由リサイズ（従来通り）
         if (dir === 'mr') newW += dx;
-        if (dir === 'ml') { newW -= dx; selectedEl.style.marginLeft = (dragState.origMarginLeft + dx) + 'px'; }
+        if (dir === 'ml') { newW -= dx; selectedEl.style.setProperty('margin-left', (dragState.origMarginLeft + dx) + 'px', 'important'); }
         if (dir === 'bm') newH += dy;
-        if (dir === 'tm') { newH -= dy; selectedEl.style.marginTop = (dragState.origMarginTop + dy) + 'px'; }
+        if (dir === 'tm') { newH -= dy; selectedEl.style.setProperty('margin-top', (dragState.origMarginTop + dy) + 'px', 'important'); }
       }
 
-      if (newW > 10) selectedEl.style.width = newW + 'px';
-      if (newH > 10) selectedEl.style.height = newH + 'px';
+      if (newW > 10) {
+        selectedEl.style.setProperty('width', newW + 'px', 'important');
+        selectedEl.style.setProperty('max-width', 'none', 'important');
+        selectedEl.style.setProperty('min-width', '0', 'important');
+        selectedEl.style.setProperty('box-sizing', 'border-box', 'important');
+      }
+      if (newH > 10) {
+        selectedEl.style.setProperty('height', newH + 'px', 'important');
+        selectedEl.style.setProperty('max-height', 'none', 'important');
+        selectedEl.style.setProperty('min-height', '0', 'important');
+      }
       updateDragBoxPosition();
     }
   });
