@@ -911,9 +911,13 @@
 [data-de-id="de-2"] { transform: translate(15px, -3px) !important; } /* de-2-transform */
 
 [data-de-id="de-3"] { transform:  !important; } /* de-3-transform */
-[data-de-id="de-2"] { transform: translate(24px, -9px) !important; } /* de-2-transform */</style></head>
+[data-de-id="de-2"] { transform: translate(24px, -9px) !important; } /* de-2-transform */
+
+[data-de-id="de-3"] { transform:  !important; } /* de-3-transform */
+[data-de-id="de-4"] { transform: translate(-49px, -5px) !important; } /* de-4-transform */
+[data-de-id="de-5"] { transform: translate(-25px, -16px) !important; } /* de-5-transform */</style></head>
 <body style="font-size: 15px;">
-<header class="header" id="header" style="background: rgb(10, 12, 20); height: 64px;">
+<header class="header header--scrolled" id="header" style="background: rgb(10, 12, 20); height: 64px;">
     <div class="header__inner" style="">
       <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; position: relative; top: 0px; left: 0px;"></a>
       <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く" style="">
@@ -988,7 +992,7 @@
       <ol class="breadcrumb-nav__list" style="">
         <li class="breadcrumb-nav__item"><a class="breadcrumb-nav__link breadcrumb-nav__link--home" href="/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg></a></li>
         <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a class="breadcrumb-nav__link" href="/service">サービス</a></li>
-        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current">GWES</span></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current" style="">GWES</span></li>
       </ol>
     </nav>
   <div class="page-header">
@@ -1002,7 +1006,7 @@
       <div class="gw-hero__logo-row" style="">
         <div class="gw-logo">
           <div class="gw-logo__mark" style="">
-            <img src="img/gwes-particle-grid.svg" alt="GWES" data-de-id="de-2" style="transform: translate(24px, -9px) !important; outline: rgb(91, 192, 235) solid 3px; outline-offset: 3px; margin-left: -7.5px !important; width: 79.5px !important; max-width: none !important; min-width: 0px !important; box-sizing: border-box !important; height: 79.5px !important; max-height: none !important; min-height: 0px !important;">
+            <img src="img/gwes-particle-grid.svg" alt="GWES" data-de-id="de-2" style="transform: translate(24px, -9px) !important; margin-left: -7.5px !important; width: 79.5px !important; max-width: none !important; min-width: 0px !important; box-sizing: border-box !important; height: 79.5px !important; max-height: none !important; min-height: 0px !important;">
           </div>
           <div class="gw-logo__text">
             <span class="gw-logo__name" style="">GWES</span>
@@ -1012,35 +1016,35 @@
       </div>
       <h1 class="gw-hero__title" style="">物流施設の全運営を統合管理する<br>物流OS</h1>
       <p class="gw-hero__subtitle" style="">施設運営を知性で自律化する</p>
-      <p class="gw-hero__desc">
+      <p class="gw-hero__desc" style="">
         GWESは、物流施設全体の運営に必要な情報の取得・分析・判断・指示を一元的に担う「物流OS（オペレーティングシステム）」です。WMSが個々の作業指示を制御する「実行系システム」であるのに対し、GWESは施設全体を俯瞰し、最適化・自律化を推進する「管理・意思決定系システム」として機能します。
       </p>
     </div>
   </section>
 
   <!-- ==================== UI SHOWCASE: Laptop in Dark ==================== -->
-  <section class="gw-showcase">
-    <div class="gw-showcase__viewport">
-      <div class="gw-laptop">
-        <div class="gw-laptop__body">
+  <section class="gw-showcase" style="outline: rgb(91, 192, 235) solid 3px; outline-offset: 3px;">
+    <div class="gw-showcase__viewport" style="">
+      <div class="gw-laptop" style="">
+        <div class="gw-laptop__body" style="">
           <!-- Screen glow (behind laptop) -->
           <div class="gw-laptop__screen-glow"></div>
           <!-- Screen / Lid -->
-          <div class="gw-laptop__screen">
+          <div class="gw-laptop__screen" data-de-id="de-5" style="transform: translate(-25px, -16px) !important;">
             <div class="gw-laptop__display">
-              <picture><source srcset="img/gwes-login.webp" type="image/webp"><img src="img/gwes-login.png" alt="GWES ログイン画面" loading="lazy"></picture>
+              <picture style=""><source srcset="img/gwes-login.webp" type="image/webp"><img src="img/gwes-login.png" alt="GWES ログイン画面" loading="lazy" data-de-id="de-4" style="margin-left: 143.255132px !important; width: 685.580683px !important; max-width: none !important; min-width: 0px !important; box-sizing: border-box !important; height: 416.178972px !important; max-height: none !important; min-height: 0px !important; transform: translate(-49px, -5px) !important;"></picture>
             </div>
           </div>
           <!-- Keyboard base -->
-          <div class="gw-laptop__base">
-            <div class="gw-laptop__keys"></div>
+          <div class="gw-laptop__base" style="">
+            <div class="gw-laptop__keys" style=""></div>
             <div class="gw-laptop__trackpad"></div>
           </div>
           <!-- Front lip -->
           <div class="gw-laptop__lip"></div>
         </div>
         <!-- Desk reflection -->
-        <div class="gw-laptop__reflection"></div>
+        <div class="gw-laptop__reflection" style=""></div>
       </div>
       <div class="gw-showcase__fade"></div>
     </div>
@@ -1055,7 +1059,7 @@
   <section class="gw-section">
     <div class="container">
       <!-- ① 課題提起 -->
-      <div class="gw-concept gw-fade">
+      <div class="gw-concept gw-fade is-visible">
         <div>
           <span class="gw-section__label">Logistics OS</span>
           <h2 class="gw-section__heading" style="font-size: 28px;">なぜ「物流OS」<br>なのか</h2>
