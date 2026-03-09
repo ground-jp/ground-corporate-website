@@ -218,7 +218,19 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
         <div class="section-title">ヒーローセクション</div>
         <div class="control">
           <div class="control-label"><span>タイトルサイズ</span><span class="val" id="val-hero_title_size">80px</span></div>
-          <input type="range" min="40" max="140" value="80" data-key="hero_title_size" data-unit="px">
+          <input type="range" min="30" max="160" value="80" data-key="hero_title_size" data-unit="px">
+        </div>
+        <div class="control">
+          <div class="control-label"><span>タイトル上下位置</span><span class="val" id="val-hero_title_top">0px</span></div>
+          <input type="range" min="-100" max="200" value="0" data-key="hero_title_top" data-unit="px">
+        </div>
+        <div class="control">
+          <div class="control-label"><span>タイトル左右位置</span><span class="val" id="val-hero_title_left">0px</span></div>
+          <input type="range" min="-100" max="200" value="0" data-key="hero_title_left" data-unit="px">
+        </div>
+        <div class="control">
+          <div class="control-label"><span>サブタイトルサイズ</span><span class="val" id="val-hero_subtitle_size">20px</span></div>
+          <input type="range" min="12" max="40" value="20" data-key="hero_subtitle_size" data-unit="px">
         </div>
         <div class="control">
           <div class="control-label"><span>オーバーレイ不透明度</span><span class="val" id="val-hero_overlay_opacity">30%</span></div>
@@ -480,9 +492,20 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
         el.style.fontSize = settings.nav_font_size + 'px';
       });
 
-      // ヒーロータイトルサイズ
+      // ヒーロータイトル
       var heroTitle = doc.querySelector('.hero__title');
-      if (heroTitle) heroTitle.style.fontSize = settings.hero_title_size + 'px';
+      if (heroTitle) {
+        heroTitle.style.fontSize = settings.hero_title_size + 'px';
+        heroTitle.style.position = 'relative';
+        heroTitle.style.top = (settings.hero_title_top || 0) + 'px';
+        heroTitle.style.left = (settings.hero_title_left || 0) + 'px';
+      }
+
+      // ヒーローサブタイトル
+      var heroSubtitle = doc.querySelector('.hero__subtitle');
+      if (heroSubtitle && settings.hero_subtitle_size) {
+        heroSubtitle.style.fontSize = settings.hero_subtitle_size + 'px';
+      }
 
       // ヒーローオーバーレイ
       var heroOverlay = doc.querySelector('.hero__overlay, .hero::after');
@@ -535,7 +558,10 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
 
     yaml += '# ── ヒーロー設定 ──\n';
     yaml += 'hero_overlay_opacity: ' + settings.hero_overlay_opacity + '\n';
-    yaml += 'hero_title_size: ' + settings.hero_title_size + '\n\n';
+    yaml += 'hero_title_size: ' + settings.hero_title_size + '\n';
+    yaml += 'hero_title_top: ' + (settings.hero_title_top || 0) + '\n';
+    yaml += 'hero_title_left: ' + (settings.hero_title_left || 0) + '\n';
+    yaml += 'hero_subtitle_size: ' + (settings.hero_subtitle_size || 20) + '\n\n';
 
     yaml += '# ── ホームページ セクション表示 ──\n';
     yaml += 'show_news: ' + settings.show_news + '\n';

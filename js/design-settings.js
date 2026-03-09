@@ -64,7 +64,13 @@
 
       // ── ヒーロー ──
       var heroTitle = document.querySelector('.hero__title');
-      if (heroTitle && s.hero_title_size) heroTitle.style.fontSize = s.hero_title_size + 'px';
+      if (heroTitle) {
+        if (s.hero_title_size) heroTitle.style.fontSize = s.hero_title_size + 'px';
+        if (s.hero_title_top !== undefined) { heroTitle.style.position = 'relative'; heroTitle.style.top = s.hero_title_top + 'px'; }
+        if (s.hero_title_left !== undefined) { heroTitle.style.position = 'relative'; heroTitle.style.left = s.hero_title_left + 'px'; }
+      }
+      var heroSubtitle = document.querySelector('.hero__subtitle');
+      if (heroSubtitle && s.hero_subtitle_size) heroSubtitle.style.fontSize = s.hero_subtitle_size + 'px';
       var heroVignette = document.querySelector('.hero__vignette');
       if (heroVignette && s.hero_overlay_opacity !== undefined) heroVignette.style.opacity = s.hero_overlay_opacity / 100;
 

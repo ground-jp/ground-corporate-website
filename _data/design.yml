@@ -26,6 +26,9 @@ nav_font_size: 14
 # ── ヒーロー設定 ──
 hero_overlay_opacity: 30
 hero_title_size: 80
+hero_title_top: 0
+hero_title_left: 0
+hero_subtitle_size: 20
 
 # ── ホームページ セクション表示 ──
 show_news: true
