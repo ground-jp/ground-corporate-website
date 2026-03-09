@@ -584,6 +584,8 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 
     // プロパティ定義
     var props = [
+      { label: '↕ 上下位置', prop: 'top', unit: 'px', min: -300, max: 300, needsRelative: true },
+      { label: '↔ 左右位置', prop: 'left', unit: 'px', min: -300, max: 300, needsRelative: true },
       { label: 'フォントサイズ', prop: 'fontSize', unit: 'px', min: 8, max: 160 },
       { label: '行の高さ', prop: 'lineHeight', unit: '', min: 0.8, max: 3, step: 0.1, isFloat: true },
       { label: '文字間隔', prop: 'letterSpacing', unit: 'px', min: -5, max: 20, step: 0.5, isFloat: true },
@@ -656,7 +658,11 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 
     props.forEach(function(p) {
       var raw = cs.getPropertyValue(camelToKebab(p.prop));
-      if (!raw || raw === 'none' || raw === 'auto' || raw === 'normal') {
+
+      // top/left は position:static のとき "auto" → 0として表示
+      if (p.needsRelative) {
+        if (!raw || raw === 'auto') raw = '0px';
+      } else if (!raw || raw === 'none' || raw === 'auto' || raw === 'normal') {
         // lineHeight の "normal" は表示する
         if (p.prop === 'lineHeight') raw = cs.lineHeight;
         else return;
@@ -693,7 +699,13 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       var v = p.isFloat ? parseFloat(this.value) : Math.round(parseFloat(this.value));
       valSpan.textContent = (p.isFloat ? v.toFixed(1) : v) + (p.unit || '');
 
-      if (p.prop === 'lineHeight') {
+      if (p.needsRelative) {
+        // top/left の場合は position:relative を確保
+        el.style.setProperty('position', 'relative', 'important');
+        el.style.setProperty(kebab, v + 'px', 'important');
+        injectStyleOverride(el, 'position', 'relative');
+        injectStyleOverride(el, kebab, v + 'px');
+      } else if (p.prop === 'lineHeight') {
         el.style.setProperty('line-height', v, 'important');
       } else if (p.prop === 'opacity') {
         el.style.setProperty('opacity', v, 'important');
@@ -703,6 +715,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
         el.style.setProperty(kebab, v + 'px', 'important');
       }
       trackChange(el, kebab, v);
+      if (selectedEl) updateDragBoxPosition();
     });
 
     container.appendChild(div);
@@ -999,10 +1012,18 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     e.preventDefault();
     e.stopPropagation();
     var cs = frame.contentWindow.getComputedStyle(selectedEl);
+    // position:relative で top/left を使う（より自然な移動）
+    var pos = cs.position;
+    if (pos === 'static') {
+      selectedEl.style.setProperty('position', 'relative', 'important');
+    }
     dragState = {
       type: 'move',
       startX: e.clientX,
       startY: e.clientY,
+      origTop: parseFloat(cs.top) || 0,
+      origLeft: parseFloat(cs.left) || 0,
+      // margin も記憶（リサイズ用の互換）
       origMarginTop: parseFloat(cs.marginTop) || 0,
       origMarginLeft: parseFloat(cs.marginLeft) || 0,
     };
@@ -1047,9 +1068,17 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     }
 
     if (dragState.type === 'move') {
-      selectedEl.style.setProperty('margin-top', (dragState.origMarginTop + dy) + 'px', 'important');
-      selectedEl.style.setProperty('margin-left', (dragState.origMarginLeft + dx) + 'px', 'important');
+      var newTop = dragState.origTop + dy;
+      var newLeft = dragState.origLeft + dx;
+      selectedEl.style.setProperty('position', 'relative', 'important');
+      selectedEl.style.setProperty('top', newTop + 'px', 'important');
+      selectedEl.style.setProperty('left', newLeft + 'px', 'important');
+      // スタイル注入で永続化
+      injectStyleOverride(selectedEl, 'position', 'relative');
+      injectStyleOverride(selectedEl, 'top', newTop + 'px');
+      injectStyleOverride(selectedEl, 'left', newLeft + 'px');
       updateDragBoxPosition();
+      dragSizeLabel.textContent = 'X:' + Math.round(newLeft) + ' Y:' + Math.round(newTop);
     } else if (dragState.type === 'resize') {
       var dir = dragState.dir;
       var newW = dragState.origW;
@@ -1103,6 +1132,11 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     if (dragState && selectedEl) {
       wasDragging = true; // クリック誤発火防止
       trackChange(selectedEl, dragState.type, '');
+      if (dragState.type === 'move') {
+        showStatus('📍 要素を移動しました');
+      } else {
+        showStatus('↔️ サイズを変更しました');
+      }
       // パネルを更新
       buildElementPanel(selectedEl);
       dragState = null;
