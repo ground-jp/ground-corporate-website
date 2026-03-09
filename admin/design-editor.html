@@ -85,8 +85,9 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 .preview-bar .click-mode-hint { font-size: 11px; color: #5BC0EB; }
 .device-btn { width: 28px; height: 28px; background: none; border: 1px solid #2a2d3a; border-radius: 4px; color: #8a8c9a; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; }
 .device-btn.active, .device-btn:hover { border-color: #5BC0EB; color: #5BC0EB; }
-.page-select-bar { background: #1e2030; border: 1px solid #2a2d3a; border-radius: 6px; padding: 4px 8px; font-size: 12px; color: #c0c3d0; font-family: inherit; cursor: pointer; max-width: 180px; }
+.page-select-bar { background: #1e2030; border: 1px solid #2a2d3a; border-radius: 6px; padding: 4px 8px; font-size: 12px; color: #c0c3d0; font-family: inherit; cursor: pointer; max-width: 280px; }
 .page-select-bar option { background: #1e2030; color: #c0c3d0; }
+.page-select-bar optgroup { color: #5BC0EB; font-style: normal; font-size: 11px; }
 .preview-frame { position: absolute; top: 40px; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; background: #1a1c28; overflow: hidden; }
 .preview-frame iframe { width: 100%; height: 100%; border: none; transition: width 0.3s ease; }
 /* 透明オーバーレイ — iframeの上に配置してクリック制御 */
@@ -312,10 +313,31 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
         <option value="/">ホームページ</option>
         <option value="/service.html">製品・サービス</option>
         <option value="/gwes.html">GWES</option>
-        <option value="/peer.html">PEER</option>
-        <option value="/consulting.html">コンサルティング</option>
-        <option value="/about.html">会社情報</option>
-        <option value="/careers.html">採用情報</option>
+        <optgroup label="GWES">
+          <option value="/gwes.html">GWES - 物流OS</option>
+          <option value="/gwes-modules.html">GWES - 3レイヤー12モジュール</option>
+          <option value="/gwes-detail.html">GWES - モジュール詳細</option>
+          <option value="/gwes-technology.html">GWES - テクノロジー</option>
+          <option value="/gwes-implementation.html">GWES - 導入・効果</option>
+        </optgroup>
+        <option value="/peer.html">PEER - AMR</option>
+        <optgroup label="コンサルティング">
+          <option value="/consulting.html">コンサルティング＆エンジニアリング</option>
+          <option value="/gpim.html">GPIM</option>
+          <option value="/gpim-consulting.html">GPIM コンサルティング詳細</option>
+        </optgroup>
+        <option value="/digital-integration.html">デジタルインテグレーション</option>
+        <option value="/works.html">導入事例</option>
+        <optgroup label="企業情報">
+          <option value="/about.html">企業情報</option>
+          <option value="/team.html">チーム</option>
+          <option value="/careers.html">採用情報</option>
+        </optgroup>
+        <option value="/news.html">ニュース</option>
+        <optgroup label="ブログ">
+          <option value="/blog.html">Warehouse Tech Weekly</option>
+          <option value="/blog-weekly-050.html">Vol.50 - 倉庫自動化トレンド</option>
+        </optgroup>
         <option value="/contact.html">お問い合わせ</option>
       </select>
       <button class="device-btn active" data-width="100%" title="デスクトップ">🖥</button>
