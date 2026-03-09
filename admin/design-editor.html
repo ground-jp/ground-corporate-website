@@ -89,6 +89,8 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 .page-select-bar option { background: #1e2030; color: #c0c3d0; }
 .preview-frame { position: absolute; top: 40px; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; background: #1a1c28; overflow: hidden; }
 .preview-frame iframe { width: 100%; height: 100%; border: none; transition: width 0.3s ease; }
+/* 透明オーバーレイ — iframeの上に配置してクリック制御 */
+.click-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 5; cursor: crosshair; }
 
 /* ── テキスト編集モーダル ── */
 .text-edit-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; justify-content: center; align-items: center; }
@@ -302,8 +304,9 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       <div class="url" id="previewUrl">/</div>
       <span class="click-mode-hint">👆 クリック=スタイル / ダブルクリック=テキスト</span>
     </div>
-    <div class="preview-frame">
+    <div class="preview-frame" id="previewFrameWrap">
       <iframe id="previewFrame" src="/"></iframe>
+      <div class="click-overlay" id="clickOverlay"></div>
     </div>
   </div>
 </div>
@@ -612,84 +615,133 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
   }
 
   // ===================================================
-  // iframe クリック・ダブルクリック（全要素対応）
+  // 透明オーバーレイ方式 — iframe上のクリック制御
+  // iframeの上にある透明divでマウスイベントを捕捉し、
+  // elementFromPoint()で対象要素を特定する。
+  // これによりiframe内のスクリプト干渉を完全に回避。
   // ===================================================
+  var overlay = document.getElementById('clickOverlay');
+  var hoverHighlightEl = null;
+
+  function getIframeElementAtPoint(clientX, clientY) {
+    try {
+      var doc = frame.contentDocument || frame.contentWindow.document;
+      if (!doc) return null;
+      // オーバーレイの座標をiframe内の座標に変換
+      var frameRect = frame.getBoundingClientRect();
+      var x = clientX - frameRect.left;
+      var y = clientY - frameRect.top;
+      // iframe内のスクロールを考慮
+      var el = doc.elementFromPoint(x, y);
+      return el;
+    } catch(e) {
+      return null;
+    }
+  }
+
+  function findEditableTarget(el) {
+    if (!el) return null;
+    // SVG系要素の場合、HTMLコンテナまで辿る
+    if (el.namespaceURI && el.namespaceURI.indexOf('svg') !== -1) {
+      while (el && el.namespaceURI && el.namespaceURI.indexOf('svg') !== -1) {
+        el = el.parentElement;
+      }
+      if (!el) return null;
+    }
+    // SCRIPT, STYLE, HTML, BODY は除外
+    var skip = ['SCRIPT', 'STYLE', 'HTML', 'BODY'];
+    if (skip.indexOf(el.tagName) !== -1) return null;
+    // pointer-events: none の要素は親を辿る
+    try {
+      var cs = frame.contentWindow.getComputedStyle(el);
+      if (cs && cs.pointerEvents === 'none') {
+        return findEditableTarget(el.parentElement);
+      }
+    } catch(e) {}
+    return el;
+  }
+
+  function clearHoverHighlight() {
+    if (hoverHighlightEl) {
+      try {
+        hoverHighlightEl.style.outline = '';
+        hoverHighlightEl.style.outlineOffset = '';
+      } catch(e) {}
+      hoverHighlightEl = null;
+    }
+  }
+
+  // マウス移動 → ホバーハイライト
+  overlay.addEventListener('mousemove', function(e) {
+    var raw = getIframeElementAtPoint(e.clientX, e.clientY);
+    var el = findEditableTarget(raw);
+    if (el && el !== currentHighlightEl) {
+      clearHoverHighlight();
+      hoverHighlightEl = el;
+      // 選択中の要素と異なる場合だけホバー表示
+      if (el !== currentHighlightEl) {
+        el.style.outline = '2px dashed rgba(91,192,235,0.4)';
+        el.style.outlineOffset = '2px';
+      }
+    } else if (!el) {
+      clearHoverHighlight();
+    }
+  });
+
+  overlay.addEventListener('mouseleave', function() {
+    clearHoverHighlight();
+  });
+
+  // シングルクリック → プロパティパネル表示
+  overlay.addEventListener('click', function(e) {
+    var raw = getIframeElementAtPoint(e.clientX, e.clientY);
+    var el = findEditableTarget(raw);
+    if (!el) return;
+
+    clearHoverHighlight();
+    highlightIframeElement(el);
+    switchTab('element');
+    buildElementPanel(el);
+    showSelectedHint(getElLabel(el));
+  });
+
+  // ダブルクリック → テキスト編集
+  overlay.addEventListener('dblclick', function(e) {
+    var raw = getIframeElementAtPoint(e.clientX, e.clientY);
+    var el = findEditableTarget(raw);
+    if (!el) return;
+
+    if (el.textContent.trim().length > 0) {
+      clearHoverHighlight();
+      highlightIframeElement(el);
+      openTextEditModal(el, getElLabel(el));
+    }
+  });
+
+  // オーバーレイ上でのスクロールをiframeに転送
+  overlay.addEventListener('wheel', function(e) {
+    try {
+      var doc = frame.contentDocument || frame.contentWindow.document;
+      if (doc && doc.defaultView) {
+        doc.defaultView.scrollBy(e.deltaX, e.deltaY);
+      }
+    } catch(err) {}
+    e.preventDefault();
+  }, { passive: false });
+
+  // setupClickEditing — オーバーレイ方式ではiframe内のリンク無効化だけ
   function setupClickEditing() {
     try {
       var doc = frame.contentDocument || frame.contentWindow.document;
       if (!doc || !doc.body) return;
-
-      // スタイル注入
-      var style = doc.createElement('style');
-      style.textContent = 'body * { cursor: pointer !important; } body *:hover { outline: 2px dashed rgba(91,192,235,0.4) !important; outline-offset: 2px !important; }';
-      doc.head.appendChild(style);
-
-      // onclick属性によるページ遷移をブロック
-      doc.querySelectorAll('[onclick]').forEach(function(el) {
-        el.removeAttribute('onclick');
-      });
-
-      // リンクのデフォルト動作を全てブロック
+      // リンクのデフォルト動作をブロック（安全のため残す）
       doc.querySelectorAll('a[href]').forEach(function(a) {
         a.addEventListener('click', function(e) { e.preventDefault(); }, true);
       });
-
-      // SVG要素にもポインターイベントを有効化
-      doc.querySelectorAll('svg, svg *').forEach(function(el) {
-        el.style.pointerEvents = 'auto';
+      doc.querySelectorAll('[onclick]').forEach(function(el) {
+        el.removeAttribute('onclick');
       });
-
-      // 要素のクリックターゲットを改善する関数
-      function findEditableTarget(el) {
-        // SVG系要素の場合、親のIMGまたはSVGコンテナまで辿る
-        if (el.namespaceURI && el.namespaceURI.indexOf('svg') !== -1) {
-          while (el && el.namespaceURI && el.namespaceURI.indexOf('svg') !== -1) {
-            el = el.parentElement;
-          }
-          // svgの直接の親がIMGでない場合はそのまま使う
-          if (!el) return null;
-        }
-        // SCRIPT, STYLE, HTML, BODY は除外
-        var skip = ['SCRIPT', 'STYLE', 'HTML', 'BODY'];
-        if (skip.indexOf(el.tagName) !== -1) return null;
-        return el;
-      }
-
-      // シングルクリック → プロパティパネル表示
-      doc.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-
-        var el = findEditableTarget(e.target);
-        if (!el) return false;
-
-        highlightIframeElement(el);
-        switchTab('element');
-        buildElementPanel(el);
-        showSelectedHint(getElLabel(el));
-        return false;
-      }, true);
-
-      // ダブルクリック → テキスト編集
-      doc.addEventListener('dblclick', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-
-        var el = findEditableTarget(e.target);
-        if (!el) return false;
-
-        if (el.textContent.trim().length > 0) {
-          highlightIframeElement(el);
-          openTextEditModal(el, getElLabel(el));
-        }
-        return false;
-      }, true);
-
-    } catch(e) {
-      console.error('setupClickEditing error:', e);
-    }
+    } catch(e) {}
   }
 
   // ── テキスト編集モーダル ──
