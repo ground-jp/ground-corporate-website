@@ -1,13 +1,12 @@
 /**
- * デザイン設定を _data/design.yml から読み込み、CSSカスタムプロパティとして適用
- * CMS で変更した値がサイトに即反映される
+ * デザイン設定を _data/design.yml から読み込み、サイト全体に適用
+ * CMS / ビジュアルエディターで変更した値が全ページに自動反映される
  */
 (function() {
   fetch('/_data/design.yml')
     .then(function(res) { return res.text(); })
     .then(function(text) {
-      // 簡易YAMLパーサー（キー: 値 のみ対応）
-      var settings = {};
+      var s = {};
       text.split('\n').forEach(function(line) {
         line = line.trim();
         if (!line || line.charAt(0) === '#') return;
@@ -15,25 +14,75 @@
         if (idx === -1) return;
         var key = line.substring(0, idx).trim();
         var val = line.substring(idx + 1).trim();
-        // 数値変換
-        if (!isNaN(val) && val !== '') val = Number(val);
-        settings[key] = val;
+        if (val === 'true') val = true;
+        else if (val === 'false') val = false;
+        else if (val.charAt(0) === '"' && val.charAt(val.length - 1) === '"') val = val.slice(1, -1);
+        else if (!isNaN(val) && val !== '') val = Number(val);
+        s[key] = val;
       });
 
-      // ロゴスタイル適用
-      var logoImg = document.querySelector('.header__logo-img');
-      if (logoImg && settings.logo_height) {
-        logoImg.style.height = settings.logo_height + 'px';
-        logoImg.style.width = 'auto';
+      // ── ロゴ ──
+      var logo = document.querySelector('.header__logo-img');
+      if (logo) {
+        if (s.logo_height) { logo.style.height = s.logo_height + 'px'; logo.style.width = 'auto'; }
+        if (s.logo_margin_top) logo.style.marginTop = s.logo_margin_top + 'px';
+        if (s.logo_margin_left) logo.style.marginLeft = s.logo_margin_left + 'px';
       }
-      if (logoImg && settings.logo_margin_top) {
-        logoImg.style.marginTop = settings.logo_margin_top + 'px';
+
+      // ── ヘッダー ──
+      var header = document.querySelector('.header');
+      if (header) {
+        if (s.header_bg_color) header.style.background = s.header_bg_color;
+        if (s.header_height) header.style.height = s.header_height + 'px';
       }
-      if (logoImg && settings.logo_margin_left) {
-        logoImg.style.marginLeft = settings.logo_margin_left + 'px';
+
+      // ── カラー (CSSカスタムプロパティ) ──
+      var root = document.documentElement;
+      if (s.primary_color) root.style.setProperty('--accent', s.primary_color);
+      if (s.accent_color) root.style.setProperty('--frost-ice-blue', s.accent_color);
+      if (s.text_color) root.style.setProperty('--black', s.text_color);
+
+      // ── CTAボタン ──
+      if (s.cta_color) {
+        document.querySelectorAll('.hero__cta, .cta-btn, .recruit-banner__btn').forEach(function(el) {
+          el.style.backgroundColor = s.cta_color;
+        });
+      }
+
+      // ── フォントサイズ ──
+      if (s.heading_font_size) {
+        document.querySelectorAll('.section__title, h2').forEach(function(el) {
+          el.style.fontSize = s.heading_font_size + 'px';
+        });
+      }
+      if (s.body_font_size) document.body.style.fontSize = s.body_font_size + 'px';
+      if (s.nav_font_size) {
+        document.querySelectorAll('.nav__link, .nav__trigger').forEach(function(el) {
+          el.style.fontSize = s.nav_font_size + 'px';
+        });
+      }
+
+      // ── ヒーロー ──
+      var heroTitle = document.querySelector('.hero__title');
+      if (heroTitle && s.hero_title_size) heroTitle.style.fontSize = s.hero_title_size + 'px';
+      var heroVignette = document.querySelector('.hero__vignette');
+      if (heroVignette && s.hero_overlay_opacity !== undefined) heroVignette.style.opacity = s.hero_overlay_opacity / 100;
+
+      // ── セクション表示/非表示 (ホームページのみ) ──
+      var map = { show_news: '#news', show_clients: '#clients', show_solution: '#solution', show_casestudy: '#casestudy', show_recruit: '.recruit-banner' };
+      Object.keys(map).forEach(function(key) {
+        if (s[key] === false) {
+          var el = document.querySelector(map[key]);
+          if (el) el.style.display = 'none';
+        }
+      });
+
+      // ── フッター ──
+      var footer = document.querySelector('.footer') || document.querySelector('footer');
+      if (footer) {
+        if (s.footer_bg_color) footer.style.backgroundColor = s.footer_bg_color;
+        if (s.footer_text_color) footer.style.color = s.footer_text_color;
       }
     })
-    .catch(function() {
-      // 設定ファイルが読めない場合はデフォルトのまま
-    });
+    .catch(function() {});
 })();

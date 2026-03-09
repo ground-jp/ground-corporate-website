@@ -66,14 +66,34 @@ collections:
   # ===== デザイン設定 =====
   - name: "design"
     label: "デザイン設定"
+    description: "💡 ビジュアルエディターを使うと、リアルタイムプレビューで直感的に編集できます → /admin/design-editor.html"
     files:
       - label: "サイトデザイン"
         name: "design"
         file: "_data/design.yml"
         fields:
-          - { label: "ロゴの高さ (px)", name: "logo_height", widget: "number", default: 26, min: 16, max: 80, hint: "ヘッダーロゴの高さ（ピクセル）。標準は26" }
-          - { label: "ロゴ上マージン (px)", name: "logo_margin_top", widget: "number", default: 0, min: -20, max: 20, hint: "ロゴの上方向の位置調整" }
-          - { label: "ロゴ左マージン (px)", name: "logo_margin_left", widget: "number", default: 0, min: -20, max: 40, hint: "ロゴの左方向の位置調整" }
+          - { label: "ロゴの高さ (px)", name: "logo_height", widget: "number", default: 26, min: 16, max: 80, hint: "ヘッダーロゴの高さ。標準は26" }
+          - { label: "ロゴ上マージン (px)", name: "logo_margin_top", widget: "number", default: 0, min: -20, max: 20 }
+          - { label: "ロゴ左マージン (px)", name: "logo_margin_left", widget: "number", default: 0, min: -20, max: 40 }
+          - { label: "ヘッダー背景色", name: "header_bg_color", widget: "string", default: "#0A0C14" }
+          - { label: "ヘッダー高さ (px)", name: "header_height", widget: "number", default: 64 }
+          - { label: "プライマリカラー", name: "primary_color", widget: "string", default: "#545867" }
+          - { label: "アクセントカラー", name: "accent_color", widget: "string", default: "#5BC0EB" }
+          - { label: "CTAボタン色", name: "cta_color", widget: "string", default: "#E8614D" }
+          - { label: "テキスト色", name: "text_color", widget: "string", default: "#1A1A1A" }
+          - { label: "ページ背景色", name: "body_bg_color", widget: "string", default: "#FFFFFF" }
+          - { label: "見出しフォントサイズ (px)", name: "heading_font_size", widget: "number", default: 28 }
+          - { label: "本文フォントサイズ (px)", name: "body_font_size", widget: "number", default: 15 }
+          - { label: "ナビフォントサイズ (px)", name: "nav_font_size", widget: "number", default: 14 }
+          - { label: "ヒーローオーバーレイ不透明度 (%)", name: "hero_overlay_opacity", widget: "number", default: 30, min: 0, max: 80 }
+          - { label: "ヒーロータイトルサイズ (px)", name: "hero_title_size", widget: "number", default: 80 }
+          - { label: "ニュースセクション表示", name: "show_news", widget: "boolean", default: true }
+          - { label: "導入企業ロゴ表示", name: "show_clients", widget: "boolean", default: true }
+          - { label: "ソリューション表示", name: "show_solution", widget: "boolean", default: true }
+          - { label: "導入事例表示", name: "show_casestudy", widget: "boolean", default: true }
+          - { label: "採用バナー表示", name: "show_recruit", widget: "boolean", default: true }
+          - { label: "フッター背景色", name: "footer_bg_color", widget: "string", default: "#0A0C14" }
+          - { label: "フッター文字色", name: "footer_text_color", widget: "string", default: "#8A8C9A" }
 
   # ===== 固定ページ編集 =====
   - name: "pages"
