@@ -20,6 +20,14 @@ body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #0f1117; co
 .sidebar-header h1 { font-size: 15px; font-weight: 600; color: #fff; }
 .sidebar-header .icon { width: 28px; height: 28px; background: linear-gradient(135deg, #5BC0EB, #6C9CFF); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
 
+/* ── 選択中のヒント ── */
+.selected-hint { padding: 8px 20px; background: #1a3a5a; border-bottom: 1px solid #2a5a8a; font-size: 12px; color: #7ac4f0; display: none; align-items: center; gap: 8px; }
+.selected-hint.show { display: flex; }
+.selected-hint .hint-icon { font-size: 14px; }
+.selected-hint .hint-text { flex: 1; }
+.selected-hint .hint-close { background: none; border: none; color: #5a8ab0; cursor: pointer; font-size: 16px; padding: 0 4px; }
+.selected-hint .hint-close:hover { color: #7ac4f0; }
+
 /* ── タブ ── */
 .tabs { display: flex; border-bottom: 1px solid #2a2d3a; }
 .tab { flex: 1; padding: 10px 8px; font-size: 11px; font-weight: 500; text-align: center; cursor: pointer; color: #8a8c9a; border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 0.03em; }
@@ -45,6 +53,9 @@ body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #0f1117; co
 .control-label { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
 .control-label span { font-size: 12px; color: #a0a3b0; }
 .control-label .val { font-size: 11px; color: #5BC0EB; font-family: 'JetBrains Mono', monospace; min-width: 40px; text-align: right; }
+
+/* ── フォーカスされたコントロール ── */
+.control.highlighted { background: #1a2a3a; border-radius: 8px; padding: 10px; margin-left: -10px; margin-right: -10px; border: 1px solid #2a5a8a; }
 
 /* ── スライダー ── */
 input[type="range"] { -webkit-appearance: none; width: 100%; height: 4px; background: #2a2d3a; border-radius: 2px; outline: none; cursor: pointer; }
@@ -78,6 +89,7 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
 /* ── プレビューバー ── */
 .preview-bar { position: absolute; top: 0; left: 0; right: 0; height: 40px; background: #161822; border-bottom: 1px solid #2a2d3a; display: flex; align-items: center; padding: 0 16px; gap: 12px; z-index: 10; }
 .preview-bar .url { flex: 1; background: #1e2030; border: 1px solid #2a2d3a; border-radius: 6px; padding: 4px 12px; font-size: 12px; color: #8a8c9a; font-family: 'JetBrains Mono', monospace; }
+.preview-bar .click-mode-hint { font-size: 11px; color: #5BC0EB; }
 .device-btn { width: 28px; height: 28px; background: none; border: 1px solid #2a2d3a; border-radius: 4px; color: #8a8c9a; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; }
 .device-btn.active, .device-btn:hover { border-color: #5BC0EB; color: #5BC0EB; }
 .preview-frame { position: absolute; top: 40px; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; background: #1a1c28; overflow: hidden; }
@@ -101,6 +113,13 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
       <h1>デザインエディター</h1>
     </div>
 
+    <!-- 選択中の要素ヒント -->
+    <div class="selected-hint" id="selectedHint">
+      <span class="hint-icon">👆</span>
+      <span class="hint-text" id="selectedHintText">ロゴを選択中</span>
+      <button class="hint-close" id="selectedHintClose" title="選択解除">&times;</button>
+    </div>
+
     <div class="tabs">
       <div class="tab active" data-tab="logo">ロゴ</div>
       <div class="tab" data-tab="colors">カラー</div>
@@ -108,31 +127,31 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
       <div class="tab" data-tab="sections">セクション</div>
     </div>
 
-    <div class="panel-scroll">
+    <div class="panel-scroll" id="panelScroll">
       <!-- ── ロゴパネル ── -->
       <div class="panel active" id="panel-logo">
         <div class="section-title">ロゴサイズ</div>
-        <div class="control">
+        <div class="control" data-group="logo">
           <div class="control-label"><span>高さ</span><span class="val" id="val-logo_height">26px</span></div>
           <input type="range" min="16" max="80" value="26" data-key="logo_height" data-unit="px">
         </div>
 
         <div class="section-title">ロゴ位置</div>
-        <div class="control">
+        <div class="control" data-group="logo">
           <div class="control-label"><span>上下位置</span><span class="val" id="val-logo_margin_top">0px</span></div>
           <input type="range" min="-30" max="60" value="0" data-key="logo_margin_top" data-unit="px">
         </div>
-        <div class="control">
+        <div class="control" data-group="logo">
           <div class="control-label"><span>左右位置</span><span class="val" id="val-logo_margin_left">0px</span></div>
           <input type="range" min="-30" max="80" value="0" data-key="logo_margin_left" data-unit="px">
         </div>
 
         <div class="section-title">ヘッダー</div>
-        <div class="control">
+        <div class="control" data-group="header">
           <div class="control-label"><span>ヘッダー高さ</span><span class="val" id="val-header_height">64px</span></div>
           <input type="range" min="48" max="100" value="64" data-key="header_height" data-unit="px">
         </div>
-        <div class="control">
+        <div class="control" data-group="header">
           <div class="control-label"><span>ヘッダー背景色</span></div>
           <div class="color-row">
             <div class="color-input-wrap"><input type="color" value="#0A0C14" data-key="header_bg_color"></div>
@@ -144,21 +163,21 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
       <!-- ── カラーパネル ── -->
       <div class="panel" id="panel-colors">
         <div class="section-title">メインカラー</div>
-        <div class="control">
+        <div class="control" data-group="colors">
           <div class="control-label"><span>プライマリカラー</span></div>
           <div class="color-row">
             <div class="color-input-wrap"><input type="color" value="#545867" data-key="primary_color"></div>
             <input type="text" class="color-hex" value="#545867" data-key="primary_color" data-type="hex">
           </div>
         </div>
-        <div class="control">
+        <div class="control" data-group="colors">
           <div class="control-label"><span>アクセントカラー</span></div>
           <div class="color-row">
             <div class="color-input-wrap"><input type="color" value="#5BC0EB" data-key="accent_color"></div>
             <input type="text" class="color-hex" value="#5BC0EB" data-key="accent_color" data-type="hex">
           </div>
         </div>
-        <div class="control">
+        <div class="control" data-group="cta">
           <div class="control-label"><span>CTAボタン色</span></div>
           <div class="color-row">
             <div class="color-input-wrap"><input type="color" value="#E8614D" data-key="cta_color"></div>
@@ -167,14 +186,14 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
         </div>
 
         <div class="section-title">テキスト・背景</div>
-        <div class="control">
+        <div class="control" data-group="colors">
           <div class="control-label"><span>テキスト色</span></div>
           <div class="color-row">
             <div class="color-input-wrap"><input type="color" value="#1A1A1A" data-key="text_color"></div>
             <input type="text" class="color-hex" value="#1A1A1A" data-key="text_color" data-type="hex">
           </div>
         </div>
-        <div class="control">
+        <div class="control" data-group="colors">
           <div class="control-label"><span>ページ背景色</span></div>
           <div class="color-row">
             <div class="color-input-wrap"><input type="color" value="#FFFFFF" data-key="body_bg_color"></div>
@@ -183,14 +202,14 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
         </div>
 
         <div class="section-title">フッター</div>
-        <div class="control">
+        <div class="control" data-group="footer">
           <div class="control-label"><span>フッター背景色</span></div>
           <div class="color-row">
             <div class="color-input-wrap"><input type="color" value="#0A0C14" data-key="footer_bg_color"></div>
             <input type="text" class="color-hex" value="#0A0C14" data-key="footer_bg_color" data-type="hex">
           </div>
         </div>
-        <div class="control">
+        <div class="control" data-group="footer">
           <div class="control-label"><span>フッター文字色</span></div>
           <div class="color-row">
             <div class="color-input-wrap"><input type="color" value="#8A8C9A" data-key="footer_text_color"></div>
@@ -202,37 +221,37 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
       <!-- ── 文字パネル ── -->
       <div class="panel" id="panel-typography">
         <div class="section-title">フォントサイズ</div>
-        <div class="control">
+        <div class="control" data-group="heading">
           <div class="control-label"><span>見出し</span><span class="val" id="val-heading_font_size">28px</span></div>
           <input type="range" min="18" max="48" value="28" data-key="heading_font_size" data-unit="px">
         </div>
-        <div class="control">
+        <div class="control" data-group="body-text">
           <div class="control-label"><span>本文</span><span class="val" id="val-body_font_size">15px</span></div>
           <input type="range" min="12" max="20" value="15" data-key="body_font_size" data-unit="px">
         </div>
-        <div class="control">
+        <div class="control" data-group="nav">
           <div class="control-label"><span>ナビゲーション</span><span class="val" id="val-nav_font_size">14px</span></div>
           <input type="range" min="11" max="18" value="14" data-key="nav_font_size" data-unit="px">
         </div>
 
         <div class="section-title">ヒーローセクション</div>
-        <div class="control">
+        <div class="control" data-group="hero-title">
           <div class="control-label"><span>タイトルサイズ</span><span class="val" id="val-hero_title_size">80px</span></div>
           <input type="range" min="30" max="160" value="80" data-key="hero_title_size" data-unit="px">
         </div>
-        <div class="control">
+        <div class="control" data-group="hero-title">
           <div class="control-label"><span>タイトル上下位置</span><span class="val" id="val-hero_title_top">0px</span></div>
           <input type="range" min="-100" max="200" value="0" data-key="hero_title_top" data-unit="px">
         </div>
-        <div class="control">
+        <div class="control" data-group="hero-title">
           <div class="control-label"><span>タイトル左右位置</span><span class="val" id="val-hero_title_left">0px</span></div>
           <input type="range" min="-100" max="200" value="0" data-key="hero_title_left" data-unit="px">
         </div>
-        <div class="control">
+        <div class="control" data-group="hero-subtitle">
           <div class="control-label"><span>サブタイトルサイズ</span><span class="val" id="val-hero_subtitle_size">20px</span></div>
           <input type="range" min="12" max="40" value="20" data-key="hero_subtitle_size" data-unit="px">
         </div>
-        <div class="control">
+        <div class="control" data-group="hero-overlay">
           <div class="control-label"><span>オーバーレイ不透明度</span><span class="val" id="val-hero_overlay_opacity">30%</span></div>
           <input type="range" min="0" max="80" value="30" data-key="hero_overlay_opacity" data-unit="%">
         </div>
@@ -289,6 +308,7 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
       <button class="device-btn" data-width="768px" title="タブレット">📱</button>
       <button class="device-btn" data-width="375px" title="モバイル">📲</button>
       <div class="url" id="previewUrl">/</div>
+      <span class="click-mode-hint">👆 要素をクリックして編集</span>
     </div>
     <div class="preview-frame">
       <iframe id="previewFrame" src="/"></iframe>
@@ -303,6 +323,26 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
   var settings = {};
   var originalSettings = {};
   var frame = document.getElementById('previewFrame');
+
+  // ── クリック選択マッピング ──
+  // iframe内のCSS selector → { tab, group, label }
+  var clickMap = [
+    { sel: '.header__logo-img, .header__logo', tab: 'logo', group: 'logo', label: 'ロゴ' },
+    { sel: '.header, .header__inner', tab: 'logo', group: 'header', label: 'ヘッダー' },
+    { sel: '.nav__link, .nav__trigger, .nav__list, nav', tab: 'typography', group: 'nav', label: 'ナビゲーション' },
+    { sel: '.hero__title', tab: 'typography', group: 'hero-title', label: 'ヒーロータイトル' },
+    { sel: '.hero__subtitle', tab: 'typography', group: 'hero-subtitle', label: 'サブタイトル' },
+    { sel: '.hero__cta', tab: 'colors', group: 'cta', label: 'CTAボタン' },
+    { sel: '.hero__vignette, .hero__bg', tab: 'typography', group: 'hero-overlay', label: 'ヒーローオーバーレイ' },
+    { sel: '.section__title, h2', tab: 'typography', group: 'heading', label: '見出し' },
+    { sel: '#news', tab: 'sections', group: 'section-news', label: 'ニュースセクション' },
+    { sel: '#clients', tab: 'sections', group: 'section-clients', label: '導入企業セクション' },
+    { sel: '#solution', tab: 'sections', group: 'section-solution', label: 'ソリューションセクション' },
+    { sel: '#casestudy', tab: 'sections', group: 'section-casestudy', label: '導入事例セクション' },
+    { sel: '.recruit-banner', tab: 'sections', group: 'section-recruit', label: '採用バナー' },
+    { sel: '.footer, footer', tab: 'colors', group: 'footer', label: 'フッター' },
+    { sel: '.cta-btn, [class*="cta"]', tab: 'colors', group: 'cta', label: 'CTAボタン' }
+  ];
 
   // ── 初期設定読み込み ──
   fetch('/_data/design.yml')
@@ -331,7 +371,6 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
   }
 
   function syncControlsFromSettings() {
-    // スライダー
     document.querySelectorAll('input[type="range"]').forEach(function(el) {
       var key = el.dataset.key;
       if (settings[key] !== undefined) {
@@ -340,7 +379,6 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
         if (valEl) valEl.textContent = settings[key] + (el.dataset.unit || '');
       }
     });
-    // カラー
     document.querySelectorAll('input[type="color"]').forEach(function(el) {
       var key = el.dataset.key;
       if (settings[key] !== undefined) {
@@ -349,7 +387,6 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
         if (hexInput) hexInput.value = settings[key];
       }
     });
-    // トグル
     document.querySelectorAll('.toggle input').forEach(function(el) {
       var key = el.dataset.key;
       if (settings[key] !== undefined) el.checked = settings[key];
@@ -401,14 +438,131 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
   });
 
   // ── タブ切り替え ──
+  function switchTab(tabName) {
+    document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+    var tabEl = document.querySelector('.tab[data-tab="' + tabName + '"]');
+    if (tabEl) tabEl.classList.add('active');
+    var panelEl = document.getElementById('panel-' + tabName);
+    if (panelEl) panelEl.classList.add('active');
+  }
+
   document.querySelectorAll('.tab').forEach(function(tab) {
     tab.addEventListener('click', function() {
-      document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
-      document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
-      this.classList.add('active');
-      document.getElementById('panel-' + this.dataset.tab).classList.add('active');
+      switchTab(this.dataset.tab);
     });
   });
+
+  // ── コントロールのハイライト ──
+  function highlightGroup(groupName) {
+    // 前のハイライトをクリア
+    document.querySelectorAll('.control.highlighted').forEach(function(c) { c.classList.remove('highlighted'); });
+    // 該当グループをハイライト
+    var controls = document.querySelectorAll('.control[data-group="' + groupName + '"]');
+    controls.forEach(function(c) { c.classList.add('highlighted'); });
+    // 最初のコントロールまでスクロール
+    if (controls.length > 0) {
+      setTimeout(function() {
+        controls[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
+    }
+  }
+
+  // ── 選択ヒントの表示 ──
+  function showSelectedHint(label) {
+    var hint = document.getElementById('selectedHint');
+    document.getElementById('selectedHintText').textContent = '「' + label + '」を選択中';
+    hint.classList.add('show');
+  }
+
+  function hideSelectedHint() {
+    document.getElementById('selectedHint').classList.remove('show');
+    document.querySelectorAll('.control.highlighted').forEach(function(c) { c.classList.remove('highlighted'); });
+    clearIframeHighlight();
+  }
+
+  document.getElementById('selectedHintClose').addEventListener('click', hideSelectedHint);
+
+  // ── iframe内ハイライト管理 ──
+  var currentHighlightEl = null;
+
+  function clearIframeHighlight() {
+    if (currentHighlightEl) {
+      try { currentHighlightEl.style.outline = ''; currentHighlightEl.style.outlineOffset = ''; } catch(e) {}
+      currentHighlightEl = null;
+    }
+  }
+
+  function highlightIframeElement(el) {
+    clearIframeHighlight();
+    currentHighlightEl = el;
+    el.style.outline = '3px solid #5BC0EB';
+    el.style.outlineOffset = '3px';
+  }
+
+  // ── iframe内クリックイベント設定 ──
+  function setupClickEditing() {
+    try {
+      var doc = frame.contentDocument || frame.contentWindow.document;
+      if (!doc || !doc.body) return;
+
+      // 既存のリスナーをクリアするためにスタイルを注入
+      var style = doc.createElement('style');
+      style.textContent = '[data-editable-hover] { cursor: pointer !important; } [data-editable-hover]:hover { outline: 2px dashed rgba(91,192,235,0.5) !important; outline-offset: 2px !important; }';
+      doc.head.appendChild(style);
+
+      // クリック可能な要素にマーカーを付ける
+      clickMap.forEach(function(mapping) {
+        var sels = mapping.sel.split(',');
+        sels.forEach(function(s) {
+          try {
+            doc.querySelectorAll(s.trim()).forEach(function(el) {
+              el.setAttribute('data-editable-hover', '1');
+              el.setAttribute('data-edit-tab', mapping.tab);
+              el.setAttribute('data-edit-group', mapping.group);
+              el.setAttribute('data-edit-label', mapping.label);
+            });
+          } catch(e) {}
+        });
+      });
+
+      // クリックイベント（キャプチャフェーズで先に捕捉）
+      doc.addEventListener('click', function(e) {
+        // data-editable-hover 属性を持つ最も近い要素を探す
+        var target = e.target;
+        var editableEl = null;
+        while (target && target !== doc.body) {
+          if (target.getAttribute && target.getAttribute('data-editable-hover')) {
+            editableEl = target;
+            break;
+          }
+          target = target.parentElement;
+        }
+
+        if (editableEl) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          var tabName = editableEl.getAttribute('data-edit-tab');
+          var groupName = editableEl.getAttribute('data-edit-group');
+          var label = editableEl.getAttribute('data-edit-label');
+
+          // iframe内の要素をハイライト
+          highlightIframeElement(editableEl);
+
+          // サイドバーのタブ切り替え + コントロールハイライト
+          switchTab(tabName);
+          highlightGroup(groupName);
+          showSelectedHint(label);
+
+          return false;
+        }
+      }, true);
+
+    } catch(e) {
+      // Cross-origin
+    }
+  }
 
   // ── デバイス切り替え ──
   document.querySelectorAll('.device-btn').forEach(function(btn) {
@@ -423,7 +577,6 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
   document.getElementById('pageSelect').addEventListener('change', function() {
     frame.src = this.value;
     document.getElementById('previewUrl').textContent = this.value;
-    // リロード後に設定を再適用
     frame.onload = function() { applyToPreview(); };
   });
 
@@ -519,14 +672,15 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
         footer.style.color = settings.footer_text_color;
       }
 
-    } catch(e) {
-      // Cross-origin の場合はスキップ
-    }
+    } catch(e) {}
   }
 
-  // iframe 読み込み時に設定適用
+  // iframe 読み込み時に設定適用 + クリック選択を有効化
   frame.addEventListener('load', function() {
-    setTimeout(applyToPreview, 200);
+    setTimeout(function() {
+      applyToPreview();
+      setupClickEditing();
+    }, 300);
   });
 
   // ── 保存ボタン ──
@@ -574,8 +728,6 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
     yaml += 'footer_bg_color: "' + settings.footer_bg_color + '"\n';
     yaml += 'footer_text_color: "' + settings.footer_text_color + '"\n';
 
-    // Git Gateway API で保存
-    // Netlify Identity のトークンを使って GitHub API 経由で保存
     var token = null;
     try {
       var user = JSON.parse(localStorage.getItem('gotrue.user'));
@@ -585,13 +737,11 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
     } catch(e) {}
 
     if (!token) {
-      // Netlify Identity でログインを促す
       showStatus('⚠️ ログインが必要です。CMS からログインしてください。', true);
       window.open('/admin/', '_blank');
       return;
     }
 
-    // Git Gateway API を使ってファイルを保存
     var siteUrl = 'https://super-pastelito-06a52d.netlify.app';
     fetch(siteUrl + '/.netlify/git/github/contents/_data/design.yml', {
       method: 'GET',
@@ -631,6 +781,7 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
     settings = JSON.parse(JSON.stringify(originalSettings));
     syncControlsFromSettings();
     applyToPreview();
+    hideSelectedHint();
     showStatus('↩ リセットしました');
   });
 
