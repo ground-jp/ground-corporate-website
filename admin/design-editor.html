@@ -166,8 +166,9 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       <!-- ── 要素パネル（動的プロパティ） ── -->
       <div class="panel active" id="panel-element">
         <div id="elementEmpty" style="color:#5a5d6a; font-size:13px; text-align:center; padding:40px 20px; line-height:1.8;">
-          プレビュー内の要素を<br><strong style="color:#5BC0EB">クリック</strong>すると<br>ここに編集コントロールが表示されます<br><br>
-          <span style="font-size:11px; color:#4a4d5a">ダブルクリックでテキスト編集</span>
+          プレビュー内の要素を<br><strong style="color:#5BC0EB">クリック</strong>して選択<br><br>
+          <span style="font-size:11px; color:#6a6d7a">📌 クリック → スタイル編集</span><br>
+          <span style="font-size:11px; color:#6a6d7a">📌 ダブルクリック → テキスト直接編集</span>
         </div>
         <div id="elementControls" style="display:none;"></div>
       </div>
@@ -602,7 +603,54 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     // テキスト系
     var isTextEl = ['SPAN', 'P', 'H1', 'H2', 'H3', 'H4', 'H5', 'A', 'LI', 'DT', 'DD', 'BLOCKQUOTE', 'LABEL', 'BUTTON', 'TD', 'TH'].indexOf(el.tagName) !== -1;
 
+    // ── テキスト編集セクション ──
+    if (isTextEl && el.textContent.trim().length > 0) {
+      var textSection = document.createElement('div');
+      textSection.innerHTML = '<div class="section-title">テキスト</div>';
+
+      // 現在のテキストプレビュー
+      var textPreview = document.createElement('div');
+      textPreview.style.cssText = 'background:#161822; border:1px solid #2a2d3a; border-radius:6px; padding:10px 12px; font-size:13px; color:#c0c3d0; line-height:1.6; margin-bottom:10px; max-height:100px; overflow-y:auto; word-break:break-all;';
+      var previewText = el.textContent.trim();
+      textPreview.textContent = previewText.length > 150 ? previewText.substring(0, 150) + '…' : previewText;
+      textSection.appendChild(textPreview);
+
+      // ボタン行
+      var btnRow = document.createElement('div');
+      btnRow.style.cssText = 'display:flex; gap:8px; margin-bottom:16px;';
+
+      // インライン編集ボタン
+      var inlineBtn = document.createElement('button');
+      inlineBtn.textContent = '✏️ 直接編集';
+      inlineBtn.title = 'プレビュー上で直接テキストを編集';
+      inlineBtn.style.cssText = 'flex:1; padding:8px 12px; background:#5BC0EB; color:#0f1117; border:none; border-radius:6px; font-size:12px; font-weight:600; cursor:pointer; font-family:inherit;';
+      inlineBtn.addEventListener('click', function() {
+        startInlineEdit(el);
+      });
+      inlineBtn.addEventListener('mouseover', function() { this.style.background = '#4ab0db'; });
+      inlineBtn.addEventListener('mouseout', function() { this.style.background = '#5BC0EB'; });
+      btnRow.appendChild(inlineBtn);
+
+      // モーダル編集ボタン
+      var modalBtn = document.createElement('button');
+      modalBtn.textContent = '📝 テキスト入力';
+      modalBtn.title = 'テキスト入力欄で編集';
+      modalBtn.style.cssText = 'flex:1; padding:8px 12px; background:#2a2d3a; color:#a0a3b0; border:none; border-radius:6px; font-size:12px; font-weight:500; cursor:pointer; font-family:inherit;';
+      modalBtn.addEventListener('click', function() {
+        openTextEditModal(el, getElLabel(el));
+      });
+      modalBtn.addEventListener('mouseover', function() { this.style.background = '#3a3d4a'; });
+      modalBtn.addEventListener('mouseout', function() { this.style.background = '#2a2d3a'; });
+      btnRow.appendChild(modalBtn);
+
+      textSection.appendChild(btnRow);
+      container.appendChild(textSection);
+    }
+
     // 色コントロール
+    var colorSection = document.createElement('div');
+    colorSection.innerHTML = '<div class="section-title">カラー</div>';
+    container.appendChild(colorSection);
     addColorControl(container, el, 'color', '文字色');
     addColorControl(container, el, 'backgroundColor', '背景色');
 
@@ -1130,9 +1178,10 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     }
 
     el.removeAttribute('contenteditable');
+    el.style.removeProperty('outline');
+    el.style.removeProperty('outline-offset');
     el.style.removeProperty('cursor');
     el.style.removeProperty('min-height');
-    // ハイライトは維持（選択状態のまま）
 
     // オーバーレイを復帰
     overlay.style.pointerEvents = 'auto';
@@ -1140,7 +1189,11 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     inlineEditOriginal = '';
 
     // ドラッグボックスを再表示
-    if (selectedEl) updateDragBoxPosition();
+    if (selectedEl) {
+      updateDragBoxPosition();
+      // サイドバーのパネルも更新（テキストプレビュー反映）
+      buildElementPanel(selectedEl);
+    }
   }
 
   // iframe内のクリック（テキスト編集外）を検知して確定
@@ -1263,6 +1316,8 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     document.getElementById('textEditOverlay').classList.remove('show');
     trackChange(currentTextEditEl, 'textContent', '');
     showStatus('✏️ テキスト変更をプレビューに適用しました');
+    // サイドバーのパネルも更新
+    if (selectedEl) buildElementPanel(selectedEl);
     currentTextEditEl = null;
   });
 
