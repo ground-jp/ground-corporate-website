@@ -111,6 +111,11 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 .auth-btn:hover { border-color: #5BC0EB; color: #5BC0EB; }
 .auth-btn.logged-in { border-color: #28a745; color: #28a745; }
 .auth-btn.logged-in:hover { border-color: #dc3545; color: #dc3545; }
+.undo-redo-group { display: flex; gap: 2px; }
+.ur-btn { width: 28px; height: 28px; background: none; border: 1px solid #2a2d3a; border-radius: 4px; color: #8a8c9a; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+.ur-btn:hover:not(:disabled) { border-color: #5BC0EB; color: #5BC0EB; }
+.ur-btn:disabled { opacity: 0.3; cursor: default; }
+.ur-btn .count { position: absolute; top: -4px; right: -4px; font-size: 8px; background: #5BC0EB; color: #0f1117; border-radius: 6px; padding: 0 3px; min-width: 12px; text-align: center; font-weight: 700; }
 
 /* ── ドラッグ選択ボックス・ハンドル ── */
 .drag-box { position: absolute; border: 2px solid #5BC0EB; pointer-events: none; z-index: 6; display: none; }
@@ -361,6 +366,10 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       <button class="device-btn" data-width="768px" title="タブレット">📱</button>
       <button class="device-btn" data-width="375px" title="モバイル">📲</button>
       <div class="url" id="previewUrl">/</div>
+      <div class="undo-redo-group">
+        <button class="ur-btn" id="undoBtn" disabled title="元に戻す (Ctrl+Z)">↩</button>
+        <button class="ur-btn" id="redoBtn" disabled title="やり直す (Ctrl+Shift+Z)">↪</button>
+      </div>
       <div class="mode-toggle">
         <button class="mode-btn active" id="modeEdit" title="要素をクリックして編集">✏️ 編集</button>
         <button class="mode-btn" id="modePreview" title="ページを通常操作（ナビゲーション等）">👁 操作</button>
@@ -411,13 +420,121 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
   var currentTextEditEl = null;
   var pendingChanges = {}; // { pagePath: true } — 変更があったページ
 
-  // ── 変更トラッキング ──
-  function trackChange(el, prop, value) {
+  // ── Undo/Redo システム ──
+  var undoStack = [];
+  var redoStack = [];
+  var MAX_UNDO = 100;
+  var isUndoRedoing = false; // undo/redo実行中フラグ（再記録防止）
+
+  function trackChange(el, prop, value, oldValue) {
     var pageSelect = document.getElementById('pageSelect');
     var pagePath = pageSelect ? pageSelect.value : '/';
     pendingChanges[pagePath] = true;
     updateSaveButton();
+
+    // undo/redo実行中は履歴に追加しない
+    if (isUndoRedoing) return;
+
+    // oldValueが渡されなかった場合は記録しない（後方互換）
+    if (oldValue === undefined) return;
+
+    undoStack.push({
+      el: el,
+      deId: el.getAttribute ? el.getAttribute('data-de-id') : null,
+      prop: prop,
+      oldValue: oldValue,
+      newValue: value,
+      page: pagePath
+    });
+    if (undoStack.length > MAX_UNDO) undoStack.shift();
+    // 新しい変更が入ったらredoはクリア
+    redoStack = [];
+    updateUndoRedoUI();
   }
+
+  function performUndo() {
+    if (undoStack.length === 0) return;
+    var action = undoStack.pop();
+    redoStack.push(action);
+    isUndoRedoing = true;
+    applyUndoRedoAction(action, true);
+    isUndoRedoing = false;
+    updateUndoRedoUI();
+    showStatus('↩ 元に戻しました');
+  }
+
+  function performRedo() {
+    if (redoStack.length === 0) return;
+    var action = redoStack.pop();
+    undoStack.push(action);
+    isUndoRedoing = true;
+    applyUndoRedoAction(action, false);
+    isUndoRedoing = false;
+    updateUndoRedoUI();
+    showStatus('↪ やり直しました');
+  }
+
+  function applyUndoRedoAction(action, isUndo) {
+    var el = action.el;
+    // 要素がDOMから外れている場合、data-de-idで再取得
+    try {
+      var doc = frame.contentDocument || frame.contentWindow.document;
+      if (!doc.contains(el) && action.deId) {
+        el = doc.querySelector('[data-de-id="' + action.deId + '"]');
+      }
+    } catch(e) {}
+    if (!el) return;
+
+    var val = isUndo ? action.oldValue : action.newValue;
+
+    if (action.prop === 'textContent') {
+      // テキスト変更のundo/redo（HTMLタグを含む場合はinnerHTMLで復元）
+      if (val && (val.indexOf('<') !== -1)) {
+        el.innerHTML = val;
+      } else {
+        el.textContent = val;
+      }
+    } else {
+      // スタイル変更のundo/redo
+      el.style.setProperty(action.prop, val, 'important');
+      injectStyleOverride(el, action.prop, val);
+    }
+    // 選択枠を再描画
+    if (el === currentHighlightEl) {
+      updateDragBoxPosition();
+      buildElementPanel(el);
+    }
+  }
+
+  function updateUndoRedoUI() {
+    var undoBtn = document.getElementById('undoBtn');
+    var redoBtn = document.getElementById('redoBtn');
+    if (undoBtn) {
+      undoBtn.disabled = undoStack.length === 0;
+      undoBtn.title = '元に戻す (Ctrl+Z)' + (undoStack.length ? ' [' + undoStack.length + ']' : '');
+    }
+    if (redoBtn) {
+      redoBtn.disabled = redoStack.length === 0;
+      redoBtn.title = 'やり直す (Ctrl+Shift+Z)' + (redoStack.length ? ' [' + redoStack.length + ']' : '');
+    }
+  }
+
+  // undo/redo ボタン
+  document.getElementById('undoBtn').addEventListener('click', performUndo);
+  document.getElementById('redoBtn').addEventListener('click', performRedo);
+
+  // キーボードショートカット Ctrl+Z / Ctrl+Shift+Z (Mac: Cmd)
+  document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+      e.preventDefault();
+      if (e.shiftKey) performRedo();
+      else performUndo();
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
+      e.preventDefault();
+      performRedo();
+    }
+  });
   function updateSaveButton() {
     var btn = document.getElementById('savePageBtn');
     var dlBtn = document.getElementById('dlPageBtn');
@@ -781,6 +898,22 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     var valSpan = div.querySelector('.val');
 
     var kebab = p.prop.replace(/([A-Z])/g, '-$1').toLowerCase();
+    // undo用: スライダー操作開始時の値を記録
+    var sliderOldVal = null;
+    slider.addEventListener('mousedown', function() {
+      if (p.isTranslate) {
+        var curCs = frame.contentWindow.getComputedStyle(el);
+        sliderOldVal = curCs.transform || 'none';
+      } else if (p.prop === 'lineHeight') {
+        sliderOldVal = frame.contentWindow.getComputedStyle(el).lineHeight;
+      } else if (p.prop === 'opacity') {
+        sliderOldVal = frame.contentWindow.getComputedStyle(el).opacity;
+      } else if (p.prop === 'letterSpacing') {
+        sliderOldVal = frame.contentWindow.getComputedStyle(el).letterSpacing;
+      } else {
+        sliderOldVal = frame.contentWindow.getComputedStyle(el).getPropertyValue(kebab);
+      }
+    });
     slider.addEventListener('input', function() {
       var v = p.isFloat ? parseFloat(this.value) : Math.round(parseFloat(this.value));
       valSpan.textContent = (p.isFloat ? v.toFixed(1) : v) + (p.unit || '');
@@ -798,19 +931,23 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
         var newTransform = 'translate(' + curTx + 'px, ' + curTy + 'px)';
         el.style.setProperty('transform', newTransform, 'important');
         injectStyleOverride(el, 'transform', newTransform);
-        trackChange(el, 'transform', newTransform);
+        trackChange(el, 'transform', newTransform, sliderOldVal);
       } else if (p.prop === 'lineHeight') {
         el.style.setProperty('line-height', v, 'important');
+        trackChange(el, 'line-height', String(v), sliderOldVal);
       } else if (p.prop === 'opacity') {
         el.style.setProperty('opacity', v, 'important');
+        trackChange(el, 'opacity', String(v), sliderOldVal);
       } else if (p.prop === 'letterSpacing') {
         el.style.setProperty('letter-spacing', v + 'px', 'important');
+        trackChange(el, 'letter-spacing', v + 'px', sliderOldVal);
       } else {
         el.style.setProperty(kebab, v + 'px', 'important');
+        trackChange(el, kebab, v + 'px', sliderOldVal);
       }
-      trackChange(el, kebab, v);
       if (selectedEl) updateDragBoxPosition();
     });
+    slider.addEventListener('mouseup', function() { sliderOldVal = null; });
 
     container.appendChild(div);
   }
@@ -853,6 +990,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     var colorInput = div.querySelector('input[type="color"]');
     var hexInput = div.querySelector('.color-hex');
     var applyBtn = div.querySelector('.color-apply-btn');
+    var colorOldVal = raw; // undo用: 変更前の色を保持
 
     function applyColor(v) {
       if (v.charAt(0) !== '#') v = '#' + v;
@@ -869,7 +1007,8 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
           });
         } catch(e) {}
       }
-      trackChange(el, kebabProp, v);
+      trackChange(el, kebabProp, v, colorOldVal);
+      colorOldVal = v; // 次の変更の基準値を更新
       // 透明度バッジを消す
       var badge = div.querySelector('.control-label span[style]');
       if (badge) badge.style.display = 'none';
@@ -1227,12 +1366,18 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       wasDragging = true; // クリック誤発火防止
       if (dragState.type === 'move') {
         // 終了時にスタイル注入で永続化
+        var oldMoveTransform = 'translate(' + dragState.origTx + 'px, ' + dragState.origTy + 'px)';
         var finalTransform = selectedEl.style.transform || '';
         injectStyleOverride(selectedEl, 'transform', finalTransform);
-        trackChange(selectedEl, 'transform', finalTransform);
+        trackChange(selectedEl, 'transform', finalTransform, oldMoveTransform);
         showStatus('📍 要素を移動しました');
       } else {
-        trackChange(selectedEl, dragState.type, '');
+        // リサイズ: 元のサイズを保存
+        var oldResizeW = dragState.origW + 'px';
+        var oldResizeH = dragState.origH + 'px';
+        var cs = frame.contentWindow.getComputedStyle(selectedEl);
+        trackChange(selectedEl, 'width', cs.width, oldResizeW);
+        trackChange(selectedEl, 'height', cs.height, oldResizeH);
         showStatus('↔️ サイズを変更しました');
       }
       // パネルを更新
@@ -1304,7 +1449,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       showStatus('❌ テキスト編集をキャンセルしました');
     } else {
       if (el.innerHTML !== inlineEditOriginal) {
-        trackChange(el, 'textContent', '');
+        trackChange(el, 'textContent', el.innerHTML || el.textContent, inlineEditOriginal);
         showStatus('✅ テキストを変更しました');
       }
     }
@@ -1452,9 +1597,10 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
   });
   document.getElementById('textEditApply').addEventListener('click', function() {
     if (!currentTextEditEl) return;
+    var oldTextContent = currentTextEditEl.textContent;
     currentTextEditEl.textContent = document.getElementById('textEditArea').value;
     document.getElementById('textEditOverlay').classList.remove('show');
-    trackChange(currentTextEditEl, 'textContent', '');
+    trackChange(currentTextEditEl, 'textContent', currentTextEditEl.textContent, oldTextContent);
     showStatus('✏️ テキスト変更をプレビューに適用しました');
     // サイドバーのパネルも更新
     if (selectedEl) buildElementPanel(selectedEl);
