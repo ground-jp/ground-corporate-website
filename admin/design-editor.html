@@ -592,18 +592,19 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     var slider = div.querySelector('input');
     var valSpan = div.querySelector('.val');
 
+    var kebab = p.prop.replace(/([A-Z])/g, '-$1').toLowerCase();
     slider.addEventListener('input', function() {
       var v = p.isFloat ? parseFloat(this.value) : Math.round(parseFloat(this.value));
       valSpan.textContent = (p.isFloat ? v.toFixed(1) : v) + (p.unit || '');
 
       if (p.prop === 'lineHeight') {
-        el.style.lineHeight = v;
+        el.style.setProperty('line-height', v, 'important');
       } else if (p.prop === 'opacity') {
-        el.style.opacity = v;
+        el.style.setProperty('opacity', v, 'important');
       } else if (p.prop === 'letterSpacing') {
-        el.style.letterSpacing = v + 'px';
+        el.style.setProperty('letter-spacing', v + 'px', 'important');
       } else {
-        el.style[p.prop] = v + 'px';
+        el.style.setProperty(kebab, v + 'px', 'important');
       }
     });
 
@@ -628,14 +629,17 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     var colorInput = div.querySelector('input[type="color"]');
     var hexInput = div.querySelector('.color-hex');
 
+    // camelCase → kebab-case 変換（setPropertyに必要）
+    var kebabProp = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
+
     colorInput.addEventListener('input', function() {
-      el.style[prop] = this.value;
+      el.style.setProperty(kebabProp, this.value, 'important');
       hexInput.value = this.value;
     });
     hexInput.addEventListener('change', function() {
       var v = this.value;
       if (v.charAt(0) !== '#') v = '#' + v;
-      el.style[prop] = v;
+      el.style.setProperty(kebabProp, v, 'important');
       colorInput.value = v;
     });
 
@@ -826,11 +830,40 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       var dir = dragState.dir;
       var newW = dragState.origW;
       var newH = dragState.origH;
+      var aspect = dragState.origW / dragState.origH;
+      var isCorner = (dir === 'tl' || dir === 'tr' || dir === 'bl' || dir === 'br');
 
-      if (dir === 'br' || dir === 'tr' || dir === 'mr') newW += dx;
-      if (dir === 'bl' || dir === 'tl' || dir === 'ml') { newW -= dx; selectedEl.style.marginLeft = (dragState.origMarginLeft + dx) + 'px'; }
-      if (dir === 'br' || dir === 'bl' || dir === 'bm') newH += dy;
-      if (dir === 'tl' || dir === 'tr' || dir === 'tm') { newH -= dy; selectedEl.style.marginTop = (dragState.origMarginTop + dy) + 'px'; }
+      if (isCorner) {
+        // 角ハンドル → 等倍（アスペクト比維持）リサイズ
+        // dx と dy のうち移動量が大きい方を基準にする
+        var absDx = Math.abs(dx);
+        var absDy = Math.abs(dy);
+        var delta = absDx > absDy ? dx : dy * aspect;
+
+        if (dir === 'br') {
+          newW = dragState.origW + delta;
+          newH = newW / aspect;
+        } else if (dir === 'tr') {
+          newW = dragState.origW + delta;
+          newH = newW / aspect;
+          selectedEl.style.marginTop = (dragState.origMarginTop + (dragState.origH - newH)) + 'px';
+        } else if (dir === 'bl') {
+          newW = dragState.origW - delta;
+          newH = newW / aspect;
+          selectedEl.style.marginLeft = (dragState.origMarginLeft + (dragState.origW - newW)) + 'px';
+        } else if (dir === 'tl') {
+          newW = dragState.origW - delta;
+          newH = newW / aspect;
+          selectedEl.style.marginTop = (dragState.origMarginTop + (dragState.origH - newH)) + 'px';
+          selectedEl.style.marginLeft = (dragState.origMarginLeft + (dragState.origW - newW)) + 'px';
+        }
+      } else {
+        // 辺ハンドル → 自由リサイズ（従来通り）
+        if (dir === 'mr') newW += dx;
+        if (dir === 'ml') { newW -= dx; selectedEl.style.marginLeft = (dragState.origMarginLeft + dx) + 'px'; }
+        if (dir === 'bm') newH += dy;
+        if (dir === 'tm') { newH -= dy; selectedEl.style.marginTop = (dragState.origMarginTop + dy) + 'px'; }
+      }
 
       if (newW > 10) selectedEl.style.width = newW + 'px';
       if (newH > 10) selectedEl.style.height = newH + 'px';
