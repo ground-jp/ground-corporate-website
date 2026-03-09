@@ -702,35 +702,105 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 
     function applyColor(v) {
       if (v.charAt(0) !== '#') v = '#' + v;
-      // iframe内にスタイル注入で確実に上書き（完全不透明な色として適用）
+      console.log('[DE] applyColor called:', v, 'prop:', kebabProp, 'el:', el.tagName, el.className, el.textContent && el.textContent.substring(0, 40));
+
+      // ── 方法1: クロージャの el に直接適用 ──
+      try {
+        el.style.setProperty(kebabProp, v, 'important');
+        console.log('[DE] method1 (closure el): applied');
+      } catch(e) { console.warn('[DE] method1 failed:', e); }
+
+      // ── 方法2: data-de-id でiframeから再取得して適用 ──
+      try {
+        var doc = frame.contentDocument || frame.contentWindow.document;
+        if (doc) {
+          // data-de-id がなければ付与
+          if (!el.getAttribute('data-de-id')) {
+            el.setAttribute('data-de-id', 'de-' + (++styleOverrideCounter));
+          }
+          var deId = el.getAttribute('data-de-id');
+          var freshEl = doc.querySelector('[data-de-id="' + deId + '"]');
+          if (freshEl) {
+            freshEl.style.setProperty(kebabProp, v, 'important');
+            // cssText で追加確認
+            var existing = freshEl.style.cssText || '';
+            if (existing.indexOf(kebabProp) === -1) {
+              freshEl.style.cssText = existing + ' ' + kebabProp + ': ' + v + ' !important;';
+            }
+            console.log('[DE] method2 (fresh query): applied to', freshEl.tagName, freshEl.className);
+            // 子要素にも適用
+            if (kebabProp === 'color') {
+              freshEl.querySelectorAll('*').forEach(function(child) {
+                child.style.setProperty('color', v, 'important');
+              });
+            }
+          } else {
+            console.warn('[DE] method2: data-de-id element not found in iframe');
+          }
+        }
+      } catch(e) { console.warn('[DE] method2 failed:', e); }
+
+      // ── 方法3: <style> タグ注入（最高優先度） ──
       injectStyleOverride(el, kebabProp, v);
-      el.style.setProperty(kebabProp, v, 'important');
       if (kebabProp === 'color') {
         el.querySelectorAll('*').forEach(function(child) {
-          child.style.setProperty('color', v, 'important');
           injectStyleOverride(child, 'color', v);
         });
       }
+
+      // ── 方法4: setAttribute で style 属性を直接書き換え ──
+      try {
+        var currentStyle = el.getAttribute('style') || '';
+        // 既存の同プロパティを除去して追加
+        var regex = new RegExp(kebabProp + '\\s*:[^;]*(!important)?;?', 'gi');
+        currentStyle = currentStyle.replace(regex, '');
+        currentStyle = currentStyle.trim();
+        if (currentStyle && currentStyle.charAt(currentStyle.length - 1) !== ';') currentStyle += ';';
+        currentStyle += ' ' + kebabProp + ': ' + v + ' !important;';
+        el.setAttribute('style', currentStyle);
+        console.log('[DE] method4 (setAttribute): applied, style=', currentStyle.substring(0, 100));
+      } catch(e) { console.warn('[DE] method4 failed:', e); }
+
+      // 変更を追跡
       trackChange(el, kebabProp, v);
+
       // 適用後は透明度バッジを消す
       var badge = div.querySelector('.control-label span[style]');
       if (badge) badge.style.display = 'none';
+
+      // ── 視覚フィードバック（一瞬アウトラインを光らせる） ──
+      try {
+        el.style.setProperty('outline', '3px solid #00ff00', 'important');
+        setTimeout(function() {
+          try { el.style.removeProperty('outline'); } catch(e2) {}
+        }, 300);
+      } catch(e) {}
+
+      // 適用結果を確認ログ
+      try {
+        var afterStyle = frame.contentWindow.getComputedStyle(el)[prop];
+        console.log('[DE] After apply: computedStyle.' + prop + ' =', afterStyle);
+      } catch(e) {}
     }
     colorInput.addEventListener('input', function() {
+      console.log('[DE] color input event:', this.value);
       applyColor(this.value);
       hexInput.value = this.value;
     });
     colorInput.addEventListener('change', function() {
+      console.log('[DE] color change event:', this.value);
       applyColor(this.value);
       hexInput.value = this.value;
     });
     hexInput.addEventListener('change', function() {
       var v = this.value;
       if (v.charAt(0) !== '#') v = '#' + v;
+      console.log('[DE] hex change event:', v);
       applyColor(v);
       colorInput.value = v;
     });
     applyBtn.addEventListener('click', function() {
+      console.log('[DE] apply button clicked:', hexInput.value);
       applyColor(hexInput.value);
     });
 
@@ -782,10 +852,13 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
         return l.indexOf('/* ' + ruleId + ' */') === -1;
       });
       // 新ルールを追加
-      lines.push('[data-de-id="' + deId + '"] { ' + prop + ': ' + value + ' !important; } /* ' + ruleId + ' */');
+      var newRule = '[data-de-id="' + deId + '"] { ' + prop + ': ' + value + ' !important; }';
+      lines.push(newRule + ' /* ' + ruleId + ' */');
       styleEl.textContent = lines.join('\n');
+      console.log('[DE] injectStyleOverride: deId=' + deId + ', rule=' + newRule);
+      console.log('[DE] style tag content:', styleEl.textContent.substring(0, 200));
     } catch(e) {
-      console.warn('Style injection failed:', e);
+      console.warn('[DE] Style injection failed:', e);
     }
   }
 
