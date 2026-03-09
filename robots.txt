@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /GROUND_Website/
+Disallow: /ground-website/
+Disallow: /ground-website 2/
+
+Sitemap: https://groundinc.co.jp/sitemap.xml
