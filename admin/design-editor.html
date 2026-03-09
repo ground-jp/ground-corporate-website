@@ -91,6 +91,12 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 .preview-frame iframe { width: 100%; height: 100%; border: none; transition: width 0.3s ease; }
 /* 透明オーバーレイ — iframeの上に配置してクリック制御 */
 .click-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 5; cursor: crosshair; }
+.click-overlay.hidden { display: none; }
+/* モード切替ボタン */
+.mode-toggle { display: flex; background: #1e2030; border: 1px solid #2a2d3a; border-radius: 6px; overflow: hidden; }
+.mode-btn { padding: 4px 10px; font-size: 11px; font-weight: 500; cursor: pointer; border: none; background: transparent; color: #8a8c9a; font-family: inherit; transition: all 0.2s; white-space: nowrap; }
+.mode-btn.active { background: #5BC0EB; color: #0f1117; }
+.mode-btn:hover:not(.active) { color: #c0c0c0; }
 
 /* ── テキスト編集モーダル ── */
 .text-edit-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; justify-content: center; align-items: center; }
@@ -302,7 +308,11 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       <button class="device-btn" data-width="768px" title="タブレット">📱</button>
       <button class="device-btn" data-width="375px" title="モバイル">📲</button>
       <div class="url" id="previewUrl">/</div>
-      <span class="click-mode-hint">👆 クリック=スタイル / ダブルクリック=テキスト</span>
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="modeEdit" title="要素をクリックして編集">✏️ 編集</button>
+        <button class="mode-btn" id="modePreview" title="ページを通常操作（ナビゲーション等）">👁 操作</button>
+      </div>
+      <span class="click-mode-hint" id="modeHint">✏️ 要素をクリックで選択</span>
     </div>
     <div class="preview-frame" id="previewFrameWrap">
       <iframe id="previewFrame" src="/"></iframe>
@@ -729,19 +739,39 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     e.preventDefault();
   }, { passive: false });
 
-  // setupClickEditing — オーバーレイ方式ではiframe内のリンク無効化だけ
+  // ===================================================
+  // 編集モード / 操作モード 切替
+  // ===================================================
+  var isEditMode = true;
+  var editBtn = document.getElementById('modeEdit');
+  var previewBtn = document.getElementById('modePreview');
+  var modeHint = document.getElementById('modeHint');
+
+  function setEditMode() {
+    isEditMode = true;
+    overlay.classList.remove('hidden');
+    editBtn.classList.add('active');
+    previewBtn.classList.remove('active');
+    modeHint.textContent = '✏️ 要素をクリックで選択';
+    modeHint.style.color = '#5BC0EB';
+  }
+  function setPreviewMode() {
+    isEditMode = false;
+    overlay.classList.add('hidden');
+    clearHoverHighlight();
+    editBtn.classList.remove('active');
+    previewBtn.classList.add('active');
+    modeHint.textContent = '👁 ページ操作モード（ナビ等）';
+    modeHint.style.color = '#34D399';
+  }
+  editBtn.addEventListener('click', setEditMode);
+  previewBtn.addEventListener('click', setPreviewMode);
+
+  // setupClickEditing — 編集モード時のみリンク無効化
   function setupClickEditing() {
-    try {
-      var doc = frame.contentDocument || frame.contentWindow.document;
-      if (!doc || !doc.body) return;
-      // リンクのデフォルト動作をブロック（安全のため残す）
-      doc.querySelectorAll('a[href]').forEach(function(a) {
-        a.addEventListener('click', function(e) { e.preventDefault(); }, true);
-      });
-      doc.querySelectorAll('[onclick]').forEach(function(el) {
-        el.removeAttribute('onclick');
-      });
-    } catch(e) {}
+    // 編集モードではオーバーレイがクリックを制御するので
+    // iframe内のリンク無効化は不要（オーバーレイが全てブロック）
+    // 操作モードではiframeが通常通り機能する
   }
 
   // ── テキスト編集モーダル ──
