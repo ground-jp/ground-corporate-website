@@ -25,8 +25,8 @@
       var logo = document.querySelector('.header__logo-img');
       if (logo) {
         if (s.logo_height) { logo.style.height = s.logo_height + 'px'; logo.style.width = 'auto'; }
-        if (s.logo_margin_top) logo.style.marginTop = s.logo_margin_top + 'px';
-        if (s.logo_margin_left) logo.style.marginLeft = s.logo_margin_left + 'px';
+        if (s.logo_margin_top !== undefined) { logo.style.position = 'relative'; logo.style.top = s.logo_margin_top + 'px'; }
+        if (s.logo_margin_left !== undefined) { logo.style.position = 'relative'; logo.style.left = s.logo_margin_left + 'px'; }
       }
 
       // ── ヘッダー ──

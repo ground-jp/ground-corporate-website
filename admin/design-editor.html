@@ -119,12 +119,12 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
 
         <div class="section-title">ロゴ位置</div>
         <div class="control">
-          <div class="control-label"><span>上マージン</span><span class="val" id="val-logo_margin_top">0px</span></div>
-          <input type="range" min="-20" max="20" value="0" data-key="logo_margin_top" data-unit="px">
+          <div class="control-label"><span>上下位置</span><span class="val" id="val-logo_margin_top">0px</span></div>
+          <input type="range" min="-30" max="60" value="0" data-key="logo_margin_top" data-unit="px">
         </div>
         <div class="control">
-          <div class="control-label"><span>左マージン</span><span class="val" id="val-logo_margin_left">0px</span></div>
-          <input type="range" min="-20" max="40" value="0" data-key="logo_margin_left" data-unit="px">
+          <div class="control-label"><span>左右位置</span><span class="val" id="val-logo_margin_left">0px</span></div>
+          <input type="range" min="-30" max="80" value="0" data-key="logo_margin_left" data-unit="px">
         </div>
 
         <div class="section-title">ヘッダー</div>
@@ -426,8 +426,9 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
       if (logo) {
         logo.style.height = settings.logo_height + 'px';
         logo.style.width = 'auto';
-        logo.style.marginTop = settings.logo_margin_top + 'px';
-        logo.style.marginLeft = settings.logo_margin_left + 'px';
+        logo.style.position = 'relative';
+        logo.style.top = settings.logo_margin_top + 'px';
+        logo.style.left = settings.logo_margin_left + 'px';
       }
 
       // ヘッダー
