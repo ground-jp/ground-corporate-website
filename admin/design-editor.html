@@ -98,6 +98,9 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 .mode-btn { padding: 4px 10px; font-size: 11px; font-weight: 500; cursor: pointer; border: none; background: transparent; color: #8a8c9a; font-family: inherit; transition: all 0.2s; white-space: nowrap; }
 .mode-btn.active { background: #5BC0EB; color: #0f1117; }
 .mode-btn:hover:not(.active) { color: #c0c0c0; }
+.save-btn { padding: 4px 14px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; background: linear-gradient(135deg, #28a745, #20c997); color: #fff; border-radius: 6px; font-family: inherit; transition: all 0.2s; white-space: nowrap; animation: savePulse 2s infinite; }
+.save-btn:hover { background: linear-gradient(135deg, #218838, #1abc9c); transform: scale(1.05); }
+@keyframes savePulse { 0%,100% { box-shadow: 0 0 0 0 rgba(40,167,69,0.4); } 50% { box-shadow: 0 0 8px 3px rgba(40,167,69,0.3); } }
 
 /* ── ドラッグ選択ボックス・ハンドル ── */
 .drag-box { position: absolute; border: 2px solid #5BC0EB; pointer-events: none; z-index: 6; display: none; }
@@ -348,6 +351,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
         <button class="mode-btn" id="modePreview" title="ページを通常操作（ナビゲーション等）">👁 操作</button>
       </div>
       <span class="click-mode-hint" id="modeHint">✏️ 要素をクリックで選択</span>
+      <button id="savePageBtn" class="save-btn" style="display:none;">💾 保存</button>
     </div>
     <div class="preview-frame" id="previewFrameWrap">
       <iframe id="previewFrame" src="/"></iframe>
@@ -388,6 +392,27 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
   var frame = document.getElementById('previewFrame');
   var currentHighlightEl = null;
   var currentTextEditEl = null;
+  var pendingChanges = {}; // { pagePath: true } — 変更があったページ
+
+  // ── 変更トラッキング ──
+  function trackChange(el, prop, value) {
+    var pageSelect = document.getElementById('pageSelect');
+    var pagePath = pageSelect ? pageSelect.value : '/';
+    pendingChanges[pagePath] = true;
+    updateSaveButton();
+  }
+  function updateSaveButton() {
+    var btn = document.getElementById('savePageBtn');
+    if (!btn) return;
+    var count = Object.keys(pendingChanges).length;
+    if (count > 0) {
+      btn.style.display = '';
+      btn.textContent = '💾 ページ保存';
+      btn.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+    } else {
+      btn.style.display = 'none';
+    }
+  }
 
   // ── 初期設定読み込み ──
   fetch('/_data/design.yml')
@@ -627,6 +652,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       } else {
         el.style.setProperty(kebab, v + 'px', 'important');
       }
+      trackChange(el, kebab, v);
     });
 
     container.appendChild(div);
@@ -641,28 +667,40 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     var hex = rgbToHex(raw);
     if (!hex) return;
 
+    // rgba の透明度を検出
+    var alphaMatch = raw.match(/rgba\(\s*\d+,\s*\d+,\s*\d+,\s*([\d.]+)\)/);
+    var hasAlpha = alphaMatch && parseFloat(alphaMatch[1]) < 1;
+
     var div = document.createElement('div');
     div.className = 'control';
-    div.innerHTML = '<div class="control-label"><span>' + label + '</span></div>' +
+    div.innerHTML = '<div class="control-label"><span>' + label +
+      (hasAlpha ? ' <span style="font-size:10px;color:#f0ad4e;">(透明度' + Math.round(parseFloat(alphaMatch[1]) * 100) + '%)</span>' : '') +
+      '</span></div>' +
       '<div class="color-row"><div class="color-input-wrap"><input type="color" value="' + hex + '"></div>' +
-      '<input type="text" class="color-hex" value="' + hex + '"></div>';
+      '<input type="text" class="color-hex" value="' + hex + '" style="flex:1;">' +
+      '<button class="color-apply-btn" title="色を適用" style="padding:2px 8px;background:#5BC0EB;color:#0f1117;border:none;border-radius:4px;cursor:pointer;font-size:11px;font-weight:600;">適用</button></div>';
 
     var colorInput = div.querySelector('input[type="color"]');
     var hexInput = div.querySelector('.color-hex');
+    var applyBtn = div.querySelector('.color-apply-btn');
 
     // camelCase → kebab-case 変換（setPropertyに必要）
     var kebabProp = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
 
     function applyColor(v) {
       if (v.charAt(0) !== '#') v = '#' + v;
+      // iframe内にスタイル注入で確実に上書き
+      injectStyleOverride(el, kebabProp, v);
+      // インラインスタイルも設定
       el.style.setProperty(kebabProp, v, 'important');
-      // 子要素にも色を適用（spanなどが色を上書きしている場合）
-      el.querySelectorAll('*').forEach(function(child) {
-        var childCS = frame.contentWindow.getComputedStyle(child);
-        if (kebabProp === 'color' && childCS.color) {
+      // 子要素にも色を適用
+      if (kebabProp === 'color') {
+        el.querySelectorAll('*').forEach(function(child) {
           child.style.setProperty('color', v, 'important');
-        }
-      });
+          injectStyleOverride(child, 'color', v);
+        });
+      }
+      trackChange(el, kebabProp, v);
     }
     colorInput.addEventListener('input', function() {
       applyColor(this.value);
@@ -678,8 +716,42 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       applyColor(v);
       colorInput.value = v;
     });
+    // 「適用」ボタン — 同値でも強制適用（rgbaからの上書きに対応）
+    applyBtn.addEventListener('click', function() {
+      applyColor(hexInput.value);
+    });
 
     container.appendChild(div);
+  }
+
+  // ── iframe内にスタイルオーバーライドを注入 ──
+  var styleOverrideCounter = 0;
+  function injectStyleOverride(el, prop, value) {
+    try {
+      var doc = frame.contentDocument || frame.contentWindow.document;
+      // 要素にユニークIDを付与
+      if (!el.getAttribute('data-de-id')) {
+        el.setAttribute('data-de-id', 'de-' + (++styleOverrideCounter));
+      }
+      var deId = el.getAttribute('data-de-id');
+      // 既存のオーバーライドスタイルタグを取得または作成
+      var styleEl = doc.getElementById('design-editor-overrides');
+      if (!styleEl) {
+        styleEl = doc.createElement('style');
+        styleEl.id = 'design-editor-overrides';
+        doc.head.appendChild(styleEl);
+      }
+      // 既存ルールから同じ要素・同じプロパティのルールを除去
+      var ruleId = deId + '-' + prop;
+      var lines = styleEl.textContent.split('\n').filter(function(l) {
+        return l.indexOf('/* ' + ruleId + ' */') === -1;
+      });
+      // 新ルールを追加
+      lines.push('[data-de-id="' + deId + '"] { ' + prop + ': ' + value + ' !important; } /* ' + ruleId + ' */');
+      styleEl.textContent = lines.join('\n');
+    } catch(e) {
+      console.warn('Style injection failed:', e);
+    }
   }
 
   function rgbToHex(rgb) {
@@ -914,6 +986,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
   document.addEventListener('mouseup', function(e) {
     if (dragState && selectedEl) {
       wasDragging = true; // クリック誤発火防止
+      trackChange(selectedEl, dragState.type, '');
       // パネルを更新
       buildElementPanel(selectedEl);
       dragState = null;
@@ -1028,6 +1101,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     if (!currentTextEditEl) return;
     currentTextEditEl.textContent = document.getElementById('textEditArea').value;
     document.getElementById('textEditOverlay').classList.remove('show');
+    trackChange(currentTextEditEl, 'textContent', '');
     showStatus('✏️ テキスト変更をプレビューに適用しました');
     currentTextEditEl = null;
   });
@@ -1043,9 +1117,17 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 
   // ── ページ切り替え ──
   document.getElementById('pageSelect').addEventListener('change', function() {
+    var currentPage = document.getElementById('previewUrl').textContent;
+    if (pendingChanges[currentPage]) {
+      if (!confirm('現在のページに未保存の変更があります。\n保存せずにページを切り替えますか？')) {
+        this.value = currentPage;
+        return;
+      }
+    }
     frame.src = this.value;
     document.getElementById('previewUrl').textContent = this.value;
     hideSelectedHint();
+    styleOverrideCounter = 0;
   });
 
   // ── プレビューに設定を適用 ──
@@ -1112,7 +1194,102 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     }, 300);
   });
 
-  // ── 保存ボタン ──
+  // ── ページ保存ボタン（要素スタイル変更をHTMLに保存）──
+  document.getElementById('savePageBtn').addEventListener('click', function() {
+    try {
+      var doc = frame.contentDocument || frame.contentWindow.document;
+      if (!doc) { showStatus('⚠️ ページが読み込まれていません', true); return; }
+
+      // design-editor-overrides の style タグを取得
+      var overrideStyle = doc.getElementById('design-editor-overrides');
+
+      // data-de-id 属性をクリーンアップ（保存後に不要）
+      // ただし、インラインスタイルは残す
+      // overrideStyleの中身をまとめてページの<head>内の<style>に統合
+      if (overrideStyle) {
+        // 既存の editor-saved-styles があれば統合
+        var savedStyle = doc.getElementById('editor-saved-styles');
+        if (!savedStyle) {
+          savedStyle = doc.createElement('style');
+          savedStyle.id = 'editor-saved-styles';
+          doc.head.appendChild(savedStyle);
+        }
+        savedStyle.textContent += '\n' + overrideStyle.textContent;
+        overrideStyle.remove();
+      }
+
+      // HTMLを取得
+      var html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+
+      // data-de-id は保持（再編集時に必要）
+
+      // Netlify Git Gateway で保存を試行
+      var pagePath = document.getElementById('pageSelect').value;
+      var filePath = pagePath.startsWith('/') ? pagePath.substring(1) : pagePath;
+
+      var token = null;
+      try {
+        var user = JSON.parse(localStorage.getItem('gotrue.user'));
+        if (user && user.token && user.token.access_token) token = user.token.access_token;
+      } catch(e) {}
+
+      if (token) {
+        var siteUrl = 'https://super-pastelito-06a52d.netlify.app';
+        showStatus('💾 保存中...');
+        fetch(siteUrl + '/.netlify/git/github/contents/' + filePath, {
+          method: 'GET',
+          headers: { 'Authorization': 'Bearer ' + token }
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          return fetch(siteUrl + '/.netlify/git/github/contents/' + filePath, {
+            method: 'PUT',
+            headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              message: 'Update ' + filePath + ' via design editor',
+              content: btoa(unescape(encodeURIComponent(html))),
+              sha: data.sha
+            })
+          });
+        })
+        .then(function(r) {
+          if (r.ok) {
+            delete pendingChanges[pagePath];
+            updateSaveButton();
+            showStatus('✓ ' + filePath + ' を保存しました！');
+          } else {
+            showStatus('⚠️ 保存に失敗しました。ダウンロードで保存します。', true);
+            downloadHtml(html, filePath);
+          }
+        })
+        .catch(function() {
+          showStatus('⚠️ Git保存に失敗。ダウンロードで保存します。', true);
+          downloadHtml(html, filePath);
+        });
+      } else {
+        // トークンがない場合はダウンロードで保存
+        downloadHtml(html, filePath);
+        delete pendingChanges[pagePath];
+        updateSaveButton();
+        showStatus('💾 ファイルをダウンロードしました。サイトに反映するにはファイルを置き換えてください。');
+      }
+    } catch(e) {
+      showStatus('⚠️ 保存エラー: ' + e.message, true);
+    }
+  });
+
+  function downloadHtml(html, filename) {
+    var blob = new Blob([html], { type: 'text/html' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename.split('/').pop() || 'page.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+  }
+
+  // ── 全体設定保存ボタン ──
   document.getElementById('saveBtn').addEventListener('click', function() {
     var yaml = '# =============================================\n';
     yaml += '# サイトデザイン設定\n';
