@@ -1227,17 +1227,25 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
   // 初回も設定
   setTimeout(setupInlineEditListeners, 1000);
 
-  overlay.addEventListener('dblclick', function(e) {
+  // ダブルクリックでインラインテキスト編集を開始
+  function handleDblClickEdit(e) {
     var raw = getIframeElementAtPoint(e.clientX, e.clientY);
     var el = findEditableTarget(raw);
     if (!el) return;
 
     if (el.textContent.trim().length > 0) {
+      e.stopPropagation();
+      e.preventDefault();
       clearHoverHighlight();
       highlightIframeElement(el);
       startInlineEdit(el);
     }
-  });
+  }
+
+  // overlay と dragBox 両方にダブルクリックを設定
+  // （選択済み要素はdragBoxがz-index上位で覆うため、dragBoxにも必要）
+  overlay.addEventListener('dblclick', handleDblClickEdit);
+  dragBox.addEventListener('dblclick', handleDblClickEdit);
 
   // スクロール時にドラッグボックス位置を更新
   function onIframeScroll() {
