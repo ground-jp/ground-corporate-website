@@ -87,11 +87,28 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
 .btn-secondary:hover { background: #3a3d4a; }
 
 /* ── プレビューバー ── */
-.preview-bar { position: absolute; top: 0; left: 0; right: 0; height: 40px; background: #161822; border-bottom: 1px solid #2a2d3a; display: flex; align-items: center; padding: 0 16px; gap: 12px; z-index: 10; }
+.preview-bar { position: absolute; top: 0; left: 0; right: 0; height: 40px; background: #161822; border-bottom: 1px solid #2a2d3a; display: flex; align-items: center; padding: 0 16px; gap: 8px; z-index: 10; }
 .preview-bar .url { flex: 1; background: #1e2030; border: 1px solid #2a2d3a; border-radius: 6px; padding: 4px 12px; font-size: 12px; color: #8a8c9a; font-family: 'JetBrains Mono', monospace; }
 .preview-bar .click-mode-hint { font-size: 11px; color: #5BC0EB; }
 .device-btn { width: 28px; height: 28px; background: none; border: 1px solid #2a2d3a; border-radius: 4px; color: #8a8c9a; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; }
 .device-btn.active, .device-btn:hover { border-color: #5BC0EB; color: #5BC0EB; }
+.page-select-bar { background: #1e2030; border: 1px solid #2a2d3a; border-radius: 6px; padding: 4px 8px; font-size: 12px; color: #c0c3d0; font-family: inherit; cursor: pointer; max-width: 180px; }
+.page-select-bar option { background: #1e2030; color: #c0c3d0; }
+
+/* ── テキスト編集モーダル ── */
+.text-edit-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; justify-content: center; align-items: center; }
+.text-edit-overlay.show { display: flex; }
+.text-edit-modal { background: #1e2030; border: 1px solid #2a2d3a; border-radius: 12px; padding: 20px; width: 500px; max-width: 90vw; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+.text-edit-modal h3 { font-size: 14px; color: #fff; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.text-edit-modal h3 .badge { font-size: 10px; background: #5BC0EB22; color: #5BC0EB; padding: 2px 8px; border-radius: 4px; }
+.text-edit-modal textarea { width: 100%; min-height: 120px; background: #161822; border: 1px solid #2a2d3a; border-radius: 6px; padding: 12px; font-size: 14px; color: #e0e0e0; font-family: inherit; resize: vertical; line-height: 1.6; }
+.text-edit-modal textarea:focus { outline: none; border-color: #5BC0EB; }
+.text-edit-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+.text-edit-actions button { padding: 8px 16px; border: none; border-radius: 6px; font-size: 13px; cursor: pointer; font-family: inherit; font-weight: 500; }
+.text-edit-actions .te-cancel { background: #2a2d3a; color: #a0a3b0; }
+.text-edit-actions .te-cancel:hover { background: #3a3d4a; }
+.text-edit-actions .te-apply { background: #5BC0EB; color: #0f1117; }
+.text-edit-actions .te-apply:hover { background: #4ab0db; }
 .preview-frame { position: absolute; top: 40px; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; background: #1a1c28; overflow: hidden; }
 .preview-frame iframe { transition: width 0.3s ease; }
 
@@ -99,9 +116,7 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
 .status { position: fixed; bottom: 20px; right: 20px; background: #1e8a4a; color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 500; opacity: 0; transition: opacity 0.3s; z-index: 1000; pointer-events: none; }
 .status.show { opacity: 1; }
 
-/* ── ページ選択 ── */
-.page-select { width: 100%; background: #1e2030; border: 1px solid #2a2d3a; border-radius: 6px; padding: 6px 10px; font-size: 12px; color: #c0c3d0; font-family: inherit; cursor: pointer; margin-bottom: 12px; }
-.page-select option { background: #1e2030; color: #c0c3d0; }
+/* ── (ページ選択はプレビューバーに移動済み) ── */
 </style>
 </head>
 <body>
@@ -259,18 +274,6 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
 
       <!-- ── セクションパネル ── -->
       <div class="panel" id="panel-sections">
-        <div class="section-title">プレビューページ</div>
-        <select class="page-select" id="pageSelect">
-          <option value="/">ホームページ</option>
-          <option value="/service.html">製品・サービス</option>
-          <option value="/gwes.html">GWES</option>
-          <option value="/peer.html">PEER</option>
-          <option value="/consulting.html">コンサルティング</option>
-          <option value="/about.html">会社情報</option>
-          <option value="/careers.html">採用情報</option>
-          <option value="/contact.html">お問い合わせ</option>
-        </select>
-
         <div class="section-title">ホームページ セクション表示</div>
         <div class="toggle-row">
           <span>ニュース</span>
@@ -304,14 +307,36 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
   <!-- ===== プレビュー ===== -->
   <div class="preview">
     <div class="preview-bar">
+      <select class="page-select-bar" id="pageSelect">
+        <option value="/">ホームページ</option>
+        <option value="/service.html">製品・サービス</option>
+        <option value="/gwes.html">GWES</option>
+        <option value="/peer.html">PEER</option>
+        <option value="/consulting.html">コンサルティング</option>
+        <option value="/about.html">会社情報</option>
+        <option value="/careers.html">採用情報</option>
+        <option value="/contact.html">お問い合わせ</option>
+      </select>
       <button class="device-btn active" data-width="100%" title="デスクトップ">🖥</button>
       <button class="device-btn" data-width="768px" title="タブレット">📱</button>
       <button class="device-btn" data-width="375px" title="モバイル">📲</button>
       <div class="url" id="previewUrl">/</div>
-      <span class="click-mode-hint">👆 要素をクリックして編集</span>
+      <span class="click-mode-hint">👆 クリック=設定 / ダブルクリック=テキスト編集</span>
     </div>
     <div class="preview-frame">
       <iframe id="previewFrame" src="/"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- テキスト編集モーダル -->
+<div class="text-edit-overlay" id="textEditOverlay">
+  <div class="text-edit-modal">
+    <h3><span id="textEditLabel">テキスト編集</span><span class="badge" id="textEditBadge"></span></h3>
+    <textarea id="textEditArea" placeholder="テキストを入力..."></textarea>
+    <div class="text-edit-actions">
+      <button class="te-cancel" id="textEditCancel">キャンセル</button>
+      <button class="te-apply" id="textEditApply">✓ 適用</button>
     </div>
   </div>
 </div>
@@ -500,6 +525,58 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
     el.style.outlineOffset = '3px';
   }
 
+  // ── テキスト編集可能な要素のセレクタ ──
+  var textEditableSelectors = [
+    '.hero__title', '.hero__subtitle', '.section__title', 'h2',
+    '.hero__cta', '.cta-btn', 'p', 'h1', 'h3', 'h4',
+    '.card__title', '.card__text', '.recruit-banner__title',
+    '.recruit-banner__text', '.footer__text', 'a.nav__link',
+    'li', 'span', 'td', 'th', 'dt', 'dd', 'blockquote',
+    '.news__title', '.news__date', '.case-card__title'
+  ];
+
+  var currentTextEditEl = null;
+  var currentTextEditPage = '/';
+
+  // ── テキスト編集モーダル制御 ──
+  function openTextEditModal(el, label) {
+    currentTextEditEl = el;
+    currentTextEditPage = document.getElementById('pageSelect').value;
+    var overlay = document.getElementById('textEditOverlay');
+    var area = document.getElementById('textEditArea');
+    var labelEl = document.getElementById('textEditLabel');
+    var badge = document.getElementById('textEditBadge');
+
+    labelEl.textContent = 'テキスト編集';
+    badge.textContent = label || el.tagName.toLowerCase();
+    area.value = el.textContent.trim();
+    overlay.classList.add('show');
+    setTimeout(function() { area.focus(); area.select(); }, 100);
+  }
+
+  document.getElementById('textEditCancel').addEventListener('click', function() {
+    document.getElementById('textEditOverlay').classList.remove('show');
+    currentTextEditEl = null;
+  });
+
+  document.getElementById('textEditOverlay').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.classList.remove('show');
+      currentTextEditEl = null;
+    }
+  });
+
+  document.getElementById('textEditApply').addEventListener('click', function() {
+    if (!currentTextEditEl) return;
+    var newText = document.getElementById('textEditArea').value;
+    currentTextEditEl.textContent = newText;
+    document.getElementById('textEditOverlay').classList.remove('show');
+
+    // ステータスに変更を通知（まだ保存はしていない）
+    showStatus('✏️ テキスト変更をプレビューに適用しました（HTMLへの保存は未実装）');
+    currentTextEditEl = null;
+  });
+
   // ── iframe内クリックイベント設定 ──
   function setupClickEditing() {
     try {
@@ -508,7 +585,7 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
 
       // 既存のリスナーをクリアするためにスタイルを注入
       var style = doc.createElement('style');
-      style.textContent = '[data-editable-hover] { cursor: pointer !important; } [data-editable-hover]:hover { outline: 2px dashed rgba(91,192,235,0.5) !important; outline-offset: 2px !important; }';
+      style.textContent = '[data-editable-hover] { cursor: pointer !important; } [data-editable-hover]:hover { outline: 2px dashed rgba(91,192,235,0.5) !important; outline-offset: 2px !important; } [data-text-editable]:hover { cursor: text !important; }';
       doc.head.appendChild(style);
 
       // クリック可能な要素にマーカーを付ける
@@ -524,6 +601,21 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
             });
           } catch(e) {}
         });
+      });
+
+      // テキスト編集可能な要素にもマーカーを付ける
+      textEditableSelectors.forEach(function(sel) {
+        try {
+          doc.querySelectorAll(sel).forEach(function(el) {
+            // テキストノードを持つ要素のみ
+            if (el.textContent.trim().length > 0) {
+              el.setAttribute('data-text-editable', '1');
+              if (!el.getAttribute('data-editable-hover')) {
+                el.setAttribute('data-editable-hover', '1');
+              }
+            }
+          });
+        } catch(e) {}
       });
 
       // クリックイベント（キャプチャフェーズで先に捕捉）
@@ -550,11 +642,35 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; background: #
           // iframe内の要素をハイライト
           highlightIframeElement(editableEl);
 
-          // サイドバーのタブ切り替え + コントロールハイライト
-          switchTab(tabName);
-          highlightGroup(groupName);
-          showSelectedHint(label);
+          // サイドバーのタブ切り替え + コントロールハイライト（マッピングがある場合）
+          if (tabName && groupName) {
+            switchTab(tabName);
+            highlightGroup(groupName);
+            showSelectedHint(label || 'テキスト');
+          }
 
+          return false;
+        }
+      }, true);
+
+      // ダブルクリックでテキスト編集モーダルを開く
+      doc.addEventListener('dblclick', function(e) {
+        var target = e.target;
+        var textEl = null;
+        while (target && target !== doc.body) {
+          if (target.getAttribute && target.getAttribute('data-text-editable')) {
+            textEl = target;
+            break;
+          }
+          target = target.parentElement;
+        }
+
+        if (textEl) {
+          e.preventDefault();
+          e.stopPropagation();
+          var label = textEl.getAttribute('data-edit-label') || textEl.tagName.toLowerCase();
+          highlightIframeElement(textEl);
+          openTextEditModal(textEl, label);
           return false;
         }
       }, true);
