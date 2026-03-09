@@ -312,7 +312,6 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       <select class="page-select-bar" id="pageSelect">
         <option value="/">ホームページ</option>
         <option value="/service.html">製品・サービス</option>
-        <option value="/gwes.html">GWES</option>
         <optgroup label="GWES">
           <option value="/gwes.html">GWES - 物流OS</option>
           <option value="/gwes-modules.html">GWES - 3レイヤー12モジュール</option>
@@ -857,27 +856,21 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 
       if (isCorner) {
         // 角ハンドル → 等倍（アスペクト比維持）リサイズ
-        // dx と dy のうち移動量が大きい方を基準にする
-        var absDx = Math.abs(dx);
-        var absDy = Math.abs(dy);
-        var delta = absDx > absDy ? dx : dy * aspect;
+        // 対角線方向へのマウス移動量からスケール係数を計算
+        var signX = (dir === 'br' || dir === 'tr') ? 1 : -1;
+        var signY = (dir === 'br' || dir === 'bl') ? 1 : -1;
+        var diagonal = Math.sqrt(dragState.origW * dragState.origW + dragState.origH * dragState.origH);
+        var projection = (dx * signX + dy * signY) / Math.sqrt(2);
+        var scale = Math.max(0.1, (diagonal + projection) / diagonal);
 
-        if (dir === 'br') {
-          newW = dragState.origW + delta;
-          newH = newW / aspect;
-        } else if (dir === 'tr') {
-          newW = dragState.origW + delta;
-          newH = newW / aspect;
-          selectedEl.style.marginTop = (dragState.origMarginTop + (dragState.origH - newH)) + 'px';
-        } else if (dir === 'bl') {
-          newW = dragState.origW - delta;
-          newH = newW / aspect;
+        newW = dragState.origW * scale;
+        newH = dragState.origH * scale;
+
+        if (dir === 'tl' || dir === 'bl') {
           selectedEl.style.marginLeft = (dragState.origMarginLeft + (dragState.origW - newW)) + 'px';
-        } else if (dir === 'tl') {
-          newW = dragState.origW - delta;
-          newH = newW / aspect;
+        }
+        if (dir === 'tl' || dir === 'tr') {
           selectedEl.style.marginTop = (dragState.origMarginTop + (dragState.origH - newH)) + 'px';
-          selectedEl.style.marginLeft = (dragState.origMarginLeft + (dragState.origW - newW)) + 'px';
         }
       } else {
         // 辺ハンドル → 自由リサイズ（従来通り）
