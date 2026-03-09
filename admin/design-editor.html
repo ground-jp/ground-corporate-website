@@ -98,6 +98,8 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 .mode-btn { padding: 4px 10px; font-size: 11px; font-weight: 500; cursor: pointer; border: none; background: transparent; color: #8a8c9a; font-family: inherit; transition: all 0.2s; white-space: nowrap; }
 .mode-btn.active { background: #5BC0EB; color: #0f1117; }
 .mode-btn:hover:not(.active) { color: #c0c0c0; }
+.color-apply-btn { padding: 3px 10px; background: #5BC0EB; color: #0f1117; border: none; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: 600; font-family: inherit; transition: background 0.2s; }
+.color-apply-btn:hover { background: #7ad0f5; }
 .save-btn { padding: 4px 14px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; background: linear-gradient(135deg, #28a745, #20c997); color: #fff; border-radius: 6px; font-family: inherit; transition: all 0.2s; white-space: nowrap; animation: savePulse 2s infinite; }
 .save-btn:hover { background: linear-gradient(135deg, #218838, #1abc9c); transform: scale(1.05); }
 @keyframes savePulse { 0%,100% { box-shadow: 0 0 0 0 rgba(40,167,69,0.4); } 50% { box-shadow: 0 0 8px 3px rgba(40,167,69,0.3); } }
@@ -664,36 +666,45 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     var raw = cs[prop];
     if (!raw || raw === 'transparent' || raw === 'rgba(0, 0, 0, 0)') return;
 
-    var hex = rgbToHex(raw);
+    // rgba の透明度を検出して「見た目の色」を計算
+    var alphaMatch = raw.match(/rgba\(\s*(\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)/);
+    var hasAlpha = alphaMatch && parseFloat(alphaMatch[4]) < 1;
+    var hex;
+
+    if (hasAlpha) {
+      // 背景色を取得して見た目の色を計算
+      var alpha = parseFloat(alphaMatch[4]);
+      var fgR = parseInt(alphaMatch[1]), fgG = parseInt(alphaMatch[2]), fgB = parseInt(alphaMatch[3]);
+      var bgColor = getEffectiveBackground(el);
+      var blendR = Math.round(fgR * alpha + bgColor.r * (1 - alpha));
+      var blendG = Math.round(fgG * alpha + bgColor.g * (1 - alpha));
+      var blendB = Math.round(fgB * alpha + bgColor.b * (1 - alpha));
+      hex = '#' + ((1 << 24) + (blendR << 16) + (blendG << 8) + blendB).toString(16).slice(1);
+    } else {
+      hex = rgbToHex(raw);
+    }
     if (!hex) return;
 
-    // rgba の透明度を検出
-    var alphaMatch = raw.match(/rgba\(\s*\d+,\s*\d+,\s*\d+,\s*([\d.]+)\)/);
-    var hasAlpha = alphaMatch && parseFloat(alphaMatch[1]) < 1;
+    var kebabProp = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
 
     var div = document.createElement('div');
     div.className = 'control';
     div.innerHTML = '<div class="control-label"><span>' + label +
-      (hasAlpha ? ' <span style="font-size:10px;color:#f0ad4e;">(透明度' + Math.round(parseFloat(alphaMatch[1]) * 100) + '%)</span>' : '') +
+      (hasAlpha ? ' <span style="font-size:10px;color:#f0ad4e;">(透明度' + Math.round(parseFloat(alphaMatch[4]) * 100) + '%)</span>' : '') +
       '</span></div>' +
       '<div class="color-row"><div class="color-input-wrap"><input type="color" value="' + hex + '"></div>' +
       '<input type="text" class="color-hex" value="' + hex + '" style="flex:1;">' +
-      '<button class="color-apply-btn" title="色を適用" style="padding:2px 8px;background:#5BC0EB;color:#0f1117;border:none;border-radius:4px;cursor:pointer;font-size:11px;font-weight:600;">適用</button></div>';
+      '<button class="color-apply-btn" title="色を適用">適用</button></div>';
 
     var colorInput = div.querySelector('input[type="color"]');
     var hexInput = div.querySelector('.color-hex');
     var applyBtn = div.querySelector('.color-apply-btn');
 
-    // camelCase → kebab-case 変換（setPropertyに必要）
-    var kebabProp = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
-
     function applyColor(v) {
       if (v.charAt(0) !== '#') v = '#' + v;
-      // iframe内にスタイル注入で確実に上書き
+      // iframe内にスタイル注入で確実に上書き（完全不透明な色として適用）
       injectStyleOverride(el, kebabProp, v);
-      // インラインスタイルも設定
       el.style.setProperty(kebabProp, v, 'important');
-      // 子要素にも色を適用
       if (kebabProp === 'color') {
         el.querySelectorAll('*').forEach(function(child) {
           child.style.setProperty('color', v, 'important');
@@ -701,6 +712,9 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
         });
       }
       trackChange(el, kebabProp, v);
+      // 適用後は透明度バッジを消す
+      var badge = div.querySelector('.control-label span[style]');
+      if (badge) badge.style.display = 'none';
     }
     colorInput.addEventListener('input', function() {
       applyColor(this.value);
@@ -716,12 +730,33 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       applyColor(v);
       colorInput.value = v;
     });
-    // 「適用」ボタン — 同値でも強制適用（rgbaからの上書きに対応）
     applyBtn.addEventListener('click', function() {
       applyColor(hexInput.value);
     });
 
     container.appendChild(div);
+  }
+
+  // 要素の実効背景色を取得（親を遡って最初の不透明背景を見つける）
+  function getEffectiveBackground(el) {
+    var node = el;
+    while (node && node !== el.ownerDocument.documentElement) {
+      try {
+        var bg = frame.contentWindow.getComputedStyle(node).backgroundColor;
+        if (bg && bg !== 'transparent' && bg !== 'rgba(0, 0, 0, 0)') {
+          var m = bg.match(/rgba?\(\s*(\d+),\s*(\d+),\s*(\d+)/);
+          if (m) {
+            var a = 1;
+            var am = bg.match(/rgba\(\s*\d+,\s*\d+,\s*\d+,\s*([\d.]+)\)/);
+            if (am) a = parseFloat(am[1]);
+            if (a > 0.5) return { r: parseInt(m[1]), g: parseInt(m[2]), b: parseInt(m[3]) };
+          }
+        }
+      } catch(e) {}
+      node = node.parentElement;
+    }
+    // デフォルト背景色（暗い背景を想定）
+    return { r: 20, g: 22, b: 34 };
   }
 
   // ── iframe内にスタイルオーバーライドを注入 ──
