@@ -167,9 +167,9 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       <a href="index.html" style="margin-left:auto;font-size:10px;color:#5a5d6a;text-decoration:none;padding:4px 8px;border:1px solid #2a2d3a;border-radius:4px;transition:all 0.2s" onmouseover="this.style.color='#5BC0EB';this.style.borderColor='#5BC0EB'" onmouseout="this.style.color='#5a5d6a';this.style.borderColor='#2a2d3a'" title="ホームに戻る">← ホーム</a>
     </div>
 
-    <div id="undoRedoBar" style="display:flex;gap:6px;padding:8px 16px;border-bottom:1px solid #2a2d3a;flex-shrink:0;background:#1a1c28;">
-      <button id="undoBtn" disabled title="元に戻す (Ctrl+Z)" style="flex:1;height:32px;padding:0 10px;background:#1e2030;border:1px solid #3a3d5a;border-radius:6px;color:#c0c3d0;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;gap:5px;font-family:inherit;">↩ 元に戻す</button>
-      <button id="redoBtn" disabled title="やり直す (Ctrl+Shift+Z)" style="flex:1;height:32px;padding:0 10px;background:#1e2030;border:1px solid #3a3d5a;border-radius:6px;color:#c0c3d0;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;gap:5px;font-family:inherit;">↪ やり直す</button>
+    <div id="undoRedoBar" style="display:flex !important;gap:6px;padding:10px 16px;border-bottom:2px solid #5BC0EB;flex-shrink:0;background:#1e2a3a;visibility:visible !important;opacity:1 !important;height:auto !important;overflow:visible !important;min-height:44px;">
+      <button id="undoBtn" disabled title="元に戻す (Ctrl+Z)" style="flex:1;height:34px;padding:0 10px;background:#253550;border:1px solid #5BC0EB;border-radius:6px;color:#fff;cursor:pointer;font-size:13px;font-weight:bold;display:flex !important;align-items:center;justify-content:center;gap:5px;font-family:inherit;visibility:visible !important;opacity:1 !important;">↩ 元に戻す</button>
+      <button id="redoBtn" disabled title="やり直す (Ctrl+Shift+Z)" style="flex:1;height:34px;padding:0 10px;background:#253550;border:1px solid #5BC0EB;border-radius:6px;color:#fff;cursor:pointer;font-size:13px;font-weight:bold;display:flex !important;align-items:center;justify-content:center;gap:5px;font-family:inherit;visibility:visible !important;opacity:1 !important;">↪ やり直す</button>
     </div>
 
     <div class="selected-hint" id="selectedHint">
