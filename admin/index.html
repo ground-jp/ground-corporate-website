@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GROUND Inc. | コンテンツ管理</title>
+  <!-- Netlify Identity Widget (認証用 - CMSより先に読み込む) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <style>
     /* CMS管理画面のカスタムスタイル */
     [data-slate-editor] {
@@ -12,7 +14,7 @@
   </style>
 </head>
 <body>
-  <!-- Decap CMS (GitHub OAuth認証を使用) -->
+  <!-- Decap CMS (bodyの中で読み込む) -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>

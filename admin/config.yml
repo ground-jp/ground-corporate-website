@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: hiratomomiyata/ground-corporate-website
+  name: git-gateway
   branch: main
 
 # Netlify Identity で認証（無料）
