@@ -584,8 +584,8 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 
     // プロパティ定義
     var props = [
-      { label: '↕ 上下位置', prop: 'top', unit: 'px', min: -300, max: 300, needsRelative: true },
-      { label: '↔ 左右位置', prop: 'left', unit: 'px', min: -300, max: 300, needsRelative: true },
+      { label: '↕ 上下移動', prop: 'translateY', unit: 'px', min: -300, max: 300, isTranslate: true },
+      { label: '↔ 左右移動', prop: 'translateX', unit: 'px', min: -300, max: 300, isTranslate: true },
       { label: 'フォントサイズ', prop: 'fontSize', unit: 'px', min: 8, max: 160 },
       { label: '行の高さ', prop: 'lineHeight', unit: '', min: 0.8, max: 3, step: 0.1, isFloat: true },
       { label: '文字間隔', prop: 'letterSpacing', unit: 'px', min: -5, max: 20, step: 0.5, isFloat: true },
@@ -656,21 +656,33 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     addColorControl(container, el, 'color', '文字色');
     addColorControl(container, el, 'backgroundColor', '背景色');
 
-    props.forEach(function(p) {
-      var raw = cs.getPropertyValue(camelToKebab(p.prop));
-
-      // top/left は position:static のとき "auto" → 0として表示
-      if (p.needsRelative) {
-        if (!raw || raw === 'auto') raw = '0px';
-      } else if (!raw || raw === 'none' || raw === 'auto' || raw === 'normal') {
-        // lineHeight の "normal" は表示する
-        if (p.prop === 'lineHeight') raw = cs.lineHeight;
-        else return;
+    // transform matrix から translate 値を事前取得
+    var currentTransform = cs.transform || 'none';
+    var matTx = 0, matTy = 0;
+    if (currentTransform && currentTransform !== 'none') {
+      var mMatch = currentTransform.match(/matrix\(([^)]+)\)/);
+      if (mMatch) {
+        var mVals = mMatch[1].split(',');
+        matTx = parseFloat(mVals[4]) || 0;
+        matTy = parseFloat(mVals[5]) || 0;
       }
-      // widthとheightはテキスト要素では通常不要
-      if ((p.prop === 'width' || p.prop === 'height') && isTextEl) return;
+    }
 
-      var numVal = parseFloat(raw);
+    props.forEach(function(p) {
+      var numVal;
+      if (p.isTranslate) {
+        // translateX/Y は transform matrix から取得
+        numVal = (p.prop === 'translateX') ? matTx : matTy;
+      } else {
+        var raw = cs.getPropertyValue(camelToKebab(p.prop));
+        if (!raw || raw === 'none' || raw === 'auto' || raw === 'normal') {
+          if (p.prop === 'lineHeight') raw = cs.lineHeight;
+          else return;
+        }
+        // widthとheightはテキスト要素では通常不要
+        if ((p.prop === 'width' || p.prop === 'height') && isTextEl) return;
+        numVal = parseFloat(raw);
+      }
       if (isNaN(numVal)) return;
 
       addSliderControl(container, el, p, numVal);
@@ -699,12 +711,20 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       var v = p.isFloat ? parseFloat(this.value) : Math.round(parseFloat(this.value));
       valSpan.textContent = (p.isFloat ? v.toFixed(1) : v) + (p.unit || '');
 
-      if (p.needsRelative) {
-        // top/left の場合は position:relative を確保
-        el.style.setProperty('position', 'relative', 'important');
-        el.style.setProperty(kebab, v + 'px', 'important');
-        injectStyleOverride(el, 'position', 'relative');
-        injectStyleOverride(el, kebab, v + 'px');
+      if (p.isTranslate) {
+        // transform: translate で移動（レイアウトを壊さない）
+        var curCs = frame.contentWindow.getComputedStyle(el);
+        var curT = curCs.transform || 'none';
+        var curTx = 0, curTy = 0;
+        if (curT && curT !== 'none') {
+          var mm = curT.match(/matrix\(([^)]+)\)/);
+          if (mm) { var vv = mm[1].split(','); curTx = parseFloat(vv[4]) || 0; curTy = parseFloat(vv[5]) || 0; }
+        }
+        if (p.prop === 'translateX') curTx = v; else curTy = v;
+        var newTransform = 'translate(' + curTx + 'px, ' + curTy + 'px)';
+        el.style.setProperty('transform', newTransform, 'important');
+        injectStyleOverride(el, 'transform', newTransform);
+        trackChange(el, 'transform', newTransform);
       } else if (p.prop === 'lineHeight') {
         el.style.setProperty('line-height', v, 'important');
       } else if (p.prop === 'opacity') {
@@ -1005,25 +1025,30 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     } catch(e) {}
   }
 
-  // ドラッグボックス本体 → 移動
+  // ドラッグボックス本体 → 移動（transform: translate を使用）
   dragBox.addEventListener('mousedown', function(e) {
     if (e.target !== dragBox) return; // ハンドルは別処理
     if (!selectedEl) return;
     e.preventDefault();
     e.stopPropagation();
     var cs = frame.contentWindow.getComputedStyle(selectedEl);
-    // position:relative で top/left を使う（より自然な移動）
-    var pos = cs.position;
-    if (pos === 'static') {
-      selectedEl.style.setProperty('position', 'relative', 'important');
+    // 現在の transform から translate 値を取得
+    var currentTransform = cs.transform || 'none';
+    var tx = 0, ty = 0;
+    if (currentTransform && currentTransform !== 'none') {
+      var m = currentTransform.match(/matrix\(([^)]+)\)/);
+      if (m) {
+        var vals = m[1].split(',');
+        tx = parseFloat(vals[4]) || 0;
+        ty = parseFloat(vals[5]) || 0;
+      }
     }
     dragState = {
       type: 'move',
       startX: e.clientX,
       startY: e.clientY,
-      origTop: parseFloat(cs.top) || 0,
-      origLeft: parseFloat(cs.left) || 0,
-      // margin も記憶（リサイズ用の互換）
+      origTx: tx,
+      origTy: ty,
       origMarginTop: parseFloat(cs.marginTop) || 0,
       origMarginLeft: parseFloat(cs.marginLeft) || 0,
     };
@@ -1068,17 +1093,12 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     }
 
     if (dragState.type === 'move') {
-      var newTop = dragState.origTop + dy;
-      var newLeft = dragState.origLeft + dx;
-      selectedEl.style.setProperty('position', 'relative', 'important');
-      selectedEl.style.setProperty('top', newTop + 'px', 'important');
-      selectedEl.style.setProperty('left', newLeft + 'px', 'important');
-      // スタイル注入で永続化
-      injectStyleOverride(selectedEl, 'position', 'relative');
-      injectStyleOverride(selectedEl, 'top', newTop + 'px');
-      injectStyleOverride(selectedEl, 'left', newLeft + 'px');
+      var newTx = dragState.origTx + dx;
+      var newTy = dragState.origTy + dy;
+      // transform: translate はレイアウトを崩さず、GPU加速で滑らか
+      selectedEl.style.setProperty('transform', 'translate(' + newTx + 'px, ' + newTy + 'px)', 'important');
       updateDragBoxPosition();
-      dragSizeLabel.textContent = 'X:' + Math.round(newLeft) + ' Y:' + Math.round(newTop);
+      dragSizeLabel.textContent = 'X:' + Math.round(newTx) + ' Y:' + Math.round(newTy);
     } else if (dragState.type === 'resize') {
       var dir = dragState.dir;
       var newW = dragState.origW;
@@ -1131,10 +1151,14 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
   document.addEventListener('mouseup', function(e) {
     if (dragState && selectedEl) {
       wasDragging = true; // クリック誤発火防止
-      trackChange(selectedEl, dragState.type, '');
       if (dragState.type === 'move') {
+        // 終了時にスタイル注入で永続化
+        var finalTransform = selectedEl.style.transform || '';
+        injectStyleOverride(selectedEl, 'transform', finalTransform);
+        trackChange(selectedEl, 'transform', finalTransform);
         showStatus('📍 要素を移動しました');
       } else {
+        trackChange(selectedEl, dragState.type, '');
         showStatus('↔️ サイズを変更しました');
       }
       // パネルを更新
