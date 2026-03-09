@@ -111,11 +111,11 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 .auth-btn:hover { border-color: #5BC0EB; color: #5BC0EB; }
 .auth-btn.logged-in { border-color: #28a745; color: #28a745; }
 .auth-btn.logged-in:hover { border-color: #dc3545; color: #dc3545; }
-.undo-redo-group { display: flex; gap: 2px; flex-shrink: 0; }
-.ur-btn { width: 32px; height: 28px; background: #1e2030; border: 1px solid #2a2d3a; border-radius: 4px; color: #c0c3d0; cursor: pointer; font-size: 15px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
-.ur-btn:hover:not(:disabled) { border-color: #5BC0EB; color: #5BC0EB; }
-.ur-btn:disabled { opacity: 0.3; cursor: default; }
-.ur-btn .count { position: absolute; top: -4px; right: -4px; font-size: 8px; background: #5BC0EB; color: #0f1117; border-radius: 6px; padding: 0 3px; min-width: 12px; text-align: center; font-weight: 700; }
+.undo-redo-group { display: flex; gap: 4px; flex-shrink: 0; margin: 0 4px; }
+.ur-btn { height: 28px; padding: 0 8px; background: #232640; border: 1px solid #3a3d5a; border-radius: 5px; color: #e0e0e0; cursor: pointer; font-size: 12px; display: flex; align-items: center; gap: 4px; transition: all 0.15s; font-family: inherit; white-space: nowrap; }
+.ur-btn:hover:not(:disabled) { border-color: #5BC0EB; color: #5BC0EB; background: #2a2d50; }
+.ur-btn:disabled { opacity: 0.55; cursor: default; color: #777; }
+
 
 /* ── ドラッグ選択ボックス・ハンドル ── */
 .drag-box { position: absolute; border: 2px solid #5BC0EB; pointer-events: none; z-index: 6; display: none; }
@@ -372,8 +372,8 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       </div>
       <span class="click-mode-hint" id="modeHint">✏️ 要素をクリックで選択</span>
       <div class="undo-redo-group">
-        <button class="ur-btn" id="undoBtn" disabled title="元に戻す (Ctrl+Z)">↩</button>
-        <button class="ur-btn" id="redoBtn" disabled title="やり直す (Ctrl+Shift+Z)">↪</button>
+        <button class="ur-btn" id="undoBtn" disabled title="元に戻す (Ctrl+Z)">↩ 戻す</button>
+        <button class="ur-btn" id="redoBtn" disabled title="やり直す (Ctrl+Shift+Z)">↪ やり直</button>
       </div>
       <button id="dlPageBtn" class="dl-btn" style="display:none;" title="HTMLファイルとしてダウンロード">⬇ DL</button>
       <button id="savePageBtn" class="save-btn" style="display:none;">💾 ページ保存</button>
