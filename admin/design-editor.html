@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GDE — GROUND Design Editor</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230A0C14'/><text x='16' y='22' text-anchor='middle' font-family='Inter,sans-serif' font-weight='700' font-size='16' fill='%233B82F6'>G</text></svg>">
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -435,68 +434,60 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     }
   }
 
-  // ── Netlify Identity 認証管理 ──
-  var netlifyIdentity = window.netlifyIdentity;
+  // ── GitHub API 認証管理 ──
+  var GH_REPO = 'hiratomomiyata/ground-corporate-website';
+  var GH_API = 'https://api.github.com/repos/' + GH_REPO + '/contents/';
   var authBtn = document.getElementById('authBtn');
 
-  function getGitToken() {
-    try {
-      if (netlifyIdentity) {
-        var user = netlifyIdentity.currentUser();
-        if (user) {
-          return user.token.access_token;
-        }
-      }
-      // フォールバック: localStorage
-      var stored = JSON.parse(localStorage.getItem('gotrue.user'));
-      if (stored && stored.token && stored.token.access_token) return stored.token.access_token;
-    } catch(e) {}
-    return null;
+  function getGhToken() {
+    return localStorage.getItem('gde_github_token') || '';
+  }
+  function setGhToken(t) {
+    if (t) localStorage.setItem('gde_github_token', t);
+    else localStorage.removeItem('gde_github_token');
   }
 
-  function refreshToken() {
-    return new Promise(function(resolve, reject) {
-      if (!netlifyIdentity) { reject('no identity'); return; }
-      var user = netlifyIdentity.currentUser();
-      if (!user) { reject('not logged in'); return; }
-      user.jwt().then(function(token) {
-        resolve(token);
-      }).catch(reject);
-    });
+  function promptGhToken() {
+    var t = prompt(
+      'GitHub Personal Access Token を入力してください。\n\n' +
+      '取得方法:\n' +
+      '1. github.com → Settings → Developer settings → Personal access tokens → Fine-grained tokens\n' +
+      '2. 「Generate new token」→ Repository access で「ground-corporate-website」を選択\n' +
+      '3. Permissions → Contents: Read and write\n' +
+      '4. 生成されたトークンをここに貼り付け',
+      getGhToken()
+    );
+    if (t !== null) {
+      setGhToken(t.trim());
+      updateAuthUI();
+    }
+    return t ? t.trim() : null;
   }
 
   function updateAuthUI() {
     if (!authBtn) return;
-    var user = netlifyIdentity && netlifyIdentity.currentUser();
-    if (user) {
-      authBtn.textContent = '✓ ' + (user.email || 'ログイン中');
+    var token = getGhToken();
+    if (token) {
+      authBtn.textContent = '✓ GitHub接続済';
       authBtn.className = 'auth-btn logged-in';
-      authBtn.title = 'クリックでログアウト';
+      authBtn.title = 'クリックでトークン変更/解除';
     } else {
-      authBtn.textContent = '🔑 ログイン';
+      authBtn.textContent = '🔑 GitHub連携';
       authBtn.className = 'auth-btn';
-      authBtn.title = 'Netlify Identity でログイン（保存に必要）';
+      authBtn.title = 'GitHub Token を設定（保存に必要）';
     }
   }
 
   if (authBtn) {
     authBtn.addEventListener('click', function() {
-      if (!netlifyIdentity) { showStatus('⚠️ 認証システムの読み込みに失敗しました', true); return; }
-      var user = netlifyIdentity.currentUser();
-      if (user) {
-        netlifyIdentity.logout();
+      if (getGhToken()) {
+        var c = confirm('GitHub連携を解除しますか？\n（トークンをブラウザから削除します）\n\n「キャンセル」でトークンを変更できます。');
+        if (c) { setGhToken(null); updateAuthUI(); showStatus('GitHub連携を解除しました'); }
+        else { promptGhToken(); }
       } else {
-        netlifyIdentity.open();
+        promptGhToken();
       }
     });
-  }
-
-  if (netlifyIdentity) {
-    netlifyIdentity.on('login', function() { updateAuthUI(); showStatus('✓ ログインしました'); });
-    netlifyIdentity.on('logout', function() { updateAuthUI(); showStatus('ログアウトしました'); });
-    netlifyIdentity.on('init', function() { updateAuthUI(); });
-    // 初期化
-    netlifyIdentity.init({ APIUrl: 'https://super-pastelito-06a52d.netlify.app/.netlify/identity' });
   }
   updateAuthUI();
 
@@ -1582,62 +1573,69 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     return pagePath.startsWith('/') ? pagePath.substring(1) : pagePath;
   }
 
-  // ── ページ保存ボタン（Git Gateway で上書き保存、ダウンロードしない）──
+  // ── ページ保存ボタン（GitHub API で直接上書き保存）──
   document.getElementById('savePageBtn').addEventListener('click', function() {
     var btn = this;
     try {
       var html = getEditedHtml();
       if (!html) { showStatus('⚠️ ページが読み込まれていません', true); return; }
 
+      var token = getGhToken();
+      if (!token) {
+        token = promptGhToken();
+        if (!token) { showStatus('⚠️ 保存にはGitHub Tokenが必要です', true); return; }
+      }
+
       var pagePath = document.getElementById('pageSelect').value;
       var filePath = getFilePath();
 
-      // トークンを refreshToken() で取得（期限切れ対策）
-      refreshToken().then(function(token) {
-        var siteUrl = 'https://super-pastelito-06a52d.netlify.app';
-        btn.disabled = true;
-        btn.textContent = '💾 保存中...';
-        showStatus('💾 ' + filePath + ' を保存中...');
+      btn.disabled = true;
+      btn.textContent = '💾 保存中...';
+      showStatus('💾 ' + filePath + ' を保存中...');
 
-        return fetch(siteUrl + '/.netlify/git/github/contents/' + filePath, {
-          method: 'GET',
-          headers: { 'Authorization': 'Bearer ' + token }
-        })
-        .then(function(r) {
-          if (!r.ok) throw new Error('ファイル情報の取得に失敗 (' + r.status + ')');
-          return r.json();
-        })
-        .then(function(data) {
-          return fetch(siteUrl + '/.netlify/git/github/contents/' + filePath, {
-            method: 'PUT',
-            headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              message: 'Update ' + filePath + ' via GDE',
-              content: btoa(unescape(encodeURIComponent(html))),
-              sha: data.sha
-            })
-          });
-        })
-        .then(function(r) {
-          if (r.ok) {
-            delete pendingChanges[pagePath];
-            updateSaveButton();
-            showStatus('✓ ' + filePath + ' を保存しました！');
-          } else {
-            return r.text().then(function(body) {
-              throw new Error('保存API失敗 (' + r.status + '): ' + body.substring(0, 100));
-            });
-          }
-        });
-      }).catch(function(err) {
-        var msg = (typeof err === 'string') ? err : (err.message || '不明なエラー');
-        if (msg === 'not logged in' || msg === 'no identity') {
-          showStatus('⚠️ 保存するにはログインが必要です。右上の「🔑 ログイン」ボタンからログインしてください。', true);
-          if (netlifyIdentity) netlifyIdentity.open();
-        } else {
-          showStatus('⚠️ 保存に失敗: ' + msg, true);
+      // Step 1: GET で現在のファイルのSHAを取得
+      fetch(GH_API + filePath, {
+        headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
+      })
+      .then(function(r) {
+        if (r.status === 401 || r.status === 403) {
+          setGhToken(null); updateAuthUI();
+          throw new Error('トークンが無効です。再設定してください。');
         }
-      }).finally(function() {
+        if (!r.ok) throw new Error('ファイル取得失敗 (' + r.status + ')');
+        return r.json();
+      })
+      .then(function(data) {
+        // Step 2: PUT で上書き保存
+        return fetch(GH_API + filePath, {
+          method: 'PUT',
+          headers: {
+            'Authorization': 'token ' + token,
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'Update ' + filePath + ' via GDE',
+            content: btoa(unescape(encodeURIComponent(html))),
+            sha: data.sha
+          })
+        });
+      })
+      .then(function(r) {
+        if (r.ok) {
+          delete pendingChanges[pagePath];
+          updateSaveButton();
+          showStatus('✓ ' + filePath + ' を保存しました！（自動デプロイ中…）');
+        } else {
+          return r.json().then(function(body) {
+            throw new Error((body.message || 'API error') + ' (' + r.status + ')');
+          });
+        }
+      })
+      .catch(function(err) {
+        showStatus('⚠️ 保存失敗: ' + (err.message || err), true);
+      })
+      .finally(function() {
         btn.disabled = false;
         updateSaveButton();
       });
@@ -1709,37 +1707,32 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     yaml += 'footer_bg_color: "' + settings.footer_bg_color + '"\n';
     yaml += 'footer_text_color: "' + settings.footer_text_color + '"\n';
 
-    refreshToken().then(function(token) {
-      var siteUrl = 'https://super-pastelito-06a52d.netlify.app';
-      showStatus('💾 設定を保存中...');
-      return fetch(siteUrl + '/.netlify/git/github/contents/_data/design.yml', {
-        method: 'GET',
-        headers: { 'Authorization': 'Bearer ' + token }
-      })
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        return fetch(siteUrl + '/.netlify/git/github/contents/_data/design.yml', {
-          method: 'PUT',
-          headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: 'Update design settings via GDE', content: btoa(unescape(encodeURIComponent(yaml))), sha: data.sha })
-        });
-      })
-      .then(function(r) {
-        if (r.ok) {
-          showStatus('✓ 設定を保存しました！');
-          originalSettings = JSON.parse(JSON.stringify(settings));
-        } else {
-          showStatus('⚠️ 設定の保存に失敗しました。再度ログインしてください。', true);
-        }
+    var token = getGhToken();
+    if (!token) {
+      token = promptGhToken();
+      if (!token) { showStatus('⚠️ 保存にはGitHub Tokenが必要です', true); return; }
+    }
+    showStatus('💾 設定を保存中...');
+    fetch(GH_API + '_data/design.yml', {
+      headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      return fetch(GH_API + '_data/design.yml', {
+        method: 'PUT',
+        headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: 'Update design settings via GDE', content: btoa(unescape(encodeURIComponent(yaml))), sha: data.sha })
       });
-    }).catch(function(err) {
-      if (err === 'not logged in' || err === 'no identity') {
-        showStatus('⚠️ ログインが必要です。右上の「🔑 ログイン」ボタンからログインしてください。', true);
-        if (netlifyIdentity) netlifyIdentity.open();
+    })
+    .then(function(r) {
+      if (r.ok) {
+        showStatus('✓ 設定を保存しました！');
+        originalSettings = JSON.parse(JSON.stringify(settings));
       } else {
-        showStatus('⚠️ 保存に失敗しました: ' + (err.message || err), true);
+        showStatus('⚠️ 設定の保存に失敗しました。Tokenを確認してください。', true);
       }
-    });
+    })
+    .catch(function(err) { showStatus('⚠️ 保存に失敗: ' + (err.message || err), true); });
   });
 
   // ── リセット ──
