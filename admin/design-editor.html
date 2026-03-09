@@ -461,9 +461,14 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
   // 動的プロパティパネル — クリックした要素のCSS調整
   // ===================================================
   function getElLabel(el) {
-    var cls = el.className && typeof el.className === 'string' ? el.className.split(' ')[0] : '';
+    var clsStr = '';
+    if (el.className) {
+      if (typeof el.className === 'string') clsStr = el.className;
+      else if (el.className.baseVal) clsStr = el.className.baseVal; // SVG
+    }
+    var cls = clsStr ? clsStr.split(' ')[0] : '';
     var id = el.id ? '#' + el.id : '';
-    var tag = el.tagName.toLowerCase();
+    var tag = (el.tagName || 'element').toLowerCase();
     var text = (el.textContent || '').trim().substring(0, 20);
     if (text.length >= 20) text += '…';
     return (cls ? '.' + cls : tag + id) + (text ? ' 「' + text + '」' : '');
@@ -479,9 +484,14 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     try { cs = frame.contentWindow.getComputedStyle(el); } catch(e) { return; }
 
     // 要素名タグ
+    var clsStr = '';
+    if (el.className) {
+      if (typeof el.className === 'string') clsStr = el.className;
+      else if (el.className.baseVal) clsStr = el.className.baseVal;
+    }
     var tag = document.createElement('div');
     tag.className = 'el-tag';
-    tag.textContent = el.tagName.toLowerCase() + (el.className && typeof el.className === 'string' ? '.' + el.className.split(' ').join('.') : '') + (el.id ? '#' + el.id : '');
+    tag.textContent = (el.tagName || 'element').toLowerCase() + (clsStr ? '.' + clsStr.split(' ').join('.') : '') + (el.id ? '#' + el.id : '');
     container.appendChild(tag);
 
     // プロパティ定義
@@ -609,18 +619,50 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       var doc = frame.contentDocument || frame.contentWindow.document;
       if (!doc || !doc.body) return;
 
+      // スタイル注入
       var style = doc.createElement('style');
       style.textContent = 'body * { cursor: pointer !important; } body *:hover { outline: 2px dashed rgba(91,192,235,0.4) !important; outline-offset: 2px !important; }';
       doc.head.appendChild(style);
+
+      // onclick属性によるページ遷移をブロック
+      doc.querySelectorAll('[onclick]').forEach(function(el) {
+        el.removeAttribute('onclick');
+      });
+
+      // リンクのデフォルト動作を全てブロック
+      doc.querySelectorAll('a[href]').forEach(function(a) {
+        a.addEventListener('click', function(e) { e.preventDefault(); }, true);
+      });
+
+      // SVG要素にもポインターイベントを有効化
+      doc.querySelectorAll('svg, svg *').forEach(function(el) {
+        el.style.pointerEvents = 'auto';
+      });
+
+      // 要素のクリックターゲットを改善する関数
+      function findEditableTarget(el) {
+        // SVG系要素の場合、親のIMGまたはSVGコンテナまで辿る
+        if (el.namespaceURI && el.namespaceURI.indexOf('svg') !== -1) {
+          while (el && el.namespaceURI && el.namespaceURI.indexOf('svg') !== -1) {
+            el = el.parentElement;
+          }
+          // svgの直接の親がIMGでない場合はそのまま使う
+          if (!el) return null;
+        }
+        // SCRIPT, STYLE, HTML, BODY は除外
+        var skip = ['SCRIPT', 'STYLE', 'HTML', 'BODY'];
+        if (skip.indexOf(el.tagName) !== -1) return null;
+        return el;
+      }
 
       // シングルクリック → プロパティパネル表示
       doc.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
+        e.stopImmediatePropagation();
 
-        var el = e.target;
-        // script, style, html, body は除外
-        if (['SCRIPT', 'STYLE', 'HTML', 'BODY'].indexOf(el.tagName) !== -1) return;
+        var el = findEditableTarget(e.target);
+        if (!el) return false;
 
         highlightIframeElement(el);
         switchTab('element');
@@ -633,22 +675,21 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       doc.addEventListener('dblclick', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        var el = e.target;
-        if (el.childElementCount === 0 && el.textContent.trim().length > 0) {
+        e.stopImmediatePropagation();
+
+        var el = findEditableTarget(e.target);
+        if (!el) return false;
+
+        if (el.textContent.trim().length > 0) {
           highlightIframeElement(el);
           openTextEditModal(el, getElLabel(el));
-        } else {
-          // 子要素がある場合は最も近いテキストノードを持つ要素を探す
-          var textEl = el;
-          if (el.textContent.trim().length > 0) {
-            highlightIframeElement(textEl);
-            openTextEditModal(textEl, getElLabel(textEl));
-          }
         }
         return false;
       }, true);
 
-    } catch(e) {}
+    } catch(e) {
+      console.error('setupClickEditing error:', e);
+    }
   }
 
   // ── テキスト編集モーダル ──
