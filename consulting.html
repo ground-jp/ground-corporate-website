@@ -1,493 +1,224 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
+<html lang="ja" style="--accent: #3B82F6; --frost-ice-blue: #60A5FA; --black: #1A1A1A;"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="img/favicon.ico" type="image/x-icon">
   <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="コンサルティング | GROUND Inc.">
-  <meta property="og:description" content="物流施設の設計・運用最適化コンサルティング。現場の課題を可視化し、テクノロジーを活用した改善策を提案します。">
-  <meta property="og:url" content="https://groundinc.co.jp/consulting.html">
+  <meta property="og:title" content="GPIM - 物流施設管理 | GROUND Inc.">
+  <meta property="og:description" content="物流施設の設備管理・運用最適化プラットフォーム GPIM。予防保全と可視化で稼働率を最大化します。">
+  <meta property="og:url" content="https://groundinc.co.jp/gpim.html">
   <meta property="og:site_name" content="GROUND Inc.">
   <meta property="og:locale" content="ja_JP">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="コンサルティング | GROUND Inc.">
-  <meta name="twitter:description" content="物流施設の設計・運用最適化コンサルティング。現場の課題を可視化し、テクノロジーを活用した改善策を提案します。">
-  <title>コンサルティング＆エンジニアリング | GROUND Inc.</title>
-  <meta name="description" content="GROUND独自のGPIMに基づき、物流戦略策定から庫内エンジニアリング、IT・テクノロジー統合まで多方面からコンサルティング・エンジニアリングを支援。コーネンコンサルティングとの連携により戦略から実行までを一貫サポート。">
+  <meta name="twitter:title" content="GPIM - 物流施設管理 | GROUND Inc.">
+  <meta name="twitter:description" content="物流施設の設備管理・運用最適化プラットフォーム GPIM。予防保全と可視化で稼働率を最大化します。">
+  <title>GPIM - GROUND Process Improvement Methodology | GROUND Inc.</title>
+  <meta name="description" content="GPIM（GROUND Process Improvement Methodology）は、物流施設の運営を5つのレベルで段階的に進化させるGROUND独自の改善メソドロジーです。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Noto+Sans+JP:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css?v=54">
   <style>
-    /* ===================================================================
-       Consulting & Engineering Page
-       Dark theme consistent with GWES / DI pages
-       =================================================================== */
-
-    :root {
-      --ce-bg: #0A0C14;
-      --ce-surface: #0A0C14;
-      --ce-surface-2: #161822;
-      --ce-border: rgba(255,255,255,0.06);
-      --ce-border-hover: rgba(255,255,255,0.12);
-      --ce-text-1: #FFFFFF;
-      --ce-text-2: rgba(255,255,255,0.88);
-      --ce-text-3: rgba(255,255,255,0.82);
-      --ce-accent: #3B82F6;
-      --ce-accent-dim: rgba(108,156,255,0.10);
-      --ce-teal: #34D399;
-      --ce-teal-dim: rgba(52,211,153,0.10);
-      --ce-purple: #60A5FA;
-      --ce-purple-dim: rgba(96,165,250,0.10);
-      --ce-warm: #93C5FD;
-      --ce-warm-dim: rgba(251,146,60,0.10);
-    }
-
-    body { background: var(--ce-bg) !important; }
-    .header { background: var(--ce-bg) !important; }
+    /* ── Page base: white background ── */
+    body { background: #fff !important; }
 
     /* ── Breadcrumb ── */
-    .page-header { padding: 0; }
-    .ce-bc {
+    .gp-bc {
       display: flex; align-items: center; gap: 8px;
-      font-size: 0.72rem; color: var(--ce-text-3);
+      font-size: 0.72rem; color: #1A1A1A; padding: 0;
     }
-    .ce-bc a { color: var(--ce-text-3); text-decoration: none; transition: color 0.2s; }
-    .ce-bc a:hover { color: var(--ce-text-2); }
+    .gp-bc a { color: #1A1A1A; text-decoration: none; transition: color 0.2s; }
+    .gp-bc a:hover { color: #1a1a1a; }
 
     /* ── Hero ── */
-    .ce-hero {
-      padding: 80px 0 0;
-      background: var(--ce-bg);
+    .gp-hero {
+      padding: 140px 0 60px;
+      text-align: center;
     }
-    .ce-hero__inner { max-width: 740px; }
-    .ce-hero__badge {
-      display: inline-block;
+    .gp-hero__label {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.58rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--ce-text-3);
-      margin-bottom: 32px;
+      font-size: 0.68rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: #1A1A1A;
+      margin-bottom: 20px; display: block;
     }
-    .ce-hero__title {
+    .gp-hero__title {
       font-family: 'Inter', sans-serif;
-      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
-      font-weight: 600; color: #FFFFFF;
-      letter-spacing: -0.03em; line-height: 1.15;
-      margin: 0 0 24px;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 700; color: #1a1a1a;
+      letter-spacing: 0.12em; line-height: 1.15;
+      margin: 0 0 12px;
     }
-    .ce-hero__desc {
-      font-size: 0.9rem; font-weight: 300;
-      color: var(--ce-text-3); line-height: 2.1;
-      max-width: 600px;
+    .gp-hero__full {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem; font-weight: 400;
+      color: #1A1A1A; letter-spacing: 0.04em;
+      margin: 0 0 32px;
     }
-    .ce-hero__line {
-      width: 100%; height: 1px;
-      background: var(--ce-border);
-      margin-top: 80px;
+    .gp-hero__desc {
+      font-size: 0.95rem; font-weight: 300;
+      color: #1A1A1A; line-height: 2.0;
+      max-width: 720px; margin: 0 auto;
     }
 
-    /* ── Section shared ── */
-    .ce-section {
-      padding: 80px 0;
-      border-top: 1px solid var(--ce-border);
+    /* ── Chart Section ── */
+    .gp-chart-wrap {
+      padding: 40px 0 60px;
     }
-    .ce-section__label {
+    .gp-chart {
+      max-width: 840px; margin: 0 auto;
+    }
+    .gp-chart svg {
+      width: 100%; height: auto;
+    }
+
+    /* ── Concept Section ── */
+    .gp-concept {
+      padding: 60px 0;
+      border-top: 1px solid #E0E0E5;
+    }
+    .gp-concept__inner {
+      display: grid; grid-template-columns: 280px 1fr; gap: 60px;
+      align-items: start;
+    }
+    .gp-concept__label {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--ce-text-3);
-      margin-bottom: 16px; display: block;
+      font-size: 0.68rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #1A1A1A;
+      margin-bottom: 12px; display: block;
     }
-    .ce-section__heading {
-      font-size: 1.6rem; font-weight: 600;
-      color: var(--ce-text-1); line-height: 1.5;
-      margin-bottom: 20px;
+    .gp-concept__heading {
+      font-size: 1.4rem; font-weight: 600;
+      color: #1a1a1a; line-height: 1.5;
     }
-    .ce-section__text {
-      font-size: 0.88rem; color: var(--ce-text-3);
+    .gp-concept__text {
+      font-size: 0.9rem; color: #1A1A1A;
       line-height: 2.1;
     }
-    .ce-section__text p { margin: 0 0 20px; }
-    .ce-section__text p:last-child { margin-bottom: 0; }
+    .gp-concept__text p { margin: 0 0 24px; }
+    .gp-concept__text p:last-child { margin-bottom: 0; }
 
-    /* ── GPIM-driven approach ── */
-    .ce-approach {
-      display: grid; grid-template-columns: 280px 1fr; gap: 60px;
-      align-items: start;
+    /* ── Levels Section ── */
+    .gp-levels-section {
+      padding: 60px 0;
+      border-top: 1px solid #E0E0E5;
     }
-
-    /* ── GPIM Level Cards (compact) ── */
-    .ce-gpim-intro {
-      font-size: 0.88rem; color: var(--ce-text-3); line-height: 2.1; margin-bottom: 12px;
+    .gp-levels-header {
+      text-align: center; margin-bottom: 48px;
     }
-    .ce-gpim-intro strong { color: var(--ce-text-1); }
-    .ce-gpim-principle {
-      padding: 16px 20px;
-      background: rgba(108,156,255,0.06);
-      border-left: 3px solid var(--ce-accent);
-      border-radius: 0 8px 8px 0;
-      margin: 24px 0 32px;
-      font-size: 0.82rem; color: var(--ce-text-2); line-height: 1.9;
-    }
-    .ce-gpim-levels { display: flex; flex-direction: column; gap: 8px; }
-    .ce-gpim-card {
-      display: grid; grid-template-columns: 52px 1fr auto; align-items: center;
-      background: var(--ce-surface); border: 1px solid var(--ce-border);
-      border-radius: 10px; overflow: hidden; cursor: pointer;
-      text-decoration: none; transition: border-color 0.3s, background 0.3s;
-    }
-    .ce-gpim-card:hover { border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.02); }
-    .ce-gpim-card__badge {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 2px; padding: 20px 0; font-family: 'JetBrains Mono', monospace; color: #fff; align-self: stretch;
-    }
-    .ce-gpim-card__num { font-size: 0.58rem; letter-spacing: 0.12em; opacity: 0.7; }
-    .ce-gpim-card__icon { font-size: 1rem; }
-    .ce-gpim-card__body { padding: 16px 20px; }
-    .ce-gpim-card__top { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
-    .ce-gpim-card__name { font-size: 0.92rem; font-weight: 700; color: var(--ce-text-1); }
-    .ce-gpim-card__modules { display: flex; gap: 4px; }
-    .ce-gpim-card__module {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; letter-spacing: 0.06em;
-      padding: 2px 7px; border-radius: 3px; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.55);
-    }
-    .ce-gpim-card__desc {
-      font-size: 0.78rem; color: var(--ce-text-3); line-height: 1.8;
-      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-    }
-    .ce-gpim-card__arrow {
-      padding: 0 20px; font-size: 0.78rem; color: var(--ce-accent); white-space: nowrap; font-weight: 500;
-    }
-    .ce-gpim-card__arrow::after { content: ' →'; }
-    .ce-gpim-card--l1 .ce-gpim-card__badge { background: linear-gradient(180deg, #636A78 0%, #3F4250 100%); }
-    .ce-gpim-card--l2 .ce-gpim-card__badge { background: linear-gradient(180deg, #3B82F6 0%, #2563EB 100%); }
-    .ce-gpim-card--l3 .ce-gpim-card__badge { background: linear-gradient(180deg, #34D399 0%, #059669 100%); }
-    .ce-gpim-card--l4 .ce-gpim-card__badge { background: linear-gradient(180deg, #60A5FA 0%, #3B82F6 100%); }
-    .ce-gpim-card--l5 .ce-gpim-card__badge { background: linear-gradient(180deg, #93C5FD 0%, #60A5FA 100%); }
-
-    /* ── Service Areas ── */
-    .ce-services {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
-      margin-top: 40px;
-    }
-    .ce-service-card {
-      padding: 32px;
-      background: var(--ce-surface);
-      border: 1px solid var(--ce-border);
-      border-radius: 12px;
-      transition: border-color 0.3s, background 0.3s;
-    }
-    .ce-service-card:hover {
-      border-color: var(--ce-border-hover);
-      background: var(--ce-surface-2);
-    }
-    .ce-service-card__icon {
-      width: 36px; height: 36px;
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 20px;
-      font-size: 0.7rem; font-weight: 600;
+    .gp-levels-header__label {
       font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #1A1A1A;
+      margin-bottom: 12px; display: block;
     }
-    .ce-service-card__title {
-      font-size: 1.0rem; font-weight: 600;
-      color: var(--ce-text-1);
-      margin-bottom: 12px;
-    }
-    .ce-service-card__desc {
-      font-size: 0.82rem; color: var(--ce-text-3);
-      line-height: 1.9;
-    }
-
-    /* ── Positioning Matrix (SVG-based) ── */
-    .ce-matrix {
-      display: grid; grid-template-columns: 280px 1fr; gap: 60px;
-      align-items: start;
-    }
-    .ce-pos {
-      position: relative;
-      max-width: 640px;
-      margin: 32px 0 16px;
-    }
-    .ce-pos__svg {
-      width: 100%; height: auto;
-      display: block;
-    }
-    .ce-pos__legend {
-      display: flex; flex-wrap: wrap; gap: 20px;
-      margin-top: 20px; padding-left: 4px;
-    }
-    .ce-pos__legend-item {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 0.7rem; color: var(--ce-text-3);
-    }
-    .ce-pos__legend-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    /* ── Case Studies ── */
-    .ce-cases { margin-top: 40px; }
-    .ce-case {
-      padding: 40px;
-      background: var(--ce-surface);
-      border: 1px solid var(--ce-border);
-      border-radius: 12px;
-      margin-bottom: 20px;
-    }
-    .ce-case__header {
-      display: flex; align-items: center; gap: 12px;
-      margin-bottom: 24px;
-    }
-    .ce-case__tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.58rem; letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 4px;
-      color: var(--ce-accent);
-      background: var(--ce-accent-dim);
-    }
-    .ce-case__client {
-      font-size: 0.78rem; color: var(--ce-text-3);
-    }
-    .ce-case__title {
-      font-size: 1.1rem; font-weight: 600;
-      color: var(--ce-text-1);
-      margin-bottom: 20px;
-    }
-    .ce-case__flow {
-      display: grid; grid-template-columns: 1fr auto 1fr auto 1fr;
-      gap: 0;
-      align-items: stretch;
-    }
-    .ce-case__step {
-      padding: 20px;
-      background: rgba(255,255,255,0.02);
-      border-radius: 8px;
-      border: 1px solid var(--ce-border);
-    }
-    .ce-case__step-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.56rem; letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ce-text-3);
-      margin-bottom: 10px;
-    }
-    .ce-case__step-text {
-      font-size: 0.78rem; color: var(--ce-text-2);
-      line-height: 1.8;
-    }
-    .ce-case__arrow {
-      display: flex; align-items: center; justify-content: center;
-      color: var(--ce-text-3);
-      font-size: 0.9rem;
-      padding: 0 8px;
-    }
-
-    /* ── GPIM Assessment ── */
-    .ce-assess {
-      display: grid; grid-template-columns: 280px 1fr; gap: 60px;
-      align-items: start;
-    }
-    .ce-assess__flow {
-      display: flex; gap: 2px;
-      margin: 32px 0;
-    }
-    .ce-assess__step {
-      flex: 1;
-      padding: 24px 16px;
-      background: var(--ce-surface);
-      border: 1px solid var(--ce-border);
-      text-align: center;
-      position: relative;
-    }
-    .ce-assess__step:first-child { border-radius: 8px 0 0 8px; }
-    .ce-assess__step:last-child { border-radius: 0 8px 8px 0; }
-    .ce-assess__step-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.56rem; color: var(--ce-accent);
-      letter-spacing: 0.1em;
-      margin-bottom: 8px;
-    }
-    .ce-assess__step-title {
-      font-size: 0.82rem; font-weight: 600;
-      color: var(--ce-text-1);
-      margin-bottom: 6px;
-    }
-    .ce-assess__step-desc {
-      font-size: 0.72rem; color: var(--ce-text-3);
-      line-height: 1.7;
-    }
-    .ce-assess__tiers {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-      margin-top: 24px;
-    }
-    .ce-assess__tier {
-      padding: 24px;
-      border-radius: 8px;
-      border: 1px solid var(--ce-border);
-    }
-    .ce-assess__tier--free {
-      background: var(--ce-teal-dim);
-      border-color: rgba(52,211,153,0.15);
-    }
-    .ce-assess__tier--paid {
-      background: var(--ce-accent-dim);
-      border-color: rgba(108,156,255,0.15);
-    }
-    .ce-assess__tier-badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.56rem; letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 10px; display: block;
-    }
-    .ce-assess__tier--free .ce-assess__tier-badge { color: var(--ce-teal); }
-    .ce-assess__tier--paid .ce-assess__tier-badge { color: var(--ce-accent); }
-    .ce-assess__tier-title {
-      font-size: 0.95rem; font-weight: 600;
-      color: var(--ce-text-1);
-      margin-bottom: 10px;
-    }
-    .ce-assess__tier-text {
-      font-size: 0.78rem; color: var(--ce-text-3);
-      line-height: 1.8;
-    }
-
-    /* ── Partner Section ── */
-    .ce-partner {
-      display: grid; grid-template-columns: 280px 1fr; gap: 60px;
-      align-items: start;
-    }
-    .ce-partner__card {
-      padding: 40px;
-      background: var(--ce-surface);
-      border: 1px solid var(--ce-border);
-      border-radius: 12px;
-      margin-top: 24px;
-    }
-    .ce-partner__logo {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.6rem; font-weight: 300;
-      letter-spacing: 0.2em;
-      color: var(--ce-text-1);
-      margin-bottom: 4px;
-    }
-    .ce-partner__logo-sub {
-      font-size: 0.72rem; color: var(--ce-text-3);
-      letter-spacing: 0.08em;
-      margin-bottom: 20px;
-    }
-    .ce-partner__desc {
-      font-size: 0.84rem; color: var(--ce-text-3);
-      line-height: 2.0;
-    }
-    .ce-partner__desc p { margin: 0 0 16px; }
-    .ce-partner__desc p:last-child { margin-bottom: 0; }
-    .ce-partner__members {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
-      margin-top: 24px;
-    }
-    .ce-partner__member {
-      padding: 20px;
-      background: rgba(255,255,255,0.02);
-      border-radius: 8px;
-      border: 1px solid var(--ce-border);
-    }
-    .ce-partner__member-name {
-      font-size: 0.88rem; font-weight: 600;
-      color: var(--ce-text-1);
-      margin-bottom: 2px;
-    }
-    .ce-partner__member-role {
-      font-size: 0.68rem; color: var(--ce-accent);
-      margin-bottom: 8px;
-    }
-    .ce-partner__member-bio {
-      font-size: 0.72rem; color: var(--ce-text-3);
-      line-height: 1.7;
-    }
-
-    /* ── CTA Section ── */
-    .ce-cta {
-      padding: 80px 0;
-      text-align: center;
-      border-top: 1px solid var(--ce-border);
-    }
-    .ce-cta__title {
+    .gp-levels-header__title {
       font-size: 1.4rem; font-weight: 600;
-      color: var(--ce-text-1);
-      margin-bottom: 16px;
+      color: #1a1a1a;
     }
-    .ce-cta__desc {
-      font-size: 0.88rem; color: var(--ce-text-3);
-      line-height: 2.0;
-      max-width: 560px; margin: 0 auto 32px;
+
+    .gp-levels {
+      display: flex; flex-direction: column; gap: 0;
+      max-width: 860px; margin: 0 auto;
     }
-    .ce-cta__buttons {
-      display: flex; gap: 16px; justify-content: center;
+    .gp-level {
+      display: grid; grid-template-columns: 80px 180px 1fr; gap: 24px;
+      padding: 32px 0;
+      border-bottom: 1px solid #EEEEF2;
+      align-items: start;
     }
-    .ce-cta__btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 32px;
-      border-radius: 6px;
-      font-size: 0.84rem; font-weight: 500;
-      text-decoration: none;
-      transition: all 0.3s;
+    .gp-level:first-child { border-top: 1px solid #EEEEF2; }
+    .gp-level__num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; font-weight: 500;
+      color: #1A1A1A; letter-spacing: 0.06em;
     }
-    .ce-cta__btn--primary {
-      background: var(--ce-accent);
-      color: #0A0C14;
+    .gp-level__title-wrap {}
+    .gp-level__title {
+      font-size: 1.15rem; font-weight: 600;
+      color: #1a1a1a; margin: 0 0 4px;
     }
-    .ce-cta__btn--primary:hover {
-      background: #60A5FA;
+    .gp-level__en {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem; font-weight: 400;
+      color: #1A1A1A; letter-spacing: 0.04em;
     }
-    .ce-cta__btn--outline {
-      border: 1px solid var(--ce-border-hover);
-      color: var(--ce-text-2);
+    .gp-level__desc {
+      font-size: 0.88rem; color: #1A1A1A;
+      line-height: 1.95;
     }
-    .ce-cta__btn--outline:hover {
-      border-color: var(--ce-text-3);
-      background: rgba(255,255,255,0.03);
+
+    /* ── GWES Relation ── */
+    .gp-gwes {
+      padding: 60px 0;
+      border-top: 1px solid #E0E0E5;
     }
+    .gp-gwes__inner {
+      display: grid; grid-template-columns: 280px 1fr; gap: 60px;
+      align-items: start;
+    }
+    .gp-gwes__text {
+      font-size: 0.9rem; color: #1A1A1A;
+      line-height: 2.1;
+    }
+    .gp-gwes__text p { margin: 0 0 24px; }
+    .gp-gwes__text p:last-child { margin-bottom: 0; }
+
+    /* ── Principle ── */
+    .gp-principle {
+      padding: 60px 0 80px;
+      border-top: 1px solid #E0E0E5;
+      text-align: center;
+    }
+    .gp-principle__text {
+      font-size: 1.05rem; font-weight: 500;
+      color: #1a1a1a; line-height: 1.9;
+      max-width: 640px; margin: 0 auto;
+    }
+    .gp-principle__sub {
+      font-size: 0.82rem; color: #1A1A1A;
+      margin-top: 16px;
+    }
+
+    /* ── CTA ── */
+    .gp-cta {
+      padding: 60px 0;
+      background: #F5F5F8;
+      text-align: center;
+    }
+    .gp-cta__title {
+      font-size: 1.3rem; font-weight: 600;
+      color: #1a1a1a; margin: 0 0 16px;
+    }
+    .gp-cta__desc {
+      font-size: 0.88rem; color: #1A1A1A;
+      line-height: 1.9; margin: 0 0 28px;
+    }
+    .gp-cta__btn {
+      display: inline-block;
+      padding: 14px 40px;
+      background: #1a1a1a; color: #fff;
+      font-size: 0.85rem; font-weight: 500;
+      border-radius: 6px; text-decoration: none;
+      transition: background 0.3s;
+    }
+    .gp-cta__btn:hover { background: #3F4250; }
 
     /* ── Fade animation ── */
-    .ce-fade {
+    .gp-fade {
       opacity: 0; transform: translateY(20px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
-    .ce-fade.is-visible {
-      opacity: 1; transform: translateY(0);
-    }
+    .gp-fade.is-visible { opacity: 1; transform: translateY(0); }
+    /* Fallback: show content if JS fails */
+    .no-js .gp-fade, .gp-fade.gp-fade--fallback { opacity: 1; transform: none; }
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
-      .ce-approach,
-      .ce-matrix,
-      .ce-assess,
-      .ce-partner { grid-template-columns: 1fr; gap: 24px; }
-      .ce-services { grid-template-columns: 1fr; }
-      .ce-case__flow {
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
-      .ce-case__arrow {
-        transform: rotate(90deg);
-        padding: 4px 0;
-      }
-      .ce-partner__members { grid-template-columns: 1fr; }
-      .ce-gpim-card { grid-template-columns: 44px 1fr; }
-      .ce-gpim-card__body { padding: 12px 14px; }
-      .ce-gpim-card__arrow { display: none; }
-      .ce-gpim-card__modules { gap: 3px; }
-      .ce-gpim-card__module { font-size: 0.48rem; }
-      .ce-gpim-principle { font-size: 0.76rem; }
-      .ce-assess__flow { flex-direction: column; }
-      .ce-assess__step:first-child { border-radius: 8px 8px 0 0; }
-      .ce-assess__step:last-child { border-radius: 0 0 8px 8px; }
-      .ce-assess__tiers { grid-template-columns: 1fr; }
-      .ce-cta__buttons { flex-direction: column; align-items: center; }
+      .gp-concept__inner,
+      .gp-gwes__inner { grid-template-columns: 1fr; gap: 24px; }
+      .gp-level { grid-template-columns: 60px 1fr; gap: 12px; }
+      .gp-level__desc { grid-column: 1 / -1; }
     }
   </style>
   <style>
@@ -518,7 +249,7 @@
     .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.3); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
     .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
   </style>
-  <link rel="canonical" href="https://groundinc.co.jp/consulting.html">
+  <link rel="canonical" href="https://groundinc.co.jp/gpim.html">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -533,19 +264,19 @@
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "コンサルティング",
-      "item": "https://groundinc.co.jp/consulting.html"
+      "name": "GPIM",
+      "item": "https://groundinc.co.jp/gpim.html"
     }
   ]
 }
 </script>
-  <link rel="alternate" hreflang="ja" href="https://groundinc.co.jp/consulting.html">
-  <link rel="alternate" hreflang="x-default" href="https://groundinc.co.jp/consulting.html">
+  <link rel="alternate" hreflang="ja" href="https://groundinc.co.jp/gpim.html">
+  <link rel="alternate" hreflang="x-default" href="https://groundinc.co.jp/gpim.html">
 </head>
-<body>
-  <header class="header" id="header">
-    <div class="header__inner">
-      <a href="index.html" class="header__logo"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img"></a>
+<body style="font-size: 15px;">
+  <header class="header header--scrolled" id="header" style="background: rgb(10, 12, 20); height: 64px;">
+    <div class="header__inner" style="">
+      <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; position: relative; top: 0px; left: 0px;"></a>
       <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
         <span class="hamburger__line"></span>
         <span class="hamburger__line"></span>
@@ -561,548 +292,261 @@
       <div class="overlay-menu__col-nav">
         <span class="overlay-menu__label">[NAVIGATION]</span>
         <div class="overlay-menu__nav-list">
-          <a href="about.html" class="overlay-menu__nav-item" data-panel="company">会社情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
-          <a href="gpim.html" class="overlay-menu__nav-item" data-panel="gpim">GPIM<span class="overlay-menu__nav-arrow">&#8250;</span></a>
-          <a href="service.html" class="overlay-menu__nav-item" data-panel="service">製品・サービス<span class="overlay-menu__nav-arrow">&#8250;</span></a>
-          <a href="works.html" class="overlay-menu__nav-item">導入事例</a>
-          <a href="news.html" class="overlay-menu__nav-item">ニュース</a>
-          <a href="blog.html" class="overlay-menu__nav-item">WAREHOUSE TECH WEEKLY</a>
-          <a href="careers.html" class="overlay-menu__nav-item" data-panel="careers">採用情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a class="overlay-menu__nav-item" data-panel="company" href="/about">会社情報<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" data-panel="gpim" href="/gpim">GPIM<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" data-panel="service" href="/service">製品・サービス<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" href="/works">導入事例</a>
+          <a class="overlay-menu__nav-item" href="/news">ニュース</a>
+          <a class="overlay-menu__nav-item" href="/blog">WAREHOUSE TECH WEEKLY</a>
+          <a class="overlay-menu__nav-item" data-panel="careers" href="/careers">採用情報<span class="overlay-menu__nav-arrow">›</span></a>
         </div>
       </div>
       <!-- Col 2: Sub-panels -->
       <div class="overlay-menu__col-sub">
         <div class="overlay-menu__panel" data-panel="company">
           <span class="overlay-menu__label">[会社情報]</span>
-          <a href="about.html" class="overlay-menu__sub-item">会社概要</a>
-          <a href="about.html#ceo" class="overlay-menu__sub-item">CEOメッセージ</a>
-          <a href="about.html#vision" class="overlay-menu__sub-item">ビジョン・ミッション</a>
-          <a href="about.html#bp" class="overlay-menu__sub-item">行動原則(BP)・価値創造(VCP)プロセス</a>
+          <a class="overlay-menu__sub-item" href="/about">会社概要</a>
+          <a class="overlay-menu__sub-item" href="/about#ceo">CEOメッセージ</a>
+          <a class="overlay-menu__sub-item" href="/about#vision">ビジョン・ミッション</a>
+          <a class="overlay-menu__sub-item" href="/about#bp">行動原則(BP)・価値創造(VCP)プロセス</a>
         </div>
         <div class="overlay-menu__panel" data-panel="service">
           <span class="overlay-menu__label">[製品・サービス]</span>
-          <a href="gwes.html" class="overlay-menu__sub-item">GWES</a>
-          <a href="gwes.html#technology" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
-          <a href="gwes.html#modules" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
-          <a href="gwes.html#implementation" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
-          <a href="digital-integration.html" class="overlay-menu__sub-item">デジタルインテグレーション</a>
-          <a href="consulting.html" class="overlay-menu__sub-item">コンサルティング＆エンジニアリング</a>
-          <a href="peer.html" class="overlay-menu__sub-item">PEER</a>
+          <a class="overlay-menu__sub-item" href="/gwes">GWES</a>
+          <a class="overlay-menu__sub-item" href="/gwes#technology" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
+          <a class="overlay-menu__sub-item" href="/gwes#modules" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
+          <a class="overlay-menu__sub-item" href="/gwes#implementation" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
+          <a class="overlay-menu__sub-item" href="/digital-integration">デジタルインテグレーション</a>
+          <a class="overlay-menu__sub-item" href="/consulting">コンサルティング＆エンジニアリング</a>
+          <a class="overlay-menu__sub-item" href="/peer">PEER</a>
         </div>
         <div class="overlay-menu__panel" data-panel="gpim">
           <span class="overlay-menu__label">[GPIM]</span>
-          <a href="gpim.html" class="overlay-menu__sub-item">GPIMとは</a>
-          <a href="gpim-consulting.html" class="overlay-menu__sub-item">GPIMコンサルティング</a>
+          <a class="overlay-menu__sub-item" href="/gpim">GPIMとは</a>
+          <a class="overlay-menu__sub-item" href="/gpim-consulting">GPIMコンサルティング</a>
         </div>
         <div class="overlay-menu__panel" data-panel="careers">
           <span class="overlay-menu__label">[採用情報]</span>
-          <a href="careers.html" class="overlay-menu__sub-item">募集ポジション</a>
-          <a href="about.html" class="overlay-menu__sub-item">カルチャー</a>
+          <a class="overlay-menu__sub-item" href="/careers">募集ポジション</a>
+          <a class="overlay-menu__sub-item" href="/about">カルチャー</a>
         </div>
       </div>
       <!-- Col 3: CTA + Contact -->
       <div class="overlay-menu__col-info">
-        <a href="contact.html" class="overlay-menu__cta-btn">お問い合わせ</a>
+        <a class="overlay-menu__cta-btn" href="/contact" style="background-color: rgb(37, 99, 235);">お問い合わせ</a>
         <div class="overlay-menu__contact-info">
           <span>info@groundinc.co.jp</span>
           <span>03-6441-2975</span>
         </div>
-        <p class="overlay-menu__copyright">&copy; GROUND Inc.</p>
+        <p class="overlay-menu__copyright">© GROUND Inc.</p>
       </div>
-    </div>
-  </div><!-- Mobile Menu -->
-  <!-- Breadcrumb -->
-    <nav class="breadcrumb-nav" aria-label="パンくずリスト">
-      <ol class="breadcrumb-nav__list">
-        <li class="breadcrumb-nav__item"><a href="index.html" class="breadcrumb-nav__link breadcrumb-nav__link--home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a></li>
-        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a href="service.html" class="breadcrumb-nav__link">サービス</a></li>
-        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current">コンサルティング&エンジニアリング</span></li>
-      </ol>
-    </nav>
-  <div class="page-header">
-    <div class="container">
     </div>
   </div>
 
-  <!-- ==================== HERO ==================== -->
-  <section class="ce-hero">
+    <nav class="breadcrumb-nav" aria-label="パンくずリスト">
+      <ol class="breadcrumb-nav__list" style="">
+        <li class="breadcrumb-nav__item"><a class="breadcrumb-nav__link breadcrumb-nav__link--home" href="/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg></a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a class="breadcrumb-nav__link" href="/service">サービス</a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current" style="">GPIM</span></li>
+      </ol>
+    </nav>
+  <section class="gp-hero" style="">
     <div class="container">
-      <div class="ce-hero__inner">
-        <span class="ce-hero__badge">Consulting &amp; Engineering</span>
-        <h1 class="ce-hero__title">GPIMに基づく<br>物流コンサルティング＆<br>エンジニアリング</h1>
-        <p class="ce-hero__desc">
-          物流戦略策定から庫内エンジニアリング、IT・テクノロジー統合まで。GROUND独自のGPIMメソドロジーに沿って、各レベルごとの現状分析と改善を多方面から一貫して支援します。
+      <div class="gp-fade is-visible" style="">
+        <span class="gp-hero__label">Our Methodology</span>
+        <h1 class="gp-hero__title" style="">GPIM</h1>
+        <p class="gp-hero__full" style="">GROUND Process Improvement Methodology</p>
+        <p class="gp-hero__desc">
+          物流施設の運営を段階的に進化させる、GROUND独自の改善メソドロジー。<br>
+          5つのレベルを正しい順序で踏むことで、物流DXを確実に実現します。
         </p>
       </div>
-      <div class="ce-hero__line"></div>
     </div>
   </section>
 
-  <!-- ==================== GPIM-DRIVEN APPROACH ==================== -->
-  <section class="ce-section">
+  <!-- ==================== FAN CHART ==================== -->
+  <section class="gp-chart-wrap">
     <div class="container">
-      <div class="ce-approach ce-fade">
+      <div class="gp-chart gp-fade is-visible">
+        <svg viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="gp-g1" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#1a1a1a" stop-opacity="0.06"></stop><stop offset="100%" stop-color="#1a1a1a" stop-opacity="0.02"></stop></linearGradient>
+            <linearGradient id="gp-g2" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#1a1a1a" stop-opacity="0.10"></stop><stop offset="100%" stop-color="#1a1a1a" stop-opacity="0.04"></stop></linearGradient>
+            <linearGradient id="gp-g3" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#1a1a1a" stop-opacity="0.15"></stop><stop offset="100%" stop-color="#1a1a1a" stop-opacity="0.06"></stop></linearGradient>
+            <linearGradient id="gp-g4" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#1a1a1a" stop-opacity="0.22"></stop><stop offset="100%" stop-color="#1a1a1a" stop-opacity="0.08"></stop></linearGradient>
+            <linearGradient id="gp-g5" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#1a1a1a" stop-opacity="0.30"></stop><stop offset="100%" stop-color="#1a1a1a" stop-opacity="0.12"></stop></linearGradient>
+          </defs>
+          <!-- Axis labels -->
+          <text x="28" y="420" font-size="11" fill="#8A8C9A" font-family="Inter, sans-serif" letter-spacing="0.08em">基盤作り</text>
+          <text x="720" y="420" font-size="11" fill="#8A8C9A" font-family="Inter, sans-serif" letter-spacing="0.08em">目指す姿</text>
+          <!-- Fan arcs -->
+          <path d="M 60,400 A 380,380 0 0,1 740,80 L 680,130 A 310,310 0 0,0 60,400 Z" fill="url(#gp-g5)" stroke="#E0E0E5" stroke-width="0.5"></path>
+          <path d="M 60,400 A 310,310 0 0,1 680,130 L 620,175 A 250,250 0 0,0 60,400 Z" fill="url(#gp-g4)" stroke="#E0E0E5" stroke-width="0.5"></path>
+          <path d="M 60,400 A 250,250 0 0,1 620,175 L 550,225 A 190,190 0 0,0 60,400 Z" fill="url(#gp-g3)" stroke="#E0E0E5" stroke-width="0.5"></path>
+          <path d="M 60,400 A 190,190 0 0,1 550,225 L 470,275 A 130,130 0 0,0 60,400 Z" fill="url(#gp-g2)" stroke="#E0E0E5" stroke-width="0.5"></path>
+          <path d="M 60,400 A 130,130 0 0,1 470,275 L 400,320 A 80,80 0 0,0 60,400 Z" fill="url(#gp-g1)" stroke="#E0E0E5" stroke-width="0.5"></path>
+          <!-- Level circles -->
+          <circle cx="230" cy="348" r="24" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"></circle>
+          <text x="230" y="345" text-anchor="middle" font-size="12" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">体系化</text>
+          <text x="230" y="360" text-anchor="middle" font-size="8" fill="#8A8C9A" font-family="Inter, sans-serif" letter-spacing="0.04em">Lv 1</text>
+          <circle cx="350" cy="285" r="26" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"></circle>
+          <text x="350" y="282" text-anchor="middle" font-size="12" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">可視化</text>
+          <text x="350" y="297" text-anchor="middle" font-size="8" fill="#8A8C9A" font-family="Inter, sans-serif" letter-spacing="0.04em">Lv 2</text>
+          <circle cx="470" cy="225" r="28" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"></circle>
+          <text x="470" y="222" text-anchor="middle" font-size="12" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">自動化</text>
+          <text x="470" y="237" text-anchor="middle" font-size="8" fill="#8A8C9A" font-family="Inter, sans-serif" letter-spacing="0.04em">Lv 3</text>
+          <circle cx="590" cy="165" r="30" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"></circle>
+          <text x="590" y="162" text-anchor="middle" font-size="12" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">最適化</text>
+          <text x="590" y="177" text-anchor="middle" font-size="8" fill="#8A8C9A" font-family="Inter, sans-serif" letter-spacing="0.04em">Lv 4</text>
+          <circle cx="710" cy="100" r="32" fill="#1a1a1a" stroke="none"></circle>
+          <text x="710" y="97" text-anchor="middle" font-size="13" font-weight="600" fill="#fff" font-family="'Noto Sans JP', sans-serif">自律化</text>
+          <text x="710" y="112" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.7)" font-family="Inter, sans-serif" letter-spacing="0.04em">Lv 5</text>
+          <!-- GWES badges -->
+          <rect x="155" y="370" width="60" height="20" rx="3" fill="#1a1a1a"></rect>
+          <text x="185" y="384" text-anchor="middle" font-size="9" font-weight="600" fill="#fff" font-family="Inter, sans-serif" letter-spacing="0.06em">GWES</text>
+          <rect x="530" y="195" width="60" height="20" rx="3" fill="#1a1a1a"></rect>
+          <text x="560" y="209" text-anchor="middle" font-size="9" font-weight="600" fill="#fff" font-family="Inter, sans-serif" letter-spacing="0.06em">GWES</text>
+          <!-- Connecting line -->
+          <line x1="215" y1="380" x2="530" y2="205" stroke="#1a1a1a" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.3"></line>
+          <!-- Annotations -->
+          <text x="270" y="363" font-size="9" fill="#8A8C9A" font-family="'Noto Sans JP', sans-serif">業務構造の整理・標準化</text>
+          <text x="395" y="298" font-size="9" fill="#8A8C9A" font-family="'Noto Sans JP', sans-serif">データによる定量的把握</text>
+          <text x="515" y="235" font-size="9" fill="#8A8C9A" font-family="'Noto Sans JP', sans-serif">マテハン・ロボット活用</text>
+          <text x="635" y="175" font-size="9" fill="#8A8C9A" font-family="'Noto Sans JP', sans-serif">AI・数理最適化</text>
+          <text x="710" y="145" text-anchor="middle" font-size="9" fill="#8A8C9A" font-family="'Noto Sans JP', sans-serif">完全自律運用</text>
+          <!-- Time axis -->
+          <line x1="60" y1="410" x2="770" y2="410" stroke="#C8CDD8" stroke-width="1"></line>
+          <polygon points="770,406 780,410 770,414" fill="#C8CDD8"></polygon>
+          <text x="780" y="414" font-size="10" fill="#8A8C9A" font-family="Inter, sans-serif">時間軸</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== WHAT IS GPIM ==================== -->
+  <section class="gp-concept">
+    <div class="container">
+      <div class="gp-concept__inner gp-fade is-visible">
         <div>
-          <span class="ce-section__label">Core Methodology</span>
-          <h2 class="ce-section__heading">GPIMに沿った<br>体系的アプローチ</h2>
+          <span class="gp-concept__label">What is GPIM</span>
+          <h2 class="gp-concept__heading" style="font-size: 28px;">GPIMとは何か</h2>
         </div>
-        <div>
-          <div class="ce-gpim-intro">
-            <p>GPIM（GROUND Process Improvement Methodology）は、GROUNDが提唱する物流施設の運営を段階的に進化させるための改善メソドロジーです。<strong>5つのレベルを経て「自律化」された物流施設の実現</strong>を目指し、各レベルには明確な「あるべき姿」が定義されています。</p>
-            <p>GROUNDのコンサルティングは、このGPIMの各レベルで求められる状態を実現するための専門的支援を提供します。GWESを活用するケースはもちろん、GWESを前提としない改善・改革においても、GPIMフレームワークに基づく客観的な現状分析と段階的なロードマップ策定により、持続可能な変革を推進します。</p>
-          </div>
-          <div class="ce-gpim-principle">
-            GPIMの根幹は「正しい順序で、段階的に進化する」という思想です。体系化なき可視化は意味を持たず、可視化なき自動化は場当たり的になり、自動化なき最適化は部分最適に留まり、最適化なき自律化は実現できません。
-          </div>
-
-          <!-- GPIM Level Cards (compact - drill down to detail) -->
-          <div class="ce-gpim-levels">
-            <a class="ce-gpim-card ce-gpim-card--l1 ce-fade" href="gpim-consulting.html?level=l1">
-              <div class="ce-gpim-card__badge"><span class="ce-gpim-card__num">L1</span><span class="ce-gpim-card__icon">△</span></div>
-              <div class="ce-gpim-card__body">
-                <div class="ce-gpim-card__top"><span class="ce-gpim-card__name">体系化</span></div>
-                <div class="ce-gpim-card__desc">業務の目的・範囲・工程・役割分担・判断基準・責任分界点を明確に定義し、業務全体を構造として整理。可視化・自動化・最適化へと進化するための「構造と前提条件」を整えます。</div>
-              </div>
-              <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
-            </a>
-            <a class="ce-gpim-card ce-gpim-card--l2 ce-fade" href="gpim-consulting.html?level=l2">
-              <div class="ce-gpim-card__badge"><span class="ce-gpim-card__num">L2</span><span class="ce-gpim-card__icon">◉</span></div>
-              <div class="ce-gpim-card__body">
-                <div class="ce-gpim-card__top">
-                  <span class="ce-gpim-card__name">可視化</span>
-                  <div class="ce-gpim-card__modules"><span class="ce-gpim-card__module">WF</span><span class="ce-gpim-card__module">PA</span><span class="ce-gpim-card__module">WA</span><span class="ce-gpim-card__module">IA</span></div>
-                </div>
-                <div class="ce-gpim-card__desc">作業量予測・進捗状況・実績データ・負荷状況を定量データとして一元化し、事実と数値に基づいて判断・改善を議論できる状態を構築。複数拠点を横断した同一指標での把握・比較・分析を実現します。</div>
-              </div>
-              <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
-            </a>
-            <a class="ce-gpim-card ce-gpim-card--l3 ce-fade" href="gpim-consulting.html?level=l3">
-              <div class="ce-gpim-card__badge"><span class="ce-gpim-card__num">L3</span><span class="ce-gpim-card__icon">⚙</span></div>
-              <div class="ce-gpim-card__body">
-                <div class="ce-gpim-card__top"><span class="ce-gpim-card__name">自動化</span></div>
-                <div class="ce-gpim-card__desc">マテハン（自動倉庫・搬送設備・ロボット等）を活用し、ピッキング・搬送・仕分け等の実行工程を自動化。設備の処理能力・稼働率・ROIを客観的に評価可能な状態を構築します。</div>
-              </div>
-              <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
-            </a>
-            <a class="ce-gpim-card ce-gpim-card--l4 ce-fade" href="gpim-consulting.html?level=l4">
-              <div class="ce-gpim-card__badge"><span class="ce-gpim-card__num">L4</span><span class="ce-gpim-card__icon">◈</span></div>
-              <div class="ce-gpim-card__body">
-                <div class="ce-gpim-card__top">
-                  <span class="ce-gpim-card__name">最適化</span>
-                  <div class="ce-gpim-card__modules"><span class="ce-gpim-card__module">SO</span><span class="ce-gpim-card__module">RO</span><span class="ce-gpim-card__module">LO</span><span class="ce-gpim-card__module">DO</span><span class="ce-gpim-card__module">RA</span></div>
-                </div>
-                <div class="ce-gpim-card__desc">複数の工程・リソース・KPIを同時に考慮し、物流運営全体として最も合理的な状態を維持。拠点横断の全体最適を実現し、需要変動に応じて継続的に最適状態を更新します。</div>
-              </div>
-              <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
-            </a>
-            <a class="ce-gpim-card ce-gpim-card--l5 ce-fade" href="gpim-consulting.html?level=l5">
-              <div class="ce-gpim-card__badge"><span class="ce-gpim-card__num">L5</span><span class="ce-gpim-card__icon">◎</span></div>
-              <div class="ce-gpim-card__body">
-                <div class="ce-gpim-card__top">
-                  <span class="ce-gpim-card__name">自律化</span>
-                  <div class="ce-gpim-card__modules"><span class="ce-gpim-card__module">WF</span><span class="ce-gpim-card__module">RA</span></div>
-                </div>
-                <div class="ce-gpim-card__desc">作業指示・人員配置・進捗管理がシステムで自動化され、人は例外対応・戦略見直し・改善テーマ創出に集中。「日常管理」から「進化と意思決定」への転換を実現します。</div>
-              </div>
-              <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
-            </a>
-          </div>
-
+        <div class="gp-concept__text">
+          <p>GPIM（GROUND Process Improvement Methodology）は、物流施設の運営を「体系化 → 可視化 → 自動化 → 最適化 → 自律化」の5つのレベルで段階的に進化させる、GROUNDが独自に体系化した改善メソドロジーです。</p>
+          <p>物流業界では、EC拡大による多品種少量化、深刻な人手不足、サプライチェーンの複雑化といった課題が同時に押し寄せています。これらに対し、多くの企業がロボットやAIの導入を試みますが、現場の業務プロセスが整理されていない段階でテクノロジーを投入しても、期待した効果は得られません。</p>
+          <p>GPIMは、この「正しい順序」を明確に定義したフレームワークです。各レベルは前段階の完了を前提としており、段階を飛ばした導入は原則として行いません。まず業務を構造化し（Lv.1）、データで現場を見える化し（Lv.2）、その上でロボットによる自動化（Lv.3）、AIによる最適化（Lv.4）と進めていく。この積み上げ型のアプローチこそが、物流DXを確実に実現する唯一の道筋です。</p>
+          <p>2022年にGROUNDが体系化したGPIMは、単なる理論フレームワークではなく、GROUNDの物流施設統合管理・最適化システム「GWES」の設計思想そのものでもあります。GWESの12モジュールは、GPIMの各レベルに対応するかたちで設計されており、顧客の現在のレベルに応じた最適なモジュール構成で段階的に導入することが可能です。</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== SERVICE AREAS ==================== -->
-  <section class="ce-section">
+  <!-- ==================== 5 LEVELS ==================== -->
+  <section class="gp-levels-section" id="levels">
     <div class="container">
-      <span class="ce-section__label">Service Areas</span>
-      <h2 class="ce-section__heading ce-fade">支援領域</h2>
-      <p class="ce-section__text ce-fade" style="max-width: 640px;">
-        戦略から物流施設のエンジニアリング、IT・テクノロジー統合に至るまで、多方面からコンサルティング・エンジニアリングを支援。それぞれの領域にプロフェッショナルエキスパートが揃っています。
+      <div class="gp-levels-header gp-fade is-visible">
+        <span class="gp-levels-header__label">Five Levels</span>
+        <h2 class="gp-levels-header__title" style="font-size: 28px;">GPIMの5つのレベル</h2>
+      </div>
+      <div class="gp-levels gp-fade is-visible">
+        <div class="gp-level" onclick="location.href='gpim-detail.html?level=1'" style="cursor: pointer;">
+          <div class="gp-level__num">LEVEL 01</div>
+          <div class="gp-level__title-wrap">
+            <h3 class="gp-level__title">体系化</h3>
+            <span class="gp-level__en">Systematize</span>
+          </div>
+          <div class="gp-level__desc">
+            物流施設の業務プロセスを体系的に構造化し、属人的なオペレーションを排除する段階です。作業手順・ルール・KPIを標準化し、再現性の高い業務設計を構築します。この「土台づくり」がなければ、後続のすべてのレベルは成立しません。GWESでは、ベースモジュール（BM）とマップエディター（ME）がこの段階を支援します。
+          </div>
+        </div>
+        <div class="gp-level" onclick="location.href='gpim-detail.html?level=2'" style="cursor: pointer;">
+          <div class="gp-level__num">LEVEL 02</div>
+          <div class="gp-level__title-wrap">
+            <h3 class="gp-level__title">可視化</h3>
+            <span class="gp-level__en">Visualize</span>
+          </div>
+          <div class="gp-level__desc">
+            WMS・マテハン・センサー等から収集した実績データを一元的に整理し、複数拠点を横断して現場の状態を客観的に把握可能にする段階です。「経験と勘」から「データに基づく判断」への転換点であり、改善の方向性と優先度を定量的に見極めることができるようになります。GWESのデータコネクター（DC）、ワークロードフォーキャスティング（WF）、プログレスアナライザー（PA）、ワークロードアナライザー（WA）、インベントリアナライザー（IA）がこの段階の中核を担います。
+          </div>
+        </div>
+        <div class="gp-level" onclick="location.href='gpim-detail.html?level=3'" style="cursor: pointer;">
+          <div class="gp-level__num">LEVEL 03</div>
+          <div class="gp-level__title-wrap">
+            <h3 class="gp-level__title">自動化</h3>
+            <span class="gp-level__en">Automate</span>
+          </div>
+          <div class="gp-level__desc">
+            マテリアルハンドリング機器やロボットの導入により、作業の実行そのものを自動化する段階です。体系化され可視化された業務に対して自動化技術を適用することで、安定性・処理能力を飛躍的に向上させます。Lv.1〜2を経ずにロボットを導入するケースが失敗しやすいのは、業務構造とデータ基盤が未整備のまま自動化しようとするためです。
+          </div>
+        </div>
+        <div class="gp-level" onclick="location.href='gpim-detail.html?level=4'" style="cursor: pointer;">
+          <div class="gp-level__num">LEVEL 04</div>
+          <div class="gp-level__title-wrap">
+            <h3 class="gp-level__title">最適化</h3>
+            <span class="gp-level__en">Optimize</span>
+          </div>
+          <div class="gp-level__desc">
+            AIと数理最適化技術を活用し、複数の工程・リソース・KPIを同時に考慮した全体最適を実現する段階です。個々の工程の改善ではなく、施設全体の運営を俯瞰し、人員配置・在庫配置・動線・配送計画を統合的に最適化します。GWESのスロッティングオプティマイザー（SO）、ルーティングオプティマイザー（RO）、リソースアロケーター（RA）、デリバリーオプティマイザー（DO）、ローディングオプティマイザー（LO）がこの段階を担います。
+          </div>
+        </div>
+        <div class="gp-level" onclick="location.href='gpim-detail.html?level=5'" style="cursor: pointer;">
+          <div class="gp-level__num">LEVEL 05</div>
+          <div class="gp-level__title-wrap">
+            <h3 class="gp-level__title">自律化</h3>
+            <span class="gp-level__en">Autonomize</span>
+          </div>
+          <div class="gp-level__desc">
+            人の介在なく、施設自体が環境変化を感知し、自ら判断・実行・学習を繰り返す「完全自律型オペレーション」を実現する最終段階です。GROUNDのビジョンである「Autonomous Warehouse（完全自律型物流施設運営）」はこのレベルの到達を意味します。体系化から最適化まで4つのレベルを確実に積み上げた先にのみ、この最終目標が存在します。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== GWES RELATION ==================== -->
+  <section class="gp-gwes">
+    <div class="container">
+      <div class="gp-gwes__inner gp-fade is-visible">
+        <div>
+          <span class="gp-concept__label">GPIM × GWES</span>
+          <h2 class="gp-concept__heading" style="font-size: 28px;">GWESとの関係</h2>
+        </div>
+        <div class="gp-gwes__text">
+          <p>GWESは、GPIMの各レベルに対応するかたちで設計された「物流OS」です。3つのレイヤー（インフラストラクチャ層・可視化レイヤー・最適化レイヤー）に12のモジュールが配置されており、GPIMのレベルに応じて必要なモジュールを段階的に導入していきます。</p>
+          <p>Lv.1（体系化）では、BM（ベースモジュール）とME（マップエディター）により施設の構造・業務定義をデジタル化。Lv.2（可視化）では、DC（データコネクター）を介してWMS・マテハン等のデータを収集し、WF・PA・WA・IAの4つの分析モジュールで現場をリアルタイムに可視化します。Lv.4（最適化）では、SO・RO・RA・DO・LOの5つの最適化モジュールがAI・数理最適化に基づく施設全体の最適運営を実行します。</p>
+          <p>このように、GPIMは「何を」「どの順序で」進めるべきかを定義し、GWESは「それを具体的にどう実現するか」を提供するシステムです。方法論とテクノロジーが一体となっている点がGROUNDの最大の強みです。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CORE PRINCIPLE ==================== -->
+  <section class="gp-principle">
+    <div class="container gp-fade is-visible">
+      <p class="gp-principle__text">
+        各レベルは前段階の完了を前提とする。<br>
+        正しい順序で、段階的に進化する ── それがGPIMの根幹です。
       </p>
-
-      <div class="ce-services">
-        <div class="ce-service-card ce-fade">
-          <div class="ce-service-card__icon" style="background: var(--ce-accent-dim); color: var(--ce-accent);">01</div>
-          <div class="ce-service-card__title">物流戦略策定</div>
-          <div class="ce-service-card__desc">
-            サプライチェーン全体を見据えた物流拠点の配置計画、業務プロセス設計、KPI設計を通じて、経営戦略と現場オペレーションの整合を図ります。定量分析や現地ヒアリングに基づく、実現可能で持続可能な物流戦略を立案・実装支援します。
-          </div>
-        </div>
-
-        <div class="ce-service-card ce-fade">
-          <div class="ce-service-card__icon" style="background: var(--ce-teal-dim); color: var(--ce-teal);">02</div>
-          <div class="ce-service-card__title">庫内エンジニアリング</div>
-          <div class="ce-service-card__desc">
-            物流センター内の作業プロセス、動線、レイアウト、マテリアルハンドリング機器構成を最適化。繁閑差や物量変動への対応力を高めつつ、人的リソースの活用効率と作業品質の向上を図ります。将来的な自動化・デジタル化も見据えた設計を支援します。
-          </div>
-        </div>
-
-        <div class="ce-service-card ce-fade">
-          <div class="ce-service-card__icon" style="background: var(--ce-purple-dim); color: var(--ce-purple);">03</div>
-          <div class="ce-service-card__title">プロジェクトマネジメント</div>
-          <div class="ce-service-card__desc">
-            物流施設の新設・再構築・改革プロジェクトにおいて、要件定義から進捗管理、現場との調整、関係各所との合意形成までを一貫して支援。全体最適を見据えたプロジェクトマネジメントにより、複雑なステークホルダー間の調整を円滑に推進します。
-          </div>
-        </div>
-
-        <div class="ce-service-card ce-fade">
-          <div class="ce-service-card__icon" style="background: var(--ce-warm-dim); color: var(--ce-warm);">04</div>
-          <div class="ce-service-card__title">IT・テクノロジー統合</div>
-          <div class="ce-service-card__desc">
-            WMS・WES・WCSなどのシステム要件定義、ベンダー選定から導入支援まで。GWESの開発で培ったITと現場双方の知見を活かし、デジタルインテグレーションまで一気通貫でサポートします。現場の実情に即したシステム設計・構築を実現します。
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== COMPETITIVE POSITIONING ==================== -->
-  <section class="ce-section">
-    <div class="container">
-      <div class="ce-matrix ce-fade">
-        <div>
-          <span class="ce-section__label">Positioning</span>
-          <h2 class="ce-section__heading">GROUNDの<br>ポジショニング</h2>
-          <p class="ce-section__text">
-            大手コンサルティングファームやシンクタンク、マテハンベンダーとの違い。ITと現場、双方に精通した独自のポジション。
-          </p>
-        </div>
-        <div>
-          <div class="ce-pos">
-            <svg class="ce-pos__svg" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <!-- GROUND glow - stronger -->
-                <radialGradient id="glow-ground" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.50"/>
-                  <stop offset="60%" stop-color="#3B82F6" stop-opacity="0.15"/>
-                  <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
-                </radialGradient>
-                <filter id="shadow-ground" x="-50%" y="-50%" width="200%" height="200%">
-                  <feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#3B82F6" flood-opacity="0.6"/>
-                </filter>
-                <!-- Soft grid pattern -->
-                <pattern id="grid-dots" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <circle cx="20" cy="20" r="0.7" fill="rgba(255,255,255,0.10)"/>
-                </pattern>
-              </defs>
-
-              <!-- Background grid dots -->
-              <rect x="60" y="20" width="560" height="420" fill="url(#grid-dots)" rx="4"/>
-
-              <!-- GROUND's quadrant highlight (top-right) -->
-              <rect x="350" y="20" width="270" height="210" rx="8" fill="rgba(59,130,246,0.06)" stroke="rgba(59,130,246,0.15)" stroke-width="1"/>
-              <text x="485" y="215" text-anchor="middle" fill="rgba(59,130,246,0.18)" font-family="'JetBrains Mono', monospace" font-size="9" letter-spacing="0.1em">GROUND ZONE</text>
-
-              <!-- Axes -->
-              <line x1="60" y1="440" x2="620" y2="440" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
-              <line x1="60" y1="20" x2="60" y2="440" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
-              <!-- Axis arrows -->
-              <polygon points="620,440 610,435 610,445" fill="rgba(255,255,255,0.5)"/>
-              <polygon points="60,20 55,30 65,30" fill="rgba(255,255,255,0.5)"/>
-              <!-- Mid-lines (dashed) -->
-              <line x1="340" y1="30" x2="340" y2="435" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4,6"/>
-              <line x1="65" y1="230" x2="615" y2="230" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4,6"/>
-
-              <!-- Axis labels -->
-              <text x="340" y="468" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'JetBrains Mono', monospace" font-size="10" letter-spacing="0.12em">現場実行力・オペレーション知見 →</text>
-              <text x="18" y="230" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'JetBrains Mono', monospace" font-size="10" letter-spacing="0.08em" transform="rotate(-90, 18, 230)">IT知見・テクノロジー統合力 →</text>
-
-              <!-- ① シンクタンク (low IT × low Ops) -->
-              <circle cx="180" cy="320" r="38" fill="rgba(138,140,154,0.08)" stroke="rgba(138,140,154,0.30)" stroke-width="1"/>
-              <text x="180" y="305" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-family="'Noto Sans JP', sans-serif" font-size="11" font-weight="500">シンクタンク</text>
-              <text x="180" y="340" text-anchor="middle" fill="rgba(255,255,255,0.40)" font-family="'Noto Sans JP', sans-serif" font-size="9">分析・調査特化</text>
-
-              <!-- ② 戦略系・総合系コンサル (high IT × low Ops) -->
-              <circle cx="210" cy="130" r="46" fill="rgba(147,197,253,0.08)" stroke="rgba(147,197,253,0.30)" stroke-width="1"/>
-              <text x="210" y="115" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-family="'Noto Sans JP', sans-serif" font-size="11" font-weight="500">戦略系・総合系</text>
-              <text x="210" y="132" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-family="'Noto Sans JP', sans-serif" font-size="11" font-weight="500">コンサル</text>
-              <text x="210" y="152" text-anchor="middle" fill="rgba(255,255,255,0.40)" font-family="'Noto Sans JP', sans-serif" font-size="9">IT知見はあるが現場実行力に課題</text>
-
-              <!-- ③ マテハンベンダー (low IT × high Ops) -->
-              <circle cx="490" cy="310" r="42" fill="rgba(96,165,250,0.08)" stroke="rgba(96,165,250,0.30)" stroke-width="1"/>
-              <text x="490" y="296" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-family="'Noto Sans JP', sans-serif" font-size="11" font-weight="500">マテハン</text>
-              <text x="490" y="313" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-family="'Noto Sans JP', sans-serif" font-size="11" font-weight="500">ベンダー</text>
-              <text x="490" y="333" text-anchor="middle" fill="rgba(255,255,255,0.40)" font-family="'Noto Sans JP', sans-serif" font-size="9">現場設備特化・IT統合力に課題</text>
-
-              <!-- ④ GROUND (high IT × high Ops) — hero position, prominently larger -->
-              <!-- Outer glow ring -->
-              <circle cx="500" cy="100" r="100" fill="url(#glow-ground)"/>
-              <!-- Pulsing ring effect -->
-              <circle cx="500" cy="100" r="68" fill="none" stroke="rgba(59,130,246,0.20)" stroke-width="1">
-                <animate attributeName="r" values="68;78;68" dur="3s" repeatCount="indefinite"/>
-                <animate attributeName="stroke-opacity" values="0.20;0.05;0.20" dur="3s" repeatCount="indefinite"/>
-              </circle>
-              <!-- Main bubble - larger, brighter -->
-              <circle cx="500" cy="100" r="62" fill="rgba(59,130,246,0.14)" stroke="rgba(59,130,246,0.65)" stroke-width="2" filter="url(#shadow-ground)"/>
-              <!-- Logo -->
-              <image href="img/ground-logo-v2.svg" x="462" y="70" width="76" height="22" opacity="1"/>
-              <!-- Sub text -->
-              <text x="500" y="108" text-anchor="middle" fill="rgba(255,255,255,0.90)" font-family="'Noto Sans JP', sans-serif" font-size="11" font-weight="600">ITと現場双方に精通</text>
-              <text x="500" y="124" text-anchor="middle" fill="rgba(255,255,255,0.60)" font-family="'Noto Sans JP', sans-serif" font-size="9.5">戦略→実行を一気通貫</text>
-            </svg>
-
-            <!-- Legend -->
-            <div class="ce-pos__legend">
-              <div class="ce-pos__legend-item"><span class="ce-pos__legend-dot" style="background:#3B82F6;"></span>GROUND</div>
-              <div class="ce-pos__legend-item"><span class="ce-pos__legend-dot" style="background:#93C5FD;"></span>戦略系・総合系コンサル</div>
-              <div class="ce-pos__legend-item"><span class="ce-pos__legend-dot" style="background:#60A5FA;"></span>マテハンベンダー</div>
-              <div class="ce-pos__legend-item"><span class="ce-pos__legend-dot" style="background:#8A8C9A;"></span>シンクタンク</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== CASE STUDIES ==================== -->
-  <section class="ce-section">
-    <div class="container">
-      <span class="ce-section__label">Case Studies</span>
-      <h2 class="ce-section__heading ce-fade">支援事例</h2>
-
-      <div class="ce-cases">
-        <!-- Case 1 -->
-        <div class="ce-case ce-fade">
-          <div class="ce-case__header">
-            <span class="ce-case__tag">Strategy</span>
-            <span class="ce-case__client">国内大手小売流通企業（東証プライム市場）</span>
-          </div>
-          <div class="ce-case__title">物流構造改革と物流関連新規事業戦略策定</div>
-          <div class="ce-case__flow">
-            <div class="ce-case__step">
-              <div class="ce-case__step-label">Before</div>
-              <div class="ce-case__step-text">
-                グループ全体の流通構造が複雑化・属人化。物流拠点や配送網の全体最適が未実現で、新規事業拡大に向けた物流基盤の再設計が急務。
-              </div>
-            </div>
-            <div class="ce-case__arrow">→</div>
-            <div class="ce-case__step">
-              <div class="ce-case__step-label">Approach</div>
-              <div class="ce-case__step-text">
-                経営層と直接対話し物流戦略の共通認識を形成。現地視察・定量分析を通じ、拠点再編・在庫集約・商流再設計・KPI設計まで一貫して構築。
-              </div>
-            </div>
-            <div class="ce-case__arrow">→</div>
-            <div class="ce-case__step">
-              <div class="ce-case__step-label">After</div>
-              <div class="ce-case__step-text">
-                全社視点での物流戦略が明文化。グループ内機能分担の再整理、在庫・配送コストの中長期的削減に着手。経営構造の再設計フェーズへ移行。
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Case 2 -->
-        <div class="ce-case ce-fade">
-          <div class="ce-case__header">
-            <span class="ce-case__tag" style="color: var(--ce-teal); background: var(--ce-teal-dim);">Engineering</span>
-            <span class="ce-case__client">大手製造企業</span>
-          </div>
-          <div class="ce-case__title">新材料棟を中心とした生産物流の高度化支援</div>
-          <div class="ce-case__flow">
-            <div class="ce-case__step">
-              <div class="ce-case__step-label">Before</div>
-              <div class="ce-case__step-text">
-                調達・構内物流の拠点が複数に分散し非効率が発生。部材供給リードタイムの長期化、在庫管理精度の低下、ピッキング生産性の低下が課題。
-              </div>
-            </div>
-            <div class="ce-case__arrow">→</div>
-            <div class="ce-case__step">
-              <div class="ce-case__step-label">Approach</div>
-              <div class="ce-case__step-text">
-                拠点集約を前提とした物流シミュレーション実施。AGV・自動搬送機器の適用評価、WES/WCSシステム要件定義、マテハン設備の導入設計を支援。
-              </div>
-            </div>
-            <div class="ce-case__arrow">→</div>
-            <div class="ce-case__step">
-              <div class="ce-case__step-label">After</div>
-              <div class="ce-case__step-text">
-                重複在庫100%削減、省人化30〜40%達成、作業効率50%改善、納期遵守率20〜30%向上。10年間で累計約10億円のコスト削減見込み。
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Case 3 -->
-        <div class="ce-case ce-fade">
-          <div class="ce-case__header">
-            <span class="ce-case__tag" style="color: var(--ce-purple); background: var(--ce-purple-dim);">Engineering</span>
-            <span class="ce-case__client">大手物流企業</span>
-          </div>
-          <div class="ce-case__title">物流センター業務の最適化とミス防止による生産性向上・コスト削減</div>
-          <div class="ce-case__flow">
-            <div class="ce-case__step">
-              <div class="ce-case__step-label">Before</div>
-              <div class="ce-case__step-text">
-                立地戦略の検討不足、構内動線・在庫配置の未整備、設備選定の属人化、改善効果の定量検証の仕組みが不在。
-              </div>
-            </div>
-            <div class="ce-case__arrow">→</div>
-            <div class="ce-case__step">
-              <div class="ce-case__step-label">Approach</div>
-              <div class="ce-case__step-text">
-                拠点立地シミュレーション、動線・ゾーニング設計、システム要件定義・マテハン導入支援、KPI設定とモニタリング体制構築。
-              </div>
-            </div>
-            <div class="ce-case__arrow">→</div>
-            <div class="ce-case__step">
-              <div class="ce-case__step-label">After</div>
-              <div class="ce-case__step-text">
-                立ち上げ期間30%短縮、作業時間40%削減、誤出荷・ミス50%以上削減、ROI 30%以上向上。継続改善体制を確立。
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== GPIM ASSESSMENT ==================== -->
-  <section class="ce-section">
-    <div class="container">
-      <div class="ce-assess ce-fade">
-        <div>
-          <span class="ce-section__label">GPIM Assessment</span>
-          <h2 class="ce-section__heading">GPIMアセスメント</h2>
-          <p class="ce-section__text">
-            物流オペレーションの現状を診断し、最適な改善施策を提案するサービス。GPIMの5段階モデルに照らし合わせ、課題の特定と改善ロードマップを策定します。
-          </p>
-        </div>
-        <div>
-          <!-- Assessment flow -->
-          <div class="ce-assess__flow">
-            <div class="ce-assess__step">
-              <div class="ce-assess__step-num">01</div>
-              <div class="ce-assess__step-title">ヒアリング</div>
-              <div class="ce-assess__step-desc">約50項目の<br>現状把握</div>
-            </div>
-            <div class="ce-assess__step">
-              <div class="ce-assess__step-num">02</div>
-              <div class="ce-assess__step-title">診断結果</div>
-              <div class="ce-assess__step-desc">GPIM 5段階<br>成熟度評価</div>
-            </div>
-            <div class="ce-assess__step">
-              <div class="ce-assess__step-num">03</div>
-              <div class="ce-assess__step-title">課題抽出</div>
-              <div class="ce-assess__step-desc">改善機会の<br>特定・立案</div>
-            </div>
-            <div class="ce-assess__step">
-              <div class="ce-assess__step-num">04</div>
-              <div class="ce-assess__step-title">施策推進</div>
-              <div class="ce-assess__step-desc">具体施策の<br>実行支援</div>
-            </div>
-          </div>
-
-          <!-- Two tiers -->
-          <div class="ce-assess__tiers">
-            <div class="ce-assess__tier ce-assess__tier--free">
-              <span class="ce-assess__tier-badge">Free</span>
-              <div class="ce-assess__tier-title">簡易診断（無償）</div>
-              <div class="ce-assess__tier-text">
-                約50項目のヒアリングを通じて現状を評価。物流オペレーションの成熟度をGPIMの5段階モデルに照らし合わせて診断し、主要課題を特定します。
-              </div>
-            </div>
-            <div class="ce-assess__tier ce-assess__tier--paid">
-              <span class="ce-assess__tier-badge">Advanced</span>
-              <div class="ce-assess__tier-title">詳細診断・施策立案</div>
-              <div class="ce-assess__tier-text">
-                診断結果をもとに具体的な改善施策を策定。AI・ロボティクス導入計画やGWES活用提案、継続的なDX推進のためのロードマップを策定します。
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== PARTNER: CONEN CONSULTING ==================== -->
-  <section class="ce-section">
-    <div class="container">
-      <div class="ce-partner ce-fade">
-        <div>
-          <span class="ce-section__label">Strategic Partner</span>
-          <h2 class="ce-section__heading">ビジネスパートナー</h2>
-          <p class="ce-section__text">
-            特に戦略的な物流構築や高度な庫内エンジニアリングにおいては、コーネンコンサルティングと連携してサポートします。
-          </p>
-        </div>
-        <div>
-          <div class="ce-partner__card">
-            <div class="ce-partner__logo">CONEN</div>
-            <div class="ce-partner__logo-sub">consulting ― 物流とサプライチェーン構築のプロフェッショナル集団</div>
-            <div class="ce-partner__desc">
-              <p>コーネンコンサルティングは、戦略的な物流構築に必要な幅広いプロフェッショナルサービスを提供する専門集団です。クライアントの立場に立ち、コンサルティング（参謀力）とエンジニアリング（技術力）のワンストップサービスを、戦略立案から運営に至るまで高度かつ一貫して提供します。</p>
-              <p>特定のベンダーに依存しない「Best-of-Breed」（最善の組み合わせ）アプローチにより、複数の設備ベンダーのそれぞれ優れた技術・製品を融合し、機能面・費用面で最適な物流センターの構築を実現します。</p>
-            </div>
-
-            <!-- Conen Service Areas -->
-            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 8px;">
-              <span style="font-size: 0.68rem; padding: 4px 12px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid var(--ce-border); color: var(--ce-text-2);">戦略立案</span>
-              <span style="font-size: 0.68rem; padding: 4px 12px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid var(--ce-border); color: var(--ce-text-2);">業務設計</span>
-              <span style="font-size: 0.68rem; padding: 4px 12px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid var(--ce-border); color: var(--ce-text-2);">マテハン設備設計</span>
-              <span style="font-size: 0.68rem; padding: 4px 12px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid var(--ce-border); color: var(--ce-text-2);">情報システム</span>
-              <span style="font-size: 0.68rem; padding: 4px 12px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid var(--ce-border); color: var(--ce-text-2);">不動産建築</span>
-              <span style="font-size: 0.68rem; padding: 4px 12px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid var(--ce-border); color: var(--ce-text-2);">財務</span>
-              <span style="font-size: 0.68rem; padding: 4px 12px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid var(--ce-border); color: var(--ce-text-2);">運営</span>
-              <span style="font-size: 0.68rem; padding: 4px 12px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid var(--ce-border); color: var(--ce-text-2);">プロジェクト設計・管理</span>
-            </div>
-
-            <div class="ce-partner__desc" style="margin-top: 16px;">
-              <p style="font-size: 0.78rem; color: var(--ce-text-3); line-height: 1.9;">サプライチェーン戦略策定から大規模物流センターの設計・構築、情報システムの要件定義・ベンダー選定、投資対効果の試算、運営体制の整備に至るまで、物流構築に必要なあらゆる局面を一貫して支援します。</p>
-            </div>
-
-            <!-- Conen Members -->
-            <div class="ce-partner__members">
-              <div class="ce-partner__member">
-                <div class="ce-partner__member-name">鈴木 博之</div>
-                <div class="ce-partner__member-role">代表 マネージングパートナー</div>
-                <div class="ce-partner__member-bio">
-                  冨士通株式会社 海外事業本部、アンダーセン コンサルティング（現アクセンチュア）戦略グループ、アスクル株式会社 取締役執行役員、アリックス・パートナーズ ディレクター等を歴任。長年に渡り大規模かつ高度な物流およびサプライチェーン再構築プロジェクトを指揮。慶應義塾大学 法学部卒、米国ペンシルバニア大学 ウォートン校MBA。
-                </div>
-              </div>
-              <div class="ce-partner__member">
-                <div class="ce-partner__member-name">吉田 義明</div>
-                <div class="ce-partner__member-role">パートナー</div>
-                <div class="ce-partner__member-bio">
-                  大手電機メーカー、ロジスティクスエンジニアリング会社等を経て参画。高度に自動化された大型物流センターから小規模物流センターまで、統括エンジニアとして物流施設の設計・構築に豊富な経験を有する。室蘭工業大学 電気工学科卒。
-                </div>
-              </div>
-              <div class="ce-partner__member">
-                <div class="ce-partner__member-name">伊藤 聡</div>
-                <div class="ce-partner__member-role">パートナー</div>
-                <div class="ce-partner__member-bio">
-                  国内大手総研、米系大手会計事務所（ニューヨーク勤務）、大手ERPベンダー等を経て参画。経営戦略立案、プロジェクト設計・管理、業務分析、財務分析、財務計画策定等の幅広い領域において豊富な実務経験とコンサルティング経験を有する。東京大学卒（MS）、米国サンダーバード経営大学院MBA。
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div style="margin-top: 16px; text-align: right;">
-            <a href="https://conen.co.jp" target="_blank" rel="noopener" style="font-size: 0.74rem; color: var(--ce-accent); text-decoration: none; transition: opacity 0.3s;">conen.co.jp →</a>
-          </div>
-        </div>
-      </div>
+      <p class="gp-principle__sub">
+        段階を飛ばしたDXは、砂上の楼閣に終わる。
+      </p>
     </div>
   </section>
 
   <!-- ==================== CTA ==================== -->
-  <section class="ce-cta">
-    <div class="container">
-      <h2 class="ce-cta__title ce-fade">まずはGPIMアセスメントから</h2>
-      <p class="ce-cta__desc ce-fade">
-        約50項目の簡易診断（無償）で、物流オペレーションの現在地を把握できます。お気軽にご相談ください。
+  <section class="gp-cta">
+    <div class="container gp-fade is-visible">
+      <h2 class="gp-cta__title" style="font-size: 28px;">貴社の現在地を診断しませんか</h2>
+      <p class="gp-cta__desc">
+        GPIMに基づき、貴社の物流施設がいまどのレベルにあり、<br>
+        次に何をすべきかを明確にします。
       </p>
-      <div class="ce-cta__buttons ce-fade">
-        <a href="contact.html" class="ce-cta__btn ce-cta__btn--primary">お問い合わせ</a>
-        <a href="gpim.html" class="ce-cta__btn ce-cta__btn--outline">GPIMについて詳しく →</a>
-      </div>
+      <a class="gp-cta__btn" href="/contact" style="background-color: rgb(37, 99, 235);">お問い合わせ →</a>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" style="background-color: rgb(10, 12, 20); color: rgb(255, 255, 255);">
     <div class="container">
       <div class="footer__grid">
         <div>
@@ -1115,25 +559,25 @@
         <div>
           <h4 class="footer__heading">Company</h4>
           <div class="footer__links">
-            <a href="about.html" class="footer__link">会社概要</a>
-            <a href="about.html#vision" class="footer__link">ビジョン・ミッション</a>
-            <a href="about.html#ceo" class="footer__link">CEOメッセージ</a>
-            <a href="careers.html" class="footer__link">採用情報</a>
+            <a class="footer__link" href="/about">会社概要</a>
+            <a class="footer__link" href="/about#vision">ビジョン・ミッション</a>
+            <a class="footer__link" href="/about#ceo">CEOメッセージ</a>
+            <a class="footer__link" href="/careers">採用情報</a>
           </div>
         </div>
         <div>
           <h4 class="footer__heading">Solutions</h4>
           <div class="footer__links">
-            <a href="gwes.html" class="footer__link">GWES</a>
-            <a href="digital-integration.html" class="footer__link">デジタルインテグレーション</a>
-            <a href="consulting.html" class="footer__link">コンサルティング</a>
-            <a href="peer.html" class="footer__link">PEER</a>
+            <a class="footer__link" href="/gwes">GWES</a>
+            <a class="footer__link" href="/digital-integration">デジタルインテグレーション</a>
+            <a class="footer__link" href="/consulting">コンサルティング</a>
+            <a class="footer__link" href="/peer">PEER</a>
           </div>
         </div>
         <div>
           <h4 class="footer__heading">Contact</h4>
           <div class="footer__links">
-            <a href="contact.html" class="footer__link">お問い合わせ</a>
+            <a class="footer__link" href="/contact">お問い合わせ</a>
             <span class="footer__link" style="cursor: default;">TEL: 03-6457-1650</span>
             <a href="mailto:Info@groundinc.co.jp" class="footer__link">Info@groundinc.co.jp</a>
             <span class="footer__link" style="cursor: default;">
@@ -1145,7 +589,7 @@
         </div>
       </div>
       <div class="footer__bottom">
-        <p class="footer__copy">&copy; 2026 GROUND Inc. All rights reserved.</p>
+        <p class="footer__copy">© 2026 GROUND Inc. All rights reserved.</p>
         <div class="footer__socials">
           <a href="#" class="footer__social" aria-label="LinkedIn">in</a>
           <a href="#" class="footer__social" aria-label="Note">N</a>
@@ -1154,15 +598,22 @@
     </div>
   </footer>
 
-  <script defer src="js/main.js?v=31"></script>
   <script>
-    const ceObs = new IntersectionObserver((entries) => {
+    // Fade-in observer
+    const gpObs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('is-visible'); ceObs.unobserve(e.target); }
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); gpObs.unobserve(e.target); }
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-    document.querySelectorAll('.ce-fade').forEach(el => ceObs.observe(el));
+    document.querySelectorAll('.gp-fade').forEach(el => gpObs.observe(el));
+
+    // Fallback: if elements still hidden after 2s, force show
+    setTimeout(() => {
+      document.querySelectorAll('.gp-fade:not(.is-visible)').forEach(el => el.classList.add('is-visible'));
+    }, 2000);
   </script>
-<script defer src="js/design-settings.js"></script>
-</body>
-</html>
+  <script defer="" src="js/main.js?v=31"></script>
+<script defer="" src="js/design-settings.js"></script>
+
+
+</body></html>
