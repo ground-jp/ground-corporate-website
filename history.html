@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GROUNDの歩み | GROUND Inc.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=54">
+
+  <style>
+    :root {
+      --font-heading: 'Inter', sans-serif;
+      --font-jp: 'Noto Sans JP', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --color-primary: #3B82F6;
+      --color-green: #10B981;
+      --color-amber: #F59E0B;
+      --color-purple: #8B5CF6;
+      --color-pink: #EC4899;
+      --color-indigo: #6366F1;
+      --color-red: #EF4444;
+      --color-dark: #0A0C14;
+      --color-light: #F0F0F4;
+      --color-line: #EEEEF2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #FFFFFF;
+      color: #1A1A24;
+      font-family: var(--font-jp);
+      line-height: 1.6;
+    }
+
+    .header {
+      z-index: 350 !important;
+    }
+
+    .hamburger {
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      width: 52px;
+      height: 52px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 400;
+      position: relative;
+      margin-right: -8px;
+    }
+
+    .hamburger__line {
+      display: block;
+      width: 26px;
+      height: 1.5px;
+      background: #fff;
+      border-radius: 1px;
+      transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.25s ease;
+      transform-origin: center;
+    }
+
+    .hamburger.active .hamburger__line:nth-child(1) {
+      transform: rotate(45deg) translate(5.5px,5.5px);
+    }
+
+    .hamburger.active .hamburger__line:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .hamburger.active .hamburger__line:nth-child(3) {
+      transform: rotate(-45deg) translate(5.5px,-5.5px);
+    }
+
+    .overlay-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: #0A0C14;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-20px);
+      transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s, transform 0.4s cubic-bezier(0.23,1,0.32,1);
+      overflow-y: auto;
+    }
+
+    .overlay-menu.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    .overlay-menu__inner {
+      display: grid;
+      grid-template-columns: 280px 1fr 340px;
+      gap: 0 48px;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 100px 56px 60px;
+      min-height: 100vh;
+      align-content: start;
+    }
+
+    .overlay-menu__label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .overlay-menu__col-nav {
+      grid-column: 1;
+    }
+
+    .overlay-menu__nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .overlay-menu__nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .overlay-menu__nav-item:hover,
+    .overlay-menu__nav-item.is-active {
+      background: rgba(255,255,255,0.06);
+    }
+
+    .overlay-menu__nav-arrow {
+      font-size: 16px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .overlay-menu__col-sub {
+      grid-column: 2;
+    }
+
+    .overlay-menu__panel {
+      display: none;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .overlay-menu__panel.is-visible {
+      display: flex;
+    }
+
+    .overlay-menu__sub-item {
+      display: block;
+      padding: 12px 0;
+      text-decoration: none;
+      color: rgba(255,255,255,0.85);
+      font-size: 16px;
+      font-weight: 400;
+      transition: color 0.15s;
+    }
+
+    .overlay-menu__sub-item:hover {
+      color: #fff;
+    }
+
+    .overlay-menu__col-info {
+      grid-column: 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .overlay-menu__cta-btn {
+      display: block;
+      padding: 16px 32px;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+      text-decoration: none;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .overlay-menu__contact-info {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .overlay-menu__contact-info span {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      font-family: var(--font-mono);
+      letter-spacing: 0.03em;
+    }
+
+    .overlay-menu__copyright {
+      margin-top: 40px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.12);
+      font-family: var(--font-mono);
+      letter-spacing: 0.06em;
+    }
+
+    /* History-specific styles */
+
+    .hs-hero {
+      background: #FFFFFF;
+      padding: 100px 56px;
+      text-align: center;
+      border-bottom: 1px solid var(--color-line);
+    }
+
+    .hs-hero__meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: #999;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .hs-hero__title {
+      font-family: var(--font-heading);
+      font-size: 72px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #1A1A24;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+
+    .hs-hero__subtitle {
+      font-family: var(--font-jp);
+      font-size: 24px;
+      font-weight: 500;
+      color: #666;
+      margin-bottom: 48px;
+      line-height: 1.5;
+    }
+
+    .hs-hero__tagline {
+      font-family: var(--font-jp);
+      font-size: 16px;
+      font-weight: 400;
+      color: #999;
+      line-height: 1.8;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .hs-opening {
+      padding: 120px 56px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      border-bottom: 1px solid var(--color-line);
+    }
+
+    .hs-opening__text {
+      font-family: var(--font-jp);
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.8;
+      color: #333;
+      margin-bottom: 24px;
+    }
+
+    .hs-opening__highlight {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .hs-timeline {
+      padding: 100px 56px;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hs-timeline__center-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--color-line);
+      transform: translateX(-50%);
+    }
+
+    .hs-timeline__entry {
+      margin-bottom: 80px;
+      opacity: 0;
+      transition: opacity 0.6s ease-out;
+    }
+
+    .hs-timeline__entry.is-visible {
+      opacity: 1;
+    }
+
+    .hs-timeline__entry:nth-child(odd) {
+      text-align: right;
+      padding-right: 52%;
+    }
+
+    .hs-timeline__entry:nth-child(even) {
+      text-align: left;
+      padding-left: 52%;
+    }
+
+    .hs-timeline__year {
+      font-family: var(--font-heading);
+      font-size: 96px;
+      font-weight: 700;
+      color: var(--color-light);
+      line-height: 0.9;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .hs-timeline__date {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: #999;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+
+    .hs-timeline__dot {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 12px;
+      height: 12px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 0 0 1px var(--color-line);
+    }
+
+    .hs-timeline__content {
+      position: relative;
+      padding-bottom: 0;
+    }
+
+    .hs-timeline__title {
+      font-family: var(--font-jp);
+      font-size: 18px;
+      font-weight: 600;
+      color: #1A1A24;
+      margin-bottom: 12px;
+    }
+
+    .hs-timeline__description {
+      font-family: var(--font-jp);
+      font-size: 15px;
+      line-height: 1.7;
+      color: #555;
+      margin-bottom: 16px;
+    }
+
+    .hs-timeline__tag {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid;
+      border-radius: 20px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .hs-timeline__tag--founding {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .hs-timeline__tag--partnership {
+      border-color: var(--color-green);
+      color: var(--color-green);
+    }
+
+    .hs-timeline__tag--funding {
+      border-color: var(--color-amber);
+      color: var(--color-amber);
+    }
+
+    .hs-timeline__tag--product {
+      border-color: var(--color-purple);
+      color: var(--color-purple);
+    }
+
+    .hs-timeline__tag--deployment {
+      border-color: var(--color-pink);
+      color: var(--color-pink);
+    }
+
+    .hs-timeline__tag--organization {
+      border-color: var(--color-indigo);
+      color: var(--color-indigo);
+    }
+
+    .hs-timeline__tag--milestone {
+      border-color: var(--color-red);
+      color: var(--color-red);
+    }
+
+    .hs-timeline__photo {
+      margin-top: 20px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #F5F5F8;
+      border: 1px solid var(--color-line);
+      position: relative;
+    }
+
+    .hs-timeline__photo img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .hs-timeline__photo--placeholder {
+      aspect-ratio: 16 / 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 24px;
+    }
+
+    .hs-timeline__photo--placeholder svg {
+      width: 40px;
+      height: 40px;
+      opacity: 0.25;
+    }
+
+    .hs-timeline__photo--placeholder span {
+      font-family: var(--font-jp);
+      font-size: 12px;
+      color: #999;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .hs-timeline__photo-caption {
+      padding: 8px 12px;
+      font-family: var(--font-jp);
+      font-size: 11px;
+      color: #888;
+      background: #FAFAFA;
+      border-top: 1px solid var(--color-line);
+    }
+
+    .hs-timeline__photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .hs-timeline__photo-grid .hs-timeline__photo {
+      margin-top: 0;
+    }
+
+    .hs-timeline__photo-grid .hs-timeline__photo--placeholder {
+      aspect-ratio: 4 / 3;
+    }
+
+    .hs-closing {
+      padding: 100px 56px;
+      text-align: center;
+      border-top: 1px solid var(--color-line);
+      background: #FAFAFA;
+    }
+
+    .hs-closing__label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: #999;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hs-closing__title {
+      font-family: var(--font-heading);
+      font-size: 56px;
+      font-weight: 700;
+      color: #1A1A24;
+      margin-bottom: 32px;
+      letter-spacing: -0.01em;
+    }
+
+    .hs-closing__text {
+      font-family: var(--font-jp);
+      font-size: 18px;
+      line-height: 1.8;
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto 48px;
+    }
+
+    .hs-cta {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 60px 56px;
+      background: #FFFFFF;
+      border-top: 1px solid var(--color-line);
+    }
+
+    .hs-cta__link {
+      padding: 16px 40px;
+      border: 1px solid #1A1A24;
+      color: #1A1A24;
+      text-decoration: none;
+      font-family: var(--font-jp);
+      font-size: 15px;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .hs-cta__link:hover {
+      background: #1A1A24;
+      color: #FFFFFF;
+    }
+
+    .hs-cta__link--primary {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #FFFFFF;
+    }
+
+    .hs-cta__link--primary:hover {
+      background: #2563EB;
+      border-color: #2563EB;
+    }
+
+    .breadcrumb-nav {
+      background: #FFFFFF;
+      padding: 24px 56px;
+      border-bottom: 1px solid var(--color-line);
+    }
+
+    .breadcrumb-nav__list {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb-nav__item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .breadcrumb-nav__link {
+      color: #0A0C14;
+      text-decoration: none;
+      font-size: 14px;
+      font-family: var(--font-jp);
+      transition: color 0.2s;
+    }
+
+    .breadcrumb-nav__link:hover {
+      color: var(--color-primary);
+    }
+
+    .breadcrumb-nav__link--home {
+      display: flex;
+      align-items: center;
+      width: 20px;
+      height: 20px;
+    }
+
+    .breadcrumb-nav__link--home svg {
+      width: 100%;
+      height: 100%;
+      fill: #0A0C14;
+    }
+
+    .breadcrumb-nav__separator {
+      color: #DDD;
+      font-size: 12px;
+    }
+
+    .breadcrumb-nav__current {
+      color: #666;
+      font-size: 14px;
+      font-family: var(--font-jp);
+    }
+
+    .footer {
+      background: #0A0C14;
+      color: #FFFFFF;
+      padding: 80px 56px 40px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 60px;
+      margin-bottom: 80px;
+    }
+
+    .footer__lockup-img {
+      margin-bottom: 24px;
+    }
+
+    .footer__brand-desc {
+      font-size: 14px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.7);
+      font-family: var(--font-jp);
+    }
+
+    .footer__heading {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      color: #FFFFFF;
+    }
+
+    .footer__links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer__link {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-family: var(--font-jp);
+      transition: color 0.2s;
+      display: block;
+    }
+
+    .footer__link:hover {
+      color: #FFFFFF;
+    }
+
+    .footer__bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer__copy {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      font-family: var(--font-mono);
+      letter-spacing: 0.03em;
+    }
+
+    .footer__socials {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer__social {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      transition: all 0.2s;
+    }
+
+    .footer__social:hover {
+      background: rgba(255,255,255,0.1);
+      color: #FFFFFF;
+    }
+
+    /* Responsive Design */
+
+    @media (max-width: 768px) {
+      .hs-hero {
+        padding: 60px 28px;
+      }
+
+      .hs-hero__title {
+        font-size: 48px;
+      }
+
+      .hs-hero__subtitle {
+        font-size: 18px;
+        margin-bottom: 32px;
+      }
+
+      .hs-opening {
+        padding: 60px 28px;
+      }
+
+      .hs-opening__text {
+        font-size: 18px;
+      }
+
+      .hs-timeline {
+        padding: 60px 28px;
+      }
+
+      .hs-timeline__center-line {
+        left: 24px;
+      }
+
+      .hs-timeline__entry {
+        text-align: left !important;
+        padding-left: 60px !important;
+        padding-right: 0 !important;
+      }
+
+      .hs-timeline__dot {
+        left: 24px;
+      }
+
+      .hs-timeline__year {
+        font-size: 56px;
+      }
+
+      .hs-closing {
+        padding: 60px 28px;
+      }
+
+      .hs-closing__title {
+        font-size: 36px;
+      }
+
+      .hs-closing__text {
+        font-size: 16px;
+      }
+
+      .hs-cta {
+        padding: 40px 28px;
+      }
+
+      .hs-cta__link {
+        padding: 12px 32px;
+        font-size: 14px;
+      }
+
+      .breadcrumb-nav {
+        padding: 16px 28px;
+      }
+
+      .footer {
+        padding: 60px 28px 40px;
+      }
+
+      .footer__grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .footer__bottom {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+
+      .overlay-menu__inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 80px 28px 40px;
+      }
+
+      .overlay-menu__col-nav {
+        grid-column: 1;
+      }
+
+      .overlay-menu__col-sub {
+        grid-column: 1;
+      }
+
+      .overlay-menu__col-info {
+        grid-column: 1;
+      }
+
+      .hamburger {
+        width: 48px;
+        height: 48px;
+      }
+
+      .hamburger__line {
+        width: 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hs-hero {
+        padding: 40px 16px;
+      }
+
+      .hs-hero__title {
+        font-size: 36px;
+      }
+
+      .hs-hero__subtitle {
+        font-size: 16px;
+      }
+
+      .hs-hero__tagline {
+        font-size: 14px;
+      }
+
+      .hs-opening {
+        padding: 40px 16px;
+      }
+
+      .hs-opening__text {
+        font-size: 16px;
+      }
+
+      .hs-timeline {
+        padding: 40px 16px;
+      }
+
+      .hs-timeline__center-line {
+        left: 16px;
+      }
+
+      .hs-timeline__entry {
+        padding-left: 52px !important;
+      }
+
+      .hs-timeline__dot {
+        left: 16px;
+        width: 10px;
+        height: 10px;
+      }
+
+      .hs-timeline__year {
+        font-size: 48px;
+      }
+
+      .hs-timeline__title {
+        font-size: 16px;
+      }
+
+      .hs-timeline__description {
+        font-size: 14px;
+      }
+
+      .hs-closing {
+        padding: 40px 16px;
+      }
+
+      .hs-closing__title {
+        font-size: 28px;
+      }
+
+      .hs-cta {
+        padding: 30px 16px;
+        flex-direction: column;
+      }
+
+      .hs-cta__link {
+        width: 100%;
+      }
+
+      .breadcrumb-nav {
+        padding: 12px 16px;
+      }
+
+      .breadcrumb-nav__list {
+        gap: 4px;
+      }
+
+      .footer {
+        padding: 40px 16px;
+      }
+
+      .footer__grid {
+        gap: 30px;
+      }
+
+      .overlay-menu__inner {
+        padding: 60px 16px 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img"></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="overlay-menu" id="overlayMenu">
+    <div class="overlay-menu__inner">
+      <div class="overlay-menu__col-nav">
+        <span class="overlay-menu__label">[NAVIGATION]</span>
+        <div class="overlay-menu__nav-list">
+          <a href="about.html" class="overlay-menu__nav-item" data-panel="company">会社情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="gpim.html" class="overlay-menu__nav-item" data-panel="gpim">GPIM<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="service.html" class="overlay-menu__nav-item" data-panel="service">製品・サービス<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="works.html" class="overlay-menu__nav-item">導入事例</a>
+          <a href="news.html" class="overlay-menu__nav-item">ニュース</a>
+          <a href="blog.html" class="overlay-menu__nav-item">WAREHOUSE TECH WEEKLY</a>
+          <a href="careers.html" class="overlay-menu__nav-item" data-panel="careers">採用情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+        </div>
+      </div>
+      <div class="overlay-menu__col-sub">
+        <div class="overlay-menu__panel" data-panel="company">
+          <span class="overlay-menu__label">[会社情報]</span>
+          <a href="about.html" class="overlay-menu__sub-item">会社概要</a>
+          <a href="history.html" class="overlay-menu__sub-item">GROUNDの歩み</a>
+          <a href="about.html#ceo" class="overlay-menu__sub-item">CEOメッセージ</a>
+          <a href="about.html#vision" class="overlay-menu__sub-item">ビジョン・ミッション</a>
+          <a href="about.html#bp" class="overlay-menu__sub-item">行動原則(BP)・価値創造(VCP)プロセス</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="service">
+          <span class="overlay-menu__label">[製品・サービス]</span>
+          <a href="gwes.html" class="overlay-menu__sub-item">GWES</a>
+          <a href="gwes.html#technology" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
+          <a href="gwes.html#modules" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
+          <a href="gwes.html#implementation" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
+          <a href="digital-integration.html" class="overlay-menu__sub-item">デジタルインテグレーション</a>
+          <a href="consulting.html" class="overlay-menu__sub-item">コンサルティング＆エンジニアリング</a>
+          <a href="peer.html" class="overlay-menu__sub-item">PEER</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="gpim">
+          <span class="overlay-menu__label">[GPIM]</span>
+          <a href="gpim.html" class="overlay-menu__sub-item">GPIMとは</a>
+          <a href="gpim-consulting.html" class="overlay-menu__sub-item">GPIMコンサルティング</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="careers">
+          <span class="overlay-menu__label">[採用情報]</span>
+          <a href="careers.html" class="overlay-menu__sub-item">募集ポジション</a>
+          <a href="about.html" class="overlay-menu__sub-item">カルチャー</a>
+        </div>
+      </div>
+      <div class="overlay-menu__col-info">
+        <a href="contact.html" class="overlay-menu__cta-btn">お問い合わせ</a>
+        <div class="overlay-menu__contact-info">
+          <span>info@groundinc.co.jp</span>
+          <span>03-6441-2975</span>
+        </div>
+        <p class="overlay-menu__copyright">&copy; GROUND Inc.</p>
+      </div>
+    </div>
+  </div>
+
+  <nav class="breadcrumb-nav breadcrumb-nav--light" aria-label="パンくずリスト">
+    <ol class="breadcrumb-nav__list">
+      <li class="breadcrumb-nav__item"><a href="index.html" class="breadcrumb-nav__link breadcrumb-nav__link--home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a></li>
+      <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a href="about.html" class="breadcrumb-nav__link">企業情報</a></li>
+      <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current">GROUNDの歩み</span></li>
+    </ol>
+  </nav>
+
+  <section class="hs-hero">
+    <p class="hs-hero__meta">EST. 2015 / 10 YEARS OF CHALLENGE</p>
+    <h1 class="hs-hero__title">Our Journey</h1>
+    <p class="hs-hero__subtitle">GROUNDの歩み</p>
+    <p class="hs-hero__tagline">一人の想いから始まった、物流の常識を変える挑戦</p>
+  </section>
+
+  <section class="hs-opening">
+    <p class="hs-opening__text">
+      2015年4月、<span class="hs-opening__highlight">一人の起業家の想い</span>が、物流産業を変える挑戦を始めました。楽天物流の代表を務めた宮田啓友が、「自らの手で夢を実現しよう」という言葉に背中を押され、設立したGROUND株式会社。<span class="hs-opening__highlight">AI・数理最適化・ロボティクス</span>を融合させることで、物流施設の運営を根本から変革するという、大きな夢を持ってスタートしました。
+    </p>
+    <p class="hs-opening__text" style="margin-top: 32px;">
+      この10年間、GROUND は多くのパートナー企業との出会い、資金調達、そして自社プロダクト開発を通じて、<span class="hs-opening__highlight">物流業界に真の変革をもたらす</span>ことに邁進してきました。物流OSの誕生から、大手企業への導入、そして新しい経営体制へ—— 私たちの歩みは、ここからが本当の始まりです。
+    </p>
+  </section>
+
+  <section class="hs-timeline">
+    <div class="hs-timeline__center-line"></div>
+
+    <div class="hs-timeline__entry hs-fade">
+      <div class="hs-timeline__dot"></div>
+      <div class="hs-timeline__content">
+        <div class="hs-timeline__year">2015</div>
+        <div class="hs-timeline__date">2015.04</div>
+        <h3 class="hs-timeline__title">創業 — 一人の想いから始まった</h3>
+        <p class="hs-timeline__description">
+          「自らの手で夢を実現しよう」— 元ソニー会長・出井伸之氏の言葉に背中を押され、宮田啓友が楽天物流代表取締役を退任後、物流の未来を変えるべくGROUND株式会社を設立。たった一人の想いから、すべてが始まった。
+        </p>
+        <span class="hs-timeline__tag hs-timeline__tag--founding">創業</span>
+        <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>創業当時の写真<br>宮田代表ポートレート等</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hs-timeline__entry hs-fade">
+      <div class="hs-timeline__dot"></div>
+      <div class="hs-timeline__content">
+        <div class="hs-timeline__year">2016</div>
+        <div class="hs-timeline__date">2016.01</div>
+        <h3 class="hs-timeline__title">GreyOrangeと資本業務提携</h3>
+        <p class="hs-timeline__description">
+          インドのロボティクス企業GreyOrange社と戦略的パートナーシップを締結。物流ロボット「Butler®」の日本独占販売権を獲得し、ロボティクス事業の礎を築く。
+        </p>
+        <span class="hs-timeline__tag hs-timeline__tag--partnership">提携</span>
+        <div class="hs-timeline__photo-grid">
+          <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>GreyOrange社との<br>調印式の写真</span>
+          </div>
+          <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Butler®ロボット<br>初期モデル</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hs-timeline__entry hs-fade">
+      <div class="hs-timeline__dot"></div>
+      <div class="hs-timeline__content">
+        <div class="hs-timeline__year">2016</div>
+        <div class="hs-timeline__date">2016.05</div>
+        <h3 class="hs-timeline__title">オカムラと資本業務提携</h3>
+        <p class="hs-timeline__description">
+          オフィス・物流設備大手のオカムラと資本業務提携。ロボット技術を活用した物流システム事業の共同推進を開始。10年後の運命的な関係強化の始まり。
+        </p>
+        <span class="hs-timeline__tag hs-timeline__tag--partnership">提携</span>
+        <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>オカムラとの資本業務提携発表</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hs-timeline__entry hs-fade">
+      <div class="hs-timeline__dot"></div>
+      <div class="hs-timeline__content">
+        <div class="hs-timeline__year">2017</div>
+        <div class="hs-timeline__date">2017.06</div>
+        <h3 class="hs-timeline__title">大和ハウス工業と資本業務提携</h3>
+        <p class="hs-timeline__description">
+          物流施設のリーディングカンパニー・大和ハウス工業との資本業務提携を締結。10億円の出資を受け、物流施設へのロボット導入を加速。
+        </p>
+        <span class="hs-timeline__tag hs-timeline__tag--funding">資金調達</span>
+        <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>大和ハウス工業との<br>資本業務提携発表</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hs-timeline__entry hs-fade">
+      <div class="hs-timeline__dot"></div>
+      <div class="hs-timeline__content">
+        <div class="hs-timeline__year">2017</div>
+        <div class="hs-timeline__date">2017.12</div>
+        <h3 class="hs-timeline__title">Butler®国内初稼働 — ニトリグループ</h3>
+        <p class="hs-timeline__description">
+          家具・インテリア大手ニトリグループとの納入契約に基づき、物流ロボット「Butler®」が国内で初めて稼働。日本の物流ロボティクスの新たな幕開け。
+        </p>
+        <span class="hs-timeline__tag hs-timeline__tag--deployment">導入</span>
+        <div class="hs-timeline__photo-grid">
+          <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>ニトリ倉庫での<br>Butler®稼働風景</span>
+          </div>
+          <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Butler®ロボットが<br>棚を搬送する様子</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hs-timeline__entry hs-fade">
+      <div class="hs-timeline__dot"></div>
+      <div class="hs-timeline__content">
+        <div class="hs-timeline__year">2019</div>
+        <div class="hs-timeline__date">2019.08</div>
+        <h3 class="hs-timeline__title">総額17.1億円の大型資金調達</h3>
+        <p class="hs-timeline__description">
+          INCJ、ソニーイノベーションファンド、サファイア・キャピタル、JA三井リースなどから総額17.1億円を調達。海外展開と自社プロダクト開発に向けて、大きな一歩を踏み出す。
+        </p>
+        <span class="hs-timeline__tag hs-timeline__tag--funding">資金調達</span>
+        <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>資金調達発表時の写真<br>チームメンバー集合写真等</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hs-timeline__entry hs-fade">
+      <div class="hs-timeline__dot"></div>
+      <div class="hs-timeline__content">
+        <div class="hs-timeline__year">2020</div>
+        <div class="hs-timeline__date">2020.06</div>
+        <h3 class="hs-timeline__title">日本ユニシスと物流エコシステム始動 / PEER提供開始</h3>
+        <p class="hs-timeline__description">
+          日本ユニシス（現BIPROGY）との物流エコシステム共同事業を発表。同月、自律型協働ロボット「PEER」のアセスメントプログラムを開始。ハードウェアとソフトウェアの両輪が回り始める。
+        </p>
+        <span class="hs-timeline__tag hs-timeline__tag--product">プロダクト</span>
+        <div class="hs-timeline__photo-grid">
+          <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>PEERロボット<br>デモンストレーション</span>
+          </div>
+          <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>日本ユニシスとの<br>共同発表</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hs-timeline__entry hs-fade">
+      <div class="hs-timeline__dot"></div>
+      <div class="hs-timeline__content">
+        <div class="hs-timeline__year">2020</div>
+        <div class="hs-timeline__date">2020.09</div>
+        <h3 class="hs-timeline__title">AI物流ソフトウェア「DyAS」提供開始</h3>
+        <p class="hs-timeline__description">
+          自社開発のAI物流ソフトウェア「DyAS（ディアス）」を正式リリース。特許取得済みアルゴリズムによる在庫配置最適化・リソース配分最適化を実現。ロボット企業からソフトウェア企業へ、大きな転換点。
+        </p>
+        <span class="hs-timeline__tag hs-timeline__tag--product">プロダクト</span>
+        <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>DyASダッシュボード画面<br>またはプロダクト紹介写真</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hs-timeline__entry hs-fade">
+      <div class="hs-timeline__dot"></div>
+      <div class="hs-timeline__content">
+        <div class="hs-timeline__year">2021</div>
+        <div class="hs-timeline__date">2021.06</div>
+        <h3 class="hs-timeline__title">GWES正式リリース — 物流OSの誕生</h3>
+        <p class="hs-timeline__description">
+          DyASの知見を進化させ、物流施設統合管理・最適化システム「GWES」を正式リリース。13のモジュールで構成される「物流OS」。GROUNDの核となるプロダクトが、ついに世に出る。
+        </p>
+        <span class="hs-timeline__tag hs-timeline__tag--product">プロダクト</span>
+        <div class="hs-timeline__photo-grid">
+          <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>GWES正式リリース<br>プロダクト画面</span>
+          </div>
+          <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>GWESモジュール構成<br>アーキテクチャ図等</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hs-timeline__entry hs-fade">
+      <div class="hs-timeline__dot"></div>
+      <div class="hs-timeline__content">
+        <div class="hs-timeline__year">2021</div>
+        <div class="hs-timeline__date">2021</div>
+        <h3 class="hs-timeline__title">トラスコ中山と資本業務提携</h3>
+        <p class="hs-timeline__description">
+          プロツールの流通を支えるトラスコ中山から5億円の出資。現場で実証されたButlerの実績が、新たなパートナーシップを生む。
+        </p>
+        <span class="hs-timeline__tag hs-timeline__tag--funding">資金調達</span>
+        <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>トラスコ中山との<br>資本業務提携発表</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hs-timeline__entry hs-fade">
+      <div class="hs-timeline__dot"></div>
+      <div class="hs-timeline__content">
+        <div class="hs-timeline__year">2024</div>
+        <div class="hs-timeline__date">2024.03</div>
+        <h3 class="hs-timeline__title">オカムラとの提携強化・新経営体制へ</h3>
+        <p class="hs-timeline__description">
+          INCJが保有株式全量をオカムラに譲渡。8年前に始まった関係が、さらに深い絆に。新経営体制を構築し、次の10年への基盤を固める。
+        </p>
+        <span class="hs-timeline__tag hs-timeline__tag--organization">組織</span>
+        <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>新経営体制発表<br>オカムラとの連携強化</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hs-timeline__entry hs-fade">
+      <div class="hs-timeline__dot"></div>
+      <div class="hs-timeline__content">
+        <div class="hs-timeline__year">2024</div>
+        <div class="hs-timeline__date">2024.04</div>
+        <h3 class="hs-timeline__title">日本通運「NX-GLOW」にGWES採用</h3>
+        <p class="hs-timeline__description">
+          日本最大級の物流企業・日本通運のグローバル標準倉庫管理システム「NX-GLOW」にGWESが採用される。グローバルスケールでのGWES展開が始まる。
+        </p>
+        <span class="hs-timeline__tag hs-timeline__tag--deployment">導入</span>
+        <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>日本通運NX-GLOW<br>プロジェクト関連写真</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hs-timeline__entry hs-fade">
+      <div class="hs-timeline__dot"></div>
+      <div class="hs-timeline__content">
+        <div class="hs-timeline__year">2024</div>
+        <div class="hs-timeline__date">2024.06</div>
+        <h3 class="hs-timeline__title">花王全国44拠点にGWES導入開始</h3>
+        <p class="hs-timeline__description">
+          日用品トップメーカー・花王のロジスティクスセンターにGWES導入開始。八王子LCを皮切りに、2025年末までに全国44拠点への展開を計画。
+        </p>
+        <span class="hs-timeline__tag hs-timeline__tag--deployment">導入</span>
+        <div class="hs-timeline__photo-grid">
+          <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>花王ロジスティクス<br>センターの様子</span>
+          </div>
+          <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>GWES導入後の<br>倉庫オペレーション</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hs-timeline__entry hs-fade">
+      <div class="hs-timeline__dot"></div>
+      <div class="hs-timeline__content">
+        <div class="hs-timeline__year">2025</div>
+        <div class="hs-timeline__date">2025</div>
+        <h3 class="hs-timeline__title">創業10周年 — 1,000拠点への挑戦</h3>
+        <p class="hs-timeline__description">
+          創業から10年。GWESの累計導入は加速し、2027年までに1,000拠点への導入を目指す。シーエックスカーゴ全13拠点、そして海外展開へ。物流の未来を変える挑戦は、まだ始まったばかり。
+        </p>
+        <span class="hs-timeline__tag hs-timeline__tag--milestone">マイルストーン</span>
+        <div class="hs-timeline__photo-grid">
+          <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>創業10周年記念<br>チーム集合写真</span>
+          </div>
+          <div class="hs-timeline__photo hs-timeline__photo--placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>1,000拠点への挑戦<br>ビジョンを語る宮田代表</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="hs-closing">
+    <p class="hs-closing__label">THE FUTURE STARTS NOW</p>
+    <h2 class="hs-closing__title">The journey continues.</h2>
+    <p class="hs-closing__text">
+      この10年の歩みは、物流産業に根ざした一つの大きな挑戦の序章に過ぎません。GWESの導入拠点は1,000へ、そしてグローバルへ。私たちは、テクノロジーと人の力を合わせて、物流の未来を変え続けます。
+    </p>
+    <p class="hs-closing__text">
+      次の章を、一緒に書きませんか。
+    </p>
+  </section>
+
+  <section class="hs-cta">
+    <a href="about.html" class="hs-cta__link">企業情報に戻る</a>
+    <a href="contact.html" class="hs-cta__link hs-cta__link--primary">お問い合わせ</a>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <img src="img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
+          <p class="footer__brand-desc">
+            AI・数理最適化・ロボティクスで、<br>
+            物流の未来を変革する。
+          </p>
+        </div>
+        <div>
+          <h4 class="footer__heading">Company</h4>
+          <div class="footer__links">
+            <a href="about.html" class="footer__link">会社概要</a>
+            <a href="history.html" class="footer__link">GROUNDの歩み</a>
+            <a href="about.html#vision" class="footer__link">ビジョン・ミッション</a>
+            <a href="about.html#ceo" class="footer__link">CEOメッセージ</a>
+            <a href="careers.html" class="footer__link">採用情報</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Solutions</h4>
+          <div class="footer__links">
+            <a href="gwes.html" class="footer__link">GWES</a>
+            <a href="digital-integration.html" class="footer__link">デジタルインテグレーション</a>
+            <a href="consulting.html" class="footer__link">コンサルティング</a>
+            <a href="peer.html" class="footer__link">PEER</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Contact</h4>
+          <div class="footer__links">
+            <a href="contact.html" class="footer__link">お問い合わせ</a>
+            <span class="footer__link" style="cursor: default;">TEL: 03-6457-1650</span>
+            <a href="mailto:Info@groundinc.co.jp" class="footer__link">Info@groundinc.co.jp</a>
+            <span class="footer__link" style="cursor: default;">〒101-0041<br>東京都千代田区神田須田町1-3-33<br>Bizflex神田 10F</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 GROUND Inc. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social" aria-label="LinkedIn">in</a>
+          <a href="#" class="footer__social" aria-label="Note">N</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script defer src="js/main.js?v=31"></script>
+  <script defer src="js/design-settings.js"></script>
+
+  <script>
+    // Fade-in animation on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.hs-fade').forEach((el) => {
+      observer.observe(el);
+    });
+
+    // Hamburger menu toggle
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const overlayMenu = document.getElementById('overlayMenu');
+
+    if (hamburgerBtn) {
+      hamburgerBtn.addEventListener('click', () => {
+        hamburgerBtn.classList.toggle('active');
+        overlayMenu.classList.toggle('active');
+      });
+    }
+
+    // Navigation panel toggle
+    const navItems = document.querySelectorAll('.overlay-menu__nav-item[data-panel]');
+    navItems.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        const panelName = item.getAttribute('data-panel');
+        const panels = document.querySelectorAll('.overlay-menu__panel');
+        panels.forEach((panel) => {
+          panel.classList.remove('is-visible');
+        });
+        const activePanel = document.querySelector(`.overlay-menu__panel[data-panel="${panelName}"]`);
+        if (activePanel) {
+          activePanel.classList.add('is-visible');
+        }
+      });
+    });
+
+    // Close menu when clicking on a link
+    const menuLinks = document.querySelectorAll('.overlay-menu a[href]');
+    menuLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        hamburgerBtn.classList.remove('active');
+        overlayMenu.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
