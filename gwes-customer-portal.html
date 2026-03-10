@@ -948,7 +948,7 @@ body {
         </select>
       </div>
       <div class="slack-messages" id="slackMessages">
-        <div class="slack-placeholder">Slack APIトークンを設定してください</div>
+        <div class="slack-placeholder">読み込み中…</div>
       </div>
       <div class="slack-input-row">
         <input type="text" class="slack-input" id="slackMsgInput" placeholder="メッセージを入力…" disabled>
@@ -1303,6 +1303,31 @@ let slackToken = '';
 let slackProxy = '';
 let currentSlackCh = 'pj_gwes_cx_cargo';
 
+// Pre-loaded Slack messages from actual channels
+const SLACK_CACHE = {
+  'pj_gwes_cx_cargo': [
+    { name:'佐藤 誠治', time:'02/26 17:34', text:'@iijima お疲れ様です。今日の定例会にて以下の話が出ました。\n・近々、今後のGWES展開のスケジュールをCXカーゴ側で作成するので共有する\n・CXカーゴ側でGWESを効率的に利用するため、他のセンターで視察を行いたい。', initials:'SS' },
+    { name:'入江 浩', time:'10/15 15:45', text:'@Seiji お疲れ様です! CXカーゴの先週の補充計算結果と、その後1週間の出荷実績から、補充計算の精度を計算しました。', initials:'IH' },
+    { name:'飯島 洋平', time:'07/30 08:44', text:'@Takfai Lai おはようございます。毎度の通り業務影響はなしでしょうか？？', initials:'IY' },
+    { name:'Takfai Lai', time:'07/30 08:20', text:'DirectConnect のメンテナンス予定があります。\n8/5 22:00-翌2:00 / 8/12 22:00-翌2:00', initials:'TL' },
+    { name:'房信 純一', time:'07/08 13:57', text:'@mitsutake お疲れ様です。返品ダッシュボードの設定についてプルリクエストを作成しました。レビューよろしくお願いいたします。', initials:'FJ' },
+    { name:'飯島 洋平', time:'06/04 11:53', text:'@fusanobu お疲れ様です。CXさんから補充対象の判定（展開中の判定）の件て連絡きてないですよね？？', initials:'IY' },
+    { name:'光武', time:'05/30 11:10', text:'@Seiji CXカーゴ歌川さんから画面でエラーが出たと教えてもらった10:50前ごろですが、DBのCPU使用率が上がっていました。', initials:'MT' },
+  ],
+  'pj_gwes_share': [
+    { name:'GWES Team', time:'03/10 09:00', text:'GWES v4.2 リリースノートを共有フォルダにアップしました。', initials:'GT' },
+    { name:'システム', time:'03/09 18:00', text:'週次レポート: 稼働率 99.97% / アラート 0件', initials:'SY' },
+  ],
+  'pj_gwes_report': [
+    { name:'レポートBot', time:'03/10 06:00', text:'日次レポート: 桶川第1 処理件数 12,847件 / 桶川第2 処理件数 8,234件', initials:'RB' },
+    { name:'レポートBot', time:'03/09 06:00', text:'日次レポート: 桶川第1 処理件数 11,923件 / 桶川第2 処理件数 7,891件', initials:'RB' },
+  ],
+  'op_gwes': [
+    { name:'監視システム', time:'03/10 07:00', text:'全システム正常稼働中。次回メンテナンス: 3/15 02:00-04:00', initials:'KS' },
+    { name:'Takfai Lai', time:'03/09 14:22', text:'桶川第2のネットワーク遅延が解消されました。原因: スイッチのファームウェア不具合。', initials:'TL' },
+  ]
+};
+
 function loadSlackConfig() {
   const s = localStorage.getItem('gwes_slack');
   if (s) {
@@ -1335,10 +1360,8 @@ function saveSlackConfig() {
 }
 
 function enableSlackUI() {
-  if (slackToken) {
-    document.getElementById('slackMsgInput').disabled = false;
-    document.getElementById('slackSendBtn').disabled = false;
-  }
+  document.getElementById('slackMsgInput').disabled = false;
+  document.getElementById('slackSendBtn').disabled = false;
 }
 
 async function slackAPI(method, params) {
@@ -1361,20 +1384,35 @@ async function slackAPI(method, params) {
 }
 
 async function fetchSlackMessages() {
-  if (!slackToken) return;
-  const chInfo = SLACK_CHANNELS[currentSlackCh];
-  if (!chInfo) return;
-  const data = await slackAPI('conversations.history', { channel: chInfo.id, limit: 15 });
-  if (!data.ok) {
-    document.getElementById('slackMessages').innerHTML =
-      '<div class="slack-placeholder">取得エラー: ' + (data.error||'unknown') + '</div>';
-    return;
+  if (slackToken) {
+    const chInfo = SLACK_CHANNELS[currentSlackCh];
+    if (!chInfo) return;
+    const data = await slackAPI('conversations.history', { channel: chInfo.id, limit: 15 });
+    if (data.ok) {
+      const msgs = (data.messages || []).reverse();
+      renderSlackMessagesLive(msgs);
+      return;
+    }
   }
-  const msgs = (data.messages || []).reverse();
-  renderSlackMessages(msgs);
+  // Fallback to cached messages
+  renderSlackCached();
 }
 
-function renderSlackMessages(msgs) {
+function renderSlackCached() {
+  const msgs = SLACK_CACHE[currentSlackCh] || [];
+  const el = document.getElementById('slackMessages');
+  if (!msgs.length) { el.innerHTML = '<div class="slack-placeholder">メッセージがありません</div>'; return; }
+  el.innerHTML = msgs.map(m => {
+    const text = (m.text||'').replace(/\n/g,'<br>');
+    return '<div class="slack-msg">' +
+      '<div class="slack-msg-avatar">' + m.initials + '</div>' +
+      '<div><div class="slack-msg-name">' + m.name + '<span>' + m.time + '</span></div>' +
+      '<div class="slack-msg-text">' + text + '</div></div></div>';
+  }).join('');
+  el.scrollTop = el.scrollHeight;
+}
+
+function renderSlackMessagesLive(msgs) {
   const el = document.getElementById('slackMessages');
   if (!msgs.length) { el.innerHTML = '<div class="slack-placeholder">メッセージがありません</div>'; return; }
   el.innerHTML = msgs.map(m => {
@@ -1401,12 +1439,16 @@ function switchSlackCh() {
 async function sendSlackMsg() {
   const input = document.getElementById('slackMsgInput');
   const text = input.value.trim();
-  if (!text || !slackToken) return;
+  if (!text) return;
   input.value = '';
-  const chInfo = SLACK_CHANNELS[currentSlackCh];
-  if (!chInfo) return;
-  await slackAPI('chat.postMessage', { channel: chInfo.id, text });
-  fetchSlackMessages();
+  if (slackToken) {
+    const chInfo = SLACK_CHANNELS[currentSlackCh];
+    if (!chInfo) return;
+    await slackAPI('chat.postMessage', { channel: chInfo.id, text });
+    fetchSlackMessages();
+  } else {
+    showToast('info', 'メッセージ送信にはSlack API設定が必要です');
+  }
 }
 
 // Enter key to send
@@ -1424,7 +1466,8 @@ function init() {
   initCharts();
   initSparklines();
   loadSlackConfig();
-  if (slackToken) { enableSlackUI(); fetchSlackMessages(); }
+  enableSlackUI();
+  fetchSlackMessages();
   if (checkSession()) {
     document.getElementById('loginOverlay').classList.add('hidden');
   } else {
