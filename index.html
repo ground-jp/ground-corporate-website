@@ -223,12 +223,19 @@
   </a>
 
   <section class="hero" id="hero">
-    <video id="heroVideo" autoplay muted loop playsinline preload="auto" aria-hidden="true" src="img/hero-video-neural-v2.mp4" style=""></video>
+    <video id="heroVideo" autoplay muted loop playsinline preload="auto" aria-hidden="true" style=""></video>
     <script>
       (function(){
         var videos=['img/hero-video-2026.mp4','img/hero-video-neural-v2.mp4'];
         var vid=document.getElementById('heroVideo');
+        vid.muted=true;
+        vid.defaultMuted=true;
+        vid.setAttribute('muted','');
+        vid.volume=0;
         vid.src=videos[Math.floor(Math.random()*videos.length)];
+        vid.load();
+        var p=vid.play();
+        if(p!==undefined){p.catch(function(){});}
       })();
     </script>
     <div class="hero__gradient"></div>
@@ -343,41 +350,56 @@
 
   <script defer="" src="js/main.js?v=31"></script>
   <script>
-    // Aggressive video autoplay
+    // Aggressive video autoplay v3
     (function() {
       var video = document.getElementById('heroVideo');
       if (!video) return;
+      // Ensure muted (required for autoplay in all browsers)
       video.muted = true;
       video.defaultMuted = true;
       video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
       video.volume = 0;
+      // Remove any browser-added controls
+      video.removeAttribute('controls');
       var playing = false;
       function tryPlay() {
         if (playing) return;
+        video.muted = true;
+        video.volume = 0;
         var p = video.play();
         if (p !== undefined) {
-          p.then(function() { playing = true; }).catch(function() {
+          p.then(function() { playing = true; }).catch(function(e) {
             setTimeout(tryPlay, 300);
           });
+        } else {
+          playing = true;
         }
       }
-      if (video.readyState >= 2) { tryPlay(); }
+      if (video.readyState >= 1) { tryPlay(); }
+      video.addEventListener('loadedmetadata', tryPlay);
       video.addEventListener('loadeddata', tryPlay);
       video.addEventListener('canplay', tryPlay);
+      video.addEventListener('canplaythrough', tryPlay);
       document.addEventListener('DOMContentLoaded', tryPlay);
       window.addEventListener('load', tryPlay);
-      ['click','scroll','touchstart','mousemove','keydown'].forEach(function(evt) {
+      // User interaction fallback
+      ['click','scroll','touchstart','touchend','mousemove','keydown','pointerdown'].forEach(function(evt) {
         document.addEventListener(evt, function once() {
           tryPlay();
           document.removeEventListener(evt, once);
         }, {once: true});
       });
-      // Periodic retry for stubborn browsers
+      // Periodic retry for stubborn browsers (every 500ms for 30 seconds)
       var retries = 0;
       var interval = setInterval(function() {
-        if (playing || retries > 20) { clearInterval(interval); return; }
+        if (playing || retries > 60) { clearInterval(interval); return; }
         tryPlay(); retries++;
       }, 500);
+      // Also retry when tab becomes visible
+      document.addEventListener('visibilitychange', function() {
+        if (!document.hidden && !playing) { tryPlay(); }
+      });
     })();
   </script>
   <!-- Netlify Identity Widget (CMS認証用) -->
