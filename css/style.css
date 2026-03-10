@@ -1749,16 +1749,13 @@ img.hero__bg-image {
 
 .solution-card--with-img .solution-card__name,
 .solution-card--with-img .solution-card__sub,
-.solution-card--with-img .solution-card__desc {
-  padding-left: 24px;
-  padding-right: 24px;
-}
+.solution-card--with-img .solution-card__desc,
 .solution-card--with-img .solution-card__name {
-  padding-top: 20px;
+  padding-top: 12px;
 }
 
 .solution-card--with-img .cta-stream {
-  margin: 0 24px 20px;
+  margin: 0 14px 14px;
 }
 
 /* ===================== OUR METHODOLOGY / GPIM (Merged) ===================== */
