@@ -1,0 +1,22 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/case-kao"
+  to = "/case-kao.html"
+  status = 200
+
+[[redirects]]
+  from = "/case-nittsu"
+  to = "/case-nittsu.html"
+  status = 200
+
+[[redirects]]
+  from = "/case-cxcargo"
+  to = "/case-cxcargo.html"
+  status = 200
+
+[[redirects]]
+  from = "/case-autobacs"
+  to = "/case-autobacs.html"
+  status = 200
