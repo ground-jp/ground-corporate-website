@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GWES — 花王株式会社</title>
+<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+JP:wght@700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   GWES DESIGN SYSTEM — 花王株式会社 Customer Portal
+   ═══════════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root {
+  --bg-0: #060B18;
+  --bg-1: #0B1222;
+  --bg-2: #111B2E;
+  --bg-3: #172339;
+  --bg-4: #1E2D48;
+  --accent: #3B82F6;
+  --accent-bright: #60A5FA;
+  --accent-dim: #2563EB;
+  --accent-glow: rgba(59,130,246,0.15);
+  --accent-glass: rgba(59,130,246,0.06);
+  --green: #34D399;
+  --green-dim: rgba(52,211,153,0.12);
+  --yellow: #FBBF24;
+  --yellow-dim: rgba(251,191,36,0.12);
+  --red: #F87171;
+  --red-dim: rgba(248,113,113,0.12);
+  --purple: #A78BFA;
+  --cyan: #22D3EE;
+  --t0: #FFFFFF;
+  --t1: #E2E8F0;
+  --t2: #94A3B8;
+  --t3: #64748B;
+  --t4: #334155;
+  --b0: rgba(255,255,255,0.04);
+  --b1: rgba(255,255,255,0.06);
+  --b2: rgba(255,255,255,0.10);
+  --header-h: 56px;
+  --sidebar-w: 64px;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-xs: 6px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', 'SF Mono', monospace;
+}
+
+html { font-size: 14px; }
+body {
+  font-family: var(--font);
+  background: var(--bg-0);
+  color: var(--t1);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--t4); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--t3); }
+
+/* ═══ HEADER ═══ */
+.header {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  background: rgba(6,11,24,0.85);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  border-bottom: 1px solid var(--b1);
+  display: flex; align-items: center;
+  padding: 0 20px 0 0;
+  z-index: 100;
+}
+.header-logo {
+  width: var(--sidebar-w);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.header-logo svg { width: 28px; height: 28px; }
+.header-brand {
+  display: flex; align-items: baseline; gap: 10px;
+  margin-right: auto;
+}
+.brand-name {
+  font-size: 15px; font-weight: 800; letter-spacing: -0.3px;
+  background: linear-gradient(135deg, var(--accent-bright), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.brand-customer {
+  font-size: 12px; font-weight: 500; color: var(--t3);
+  padding-left: 10px;
+  border-left: 1px solid var(--b2);
+  display: flex; align-items: center; gap: 8px;
+}
+.kao-logo-header {
+  height: 18px; width: auto; opacity: 0.7;
+  filter: brightness(2);
+}
+.kao-logo-login {
+  height: 32px; width: auto; margin-bottom: 12px;
+  filter: brightness(1.8);
+}
+.header-actions {
+  display: flex; align-items: center; gap: 6px;
+}
+.h-btn {
+  width: 36px; height: 36px; border-radius: var(--radius-sm);
+  border: none; background: transparent; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--t3); transition: all 0.15s;
+  position: relative;
+}
+.h-btn:hover { background: var(--bg-3); color: var(--t1); }
+.h-btn svg { width: 18px; height: 18px; stroke-width: 1.8; }
+.h-btn .badge {
+  position: absolute; top: 4px; right: 4px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--red); border: 2px solid var(--bg-0);
+}
+.h-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--purple));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800; color: #fff;
+  cursor: pointer; margin-left: 8px; position: relative;
+  overflow: hidden;
+}
+.h-avatar img {
+  width: 100%; height: 100%; border-radius: 50%;
+  object-fit: cover; position: absolute; inset: 0;
+}
+
+/* ═══ SIDEBAR ═══ */
+.sidebar {
+  position: fixed; top: var(--header-h); left: 0;
+  width: var(--sidebar-w); height: calc(100vh - var(--header-h));
+  background: var(--bg-1);
+  border-right: 1px solid var(--b0);
+  display: flex; flex-direction: column;
+  align-items: center;
+  padding: 12px 0;
+  z-index: 90;
+}
+.nav-item {
+  width: 40px; height: 40px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--t3); cursor: pointer;
+  transition: all 0.15s; margin-bottom: 4px;
+  position: relative;
+}
+.nav-item:hover { background: var(--bg-3); color: var(--t2); }
+.nav-item.active {
+  background: var(--accent-glass);
+  color: var(--accent-bright);
+}
+.nav-item.active::before {
+  content: '';
+  position: absolute; left: 0; top: 8px; bottom: 8px;
+  width: 3px; border-radius: 0 3px 3px 0;
+  background: var(--accent);
+}
+.nav-item svg { width: 20px; height: 20px; stroke-width: 1.8; }
+.nav-spacer { flex: 1; }
+.nav-tooltip {
+  display: none;
+  position: absolute; left: 52px; top: 50%; transform: translateY(-50%);
+  background: var(--bg-4); color: var(--t1);
+  padding: 4px 10px; border-radius: var(--radius-xs);
+  font-size: 11px; white-space: nowrap; z-index: 200;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.nav-item:hover .nav-tooltip { display: block; }
+
+/* ═══ MAIN ═══ */
+.main {
+  margin-top: var(--header-h);
+  margin-left: var(--sidebar-w);
+  padding: 24px;
+  min-height: calc(100vh - var(--header-h));
+}
+.page-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 24px;
+}
+.page-title { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; color: var(--t0); }
+.page-subtitle { font-size: 12px; color: var(--t3); margin-top: 4px; }
+.page-time { font-family: var(--mono); font-size: 11px; color: var(--t3); }
+
+/* ═══ Status Hero ═══ */
+.status-hero {
+  background: linear-gradient(135deg, rgba(52,211,153,0.05), rgba(52,211,153,0.02));
+  border: 1px solid rgba(52,211,153,0.12);
+  border-radius: var(--radius);
+  padding: 20px 28px;
+  display: flex; align-items: center; gap: 20px;
+  margin-bottom: 24px;
+}
+.status-hero.warn {
+  background: linear-gradient(135deg, rgba(251,191,36,0.05), rgba(251,191,36,0.02));
+  border-color: rgba(251,191,36,0.15);
+}
+.status-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--green); flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(52,211,153,0.4);
+  animation: pulse-green 2s infinite;
+}
+@keyframes pulse-green { 0%,100%{opacity:1} 50%{opacity:0.6} }
+@keyframes pulse-yellow { 0%,100%{opacity:1} 50%{opacity:0.5} }
+.status-text h3 { font-size: 14px; font-weight: 700; color: var(--t0); }
+.status-text p { font-size: 11.5px; color: var(--t3); margin-top: 2px; }
+.status-meta {
+  margin-left: auto; text-align: right;
+  font-family: var(--mono); font-size: 10.5px; color: var(--t3);
+}
+
+/* ═══ KPI Strip ═══ */
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.kpi-card {
+  background: var(--bg-2);
+  border: 1px solid var(--b1);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.kpi-card:hover { border-color: var(--b2); transform: translateY(-1px); }
+.kpi-label {
+  font-size: 11px; font-weight: 500; color: var(--t3);
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+.kpi-value {
+  font-size: 28px; font-weight: 800; letter-spacing: -1px;
+  font-family: var(--mono);
+  color: var(--t0);
+  line-height: 1;
+}
+.kpi-unit { font-size: 13px; font-weight: 500; color: var(--t3); margin-left: 3px; }
+.kpi-trend {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 11px; font-weight: 600; margin-top: 8px;
+  padding: 2px 8px; border-radius: 20px;
+}
+.kpi-trend.up { color: var(--green); background: var(--green-dim); }
+.kpi-trend.down { color: var(--red); background: var(--red-dim); }
+.kpi-trend.flat { color: var(--t3); background: var(--b1); }
+.kpi-trend svg { width: 12px; height: 12px; }
+.kpi-spark-wrap {
+  position: relative; height: 32px; margin-top: 12px; width: 100%;
+}
+.kpi-spark-wrap canvas {
+  position: absolute; inset: 0;
+  width: 100% !important; height: 100% !important;
+}
+
+/* ═══ Grid Layouts ═══ */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.grid-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 24px; }
+.grid-3col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+
+/* ═══ Card ═══ */
+.card {
+  background: var(--bg-2);
+  border: 1px solid var(--b1);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.card-header {
+  padding: 16px 20px 12px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--b0);
+}
+.card-title { font-size: 13px; font-weight: 700; color: var(--t1); }
+.card-badge {
+  font-size: 10px; font-weight: 600;
+  padding: 2px 8px; border-radius: 20px;
+  background: var(--accent-glass); color: var(--accent-bright);
+}
+.card-body { padding: 16px 20px; }
+
+/* ═══ Facility Table ═══ */
+.fac-table { width: 100%; border-collapse: collapse; }
+.fac-table th {
+  font-size: 10px; font-weight: 600; color: var(--t3);
+  text-transform: uppercase; letter-spacing: 0.5px;
+  text-align: left; padding: 0 12px 10px;
+  border-bottom: 1px solid var(--b1);
+}
+.fac-table td {
+  padding: 10px 12px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--b0);
+  vertical-align: middle;
+}
+.fac-table tr:last-child td { border-bottom: none; }
+.fac-table tr { transition: background 0.1s; }
+.fac-table tr:hover { background: var(--accent-glass); }
+.fac-name { font-weight: 600; color: var(--t0); }
+.fac-sub { font-size: 10px; color: var(--t3); margin-top: 1px; }
+.fac-region { font-size: 10px; color: var(--cyan); font-weight: 500; }
+
+.status-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px;
+}
+.status-badge.up { color: var(--green); background: var(--green-dim); }
+.status-badge.degraded { color: var(--yellow); background: var(--yellow-dim); }
+.status-badge.down { color: var(--red); background: var(--red-dim); }
+.status-badge.maint { color: var(--purple); background: rgba(167,139,250,0.12); }
+.status-badge.planned { color: var(--t3); background: var(--b1); }
+.status-badge::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: currentColor;
+}
+.uptime-val { font-family: var(--mono); font-size: 12px; font-weight: 600; }
+.uptime-val.good { color: var(--green); }
+.uptime-val.warn { color: var(--yellow); }
+.mod-dots { display: flex; gap: 4px; }
+.mod-dot {
+  width: 24px; height: 20px; border-radius: 4px;
+  font-size: 8px; font-weight: 700; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+}
+.mod-dot.up { background: rgba(52,211,153,0.25); color: var(--green); }
+.mod-dot.warn { background: rgba(251,191,36,0.25); color: var(--yellow); }
+.mod-dot.down { background: rgba(248,113,113,0.25); color: var(--red); }
+.mod-dot.off { background: var(--b1); color: var(--t4); }
+
+/* ═══ Region Map Summary ═══ */
+.region-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+}
+.region-item {
+  background: var(--bg-3); border: 1px solid var(--b0);
+  border-radius: var(--radius-sm); padding: 12px;
+  text-align: center; transition: border-color 0.2s;
+}
+.region-item:hover { border-color: var(--accent-dim); }
+.region-name { font-size: 10px; font-weight: 600; color: var(--t3); text-transform: uppercase; letter-spacing: 0.5px; }
+.region-count { font-size: 20px; font-weight: 800; font-family: var(--mono); color: var(--t0); margin-top: 4px; }
+.region-sub { font-size: 9px; color: var(--t4); margin-top: 2px; }
+
+/* ═══ Activity Feed ═══ */
+.feed-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--b0);
+}
+.feed-item:last-child { border-bottom: none; }
+.feed-icon {
+  width: 32px; height: 32px; border-radius: var(--radius-xs);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.feed-icon.info { background: var(--accent-glass); color: var(--accent-bright); }
+.feed-icon.success { background: var(--green-dim); color: var(--green); }
+.feed-icon.warn { background: var(--yellow-dim); color: var(--yellow); }
+.feed-icon.error { background: var(--red-dim); color: var(--red); }
+.feed-icon svg { width: 16px; height: 16px; }
+.feed-text { font-size: 12px; color: var(--t2); line-height: 1.5; }
+.feed-text strong { color: var(--t0); font-weight: 600; }
+.feed-time { font-size: 10px; color: var(--t4); margin-top: 2px; font-family: var(--mono); }
+
+/* ═══ Project Timeline ═══ */
+.timeline-item {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--b0);
+}
+.timeline-item:last-child { border-bottom: none; }
+.tl-phase {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.5px; width: 60px; flex-shrink: 0;
+  color: var(--t3);
+}
+.tl-bar-track {
+  flex: 1; height: 6px; background: var(--bg-4); border-radius: 3px;
+  overflow: hidden;
+}
+.tl-bar-fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--cyan));
+  transition: width 0.6s ease;
+}
+.tl-bar-fill.done { background: var(--green); }
+.tl-bar-fill.warning { background: var(--yellow); }
+.tl-label { font-size: 11px; color: var(--t2); width: 160px; flex-shrink: 0; }
+.tl-pct {
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  width: 40px; text-align: right; flex-shrink: 0; color: var(--t1);
+}
+
+/* ═══ Chart ═══ */
+.chart-wrap { position: relative; height: 220px; padding: 8px 0; }
+
+/* ═══ Slack Panel ═══ */
+.slack-card { display: flex; flex-direction: column; }
+.slack-card .card-header { flex-shrink: 0; }
+.slack-ch-select {
+  background: var(--bg-1); border: 1px solid var(--b1); border-radius: var(--radius-xs);
+  color: var(--t2); font-family: var(--mono); font-size: 10px;
+  padding: 3px 8px; cursor: pointer; outline: none;
+}
+.slack-ch-select:focus { border-color: var(--accent); }
+.slack-messages {
+  flex: 1; min-height: 200px; max-height: 340px;
+  overflow-y: auto; padding: 12px 16px;
+}
+.slack-placeholder { text-align: center; color: var(--t4); font-size: 11px; padding: 40px 0; }
+.slack-msg { margin-bottom: 12px; display: flex; gap: 8px; }
+.slack-msg-avatar {
+  width: 28px; height: 28px; border-radius: 6px;
+  background: var(--bg-4); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; color: var(--t2);
+  overflow: hidden;
+}
+.slack-msg-avatar img { width:100%; height:100%; object-fit:cover; }
+.slack-msg-name { font-size: 11px; font-weight: 700; color: var(--t1); margin-bottom: 2px; }
+.slack-msg-name span { font-weight: 400; color: var(--t4); font-size: 9.5px; margin-left: 6px; font-family: var(--mono); }
+.slack-msg-text { font-size: 11.5px; color: var(--t2); line-height: 1.5; word-break: break-word; }
+.slack-input-row { display: flex; gap: 6px; padding: 8px 12px; border-top: 1px solid var(--b0); }
+.slack-input {
+  flex: 1; padding: 7px 12px; border-radius: var(--radius-xs);
+  border: 1px solid var(--b1); background: var(--bg-1); color: var(--t1);
+  font-family: var(--font); font-size: 11.5px; outline: none;
+}
+.slack-input:focus { border-color: var(--accent); }
+.slack-input::placeholder { color: var(--t4); }
+.slack-send {
+  width: 32px; height: 32px; border-radius: var(--radius-xs);
+  border: none; background: var(--accent); color: #fff;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+}
+.slack-send:hover { background: var(--accent-dim); }
+.slack-send:disabled { opacity: 0.3; cursor: default; }
+.slack-send svg { width: 14px; height: 14px; }
+.slack-config-btn {
+  display: flex; align-items: center; justify-content: center;
+  padding: 6px; border: none; background: none;
+  font-family: var(--font); font-size: 9.5px; color: var(--t4);
+  cursor: pointer; transition: color 0.15s;
+}
+.slack-config-btn:hover { color: var(--t2); }
+
+/* ═══ Modal ═══ */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 600;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-card {
+  width: 420px; padding: 28px;
+  background: var(--bg-2); border: 1px solid var(--b2);
+  border-radius: var(--radius); text-align: left;
+}
+.modal-title { font-size: 15px; font-weight: 700; color: var(--t0); margin-bottom: 8px; }
+.modal-desc { font-size: 11px; color: var(--t3); line-height: 1.6; margin-bottom: 16px; }
+.modal-desc a { color: var(--accent-bright); text-decoration: none; }
+.modal-desc a:hover { text-decoration: underline; }
+.modal-label { font-size: 10px; font-weight: 600; color: var(--t3); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px; }
+.modal-actions { display: flex; gap: 8px; margin-top: 16px; justify-content: flex-end; }
+.modal-btn {
+  padding: 8px 20px; border-radius: var(--radius-sm);
+  border: 1px solid var(--b2); background: var(--bg-3); color: var(--t2);
+  font-family: var(--font); font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all 0.15s;
+}
+.modal-btn:hover { background: var(--bg-4); color: var(--t1); }
+.modal-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.modal-btn.primary:hover { background: var(--accent-dim); }
+
+/* ═══ Responsive ═══ */
+@media (max-width: 1400px) { .grid-3col { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 1200px) {
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .grid-3col { grid-template-columns: 1fr; }
+}
+
+/* ═══ Login ═══ */
+.login-overlay {
+  position: fixed; inset: 0; z-index: 999;
+  background: var(--bg-0);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.4s;
+}
+.login-overlay.hidden { display: none; }
+.login-card {
+  width: 380px; padding: 40px;
+  background: var(--bg-2); border: 1px solid var(--b2);
+  border-radius: 16px; text-align: center;
+}
+.login-logo { margin-bottom: 24px; }
+.login-logo svg { width: 48px; height: 48px; }
+.login-title {
+  font-size: 20px; font-weight: 800; color: var(--t0);
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, var(--accent-bright), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.login-desc { font-size: 12px; color: var(--t3); margin-top: 6px; }
+.login-divider { height: 1px; background: var(--b1); margin: 24px 0; }
+.login-subtitle { font-size: 12px; color: var(--t2); margin-bottom: 16px; }
+#gsiButtonWrap { display: flex; justify-content: center; min-height: 44px; margin-bottom: 12px; }
+.login-status { font-size: 10.5px; color: var(--t4); margin-bottom: 12px; }
+.login-or { position: relative; text-align: center; margin: 14px 0; border-top: 1px solid var(--b1); }
+.login-or span {
+  position: relative; top: -9px;
+  background: var(--bg-2); padding: 0 14px;
+  font-size: 10px; color: var(--t4); text-transform: uppercase; letter-spacing: 1px;
+}
+.g-login-btn {
+  width: 100%; padding: 10px; border: 1px solid var(--b2);
+  border-radius: var(--radius-sm); background: var(--bg-3); color: var(--t1);
+  font-family: var(--font); font-size: 13px; font-weight: 600;
+  cursor: pointer; display: flex; align-items: center;
+  justify-content: center; gap: 10px; transition: all 0.15s;
+}
+.g-login-btn:hover { background: var(--bg-4); border-color: var(--accent-dim); }
+.g-login-btn svg { width: 18px; height: 18px; }
+.login-skip {
+  display: block; margin: 12px auto 0; font-size: 11px;
+  color: var(--t4); cursor: pointer; background: none;
+  border: none; font-family: var(--font); transition: color 0.15s;
+}
+.login-skip:hover { color: var(--t2); }
+.login-config {
+  display: block; margin: 16px auto 0; font-size: 10px;
+  color: var(--t4); cursor: pointer; background: none;
+  border: none; font-family: var(--font); opacity: 0.6; transition: all 0.15s;
+}
+.login-config:hover { color: var(--t2); opacity: 1; }
+.login-input {
+  width: 100%; padding: 10px 14px; border-radius: var(--radius-sm);
+  border: 1px solid var(--b1); background: var(--bg-1); color: var(--t1);
+  font-family: var(--mono); font-size: 11px;
+  outline: none; transition: border-color 0.15s; margin-bottom: 12px;
+}
+.login-input:focus { border-color: var(--accent); }
+.login-input::placeholder { color: var(--t4); }
+.login-helper { font-size: 10.5px; color: var(--t4); line-height: 1.6; text-align: left; margin: 10px 0 14px; }
+.login-helper a { color: var(--accent-bright); text-decoration: none; }
+.login-helper a:hover { text-decoration: underline; }
+
+/* ═══ Toast ═══ */
+.toast-container { position: fixed; top: 68px; right: 20px; z-index: 500; display: flex; flex-direction: column; gap: 8px; }
+.toast {
+  padding: 10px 16px; border-radius: var(--radius-sm);
+  font-size: 12px; font-weight: 500; color: var(--t1);
+  background: var(--bg-3); border: 1px solid var(--b2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  animation: toast-in 0.3s ease;
+  display: flex; align-items: center; gap: 8px;
+}
+.toast.info { border-left: 3px solid var(--accent); }
+.toast.warn { border-left: 3px solid var(--yellow); }
+.toast.error { border-left: 3px solid var(--red); }
+@keyframes toast-in { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:none} }
+
+.support-fab {
+  position: fixed; bottom: 24px; right: 24px;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+  border: none; color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(59,130,246,0.3);
+  transition: transform 0.15s, box-shadow 0.15s; z-index: 80;
+}
+.support-fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(59,130,246,0.4); }
+.support-fab svg { width: 22px; height: 22px; }
+
+/* ═══ Facility Scroll ═══ */
+.fac-scroll { max-height: 380px; overflow-y: auto; }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-card">
+    <div class="login-logo">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="48" rx="12" fill="url(#lg)"/>
+        <path d="M15 32V20l9-8 9 8v12H27v-7h-6v7z" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs><linearGradient id="lg" x1="0" y1="0" x2="48" y2="48"><stop stop-color="#3B82F6"/><stop offset="1" stop-color="#22D3EE"/></linearGradient></defs>
+      </svg>
+    </div>
+    <div class="login-title">GWES Portal</div>
+    <svg class="kao-logo-login" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="18" y="30" font-family="'Noto Serif JP', Georgia, serif" font-size="28" font-weight="700" fill="#94A3B8" letter-spacing="6">花王</text>
+    </svg>
+    <div class="login-desc">花王株式会社 — Warehouse Execution Intelligence</div>
+    <div class="login-divider"></div>
+    <div id="loginStepMain">
+      <div class="login-subtitle">Googleアカウントでサインイン</div>
+      <div id="gsiButtonWrap"></div>
+      <div class="login-status" id="gsiStatus">読み込み中…</div>
+      <div class="login-or"><span>or</span></div>
+      <button class="login-skip" onclick="skipLogin()">ゲストとして続行（デモ）</button>
+      <button class="login-config" onclick="showConfig()">Client ID を設定</button>
+    </div>
+    <div id="loginStepConfig" style="display:none">
+      <div class="login-subtitle">Google OAuth Client ID</div>
+      <div class="login-helper">
+        <a href="https://console.cloud.google.com/apis/credentials" target="_blank">Google Cloud Console</a>
+        で OAuth 2.0 クライアントIDを作成し、承認済み JavaScript オリジンにこのページの URL を追加してください。
+      </div>
+      <input type="text" id="clientIdInput" class="login-input" placeholder="xxxxx.apps.googleusercontent.com">
+      <button class="g-login-btn" onclick="saveConfig()">
+        <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        保存してサインイン
+      </button>
+      <button class="login-skip" onclick="hideConfig()">戻る</button>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-logo">
+    <svg viewBox="0 0 32 32" fill="none">
+      <rect width="32" height="32" rx="8" fill="url(#hg)"/>
+      <path d="M10 22V14l6-5.5 6 5.5v8h-4v-5h-4v5z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <defs><linearGradient id="hg" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#3B82F6"/><stop offset="1" stop-color="#22D3EE"/></linearGradient></defs>
+    </svg>
+  </div>
+  <div class="header-brand">
+    <span class="brand-name">GWES</span>
+    <span class="brand-customer">
+      <svg class="kao-logo-header" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="30" font-family="'Noto Serif JP', Georgia, serif" font-size="28" font-weight="700" fill="#E2E8F0" letter-spacing="6">花王</text>
+      </svg>
+      花王株式会社
+    </span>
+  </div>
+  <div class="header-actions">
+    <button class="h-btn" title="検索">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    </button>
+    <button class="h-btn" title="通知">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+      <span class="badge"></span>
+    </button>
+    <div class="h-avatar" id="headerAvatar" title="ユーザー">
+      <span id="avatarInitials">?</span>
+      <img id="avatarImg" style="display:none" alt="">
+    </div>
+  </div>
+</header>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="nav-item active" data-page="dashboard">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    <span class="nav-tooltip">ダッシュボード</span>
+  </div>
+  <div class="nav-item" data-page="facilities">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+    <span class="nav-tooltip">全国44拠点</span>
+  </div>
+  <div class="nav-item" data-page="health">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+    <span class="nav-tooltip">システムヘルス</span>
+  </div>
+  <div class="nav-item" data-page="analytics">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    <span class="nav-tooltip">PA / WA 分析</span>
+  </div>
+  <div class="nav-item" data-page="projects">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+    <span class="nav-tooltip">展開プロジェクト</span>
+  </div>
+  <div class="nav-spacer"></div>
+  <div class="nav-item" data-page="settings">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+    <span class="nav-tooltip">設定</span>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="page-header">
+    <div>
+      <div class="page-title">ダッシュボード</div>
+      <div class="page-subtitle">花王株式会社 — 全国44拠点 GWES利用状況</div>
+    </div>
+    <div class="page-time" id="liveTime"></div>
+  </div>
+
+  <!-- Status Hero -->
+  <div class="status-hero" id="statusHero">
+    <div class="status-dot"></div>
+    <div class="status-text">
+      <h3>全システム正常稼働中</h3>
+      <p>稼働中の全拠点でインシデントは検出されていません</p>
+    </div>
+    <div class="status-meta">
+      最終チェック<br>
+      <span id="lastCheck">8秒前</span>
+    </div>
+  </div>
+
+  <!-- KPI Strip -->
+  <div class="kpi-strip">
+    <div class="kpi-card">
+      <div class="kpi-label">全拠点 週間処理件数</div>
+      <div class="kpi-value" id="kpiThroughput">847,320</div>
+      <div class="kpi-trend up"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="18,15 12,9 6,15"/></svg>+8.2%</div>
+      <div class="kpi-spark-wrap"><canvas id="sparkThroughput"></canvas></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">PA 進捗達成率</div>
+      <div class="kpi-value">96.8<span class="kpi-unit">%</span></div>
+      <div class="kpi-trend up"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="18,15 12,9 6,15"/></svg>+2.1%</div>
+      <div class="kpi-spark-wrap"><canvas id="sparkPA"></canvas></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">WA 最適化スコア</div>
+      <div class="kpi-value">92.4<span class="kpi-unit">%</span></div>
+      <div class="kpi-trend up"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="18,15 12,9 6,15"/></svg>+1.8%</div>
+      <div class="kpi-spark-wrap"><canvas id="sparkWA"></canvas></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">GWES稼働拠点</div>
+      <div class="kpi-value">38<span class="kpi-unit"> / 44</span></div>
+      <div class="kpi-trend flat">展開中: 6拠点</div>
+    </div>
+  </div>
+
+  <!-- Facility Table + Throughput Chart -->
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">主要拠点ステータス</span>
+        <span class="card-badge">38 稼働中</span>
+      </div>
+      <div class="card-body fac-scroll" style="padding:8px 12px">
+        <table class="fac-table" id="facTable">
+          <thead>
+            <tr>
+              <th>拠点</th>
+              <th>ステータス</th>
+              <th>PA</th>
+              <th>WA</th>
+              <th>モジュール</th>
+            </tr>
+          </thead>
+          <tbody id="facBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">地域別拠点分布</span>
+      </div>
+      <div class="card-body">
+        <div class="region-grid" id="regionGrid"></div>
+        <div style="margin-top:16px">
+          <div class="chart-wrap" style="height:180px"><canvas id="chartRegion"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Activity + Projects + Slack -->
+  <div class="grid-3col">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">最新アクティビティ</span>
+      </div>
+      <div class="card-body" id="activityFeed"></div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">全国展開プロジェクト進捗</span>
+        <span class="card-badge">44拠点計画</span>
+      </div>
+      <div class="card-body" id="projectTimeline"></div>
+    </div>
+    <div class="card slack-card">
+      <div class="card-header">
+        <span class="card-title">
+          <svg style="width:14px;height:14px;vertical-align:-2px;margin-right:5px" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/><path d="M10 9.5C10 10.33 9.33 11 8.5 11h-5C2.67 11 2 10.33 2 9.5S2.67 8 3.5 8h5c.83 0 1.5.67 1.5 1.5z"/><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/></svg>
+          Slack
+        </span>
+        <select class="slack-ch-select" id="slackChSelect" onchange="switchSlackCh()">
+          <option value="pj_gwes_kao">pj_gwes_kao</option>
+          <option value="pj_gwes_share">pj_gwes_share</option>
+          <option value="pj_gwes_report">pj_gwes_report</option>
+          <option value="op_gwes">op_gwes</option>
+        </select>
+      </div>
+      <div class="slack-messages" id="slackMessages">
+        <div class="slack-placeholder">読み込み中…</div>
+      </div>
+      <div class="slack-input-row">
+        <input type="text" class="slack-input" id="slackMsgInput" placeholder="メッセージを入力…">
+        <button class="slack-send" id="slackSendBtn" onclick="sendSlackMsg()">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>
+        </button>
+      </div>
+      <button class="slack-config-btn" id="slackConfigBtn" onclick="showSlackConfig()">
+        <svg style="width:12px;height:12px;margin-right:4px" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        API設定
+      </button>
+    </div>
+  </div>
+
+  <!-- Slack Config Modal -->
+  <div class="modal-overlay" id="slackConfigModal" style="display:none">
+    <div class="modal-card">
+      <h3 class="modal-title">Slack API 設定</h3>
+      <p class="modal-desc">Slack App の Bot User OAuth Token を入力してください。<br><a href="https://api.slack.com/apps" target="_blank">Slack API</a> で作成できます。</p>
+      <label class="modal-label">Bot Token (xoxb-…)</label>
+      <input type="password" class="login-input" id="slackTokenInput" placeholder="xoxb-xxxx-xxxx-xxxx">
+      <label class="modal-label" style="margin-top:10px">CORS Proxy URL（任意）</label>
+      <input type="text" class="login-input" id="slackProxyInput" placeholder="https://your-proxy.com/">
+      <div class="modal-actions">
+        <button class="modal-btn primary" onclick="saveSlackConfig()">保存</button>
+        <button class="modal-btn" onclick="closeSlackConfig()">キャンセル</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Support FAB -->
+<button class="support-fab" title="GROUND サポートに連絡">
+  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+</button>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- SCRIPTS -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+// ================================================================
+// 花王 DATA
+// ================================================================
+const CUSTOMER = {
+  id: 'kao',
+  name: '花王株式会社',
+  industry: '日用品・化粧品メーカー',
+  contract: '全国44拠点展開'
+};
+
+// 花王の全国主要拠点（44拠点のうち代表的なもの）
+const FACILITIES = [
+  { name:'北九州LC', region:'九州', status:'up', pa:98.2, wa:94.1, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
+  { name:'神戸センター', region:'近畿', status:'up', pa:97.5, wa:93.8, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
+  { name:'豊橋LC', region:'中部', status:'up', pa:96.9, wa:92.4, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
+  { name:'川崎センター', region:'関東', status:'up', pa:97.8, wa:95.2, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
+  { name:'岩槻LC', region:'関東', status:'up', pa:96.3, wa:91.7, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
+  { name:'墨田DC', region:'関東', status:'up', pa:95.8, wa:90.3, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
+  { name:'仙台LC', region:'東北', status:'up', pa:97.1, wa:93.5, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
+  { name:'札幌センター', region:'北海道', status:'up', pa:96.5, wa:92.1, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
+  { name:'鳥栖LC', region:'九州', status:'up', pa:97.3, wa:94.0, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
+  { name:'化粧品LC（小田原）', region:'関東', status:'up', pa:98.5, wa:96.1, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'化粧品専用' },
+  { name:'広島DC', region:'中国', status:'up', pa:96.0, wa:91.5, modules:[{n:'PA',s:'up'},{n:'WA',s:'warn'}], note:'' },
+  { name:'新潟LC', region:'甲信越', status:'up', pa:95.5, wa:90.8, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
+  { name:'大阪南港DC', region:'近畿', status:'up', pa:97.0, wa:93.2, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
+  { name:'福岡東センター', region:'九州', status:'up', pa:96.7, wa:92.9, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
+  { name:'名古屋南DC', region:'中部', status:'up', pa:95.9, wa:91.0, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
+  { name:'岡山LC', region:'中国', status:'maint', pa:null, wa:null, modules:[{n:'PA',s:'down'},{n:'WA',s:'down'}], note:'2026年4月 稼働開始予定' },
+  { name:'長野センター', region:'甲信越', status:'maint', pa:null, wa:null, modules:[{n:'PA',s:'down'},{n:'WA',s:'down'}], note:'2026年5月 稼働開始予定' },
+  { name:'高松DC', region:'四国', status:'planned', pa:null, wa:null, modules:[{n:'PA',s:'off'},{n:'WA',s:'off'}], note:'2026年Q3 計画中' },
+];
+
+const REGION_SUMMARY = [
+  { name:'関東', total:12, active:12 },
+  { name:'近畿', total:7, active:7 },
+  { name:'九州', total:6, active:6 },
+  { name:'中部', total:5, active:5 },
+  { name:'東北', total:4, active:4 },
+  { name:'北海道', total:2, active:2 },
+  { name:'中国', total:3, active:2 },
+  { name:'甲信越', total:3, active:2 },
+  { name:'四国', total:2, active:0 },
+];
+
+const ACTIVITIES = [
+  { type:'success', text:'<strong>北九州LC</strong> — 梱出荷ダッシュボード修正完了（SUPPORT-301）', time:'3時間前' },
+  { type:'info', text:'<strong>化粧品LC</strong> — 約定ダッシュボード更新判定ロジック改善', time:'5時間前' },
+  { type:'warn', text:'<strong>広島DC</strong> — WA モジュール レイテンシ一時上昇（監視中）', time:'昨日 16:20' },
+  { type:'success', text:'<strong>神戸センター</strong> — PA v4.1 アップデート完了', time:'昨日 10:00' },
+  { type:'info', text:'<strong>岡山LC</strong> — 環境構築 ステージ 3/5 完了', time:'2日前' },
+  { type:'success', text:'<strong>全拠点</strong> — LCモニターダウンロード工数見積もり完了', time:'3日前' },
+  { type:'info', text:'<strong>長野センター</strong> — ネットワーク設計レビュー承認済', time:'1週間前' },
+];
+
+const PROJECTS = [
+  { phase:'稼働中', label:'関東12拠点', pct:100, state:'done' },
+  { phase:'稼働中', label:'近畿7拠点', pct:100, state:'done' },
+  { phase:'稼働中', label:'九州6拠点', pct:100, state:'done' },
+  { phase:'稼働中', label:'中部5拠点 + 東北4拠点', pct:100, state:'done' },
+  { phase:'稼働中', label:'北海道2拠点 + 甲信越2拠点', pct:100, state:'done' },
+  { phase:'導入中', label:'岡山LC（4月〜）', pct:65, state:'' },
+  { phase:'導入中', label:'長野センター（5月〜）', pct:40, state:'' },
+  { phase:'導入中', label:'中国・甲信越 残1拠点', pct:20, state:'' },
+  { phase:'計画中', label:'四国2拠点（Q3〜）', pct:8, state:'' },
+  { phase:'計画', label:'残り2拠点', pct:0, state:'' },
+];
+
+// ================================================================
+// RENDER
+// ================================================================
+function renderFacilities() {
+  const tbody = document.getElementById('facBody');
+  const statusMap = {up:'正常',degraded:'低下',down:'停止',maint:'準備中',planned:'計画中'};
+  tbody.innerHTML = FACILITIES.map(f => {
+    const paStr = f.pa != null ? f.pa.toFixed(1)+'%' : '—';
+    const waStr = f.wa != null ? f.wa.toFixed(1)+'%' : '—';
+    const paCls = f.pa >= 96 ? 'good' : f.pa >= 90 ? 'warn' : '';
+    const waCls = f.wa >= 92 ? 'good' : f.wa >= 85 ? 'warn' : '';
+    const mods = f.modules.map(m => '<span class="mod-dot '+m.s+'">'+m.n+'</span>').join('');
+    return '<tr>'+
+      '<td><div class="fac-name">'+f.name+'</div>'+(f.note?'<div class="fac-sub">'+f.note+'</div>':'')+'<span class="fac-region">'+f.region+'</span></td>'+
+      '<td><span class="status-badge '+f.status+'">'+statusMap[f.status]+'</span></td>'+
+      '<td><span class="uptime-val '+paCls+'">'+paStr+'</span></td>'+
+      '<td><span class="uptime-val '+waCls+'">'+waStr+'</span></td>'+
+      '<td><div class="mod-dots">'+mods+'</div></td>'+
+    '</tr>';
+  }).join('');
+}
+
+function renderRegions() {
+  const el = document.getElementById('regionGrid');
+  el.innerHTML = REGION_SUMMARY.map(r => {
+    const pct = r.total > 0 ? Math.round(r.active / r.total * 100) : 0;
+    return '<div class="region-item">'+
+      '<div class="region-name">'+r.name+'</div>'+
+      '<div class="region-count">'+r.active+'<span style="font-size:12px;color:var(--t3);font-weight:400"> / '+r.total+'</span></div>'+
+      '<div class="region-sub">稼働率 '+pct+'%</div></div>';
+  }).join('');
+}
+
+function renderActivity() {
+  const el = document.getElementById('activityFeed');
+  const iconMap = {
+    info: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>',
+    success: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+    warn: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+    error: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'
+  };
+  el.innerHTML = ACTIVITIES.map(a => '<div class="feed-item"><div class="feed-icon '+a.type+'">'+iconMap[a.type]+'</div><div><div class="feed-text">'+a.text+'</div><div class="feed-time">'+a.time+'</div></div></div>').join('');
+}
+
+function renderProjects() {
+  const el = document.getElementById('projectTimeline');
+  el.innerHTML = PROJECTS.map(p => '<div class="timeline-item"><div class="tl-phase">'+p.phase+'</div><div class="tl-bar-track"><div class="tl-bar-fill '+p.state+'" style="width:'+p.pct+'%"></div></div><div class="tl-label">'+p.label+'</div><div class="tl-pct">'+p.pct+'%</div></div>').join('');
+}
+
+// ── Charts ──
+function initCharts() {
+  // Region bar chart
+  new Chart(document.getElementById('chartRegion'), {
+    type: 'bar',
+    data: {
+      labels: REGION_SUMMARY.map(r => r.name),
+      datasets: [{
+        label: '稼働中', data: REGION_SUMMARY.map(r => r.active),
+        backgroundColor: 'rgba(52,211,153,0.5)', borderColor: '#34D399', borderWidth: 1, borderRadius: 4
+      },{
+        label: '計画・導入中', data: REGION_SUMMARY.map(r => r.total - r.active),
+        backgroundColor: 'rgba(100,116,139,0.3)', borderColor: '#64748B', borderWidth: 1, borderRadius: 4
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: true, position:'top', align:'end', labels: { color:'#64748B', font:{size:9,family:'Inter'}, boxWidth:10, padding:12 } } },
+      scales: {
+        x: { stacked:true, grid:{display:false}, ticks:{color:'#334155',font:{size:9}} },
+        y: { stacked:true, grid:{color:'rgba(255,255,255,0.03)'}, ticks:{color:'#334155',font:{size:9,family:'JetBrains Mono'}} }
+      }
+    }
+  });
+}
+
+function initSparklines() {
+  const mk = (id, data, color) => {
+    new Chart(document.getElementById(id), {
+      type:'line',
+      data:{ labels:data.map((_,i)=>i), datasets:[{ data, borderColor:color, backgroundColor:color.replace(')',',0.08)').replace('rgb','rgba'), fill:true, borderWidth:1.5, pointRadius:0, tension:0.4 }] },
+      options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{x:{display:false},y:{display:false}} }
+    });
+  };
+  mk('sparkThroughput', [720000,745000,768000,790000,810000,825000,838000,847320], 'rgb(59,130,246)');
+  mk('sparkPA', [93.2,94.1,94.8,95.3,95.9,96.2,96.5,96.8], 'rgb(52,211,153)');
+  mk('sparkWA', [88.5,89.2,89.8,90.5,91.0,91.5,92.0,92.4], 'rgb(34,211,238)');
+}
+
+// ── Clock ──
+function updateClock() {
+  const now = new Date();
+  const opts = { year:'numeric', month:'short', day:'numeric', weekday:'short', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false };
+  document.getElementById('liveTime').textContent = now.toLocaleString('ja-JP', opts);
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ── Toast ──
+function showToast(type, msg) {
+  const c = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.className = 'toast '+type;
+  t.textContent = msg;
+  c.appendChild(t);
+  setTimeout(() => { t.style.opacity='0'; setTimeout(()=>t.remove(),300); }, 3500);
+}
+
+// ================================================================
+// AUTH
+// ================================================================
+const USER = { loggedIn:false, name:'', email:'', photo:'', initials:'?' };
+
+function checkSession() {
+  const s = localStorage.getItem('gwes_kao_user');
+  if(s) { try { const u=JSON.parse(s); if(u.name){setUser(u);return true;} } catch(e){} }
+  return false;
+}
+
+function setUser(u) {
+  USER.loggedIn=true; USER.name=u.name; USER.email=u.email; USER.photo=u.photo||'';
+  USER.initials = u.name.split(/[\s　]/).map(w=>w[0]).join('').substring(0,2).toUpperCase()||'?';
+  localStorage.setItem('gwes_kao_user', JSON.stringify(u));
+  updateUI();
+}
+
+function updateUI() {
+  if(!USER.loggedIn) return;
+  const ai=document.getElementById('avatarInitials');
+  const aim=document.getElementById('avatarImg');
+  if(USER.photo) { if(aim){aim.src=USER.photo;aim.style.display='block';} if(ai)ai.style.display='none'; }
+  else { if(ai){ai.textContent=USER.initials;ai.style.display='';} if(aim)aim.style.display='none'; }
+  const ha=document.getElementById('headerAvatar');
+  if(ha)ha.title=USER.name;
+  document.getElementById('loginOverlay').classList.add('hidden');
+}
+
+function skipLogin() {
+  setUser({ name:'宮田 知朋', email:'t.miyata@kao.com', photo:'' });
+  showToast('info', '花王株式会社 デモモードで起動しました');
+}
+
+function getClientId() { return localStorage.getItem('gwes_gcid')||'235989563090-7r0k4dsthjkuqhm028b6mf3577cvqpor.apps.googleusercontent.com'; }
+
+function showConfig() {
+  document.getElementById('loginStepMain').style.display='none';
+  document.getElementById('loginStepConfig').style.display='block';
+  document.getElementById('clientIdInput').value=getClientId();
+}
+function hideConfig() {
+  document.getElementById('loginStepConfig').style.display='none';
+  document.getElementById('loginStepMain').style.display='block';
+}
+function saveConfig() {
+  const v=document.getElementById('clientIdInput').value.trim();
+  if(!v.includes('.apps.googleusercontent.com')){showToast('warn','Client IDの形式が正しくありません');return;}
+  localStorage.setItem('gwes_gcid',v);
+  showToast('info','保存しました。Google認証を初期化します…');
+  hideConfig(); initGSI(v);
+}
+
+function initGSI(clientId) {
+  const wrap=document.getElementById('gsiButtonWrap');
+  const status=document.getElementById('gsiStatus');
+  if(!clientId){if(status)status.textContent='Client ID 未設定';return;}
+  if(status)status.textContent='Google認証を初期化中…';
+  const poll=(cb,max)=>{const s=Date.now();const f=()=>{typeof google!=='undefined'&&google.accounts?cb(true):Date.now()-s>max?cb(false):setTimeout(f,200)};f();};
+  poll(ok=>{
+    if(!ok){if(status)status.textContent='GISスクリプトを読み込めませんでした';return;}
+    try{
+      google.accounts.id.initialize({client_id:clientId,callback:handleCred,auto_select:true,itp_support:true});
+      if(wrap){wrap.innerHTML='';google.accounts.id.renderButton(wrap,{type:'standard',shape:'rectangular',theme:'filled_black',size:'large',text:'signin_with',width:280});}
+      if(status)status.style.display='none';
+      google.accounts.id.prompt();
+    }catch(e){if(status)status.textContent='初期化エラー: '+e.message;}
+  },6000);
+}
+
+function handleCred(r) {
+  try{
+    const p=JSON.parse(atob(r.credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
+    setUser({name:p.name||p.given_name||'User',email:p.email||'',photo:p.picture||''});
+    showToast('info','ようこそ、'+( p.given_name||p.name)+'さん');
+  }catch(e){showToast('warn','認証トークン解析エラー');}
+}
+
+// ================================================================
+// SLACK — 花王チャンネル
+// ================================================================
+const SLACK_CHANNELS = {
+  'pj_gwes_kao':    { id:'C06BJMPBJM7', label:'花王PJ' },
+  'pj_gwes_share':  { id:'C03JA45FB0D', label:'共有' },
+  'pj_gwes_report': { id:'C092JQ3EB8D', label:'レポート' },
+  'op_gwes':        { id:'C078KCPR2Q2', label:'op_gwes' }
+};
+
+let slackToken='';
+let slackProxy='';
+let currentSlackCh='pj_gwes_kao';
+
+const SLACK_CACHE = {
+  'pj_gwes_kao': [
+    { name:'飯島 洋平', time:'03/07 16:30', text:'花王様 LCモニターダウンロード工数見積もりの件、整理しました。各拠点のダウンロード対象ファイル数とサイズを一覧にしています。', initials:'IY' },
+    { name:'房信 純一', time:'03/05 14:20', text:'先行後続の作業終了時間計算について、北九州LCでテスト結果が出ました。精度は96.2%で目標値をクリアしています。', initials:'FJ' },
+    { name:'飯島 洋平', time:'03/03 10:15', text:'@fusanobu インフラ問い合わせの件ですが、花王様のAWS環境でのDirectConnect接続について確認が必要です。', initials:'IY' },
+    { name:'Takfai Lai', time:'02/28 15:45', text:'約定ダッシュボード更新判定ロジックの修正PRをマージしました。本番反映は明日の定期デプロイで行います。', initials:'TL' },
+    { name:'光武', time:'02/26 11:30', text:'北九州LC 梱出荷ダッシュボード修正完了しました。SUPPORT-301 クローズします。', initials:'MT' },
+    { name:'飯島 洋平', time:'02/24 09:00', text:'花王様向け週次レポート: 全拠点稼働率99.2% / PA平均達成率96.5% / WA最適化率92.1%。前週比で改善傾向。', initials:'IY' },
+    { name:'佐藤 誠治', time:'02/20 17:00', text:'SUPPORT-361 対応完了。化粧品LCの在庫精度計算ロジックを修正しました。テスト環境で検証済みです。', initials:'SS' },
+  ],
+  'pj_gwes_share': [
+    { name:'GWES Team', time:'03/10 09:00', text:'GWES v4.2 リリースノートを共有フォルダにアップしました。PA/WAの精度向上が含まれます。', initials:'GT' },
+    { name:'システム', time:'03/09 18:00', text:'週次レポート: 花王全拠点 稼働率 99.4% / アラート 1件（広島DC WA遅延・自動復旧済）', initials:'SY' },
+  ],
+  'pj_gwes_report': [
+    { name:'レポートBot', time:'03/10 06:00', text:'日次レポート: 北九州LC処理件数 32,847件 / 神戸センター 28,234件 / 化粧品LC 15,721件', initials:'RB' },
+    { name:'レポートBot', time:'03/09 06:00', text:'日次レポート: 北九州LC処理件数 31,923件 / 神戸センター 27,891件 / 化粧品LC 14,850件', initials:'RB' },
+  ],
+  'op_gwes': [
+    { name:'監視システム', time:'03/10 07:00', text:'花王全拠点 正常稼働中。次回メンテナンス: 3/15 02:00-04:00', initials:'KS' },
+    { name:'Takfai Lai', time:'03/09 14:22', text:'広島DCのWAモジュール遅延は解消。原因: データベースインデックス再構築中の一時的な負荷増大。', initials:'TL' },
+  ]
+};
+
+function loadSlackConfig() {
+  const s=localStorage.getItem('gwes_slack');
+  if(s){try{const c=JSON.parse(s);slackToken=c.token||'';slackProxy=c.proxy||'';}catch(e){}}
+}
+
+function showSlackConfig() {
+  document.getElementById('slackConfigModal').style.display='flex';
+  document.getElementById('slackTokenInput').value=slackToken;
+  document.getElementById('slackProxyInput').value=slackProxy;
+}
+function closeSlackConfig() { document.getElementById('slackConfigModal').style.display='none'; }
+
+function saveSlackConfig() {
+  slackToken=document.getElementById('slackTokenInput').value.trim();
+  slackProxy=document.getElementById('slackProxyInput').value.trim();
+  localStorage.setItem('gwes_slack',JSON.stringify({token:slackToken,proxy:slackProxy}));
+  closeSlackConfig(); showToast('info','Slack設定を保存しました');
+  fetchSlackMessages();
+}
+
+async function slackAPI(method,params) {
+  const base=slackProxy||'https://slack.com/api/';
+  try{const res=await fetch(base+method,{method:'POST',headers:{'Authorization':'Bearer '+slackToken,'Content-Type':'application/json; charset=utf-8'},body:JSON.stringify(params)});return await res.json();}
+  catch(e){return{ok:false,error:e.message};}
+}
+
+async function fetchSlackMessages() {
+  if(slackToken){
+    const ch=SLACK_CHANNELS[currentSlackCh];
+    if(!ch)return;
+    const data=await slackAPI('conversations.history',{channel:ch.id,limit:15});
+    if(data.ok){renderSlackMessagesLive((data.messages||[]).reverse());return;}
+  }
+  renderSlackCached();
+}
+
+function renderSlackCached() {
+  const msgs=SLACK_CACHE[currentSlackCh]||[];
+  const el=document.getElementById('slackMessages');
+  if(!msgs.length){el.innerHTML='<div class="slack-placeholder">メッセージがありません</div>';return;}
+  el.innerHTML=msgs.map(m=>{
+    const text=(m.text||'').replace(/\n/g,'<br>');
+    return '<div class="slack-msg"><div class="slack-msg-avatar">'+m.initials+'</div><div><div class="slack-msg-name">'+m.name+'<span>'+m.time+'</span></div><div class="slack-msg-text">'+text+'</div></div></div>';
+  }).join('');
+  el.scrollTop=el.scrollHeight;
+}
+
+function renderSlackMessagesLive(msgs) {
+  const el=document.getElementById('slackMessages');
+  if(!msgs.length){el.innerHTML='<div class="slack-placeholder">メッセージがありません</div>';return;}
+  el.innerHTML=msgs.map(m=>{
+    const name=m.user_profile?.display_name||m.user_profile?.real_name||m.user||'user';
+    const initials=name.substring(0,2).toUpperCase();
+    const avatar=m.user_profile?.image_48?'<img src="'+m.user_profile.image_48+'" alt="">':initials;
+    const time=m.ts?new Date(parseFloat(m.ts)*1000).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'}):'';
+    const text=(m.text||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    return '<div class="slack-msg"><div class="slack-msg-avatar">'+avatar+'</div><div><div class="slack-msg-name">'+name+'<span>'+time+'</span></div><div class="slack-msg-text">'+text+'</div></div></div>';
+  }).join('');
+  el.scrollTop=el.scrollHeight;
+}
+
+function switchSlackCh() { currentSlackCh=document.getElementById('slackChSelect').value; fetchSlackMessages(); }
+
+async function sendSlackMsg() {
+  const input=document.getElementById('slackMsgInput');
+  const text=input.value.trim();
+  if(!text)return; input.value='';
+  if(slackToken){const ch=SLACK_CHANNELS[currentSlackCh];if(!ch)return;await slackAPI('chat.postMessage',{channel:ch.id,text});fetchSlackMessages();}
+  else{showToast('info','メッセージ送信にはSlack API設定が必要です');}
+}
+
+document.getElementById('slackMsgInput')?.addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendSlackMsg();}
+});
+
+// ================================================================
+// INIT
+// ================================================================
+function init() {
+  renderFacilities();
+  renderRegions();
+  renderActivity();
+  renderProjects();
+  initCharts();
+  initSparklines();
+  loadSlackConfig();
+  fetchSlackMessages();
+  if(checkSession()){document.getElementById('loginOverlay').classList.add('hidden');}
+  else{initGSI(getClientId());}
+}
+init();
+
+setInterval(()=>{if(slackToken)fetchSlackMessages();},30000);
+</script>
+</body>
+</html>
