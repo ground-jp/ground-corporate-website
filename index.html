@@ -48,7 +48,7 @@
     .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
     .hero { align-items: center !important; }
     .hero__content { padding-bottom: 0 !important; padding-top: 0 !important; }
-    /* Override: video background styling without using hero__bg-image class */
+    /* Override: video background styling */
     #heroVideo {
       position: absolute !important;
       inset: 0 !important;
@@ -61,6 +61,17 @@
       opacity: 1 !important;
       visibility: visible !important;
     }
+    /* Hide browser native play button / media controls on hero video */
+    #heroVideo::-webkit-media-controls-panel,
+    #heroVideo::-webkit-media-controls-play-button,
+    #heroVideo::-webkit-media-controls-start-playback-button,
+    #heroVideo::-webkit-media-controls-overlay-play-button,
+    #heroVideo::-webkit-media-controls {
+      display: none !important;
+      -webkit-appearance: none !important;
+      opacity: 0 !important;
+    }
+    #heroVideo::-moz-media-controls { display: none !important; }
   </style>
   <link rel="canonical" href="https://groundinc.co.jp/index.html">
 <script type="application/ld+json">
@@ -223,19 +234,20 @@
   </a>
 
   <section class="hero" id="hero">
-    <video id="heroVideo" autoplay muted loop playsinline preload="auto" aria-hidden="true" style=""></video>
+    <video id="heroVideo" autoplay muted loop playsinline preload="auto" aria-hidden="true" src="img/hero-video-2026.mp4"></video>
     <script>
       (function(){
         var videos=['img/hero-video-2026.mp4','img/hero-video-neural-v2.mp4'];
         var vid=document.getElementById('heroVideo');
-        vid.muted=true;
-        vid.defaultMuted=true;
-        vid.setAttribute('muted','');
-        vid.volume=0;
-        vid.src=videos[Math.floor(Math.random()*videos.length)];
-        vid.load();
-        var p=vid.play();
-        if(p!==undefined){p.catch(function(){});}
+        var chosen=videos[Math.floor(Math.random()*videos.length)];
+        if(vid.src.indexOf(chosen)===-1){
+          vid.muted=true;
+          vid.defaultMuted=true;
+          vid.volume=0;
+          vid.src=chosen;
+          vid.load();
+        }
+        vid.play().catch(function(){});
       })();
     </script>
     <div class="hero__gradient"></div>
