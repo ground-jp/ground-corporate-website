@@ -1724,7 +1724,7 @@ img.hero__bg-image {
 
 /* Solution card with image */
 .solution-card--with-img {
-  padding: 0;
+  padding: 0 16px 16px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -1734,6 +1734,7 @@ img.hero__bg-image {
   aspect-ratio: 3 / 2;
   overflow: hidden;
   border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin: 0 -16px;
 }
 
 .solution-card__img {
@@ -1747,15 +1748,18 @@ img.hero__bg-image {
   transform: scale(1.05);
 }
 
-.solution-card--with-img .solution-card__name,
-.solution-card--with-img .solution-card__sub,
-.solution-card--with-img .solution-card__desc,
 .solution-card--with-img .solution-card__name {
-  padding-top: 12px;
+  padding-top: 16px;
+}
+
+.solution-card--with-img .solution-card__sub,
+.solution-card--with-img .solution-card__desc {
+  padding-top: 8px;
 }
 
 .solution-card--with-img .cta-stream {
-  margin: 0 14px 14px;
+  margin-top: auto;
+  padding-top: 12px;
 }
 
 /* ===================== OUR METHODOLOGY / GPIM (Merged) ===================== */
