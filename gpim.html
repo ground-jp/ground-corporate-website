@@ -422,7 +422,7 @@
           <text x="64" y="520" font-size="9.5" fill="#A8A69E" font-family="'Noto Sans JP', sans-serif" font-weight="400" letter-spacing="0.1em">基盤づくり</text>
           <text x="840" y="520" font-size="9.5" fill="#A8A69E" font-family="'Noto Sans JP', sans-serif" font-weight="400" letter-spacing="0.1em" text-anchor="end">目指す姿</text>
 
-          <!-- ── Level circles — progressive perspective sizing ── -->
+          <!-- ── Level circles — progressive perspective sizing (no external annotations) ── -->
 
           <!-- L1 体系化 (smallest, r=22) -->
           <g class="gp-circle-group" onclick="document.querySelector('[data-level=&quot;1&quot;]').scrollIntoView({behavior:'smooth',block:'center'})" role="button" tabindex="0" aria-label="L1 体系化 – 詳細を見る">
@@ -430,8 +430,6 @@
             <text x="270" y="396" text-anchor="middle" font-size="11" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">体系化</text>
             <text x="270" y="410" text-anchor="middle" font-size="7" fill="#A8A69E" font-family="Inter, sans-serif" font-weight="500" letter-spacing="0.1em">L1</text>
           </g>
-          <!-- L1 annotation — positioned right of circle -->
-          <text x="302" y="404" font-size="7.5" fill="#B5B3AB" font-family="'Noto Sans JP', sans-serif" letter-spacing="0.03em">業務構造の整理</text>
 
           <!-- L2 可視化 (r=28) -->
           <g class="gp-circle-group" onclick="document.querySelector('[data-level=&quot;2&quot;]').scrollIntoView({behavior:'smooth',block:'center'})" role="button" tabindex="0" aria-label="L2 可視化 – 詳細を見る">
@@ -439,8 +437,6 @@
             <text x="400" y="321" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">可視化</text>
             <text x="400" y="337" text-anchor="middle" font-size="7.5" fill="#A8A69E" font-family="Inter, sans-serif" font-weight="500" letter-spacing="0.1em">L2</text>
           </g>
-          <!-- L2 annotation -->
-          <text x="438" y="330" font-size="7.5" fill="#B5B3AB" font-family="'Noto Sans JP', sans-serif" letter-spacing="0.03em">データ定量把握</text>
 
           <!-- L3 自動化 (r=35) -->
           <g class="gp-circle-group" onclick="document.querySelector('[data-level=&quot;3&quot;]').scrollIntoView({behavior:'smooth',block:'center'})" role="button" tabindex="0" aria-label="L3 自動化 – 詳細を見る">
@@ -448,8 +444,6 @@
             <text x="530" y="247" text-anchor="middle" font-size="14" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">自動化</text>
             <text x="530" y="264" text-anchor="middle" font-size="8" fill="#A8A69E" font-family="Inter, sans-serif" font-weight="500" letter-spacing="0.1em">L3</text>
           </g>
-          <!-- L3 annotation -->
-          <text x="575" y="256" font-size="7.5" fill="#B5B3AB" font-family="'Noto Sans JP', sans-serif" letter-spacing="0.03em">ロボット活用</text>
 
           <!-- L4 最適化 (r=42) -->
           <g class="gp-circle-group" onclick="document.querySelector('[data-level=&quot;4&quot;]').scrollIntoView({behavior:'smooth',block:'center'})" role="button" tabindex="0" aria-label="L4 最適化 – 詳細を見る">
@@ -457,8 +451,6 @@
             <text x="660" y="171" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">最適化</text>
             <text x="660" y="189" text-anchor="middle" font-size="8.5" fill="#A8A69E" font-family="Inter, sans-serif" font-weight="500" letter-spacing="0.1em">L4</text>
           </g>
-          <!-- L4 annotation -->
-          <text x="712" y="180" font-size="7.5" fill="#B5B3AB" font-family="'Noto Sans JP', sans-serif" letter-spacing="0.03em">数理最適化</text>
 
           <!-- L5 自律化 (largest, r=50) -->
           <g class="gp-circle-group" onclick="document.querySelector('[data-level=&quot;5&quot;]').scrollIntoView({behavior:'smooth',block:'center'})" role="button" tabindex="0" aria-label="L5 自律化 – 詳細を見る">
@@ -466,8 +458,8 @@
             <text x="790" y="92" text-anchor="middle" font-size="16" font-weight="600" fill="#fff" font-family="'Noto Sans JP', sans-serif">自律化</text>
             <text x="790" y="112" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.55)" font-family="Inter, sans-serif" font-weight="500" letter-spacing="0.1em">L5</text>
           </g>
-          <!-- L5 annotation -->
-          <text x="790" y="164" text-anchor="middle" font-size="8.5" fill="#A8A69E" font-family="Inter, sans-serif" font-weight="400" letter-spacing="0.06em">Autonomous Warehouse</text>
+          <!-- L5 vision label — well below the circle -->
+          <text x="790" y="166" text-anchor="middle" font-size="8.5" fill="#A8A69E" font-family="Inter, sans-serif" font-weight="400" letter-spacing="0.06em">Autonomous Warehouse</text>
 
         </svg>
       </div>
