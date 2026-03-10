@@ -16,9 +16,9 @@
   <title>製品・サービス | GROUND Inc.</title>
   <meta name="description" content="GROUND株式会社の製品・サービス。GWES、デジタルインテグレーション、コンサルティング＆エンジニアリング、PEERで物流を変革します。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Noto+Sans+JP:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=52">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=53">
   <style>
     /* ===================================================================
        Service Page — Dense, Refined, Zero Waste
@@ -153,7 +153,14 @@
       background: rgba(255,255,255,0.008);
     }
 
-    .sv-sol__left {}
+    .sv-sol__left {
+      display: flex;
+      flex-direction: column;
+    }
+    .sv-sol__left .cta-stream {
+      margin-top: 28px;
+      align-self: flex-start;
+    }
     .sv-sol__num {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.55rem; letter-spacing: 0.15em;
