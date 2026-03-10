@@ -783,24 +783,9 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     container.style.display = 'block';
     document.getElementById('elementEmpty').style.display = 'none';
 
-    // ── Undo/Redo ボタン（プロパティパネル最上部） ──
-    var urBar = document.createElement('div');
-    urBar.style.cssText = 'display:flex;gap:8px;margin-bottom:12px;';
-    var uB = document.createElement('button');
-    uB.id = 'undoBtn';
-    uB.disabled = undoStack.length === 0;
-    uB.innerHTML = '↩ 戻す';
-    uB.style.cssText = 'flex:1;height:28px;background:#1e2030;border:1px solid ' + (undoStack.length ? '#5BC0EB' : '#3a3d5a') + ';border-radius:6px;color:' + (undoStack.length ? '#5BC0EB' : '#6a6d7a') + ';cursor:pointer;font-size:11px;font-family:inherit;';
-    uB.onclick = performUndo;
-    var rB = document.createElement('button');
-    rB.id = 'redoBtn';
-    rB.disabled = redoStack.length === 0;
-    rB.innerHTML = '↪ やり直す';
-    rB.style.cssText = 'flex:1;height:28px;background:#1e2030;border:1px solid ' + (redoStack.length ? '#5BC0EB' : '#3a3d5a') + ';border-radius:6px;color:' + (redoStack.length ? '#5BC0EB' : '#6a6d7a') + ';cursor:pointer;font-size:11px;font-family:inherit;';
-    rB.onclick = performRedo;
-    urBar.appendChild(uB);
-    urBar.appendChild(rB);
-    container.appendChild(urBar);
+    // Undo/Redo ボタンは panelScroll 上部の IIFE で常時表示済み
+    // 要素選択時にボタン状態を更新
+    updateUndoRedoUI();
 
     var cs = null;
     try { cs = frame.contentWindow.getComputedStyle(el); } catch(e) { return; }
