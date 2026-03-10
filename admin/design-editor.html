@@ -1294,13 +1294,16 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
   }
 
   // ドラッグボックス本体 → 移動（transform: translate を使用）
+  // 閾値付き: 5px未満の移動はクリック（別要素の選択）として処理
+  var DRAG_THRESHOLD = 5;
+  var pendingDrag = null; // mousedown後、閾値超えるまで保持
+
   dragBox.addEventListener('mousedown', function(e) {
     if (e.target !== dragBox) return; // ハンドルは別処理
     if (!selectedEl) return;
     e.preventDefault();
     e.stopPropagation();
     var cs = frame.contentWindow.getComputedStyle(selectedEl);
-    // 現在の transform から translate 値を取得
     var currentTransform = cs.transform || 'none';
     var tx = 0, ty = 0;
     if (currentTransform && currentTransform !== 'none') {
@@ -1311,7 +1314,8 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
         ty = parseFloat(vals[5]) || 0;
       }
     }
-    dragState = {
+    // まずpending状態に。閾値を超えたらdragStateに昇格
+    pendingDrag = {
       type: 'move',
       startX: e.clientX,
       startY: e.clientY,
@@ -1320,6 +1324,22 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       origMarginTop: parseFloat(cs.marginTop) || 0,
       origMarginLeft: parseFloat(cs.marginLeft) || 0,
     };
+  });
+
+  // dragBox上のクリック → 背後の別要素を選択
+  dragBox.addEventListener('click', function(e) {
+    if (e.target !== dragBox) return;
+    if (wasDragging) { wasDragging = false; return; }
+    // dragBox越しにiframe内の要素を取得して選択し直す
+    var raw = getIframeElementAtPoint(e.clientX, e.clientY);
+    var el = findEditableTarget(raw);
+    if (!el) { hideDragBox(); return; }
+    clearHoverHighlight();
+    highlightIframeElement(el);
+    showDragBox(el);
+    switchTab('element');
+    buildElementPanel(el);
+    showSelectedHint(getElLabel(el));
   });
 
   // ハンドル → リサイズ
@@ -1345,6 +1365,17 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 
   // ドラッグ中（document全体で追跡）
   document.addEventListener('mousemove', function(e) {
+    // pendingDrag → 閾値チェック → dragStateに昇格
+    if (pendingDrag && !dragState) {
+      var pdx = e.clientX - pendingDrag.startX;
+      var pdy = e.clientY - pendingDrag.startY;
+      if (Math.abs(pdx) > DRAG_THRESHOLD || Math.abs(pdy) > DRAG_THRESHOLD) {
+        dragState = pendingDrag;
+        pendingDrag = null;
+      } else {
+        return; // まだ閾値未満 → 何もしない
+      }
+    }
     if (!dragState || !selectedEl) return;
     e.preventDefault();
     var dx = e.clientX - dragState.startX;
@@ -1417,6 +1448,11 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 
   // ドラッグ終了
   document.addEventListener('mouseup', function(e) {
+    // pendingDragが閾値未満のまま終了 → クリックとして処理
+    if (pendingDrag && !dragState) {
+      pendingDrag = null;
+      // clickイベントが発火するのでここでは何もしない
+    }
     if (dragState && selectedEl) {
       wasDragging = true; // クリック誤発火防止
       if (dragState.type === 'move') {
@@ -1584,8 +1620,8 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     updateDragBoxPosition();
   }
 
-  // オーバーレイ上でのスクロールをiframeに転送
-  overlay.addEventListener('wheel', function(e) {
+  // スクロールをiframeに転送する共通関数
+  function forwardWheelToIframe(e) {
     try {
       var doc = frame.contentDocument || frame.contentWindow.document;
       if (doc && doc.defaultView) {
@@ -1595,7 +1631,13 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       }
     } catch(err) {}
     e.preventDefault();
-  }, { passive: false });
+  }
+
+  // オーバーレイ上でのスクロールをiframeに転送
+  overlay.addEventListener('wheel', forwardWheelToIframe, { passive: false });
+
+  // dragBox上でもスクロール転送（選択中にスクロールできない問題を修正）
+  dragBox.addEventListener('wheel', forwardWheelToIframe, { passive: false });
 
   // ===================================================
   // 編集モード / 操作モード 切替
