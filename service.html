@@ -342,11 +342,21 @@
 
 [data-de-id="de-4"] { color: #ffffff !important; } /* de-4-color */
 [data-de-id="de-5"] { color: #ffffff !important; } /* de-5-color */
-[data-de-id="de-6"] { color: #ffffff !important; } /* de-6-color */</style></head>
+[data-de-id="de-6"] { color: #ffffff !important; } /* de-6-color */
+
+[data-de-id="de-1"] { color: #ffffff !important; } /* de-1-color */
+[data-de-id="de-2"] { color: #ffffff !important; } /* de-2-color */
+[data-de-id="de-3"] { color: #ffffff !important; } /* de-3-color */
+[data-de-id="de-4"] { color: #ffffff !important; } /* de-4-color */
+[data-de-id="de-5"] { color: #ffffff !important; } /* de-5-color */
+[data-de-id="de-6"] { color: #ffffff !important; } /* de-6-color */
+[data-de-id="de-7"] { color: #ffffff !important; } /* de-7-color */
+[data-de-id="de-6"] { transform:  !important; } /* de-6-transform */
+[data-de-id="de-5"] { transform:  !important; } /* de-5-transform */</style></head>
 <body style="font-size: 15px;">
 
   <!-- Header -->
-  <header class="header" id="header" style="background: rgb(10, 12, 20); height: 64px;">
+  <header class="header header--scrolled" id="header" style="background: rgb(10, 12, 20); height: 64px;">
     <div class="header__inner" style="">
       <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; position: relative; top: 0px; left: 0px;"></a>
       <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
@@ -415,7 +425,7 @@
     </div>
   </div><!-- Mobile Menu -->
   <!-- Breadcrumb -->
-    <nav class="breadcrumb-nav" aria-label="パンくずリスト" style="outline: rgb(91, 192, 235) solid 3px; outline-offset: 3px;">
+    <nav class="breadcrumb-nav" aria-label="パンくずリスト" style="">
       <ol class="breadcrumb-nav__list" style="">
         <li class="breadcrumb-nav__item"><a class="breadcrumb-nav__link breadcrumb-nav__link--home" href="/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg></a></li>
         <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current">製品・サービス</span></li>
@@ -460,40 +470,40 @@
 
   <!-- ==================== SOLUTIONS ==================== -->
   <section class="sv-solutions" id="solutions" style="">
-    <div class="container">
-      <div class="sv-solutions__header sv-fade is-visible" style="margin-bottom: 0;">
-        <div>
+    <div class="container" style="">
+      <div class="sv-solutions__header sv-fade is-visible" style="margin-bottom: 0px;">
+        <div style="">
           <span class="sv-solutions__label">Solutions</span>
         </div>
-        <p class="sv-solutions__desc">
+        <p class="sv-solutions__desc" data-de-id="de-1" style="color: rgb(255, 255, 255) !important;">
           物流DXを実現する4つのソリューション。それぞれが有機的に連携し、施設全体の自律化を段階的に推進します。
         </p>
       </div>
 
       <!-- 01 GWES -->
-      <div class="sv-sol sv-fade" id="gwes">
-        <div class="sv-sol__left">
+      <div class="sv-sol sv-fade is-visible" id="gwes" style="">
+        <div class="sv-sol__left" style="">
           <span class="sv-sol__num">01</span>
-          <h3 class="sv-sol__name">GWES</h3>
-          <span class="sv-sol__sub">GROUND Warehouse<br>Execution System</span>
+          <h3 class="sv-sol__name" style="">GWES</h3>
+          <span class="sv-sol__sub" style="">GROUND Warehouse<br>Execution System</span>
           <a class="cta-stream" href="/gwes" style="background-color: rgb(37, 99, 235);"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳しく見る</span></a>
         </div>
-        <div class="sv-sol__right">
-          <p class="sv-sol__desc">
+        <div class="sv-sol__right" style="">
+          <p class="sv-sol__desc" data-de-id="de-2" style="color: rgb(255, 255, 255) !important;">
             物流施設全体の運営を俯瞰し、最適化・自律化を推進する「物流OS」。WMSが作業指示を制御する実行系システムであるのに対し、GWESは施設全体の管理・意思決定を担います。3レイヤー・12モジュール構成で、GPIMに基づく段階的な導入が可能です。
           </p>
-          <div class="sv-sol__tags">
-            <span class="sv-sol__tag">リアルタイム可視化</span>
-            <span class="sv-sol__tag">動線最適化</span>
-            <span class="sv-sol__tag">人員・ロボット統合管理</span>
-            <span class="sv-sol__tag">需要予測</span>
-            <span class="sv-sol__tag">WMS連携</span>
+          <div class="sv-sol__tags" style="">
+            <span class="sv-sol__tag" data-de-id="de-3" style="color: rgb(255, 255, 255) !important;">リアルタイム可視化</span>
+            <span class="sv-sol__tag" data-de-id="de-4" style="color: rgb(255, 255, 255) !important;">動線最適化</span>
+            <span class="sv-sol__tag" data-de-id="de-5" style="color: rgb(255, 255, 255) !important;">要員・ロボット統合管理</span>
+            <span class="sv-sol__tag" data-de-id="de-6" style="color: rgb(255, 255, 255) !important;">物量予測</span>
+            <span class="sv-sol__tag" data-de-id="de-7" style="color: rgb(255, 255, 255) !important;">WMS連携</span>
           </div>
         </div>
       </div>
 
       <!-- 02 Digital Integration -->
-      <div class="sv-sol sv-fade" id="integration">
+      <div class="sv-sol sv-fade is-visible" id="integration" style="">
         <div class="sv-sol__left">
           <span class="sv-sol__num">02</span>
           <h3 class="sv-sol__name">デジタル<br>インテグレーション</h3>
