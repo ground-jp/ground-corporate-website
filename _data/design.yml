@@ -40,4 +40,4 @@ show_recruit: true
 
 # ── フッター設定 ──
 footer_bg_color: "#0A0C14"
-footer_text_color: "#8A8C9A"
+footer_text_color: "#FFFFFF"
