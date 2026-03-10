@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
+<html lang="ja" style="--accent: #3B82F6; --frost-ice-blue: #60A5FA; --black: #1A1A1A;"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="img/favicon.ico" type="image/x-icon">
   <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
   <title>GWES モジュール詳細 | GROUND Inc.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Noto+Sans+JP:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css?v=54">
   <style>
     :root {
@@ -255,11 +254,11 @@
   <link rel="alternate" hreflang="ja" href="https://groundinc.co.jp/gwes-detail.html">
   <link rel="alternate" hreflang="x-default" href="https://groundinc.co.jp/gwes-detail.html">
 </head>
-<body>
+<body style="font-size: 15px;">
   <!-- Header (same as main site) -->
-  <header class="header" id="header">
-    <div class="header__inner">
-      <a href="index.html" class="header__logo"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img"></a>
+  <header class="header header--scrolled" id="header" style="background: rgb(10, 12, 20); height: 64px;">
+    <div class="header__inner" style="">
+      <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; position: relative; top: 0px; left: 0px;"></a>
       <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
         <span class="hamburger__line"></span>
         <span class="hamburger__line"></span>
@@ -275,65 +274,65 @@
       <div class="overlay-menu__col-nav">
         <span class="overlay-menu__label">[NAVIGATION]</span>
         <div class="overlay-menu__nav-list">
-          <a href="about.html" class="overlay-menu__nav-item" data-panel="company">会社情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
-          <a href="gpim.html" class="overlay-menu__nav-item" data-panel="gpim">GPIM<span class="overlay-menu__nav-arrow">&#8250;</span></a>
-          <a href="service.html" class="overlay-menu__nav-item" data-panel="service">製品・サービス<span class="overlay-menu__nav-arrow">&#8250;</span></a>
-          <a href="works.html" class="overlay-menu__nav-item">導入事例</a>
-          <a href="news.html" class="overlay-menu__nav-item">ニュース</a>
-          <a href="blog.html" class="overlay-menu__nav-item">WAREHOUSE TECH WEEKLY</a>
-          <a href="careers.html" class="overlay-menu__nav-item" data-panel="careers">採用情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a class="overlay-menu__nav-item" data-panel="company" href="/about">会社情報<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" data-panel="gpim" href="/gpim">GPIM<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" data-panel="service" href="/service">製品・サービス<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" href="/works">導入事例</a>
+          <a class="overlay-menu__nav-item" href="/news">ニュース</a>
+          <a class="overlay-menu__nav-item" href="/blog">WAREHOUSE TECH WEEKLY</a>
+          <a class="overlay-menu__nav-item" data-panel="careers" href="/careers">採用情報<span class="overlay-menu__nav-arrow">›</span></a>
         </div>
       </div>
       <!-- Col 2: Sub-panels -->
       <div class="overlay-menu__col-sub">
         <div class="overlay-menu__panel" data-panel="company">
           <span class="overlay-menu__label">[会社情報]</span>
-          <a href="about.html" class="overlay-menu__sub-item">会社概要</a>
-          <a href="about.html#ceo" class="overlay-menu__sub-item">CEOメッセージ</a>
-          <a href="about.html#vision" class="overlay-menu__sub-item">ビジョン・ミッション</a>
-          <a href="about.html#bp" class="overlay-menu__sub-item">行動原則(BP)・価値創造(VCP)プロセス</a>
+          <a class="overlay-menu__sub-item" href="/about">会社概要</a>
+          <a class="overlay-menu__sub-item" href="/about#ceo">CEOメッセージ</a>
+          <a class="overlay-menu__sub-item" href="/about#vision">ビジョン・ミッション</a>
+          <a class="overlay-menu__sub-item" href="/about#bp">行動原則(BP)・価値創造(VCP)プロセス</a>
         </div>
         <div class="overlay-menu__panel" data-panel="service">
           <span class="overlay-menu__label">[製品・サービス]</span>
-          <a href="gwes.html" class="overlay-menu__sub-item">GWES</a>
-          <a href="gwes.html#technology" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
-          <a href="gwes.html#modules" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
-          <a href="gwes.html#implementation" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
-          <a href="digital-integration.html" class="overlay-menu__sub-item">デジタルインテグレーション</a>
-          <a href="consulting.html" class="overlay-menu__sub-item">コンサルティング＆エンジニアリング</a>
-          <a href="peer.html" class="overlay-menu__sub-item">PEER</a>
+          <a class="overlay-menu__sub-item" href="/gwes">GWES</a>
+          <a class="overlay-menu__sub-item" href="/gwes#technology" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
+          <a class="overlay-menu__sub-item" href="/gwes#modules" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
+          <a class="overlay-menu__sub-item" href="/gwes#implementation" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
+          <a class="overlay-menu__sub-item" href="/digital-integration">デジタルインテグレーション</a>
+          <a class="overlay-menu__sub-item" href="/consulting">コンサルティング＆エンジニアリング</a>
+          <a class="overlay-menu__sub-item" href="/peer">PEER</a>
         </div>
         <div class="overlay-menu__panel" data-panel="gpim">
           <span class="overlay-menu__label">[GPIM]</span>
-          <a href="gpim.html" class="overlay-menu__sub-item">GPIMとは</a>
-          <a href="gpim-consulting.html" class="overlay-menu__sub-item">GPIMコンサルティング</a>
+          <a class="overlay-menu__sub-item" href="/gpim">GPIMとは</a>
+          <a class="overlay-menu__sub-item" href="/gpim-consulting">GPIMコンサルティング</a>
         </div>
         <div class="overlay-menu__panel" data-panel="careers">
           <span class="overlay-menu__label">[採用情報]</span>
-          <a href="careers.html" class="overlay-menu__sub-item">募集ポジション</a>
-          <a href="about.html" class="overlay-menu__sub-item">カルチャー</a>
+          <a class="overlay-menu__sub-item" href="/careers">募集ポジション</a>
+          <a class="overlay-menu__sub-item" href="/about">カルチャー</a>
         </div>
       </div>
       <!-- Col 3: CTA + Contact -->
       <div class="overlay-menu__col-info">
-        <a href="contact.html" class="overlay-menu__cta-btn">お問い合わせ</a>
+        <a class="overlay-menu__cta-btn" href="/contact" style="background-color: rgb(37, 99, 235);">お問い合わせ</a>
         <div class="overlay-menu__contact-info">
           <span>info@groundinc.co.jp</span>
           <span>03-6441-2975</span>
         </div>
-        <p class="overlay-menu__copyright">&copy; GROUND Inc.</p>
+        <p class="overlay-menu__copyright">© GROUND Inc.</p>
       </div>
     </div>
   </div>
     <nav class="breadcrumb-nav" aria-label="パンくずリスト">
       <ol class="breadcrumb-nav__list">
-        <li class="breadcrumb-nav__item"><a href="index.html" class="breadcrumb-nav__link breadcrumb-nav__link--home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a></li>
-        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a href="service.html" class="breadcrumb-nav__link">サービス</a></li>
-        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a href="gwes.html" class="breadcrumb-nav__link">GWES</a></li>
+        <li class="breadcrumb-nav__item"><a class="breadcrumb-nav__link breadcrumb-nav__link--home" href="/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg></a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a class="breadcrumb-nav__link" href="/service">サービス</a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a class="breadcrumb-nav__link" href="/gwes">GWES</a></li>
         <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current">モジュール詳細</span></li>
       </ol>
     </nav>
-  <div class="container">
+  <div class="container" style="">
 
     <!-- ===== DC ===== -->
     <div class="gd-module" data-mod="dc">
@@ -367,11 +366,11 @@
           <div class="gd-effect"><span class="gd-effect__label">間接効果</span><div class="gd-effect__text">分析業務の高度化。データ駆動型意思決定の基盤確立。システム間連携の柔軟性向上。</div></div>
         </div>
       </div>
-      <a href="gwes.html#modules" class="gd-back">モジュール一覧に戻る</a>
+      <a class="gd-back" href="/gwes#modules">モジュール一覧に戻る</a>
     </div>
 
     <!-- ===== BM ===== -->
-    <div class="gd-module" data-mod="bm">
+    <div class="gd-module is-active" data-mod="bm" style="">
       <div class="gd-hero">
         <div class="gd-hero__top">
           <span class="gd-hero__abbr gd-hero__abbr--infra">BM</span>
@@ -383,26 +382,26 @@
       <div class="gd-section">
         <div class="gd-section__title">主な機能・特徴</div>
         <div class="gd-grid">
-          <div class="gd-card"><span class="gd-card__label">マスタ管理</span><ul><li>共通マスタ管理・統一フォーマット変換</li><li>拠点横断での統一指標・同一粒度のデータ整備</li><li>マスタバージョン管理・変更履歴追跡</li><li>データ定義の全社標準化</li></ul></div>
+          <div class="gd-card" style=""><span class="gd-card__label">マスタ管理</span><ul><li>共通マスタ管理・統一フォーマット変換</li><li>拠点横断での統一指標・同一粒度のデータ整備</li><li>マスタバージョン管理・変更履歴追跡</li><li style="">データ定義の全社標準化</li></ul></div>
           <div class="gd-card"><span class="gd-card__label">データ共有基盤</span><ul><li>モジュール間でのデータ共有API</li><li>拠点ごとにばらついていた指標の全社共通化</li><li>KPI体系の統一設計</li><li>複数拠点の横断比較・分析を実現</li></ul></div>
         </div>
       </div>
-      <div class="gd-section">
-        <div class="gd-section__title">DC+BMの連携による業務プロセス変革</div>
+      <div class="gd-section" style="">
+        <div class="gd-section__title" style="">DC+BMの連携による業務プロセス変革</div>
         <div class="gd-ba">
-          <div class="gd-ba__before"><span class="gd-ba__label">Before</span><div class="gd-ba__text">各システムからの手動データ抽出とExcel加工。データ定義の不統一による誤判断リスク。拠点ごとに異なるフォーマットで比較不可。</div></div>
+          <div class="gd-ba__before" style=""><span class="gd-ba__label" style="">Before</span><div class="gd-ba__text" style="">各システムからの手動データ抽出とExcel加工。データ定義の不統一による誤判断リスク。拠点ごとに異なるフォーマットで比較不可。</div></div>
           <div class="gd-ba__arrow">→</div>
-          <div class="gd-ba__after"><span class="gd-ba__label">After</span><div class="gd-ba__text">自動データ収集・正規化・統一マスタ管理。全社共通のKPI体系で拠点横断分析が即座に可能。リアルタイム更新。</div></div>
+          <div class="gd-ba__after" style=""><span class="gd-ba__label" style="">After</span><div class="gd-ba__text">自動データ収集・正規化・統一マスタ管理。全社共通のKPI体系で拠点横断分析が即座に可能。リアルタイム更新。</div></div>
         </div>
       </div>
-      <div class="gd-section">
+      <div class="gd-section" style="">
         <div class="gd-section__title">導入効果</div>
         <div class="gd-effects-grid">
-          <div class="gd-effect"><span class="gd-effect__label">直接効果</span><div class="gd-effect__text">データ準備工数90%削減。データ品質の飛躍的向上。拠点横断の統一管理基盤構築。</div></div>
-          <div class="gd-effect"><span class="gd-effect__label">間接効果</span><div class="gd-effect__text">データ駆動型意思決定文化の醸成。分析業務の高度化。投資判断の精度向上。</div></div>
+          <div class="gd-effect" style=""><span class="gd-effect__label" style="">直接効果</span><div class="gd-effect__text" style="">データ準備工数90%削減。データ品質の飛躍的向上。拠点横断の統一管理基盤構築。</div></div>
+          <div class="gd-effect" style=""><span class="gd-effect__label">間接効果</span><div class="gd-effect__text" style="width: 448px !important; max-width: none !important; min-width: 0px !important; box-sizing: border-box !important; height: 46px !important; max-height: none !important; min-height: 0px !important;">データ駆動型意思決定文化の醸成。分析業務の高度化。投資判断の精度向上。</div></div>
         </div>
       </div>
-      <a href="gwes.html#modules" class="gd-back">モジュール一覧に戻る</a>
+      <a class="gd-back" href="/gwes#modules" contenteditable="true" style="outline: rgb(91, 192, 235) solid 2px !important; outline-offset: 4px !important; cursor: text !important; min-height: 1em !important;">モジュール一覧に戻る</a>
     </div>
 
     <!-- ===== ME ===== -->
@@ -426,7 +425,7 @@
         <div class="gd-section__title">インフラ3層（DC+BM+ME）の連携</div>
         <div class="gd-effect"><span class="gd-effect__label">3層の役割分担</span><div class="gd-effect__text">DC（収集・正規化）→ BM（統一マスタ・標準化）→ ME（計算・分析エンジン）の3層が一体となり、L2可視化モジュールとL4最適化モジュールが安定して稼働する基盤を提供。処理能力・稼働率・生産性のデータを蓄積し、設備投資のROI評価にも活用されます。</div></div>
       </div>
-      <a href="gwes.html#modules" class="gd-back">モジュール一覧に戻る</a>
+      <a class="gd-back" href="/gwes#modules">モジュール一覧に戻る</a>
     </div>
 
     <!-- ===== WF ===== -->
@@ -468,7 +467,7 @@
         <div class="gd-section__title">導入効果</div>
         <div class="gd-effect"><span class="gd-effect__label">総合効果</span><div class="gd-effect__text">計画工数75%削減、人員配置精度向上により生産性10%+改善。管理者の戦略的業務への時間シフト、属人性排除による組織の安定性向上。</div></div>
       </div>
-      <a href="gwes.html#modules" class="gd-back">モジュール一覧に戻る</a>
+      <a class="gd-back" href="/gwes#modules">モジュール一覧に戻る</a>
     </div>
 
     <!-- ===== PA ===== -->
@@ -507,7 +506,7 @@
           <div class="gd-effect"><span class="gd-effect__label">間接効果</span><div class="gd-effect__text">管理者の負荷軽減。予防的品質管理の実現。データに基づく改善サイクルの加速。</div></div>
         </div>
       </div>
-      <a href="gwes.html#modules" class="gd-back">モジュール一覧に戻る</a>
+      <a class="gd-back" href="/gwes#modules">モジュール一覧に戻る</a>
     </div>
 
     <!-- ===== WA ===== -->
@@ -542,7 +541,7 @@
           <div class="gd-effect"><span class="gd-effect__label">間接効果</span><div class="gd-effect__text">データ駆動型の継続的改善文化の定着。自動化効果の定量評価が可能に。</div></div>
         </div>
       </div>
-      <a href="gwes.html#modules" class="gd-back">モジュール一覧に戻る</a>
+      <a class="gd-back" href="/gwes#modules">モジュール一覧に戻る</a>
     </div>
 
     <!-- ===== IA ===== -->
@@ -581,7 +580,7 @@
           <div class="gd-effect"><span class="gd-effect__label">間接効果</span><div class="gd-effect__text">作業者の疲労軽減。スペース利用率向上によるコスト削減。データに基づく在庫戦略立案。SOとの連携による継続的な配置改善サイクル確立。</div></div>
         </div>
       </div>
-      <a href="gwes.html#modules" class="gd-back">モジュール一覧に戻る</a>
+      <a class="gd-back" href="/gwes#modules">モジュール一覧に戻る</a>
     </div>
 
     <!-- ===== SO ===== -->
@@ -623,7 +622,7 @@
           <div class="gd-effect"><span class="gd-effect__label">間接効果</span><div class="gd-effect__text">作業者の疲労軽減・安全性向上。倉庫スペースコストの削減。ROとの連携による複合的な動線改善。</div></div>
         </div>
       </div>
-      <a href="gwes.html#modules" class="gd-back">モジュール一覧に戻る</a>
+      <a class="gd-back" href="/gwes#modules">モジュール一覧に戻る</a>
     </div>
 
     <!-- ===== RO ===== -->
@@ -665,7 +664,7 @@
           <div class="gd-effect"><span class="gd-effect__label">間接効果</span><div class="gd-effect__text">作業者のストレス・疲労軽減。ミス率低減による品質向上。新人作業者の即戦力化。</div></div>
         </div>
       </div>
-      <a href="gwes.html#modules" class="gd-back">モジュール一覧に戻る</a>
+      <a class="gd-back" href="/gwes#modules">モジュール一覧に戻る</a>
     </div>
 
     <!-- ===== LO ===== -->
@@ -707,7 +706,7 @@
           <div class="gd-effect"><span class="gd-effect__label">間接効果</span><div class="gd-effect__text">CO2排出量削減（ESG貢献）。配送品質の安定化。荷下ろし時間短縮による顧客側の効率向上。</div></div>
         </div>
       </div>
-      <a href="gwes.html#modules" class="gd-back">モジュール一覧に戻る</a>
+      <a class="gd-back" href="/gwes#modules">モジュール一覧に戻る</a>
     </div>
 
     <!-- ===== DO ===== -->
@@ -749,7 +748,7 @@
           <div class="gd-effect"><span class="gd-effect__label">間接効果</span><div class="gd-effect__text">顧客満足度向上。配送品質の安定化。データに基づく配送戦略の高度化。</div></div>
         </div>
       </div>
-      <a href="gwes.html#modules" class="gd-back">モジュール一覧に戻る</a>
+      <a class="gd-back" href="/gwes#modules">モジュール一覧に戻る</a>
     </div>
 
     <!-- ===== RA ===== -->
@@ -791,15 +790,15 @@
           <div class="gd-effect"><span class="gd-effect__label">間接効果</span><div class="gd-effect__text">管理者の戦略的業務への時間シフト。属人性排除による組織の安定性向上。データ駆動型の人材マネジメント基盤の確立。</div></div>
         </div>
       </div>
-      <a href="gwes.html#modules" class="gd-back">モジュール一覧に戻る</a>
+      <a class="gd-back" href="/gwes#modules">モジュール一覧に戻る</a>
     </div>
 
   </div><!-- /container -->
 
   <!-- Footer -->
-  <footer class="footer">
+  <footer class="footer" style="background-color: rgb(10, 12, 20); color: rgb(255, 255, 255);">
     <div class="container">
-      <div class="footer__grid">
+      <div class="footer__grid" style="">
         <div>
           <img src="img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
           <p class="footer__brand-desc">
@@ -810,25 +809,25 @@
         <div>
           <h4 class="footer__heading">Company</h4>
           <div class="footer__links">
-            <a href="about.html" class="footer__link">会社概要</a>
-            <a href="about.html#vision" class="footer__link">ビジョン・ミッション</a>
-            <a href="about.html#ceo" class="footer__link">CEOメッセージ</a>
-            <a href="careers.html" class="footer__link">採用情報</a>
+            <a class="footer__link" href="/about">会社概要</a>
+            <a class="footer__link" href="/about#vision">ビジョン・ミッション</a>
+            <a class="footer__link" href="/about#ceo">CEOメッセージ</a>
+            <a class="footer__link" href="/careers">採用情報</a>
           </div>
         </div>
         <div>
           <h4 class="footer__heading">Solutions</h4>
           <div class="footer__links">
-            <a href="gwes.html" class="footer__link">GWES</a>
-            <a href="digital-integration.html" class="footer__link">デジタルインテグレーション</a>
-            <a href="consulting.html" class="footer__link">コンサルティング</a>
-            <a href="peer.html" class="footer__link">PEER</a>
+            <a class="footer__link" href="/gwes">GWES</a>
+            <a class="footer__link" href="/digital-integration">デジタルインテグレーション</a>
+            <a class="footer__link" href="/consulting">コンサルティング</a>
+            <a class="footer__link" href="/peer">PEER</a>
           </div>
         </div>
         <div>
           <h4 class="footer__heading">Contact</h4>
           <div class="footer__links">
-            <a href="contact.html" class="footer__link">お問い合わせ</a>
+            <a class="footer__link" href="/contact">お問い合わせ</a>
             <span class="footer__link" style="cursor: default;">TEL: 03-6457-1650</span>
             <a href="mailto:Info@groundinc.co.jp" class="footer__link">Info@groundinc.co.jp</a>
             <span class="footer__link" style="cursor: default;">
@@ -840,7 +839,7 @@
         </div>
       </div>
       <div class="footer__bottom">
-        <p class="footer__copy">&copy; 2026 GROUND Inc. All rights reserved.</p>
+        <p class="footer__copy">© 2026 GROUND Inc. All rights reserved.</p>
         <div class="footer__socials">
           <a href="#" class="footer__social" aria-label="LinkedIn">in</a>
           <a href="#" class="footer__social" aria-label="Note">N</a>
@@ -849,7 +848,7 @@
     </div>
   </footer>
 
-  <script defer src="js/main.js?v=31"></script>
+  <script defer="" src="js/main.js?v=31"></script>
   <script>
     // Show the correct module based on URL parameter
     const params = new URLSearchParams(window.location.search);
@@ -872,6 +871,7 @@
       window.location.href = 'gwes.html#modules';
     }
   </script>
-<script defer src="js/design-settings.js"></script>
-</body>
-</html>
+<script defer="" src="js/design-settings.js"></script>
+
+
+</body></html>
