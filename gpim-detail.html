@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
+  <title>GPIM レベル詳細 | GROUND Inc.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=54">
+  <style>
+    :root {
+      --gw-bg: #0A0C14;
+      --gw-surface: #161822;
+      --gw-surface-2: #1A1A1A;
+      --gw-border: #3F4250;
+      --gw-text-1: #FFFFFF;
+      --gw-text-2: rgba(255,255,255,0.92);
+      --gw-text-3: rgba(255,255,255,0.55);
+      --gw-accent: #3B82F6;
+      --gw-infra: #8A8C9A;
+      --gw-l2: #3B82F6;
+      --gw-l4: #60A5FA;
+      --gw-green: #34D399;
+      --gw-box-bg: #1A1A1A;
+      --gw-box-border: #545867;
+      /* GPIM level colors */
+      --gp-l1: #8A8C9A;
+      --gp-l2: #3B82F6;
+      --gp-l3: #F59E0B;
+      --gp-l4: #60A5FA;
+      --gp-l5: #34D399;
+    }
+
+    body { background: var(--gw-bg) !important; }
+    .header { background: var(--gw-bg) !important; }
+
+    .gd-hero {
+      padding: 24px 0 36px;
+      border-bottom: 1px solid var(--gw-border);
+      margin-bottom: 40px;
+    }
+    .gd-hero__top {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 14px;
+    }
+    .gd-hero__level-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; font-weight: 600;
+      line-height: 1;
+      padding: 6px 14px;
+      border-radius: 4px;
+      letter-spacing: 0.08em;
+    }
+    .gd-hero__level-badge--l1 { background: rgba(138,140,154,0.15); color: var(--gp-l1); }
+    .gd-hero__level-badge--l2 { background: rgba(59,130,246,0.12); color: var(--gp-l2); }
+    .gd-hero__level-badge--l3 { background: rgba(245,158,11,0.12); color: var(--gp-l3); }
+    .gd-hero__level-badge--l4 { background: rgba(96,165,250,0.12); color: var(--gp-l4); }
+    .gd-hero__level-badge--l5 { background: rgba(52,211,153,0.12); color: var(--gp-l5); }
+
+    .gd-hero__num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.6rem; font-weight: 700;
+      line-height: 1;
+      padding: 6px 10px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.06);
+    }
+    .gd-hero__num--l1 { color: var(--gp-l1); }
+    .gd-hero__num--l2 { color: var(--gp-l2); }
+    .gd-hero__num--l3 { color: var(--gp-l3); }
+    .gd-hero__num--l4 { color: var(--gp-l4); }
+    .gd-hero__num--l5 { color: var(--gp-l5); }
+
+    .gd-hero__name {
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--gw-text-1); line-height: 1.4;
+    }
+    .gd-hero__en {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem; font-weight: 400;
+      color: var(--gw-text-3); margin-top: 4px;
+    }
+    .gd-hero__desc {
+      font-size: 0.85rem; color: var(--gw-text-2);
+      line-height: 1.9; margin-top: 10px;
+      max-width: 800px;
+    }
+
+    .gd-section {
+      margin-bottom: 48px;
+    }
+    .gd-section__title {
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--gw-text-1); margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--gw-border);
+    }
+
+    .gd-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .gd-card {
+      background: var(--gw-box-bg);
+      border: 1px solid var(--gw-box-border);
+      border-radius: 8px; padding: 24px;
+    }
+    .gd-card__label {
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--gw-accent); letter-spacing: 0.04em;
+      margin-bottom: 12px; display: block;
+    }
+    .gd-card ul {
+      list-style: none; padding: 0; margin: 0;
+    }
+    .gd-card li {
+      font-size: 0.8rem; color: var(--gw-text-2);
+      line-height: 1.8; padding-left: 16px;
+      position: relative;
+    }
+    .gd-card li::before {
+      content: ''; position: absolute; left: 0; top: 0.65em;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--gw-accent); opacity: 0.5;
+    }
+
+    .gd-ba {
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      gap: 0; align-items: stretch;
+    }
+    .gd-ba__before, .gd-ba__after {
+      border-radius: 8px; padding: 24px;
+    }
+    .gd-ba__before {
+      background: #3F4250; border: 1px solid #3F4250;
+    }
+    .gd-ba__after {
+      background: #1A1A1A; border: 1px solid #3F4250;
+    }
+    .gd-ba__arrow {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 16px; font-size: 1.4rem; color: var(--gw-text-3);
+    }
+    .gd-ba__label {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.08em; margin-bottom: 10px; display: block;
+    }
+    .gd-ba__before .gd-ba__label { color: rgba(255,255,255,0.5); }
+    .gd-ba__after .gd-ba__label { color: var(--gw-accent); }
+    .gd-ba__text {
+      font-size: 0.8rem; color: var(--gw-text-2); line-height: 1.85;
+    }
+
+    .gd-effect {
+      background: var(--gw-box-bg);
+      border: 1px solid var(--gw-box-border);
+      border-radius: 8px; padding: 24px;
+    }
+    .gd-effect__label {
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--gw-green); letter-spacing: 0.04em;
+      margin-bottom: 10px; display: block;
+    }
+    .gd-effect__text {
+      font-size: 0.8rem; color: var(--gw-text-2); line-height: 1.85;
+    }
+
+    .gd-effects-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+
+    .gd-modules-box {
+      background: var(--gw-box-bg);
+      border: 1px solid var(--gw-box-border);
+      border-radius: 8px; padding: 24px;
+    }
+    .gd-modules-box__label {
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--gw-accent); letter-spacing: 0.04em;
+      margin-bottom: 12px; display: block;
+    }
+    .gd-modules-box__list {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .gd-modules-box__tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; font-weight: 500;
+      padding: 4px 12px; border-radius: 4px;
+      background: rgba(59,130,246,0.1);
+      color: var(--gw-accent);
+      text-decoration: none; transition: background 0.2s;
+    }
+    .gd-modules-box__tag:hover {
+      background: rgba(59,130,246,0.2);
+    }
+
+    .gd-back {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; color: var(--gw-accent);
+      text-decoration: none; padding: 48px 0 32px;
+      transition: color 0.2s;
+    }
+    .gd-back:hover { color: #60A5FA; }
+    .gd-back::before { content: '←'; font-size: 1rem; }
+
+    @media (max-width: 768px) {
+      .gd-grid, .gd-effects-grid { grid-template-columns: 1fr; }
+      .gd-ba { grid-template-columns: 1fr; }
+      .gd-ba__arrow { padding: 8px 0; transform: rotate(90deg); }
+    }
+
+    /* hide all levels by default, show active one */
+    .gd-level { display: none; }
+    .gd-level.is-active { display: block; }
+  </style>
+  <style>
+    .header { z-index: 350 !important; }
+    /* Hamburger + Overlay inline fallback (o9-style v30) */
+    .hamburger { display: flex !important; flex-direction: column; justify-content: center; align-items: center; gap: 6px; width: 52px; height: 52px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 400; position: relative; margin-right: -8px; }
+    .hamburger__line { display: block; width: 26px; height: 1.5px; background: #fff; border-radius: 1px; transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.25s ease; transform-origin: center; }
+    .hamburger.active .hamburger__line:nth-child(1) { transform: rotate(45deg) translate(5.5px,5.5px); }
+    .hamburger.active .hamburger__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active .hamburger__line:nth-child(3) { transform: rotate(-45deg) translate(5.5px,-5.5px); }
+    .overlay-menu { position: fixed; inset: 0; z-index: 300; background: #0A0C14; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-20px); transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s, transform 0.4s cubic-bezier(0.23,1,0.32,1); overflow-y: auto; }
+    .overlay-menu.active { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
+    .overlay-menu__inner { display: grid; grid-template-columns: 280px 1fr 340px; gap: 0 48px; max-width: 1200px; width: 100%; margin: 0 auto; padding: 100px 56px 60px; min-height: 100vh; align-content: start; }
+    .overlay-menu__label { display: block; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px; }
+    .overlay-menu__col-nav { grid-column: 1; }
+    .overlay-menu__nav-list { display: flex; flex-direction: column; gap: 0; }
+    .overlay-menu__nav-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; text-decoration: none; color: #fff; font-size: 17px; font-weight: 500; letter-spacing: 0.01em; cursor: pointer; transition: background 0.15s ease; }
+    .overlay-menu__nav-item:hover, .overlay-menu__nav-item.is-active { background: rgba(255,255,255,0.06); }
+    .overlay-menu__nav-arrow { font-size: 16px; color: rgba(255,255,255,0.4); }
+    .overlay-menu__col-sub { grid-column: 2; }
+    .overlay-menu__panel { display: none; flex-direction: column; gap: 0; }
+    .overlay-menu__panel.is-visible { display: flex; }
+    .overlay-menu__sub-item { display: block; padding: 12px 0; text-decoration: none; color: rgba(255,255,255,0.85); font-size: 16px; font-weight: 400; transition: color 0.15s; }
+    .overlay-menu__sub-item:hover { color: #fff; }
+    .overlay-menu__col-info { grid-column: 3; display: flex; flex-direction: column; justify-content: flex-start; }
+    .overlay-menu__cta-btn { display: block; padding: 16px 32px; border: 1px solid rgba(255,255,255,0.25); color: #fff; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 12px; font-weight: 500; text-align: center; text-decoration: none; letter-spacing: 0.14em; text-transform: uppercase; }
+    .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
+    .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.3); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
+    .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
+  </style>
+  <link rel="canonical" href="https://groundinc.co.jp/gpim-detail.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://groundinc.co.jp/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "GPIM",
+      "item": "https://groundinc.co.jp/gpim.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "GPIM レベル詳細",
+      "item": "https://groundinc.co.jp/gpim-detail.html"
+    }
+  ]
+}
+</script>
+  <link rel="alternate" hreflang="ja" href="https://groundinc.co.jp/gpim-detail.html">
+  <link rel="alternate" hreflang="x-default" href="https://groundinc.co.jp/gpim-detail.html">
+</head>
+<body>
+  <!-- Header (same as main site) -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img"></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Fullscreen Overlay Menu (o9-style) -->
+  <div class="overlay-menu" id="overlayMenu">
+    <div class="overlay-menu__inner">
+      <div class="overlay-menu__col-nav">
+        <span class="overlay-menu__label">[NAVIGATION]</span>
+        <div class="overlay-menu__nav-list">
+          <a href="about.html" class="overlay-menu__nav-item" data-panel="company">会社情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="gpim.html" class="overlay-menu__nav-item" data-panel="gpim">GPIM<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="service.html" class="overlay-menu__nav-item" data-panel="service">製品・サービス<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+          <a href="works.html" class="overlay-menu__nav-item">導入事例</a>
+          <a href="news.html" class="overlay-menu__nav-item">ニュース</a>
+          <a href="blog.html" class="overlay-menu__nav-item">WAREHOUSE TECH WEEKLY</a>
+          <a href="careers.html" class="overlay-menu__nav-item" data-panel="careers">採用情報<span class="overlay-menu__nav-arrow">&#8250;</span></a>
+        </div>
+      </div>
+      <div class="overlay-menu__col-sub">
+        <div class="overlay-menu__panel" data-panel="company">
+          <span class="overlay-menu__label">[会社情報]</span>
+          <a href="about.html" class="overlay-menu__sub-item">会社概要</a>
+          <a href="about.html#ceo" class="overlay-menu__sub-item">CEOメッセージ</a>
+          <a href="about.html#vision" class="overlay-menu__sub-item">ビジョン・ミッション</a>
+          <a href="about.html#bp" class="overlay-menu__sub-item">行動原則(BP)・価値創造(VCP)プロセス</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="service">
+          <span class="overlay-menu__label">[製品・サービス]</span>
+          <a href="gwes.html" class="overlay-menu__sub-item">GWES</a>
+          <a href="gwes.html#technology" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
+          <a href="gwes.html#modules" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
+          <a href="gwes.html#implementation" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
+          <a href="digital-integration.html" class="overlay-menu__sub-item">デジタルインテグレーション</a>
+          <a href="consulting.html" class="overlay-menu__sub-item">コンサルティング＆エンジニアリング</a>
+          <a href="peer.html" class="overlay-menu__sub-item">PEER</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="gpim">
+          <span class="overlay-menu__label">[GPIM]</span>
+          <a href="gpim.html" class="overlay-menu__sub-item">GPIMとは</a>
+          <a href="gpim-consulting.html" class="overlay-menu__sub-item">GPIMコンサルティング</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="careers">
+          <span class="overlay-menu__label">[採用情報]</span>
+          <a href="careers.html" class="overlay-menu__sub-item">募集ポジション</a>
+          <a href="about.html" class="overlay-menu__sub-item">カルチャー</a>
+        </div>
+      </div>
+      <div class="overlay-menu__col-info">
+        <a href="contact.html" class="overlay-menu__cta-btn">お問い合わせ</a>
+        <div class="overlay-menu__contact-info">
+          <span>info@groundinc.co.jp</span>
+          <span>03-6441-2975</span>
+        </div>
+        <p class="overlay-menu__copyright">&copy; GROUND Inc.</p>
+      </div>
+    </div>
+  </div>
+    <nav class="breadcrumb-nav" aria-label="パンくずリスト">
+      <ol class="breadcrumb-nav__list">
+        <li class="breadcrumb-nav__item"><a href="index.html" class="breadcrumb-nav__link breadcrumb-nav__link--home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a href="gpim.html" class="breadcrumb-nav__link">GPIM</a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current" id="bc-level">レベル詳細</span></li>
+      </ol>
+    </nav>
+  <div class="container">
+
+    <!-- ===== LEVEL 1: 体系化 ===== -->
+    <div class="gd-level" data-level="1">
+      <div class="gd-hero">
+        <div class="gd-hero__top">
+          <span class="gd-hero__num gd-hero__num--l1">L1</span>
+          <span class="gd-hero__level-badge gd-hero__level-badge--l1">LEVEL 01</span>
+        </div>
+        <div class="gd-hero__name">体系化</div>
+        <div class="gd-hero__en">Systematize</div>
+        <p class="gd-hero__desc">物流施設の業務プロセスを体系的に構造化し、属人的なオペレーションを排除する段階です。作業手順・ルール・KPIを標準化し、再現性の高い業務設計を構築します。この「土台づくり」がなければ、後続のすべてのレベルは成立しません。</p>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">あるべき姿</div>
+        <div class="gd-card" style="margin-bottom: 16px;">
+          <div class="gd-ba__text">すべての業務プロセスが標準手順書（SOP）として文書化・デジタル化され、誰が作業しても同一の品質・速度で遂行できる状態。物流施設のレイアウト・ゾーニング・動線がデータとして定義され、改善の土台が整備されている。KPI体系が統一され、改善活動のPDCAが回る仕組みが確立されている。</div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">主な取り組み</div>
+        <div class="gd-grid">
+          <div class="gd-card"><span class="gd-card__label">業務プロセスの構造化</span><ul><li>全作業工程の洗い出し・フロー図化</li><li>標準作業手順書（SOP）の策定</li><li>作業ルール・判断基準の明文化</li><li>例外処理フローの定義</li></ul></div>
+          <div class="gd-card"><span class="gd-card__label">施設・KPIの標準化</span><ul><li>施設レイアウト・ゾーニングのデジタル定義</li><li>KPI体系の設計と目標値の設定</li><li>拠点横断で比較可能な共通指標の整備</li><li>PDCAサイクルの運用設計</li></ul></div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">対応するGWESモジュール</div>
+        <div class="gd-modules-box">
+          <span class="gd-modules-box__label">GWES モジュール</span>
+          <div class="gd-modules-box__list">
+            <a href="gwes-detail.html?mod=bm" class="gd-modules-box__tag">BM（ベースモジュール）</a>
+            <a href="gwes-detail.html?mod=me" class="gd-modules-box__tag">ME（マップエディター）</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">Before / After</div>
+        <div class="gd-ba">
+          <div class="gd-ba__before"><span class="gd-ba__label">Before</span><div class="gd-ba__text">業務手順が属人的で、担当者ごとにやり方が異なる。新人教育に時間がかかり、品質にばらつき。施設レイアウトは紙の図面のみで、改善活動は勘と経験に依存。KPIの定義が拠点ごとに異なり、比較・改善が困難。</div></div>
+          <div class="gd-ba__arrow">→</div>
+          <div class="gd-ba__after"><span class="gd-ba__label">After</span><div class="gd-ba__text">全業務がSOP化され、誰でも同品質で作業可能。施設構造がデジタル化され、レイアウト変更のシミュレーションが可能に。統一KPIにより拠点横断の比較分析が実現。改善活動がデータに基づくPDCAで回る。</div></div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">導入効果</div>
+        <div class="gd-effects-grid">
+          <div class="gd-effect"><span class="gd-effect__label">直接効果</span><div class="gd-effect__text">新人教育期間50%短縮。作業品質のばらつき80%低減。業務マニュアル整備による組織知の蓄積。レイアウト変更の検討期間70%短縮。</div></div>
+          <div class="gd-effect"><span class="gd-effect__label">間接効果</span><div class="gd-effect__text">属人性の排除による事業継続性の向上。拠点横断の改善ナレッジの共有基盤確立。後続レベル（可視化・自動化）への確実な移行基盤の構築。</div></div>
+        </div>
+      </div>
+      <a href="gpim.html#levels" class="gd-back">GPIMレベル一覧に戻る</a>
+    </div>
+
+    <!-- ===== LEVEL 2: 可視化 ===== -->
+    <div class="gd-level" data-level="2">
+      <div class="gd-hero">
+        <div class="gd-hero__top">
+          <span class="gd-hero__num gd-hero__num--l2">L2</span>
+          <span class="gd-hero__level-badge gd-hero__level-badge--l2">LEVEL 02</span>
+        </div>
+        <div class="gd-hero__name">可視化</div>
+        <div class="gd-hero__en">Visualize</div>
+        <p class="gd-hero__desc">WMS・マテハン・センサー等から収集した実績データを一元的に整理し、複数拠点を横断して現場の状態を客観的に把握可能にする段階です。「経験と勘」から「データに基づく判断」への転換点であり、改善の方向性と優先度を定量的に見極めることができるようになります。</p>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">あるべき姿</div>
+        <div class="gd-card" style="margin-bottom: 16px;">
+          <div class="gd-ba__text">物流施設内の全データ（出荷量・在庫・作業進捗・設備稼働率等）がリアルタイムにダッシュボードで可視化され、管理者が即座に現場の状態を把握できる状態。過去データの蓄積と分析により、需要予測・物量予測が可能となり、計画業務の精度が飛躍的に向上している。</div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">主な取り組み</div>
+        <div class="gd-grid">
+          <div class="gd-card"><span class="gd-card__label">データ収集・統合</span><ul><li>WMS・ERP・マテハン等からのデータ自動収集</li><li>IoTセンサーによるリアルタイムデータ取得</li><li>異種システムデータの正規化・統一</li><li>データ品質チェック・異常値検出</li></ul></div>
+          <div class="gd-card"><span class="gd-card__label">分析・予測</span><ul><li>リアルタイムダッシュボードの構築</li><li>物量予測・需要予測の実現</li><li>作業進捗のリアルタイムモニタリング</li><li>在庫分析・ABC分析の自動化</li></ul></div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">対応するGWESモジュール</div>
+        <div class="gd-modules-box">
+          <span class="gd-modules-box__label">GWES モジュール</span>
+          <div class="gd-modules-box__list">
+            <a href="gwes-detail.html?mod=dc" class="gd-modules-box__tag">DC（データコネクター）</a>
+            <a href="gwes-detail.html?mod=wf" class="gd-modules-box__tag">WF（ワークロードフォーキャスティング）</a>
+            <a href="gwes-detail.html?mod=pa" class="gd-modules-box__tag">PA（プログレスアナライザー）</a>
+            <a href="gwes-detail.html?mod=wa" class="gd-modules-box__tag">WA（ワークロードアナライザー）</a>
+            <a href="gwes-detail.html?mod=ia" class="gd-modules-box__tag">IA（インベントリアナライザー）</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">Before / After</div>
+        <div class="gd-ba">
+          <div class="gd-ba__before"><span class="gd-ba__label">Before</span><div class="gd-ba__text">現場の状態把握は巡回と口頭報告に依存。Excelでの手動集計で翌日にならないと前日実績が分からない。物量予測は前年同月比の感覚値。複数拠点の比較は不可能。</div></div>
+          <div class="gd-ba__arrow">→</div>
+          <div class="gd-ba__after"><span class="gd-ba__label">After</span><div class="gd-ba__text">全拠点のKPIがリアルタイムダッシュボードで一元表示。AI物量予測により精度の高い計画立案が可能。作業進捗のリアルタイム把握で遅延の即時検知・対応。データに基づく改善のPDCAが高速回転。</div></div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">導入効果</div>
+        <div class="gd-effects-grid">
+          <div class="gd-effect"><span class="gd-effect__label">直接効果</span><div class="gd-effect__text">データ収集・集計工数90%削減。物量予測精度85%以上を実現。作業進捗の可視化による遅延対応時間75%短縮。在庫回転率15-20%改善。</div></div>
+          <div class="gd-effect"><span class="gd-effect__label">間接効果</span><div class="gd-effect__text">データ駆動型の意思決定文化の醸成。管理者の戦略的業務への時間シフト。改善活動の高速化とナレッジ蓄積。自動化投資の最適な導入判断の基盤確立。</div></div>
+        </div>
+      </div>
+      <a href="gpim.html#levels" class="gd-back">GPIMレベル一覧に戻る</a>
+    </div>
+
+    <!-- ===== LEVEL 3: 自動化 ===== -->
+    <div class="gd-level" data-level="3">
+      <div class="gd-hero">
+        <div class="gd-hero__top">
+          <span class="gd-hero__num gd-hero__num--l3">L3</span>
+          <span class="gd-hero__level-badge gd-hero__level-badge--l3">LEVEL 03</span>
+        </div>
+        <div class="gd-hero__name">自動化</div>
+        <div class="gd-hero__en">Automate</div>
+        <p class="gd-hero__desc">マテリアルハンドリング機器やロボットの導入により、作業の実行そのものを自動化する段階です。体系化され可視化された業務に対して自動化技術を適用することで、安定性・処理能力を飛躍的に向上させます。Lv.1〜2を経ずにロボットを導入するケースが失敗しやすいのは、業務構造とデータ基盤が未整備のまま自動化しようとするためです。</p>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">あるべき姿</div>
+        <div class="gd-card" style="margin-bottom: 16px;">
+          <div class="gd-ba__text">定型的・反復的な作業がロボット・自動搬送機器・仕分けシステム等により自動化され、人は例外処理・品質管理・改善活動に集中できる状態。自動化率は工程により異なるが、主要工程において60-80%以上の自動化を実現。機器の稼働データが可視化レイヤーと連携し、稼働率・障害の即座な把握が可能。</div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">主な取り組み</div>
+        <div class="gd-grid">
+          <div class="gd-card"><span class="gd-card__label">ロボティクス導入</span><ul><li>AMR（自律走行搬送ロボット）の導入</li><li>自動仕分けシステムの構築</li><li>GTP（Goods-to-Person）ピッキングの実現</li><li>自動梱包・ラベリングシステムの導入</li></ul></div>
+          <div class="gd-card"><span class="gd-card__label">設備統合管理</span><ul><li>複数ベンダー機器の統合制御</li><li>機器稼働データのリアルタイム収集</li><li>障害検知・アラートの自動化</li><li>保守・メンテナンス計画の最適化</li></ul></div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">対応するGWESモジュール</div>
+        <div class="gd-modules-box">
+          <span class="gd-modules-box__label">GWES モジュール（自動化機器の統合管理基盤）</span>
+          <div class="gd-modules-box__list">
+            <a href="gwes-detail.html?mod=dc" class="gd-modules-box__tag">DC（データコネクター）</a>
+            <a href="gwes-detail.html?mod=bm" class="gd-modules-box__tag">BM（ベースモジュール）</a>
+            <a href="gwes-detail.html?mod=me" class="gd-modules-box__tag">ME（モジュールエンジン）</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">Before / After</div>
+        <div class="gd-ba">
+          <div class="gd-ba__before"><span class="gd-ba__label">Before</span><div class="gd-ba__text">主要作業（搬送・仕分け・ピッキング）が人手に依存。人手不足・繁忙期の対応が困難。作業品質が作業者のスキルに左右され、ミス率にばらつき。夜間・早朝シフトの確保が慢性的課題。</div></div>
+          <div class="gd-ba__arrow">→</div>
+          <div class="gd-ba__after"><span class="gd-ba__label">After</span><div class="gd-ba__text">定型作業の60-80%がロボット・自動機器で処理。24時間稼働が可能となり処理能力が倍増。ヒューマンエラーの大幅削減。人は付加価値の高い業務（例外処理・改善）に集中。</div></div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">導入効果</div>
+        <div class="gd-effects-grid">
+          <div class="gd-effect"><span class="gd-effect__label">直接効果</span><div class="gd-effect__text">人件費40-60%削減。処理能力2-3倍に向上。作業ミス率90%低減。24時間稼働体制の実現。繁閑差への柔軟な対応力の獲得。</div></div>
+          <div class="gd-effect"><span class="gd-effect__label">間接効果</span><div class="gd-effect__text">人手不足リスクの根本的解消。作業環境の安全性向上。従業員の高付加価値業務へのシフト。Lv.4最適化に向けたデータ蓄積の加速。</div></div>
+        </div>
+      </div>
+      <a href="gpim.html#levels" class="gd-back">GPIMレベル一覧に戻る</a>
+    </div>
+
+    <!-- ===== LEVEL 4: 最適化 ===== -->
+    <div class="gd-level" data-level="4">
+      <div class="gd-hero">
+        <div class="gd-hero__top">
+          <span class="gd-hero__num gd-hero__num--l4">L4</span>
+          <span class="gd-hero__level-badge gd-hero__level-badge--l4">LEVEL 04</span>
+        </div>
+        <div class="gd-hero__name">最適化</div>
+        <div class="gd-hero__en">Optimize</div>
+        <p class="gd-hero__desc">AIと数理最適化技術を活用し、複数の工程・リソース・KPIを同時に考慮した全体最適を実現する段階です。個々の工程の改善ではなく、施設全体の運営を俯瞰し、人員配置・在庫配置・動線・配送計画を統合的に最適化します。</p>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">あるべき姿</div>
+        <div class="gd-card" style="margin-bottom: 16px;">
+          <div class="gd-ba__text">施設全体の運営がAI・数理最適化エンジンにより統合的に制御され、人員配置・在庫配置・作業動線・配送計画が同時最適化されている状態。個別工程の部分最適ではなく、施設全体のスループット・コスト・品質のバランスが自動的に調整される。環境変化（物量変動・欠員等）に対しても、最適解が自動的に再計算・適用される。</div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">主な取り組み</div>
+        <div class="gd-grid">
+          <div class="gd-card"><span class="gd-card__label">AI・数理最適化</span><ul><li>在庫配置（スロッティング）の最適化</li><li>ピッキング動線の最短化</li><li>人員配置・シフトの最適化</li><li>配送ルート・積載の最適化</li></ul></div>
+          <div class="gd-card"><span class="gd-card__label">統合制御</span><ul><li>複数KPIの同時最適化</li><li>リアルタイムの再計算・動的調整</li><li>シミュレーションによる計画立案</li><li>最適化結果の自動実行・フィードバック</li></ul></div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">対応するGWESモジュール</div>
+        <div class="gd-modules-box">
+          <span class="gd-modules-box__label">GWES モジュール</span>
+          <div class="gd-modules-box__list">
+            <a href="gwes-detail.html?mod=so" class="gd-modules-box__tag">SO（スロッティングオプティマイザー）</a>
+            <a href="gwes-detail.html?mod=ro" class="gd-modules-box__tag">RO（ルーティングオプティマイザー）</a>
+            <a href="gwes-detail.html?mod=ra" class="gd-modules-box__tag">RA（リソースアロケーター）</a>
+            <a href="gwes-detail.html?mod=do" class="gd-modules-box__tag">DO（デリバリーオプティマイザー）</a>
+            <a href="gwes-detail.html?mod=lo" class="gd-modules-box__tag">LO（ローディングオプティマイザー）</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">Before / After</div>
+        <div class="gd-ba">
+          <div class="gd-ba__before"><span class="gd-ba__label">Before</span><div class="gd-ba__text">在庫配置は入荷順。ピッキング動線は作業者任せ。人員配置は前日の固定シフト。配送ルートはドライバーの経験判断。各工程が個別に管理され、全体最適の視点がない。</div></div>
+          <div class="gd-ba__arrow">→</div>
+          <div class="gd-ba__after"><span class="gd-ba__label">After</span><div class="gd-ba__text">出荷頻度に基づくAI自動スロッティング。最短動線の自動生成。リアルタイム物量予測に基づく動的人員再配分。配送ルート・積載の同時最適化。施設全体が一つの最適化エンジンとして稼働。</div></div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">導入効果</div>
+        <div class="gd-effects-grid">
+          <div class="gd-effect"><span class="gd-effect__label">直接効果</span><div class="gd-effect__text">ピッキング動線30-40%短縮。在庫回転率20-30%改善。人件費30-40%削減。配送コスト15-25%削減。施設全体のスループット20-35%向上。</div></div>
+          <div class="gd-effect"><span class="gd-effect__label">間接効果</span><div class="gd-effect__text">管理者の意思決定負荷の大幅軽減。環境変化への即応力の獲得。投資対効果の定量的な把握と継続的改善。Lv.5自律化への移行基盤の構築。</div></div>
+        </div>
+      </div>
+      <a href="gpim.html#levels" class="gd-back">GPIMレベル一覧に戻る</a>
+    </div>
+
+    <!-- ===== LEVEL 5: 自律化 ===== -->
+    <div class="gd-level" data-level="5">
+      <div class="gd-hero">
+        <div class="gd-hero__top">
+          <span class="gd-hero__num gd-hero__num--l5">L5</span>
+          <span class="gd-hero__level-badge gd-hero__level-badge--l5">LEVEL 05</span>
+        </div>
+        <div class="gd-hero__name">自律化</div>
+        <div class="gd-hero__en">Autonomize</div>
+        <p class="gd-hero__desc">人の介在なく、施設自体が環境変化を感知し、自ら判断・実行・学習を繰り返す「完全自律型オペレーション」を実現する最終段階です。GROUNDのビジョンである「Autonomous Warehouse（完全自律型物流施設運営）」はこのレベルの到達を意味します。</p>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">あるべき姿</div>
+        <div class="gd-card" style="margin-bottom: 16px;">
+          <div class="gd-ba__text">物流施設が自律的な「生命体」のように機能し、需要変動・トラブル・季節要因などの環境変化を自ら感知し、最適な対応を自動的に判断・実行する状態。人は施設の「運営者」ではなく「監督者」として関与し、戦略的意思決定と例外対応のみを担う。AIが過去の実績から継続的に学習し、最適化モデルが自動的に進化し続ける。</div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">主な取り組み</div>
+        <div class="gd-grid">
+          <div class="gd-card"><span class="gd-card__label">自律判断・自動実行</span><ul><li>環境変化の自動感知と対応策の即時生成</li><li>需要急変時の自動リソース再配分</li><li>設備障害の予兆検知と自動切替</li><li>人の承認なしでの最適化実行</li></ul></div>
+          <div class="gd-card"><span class="gd-card__label">継続的学習・進化</span><ul><li>AIモデルの自動再学習・チューニング</li><li>過去実績からのパターン学習と予測精度向上</li><li>異常値・新パターンの自動検出と適応</li><li>施設間のベストプラクティス自動転移</li></ul></div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">対応するGWESモジュール</div>
+        <div class="gd-modules-box">
+          <span class="gd-modules-box__label">GWES全モジュールの統合</span>
+          <div class="gd-modules-box__list">
+            <a href="gwes-detail.html?mod=dc" class="gd-modules-box__tag">DC</a>
+            <a href="gwes-detail.html?mod=bm" class="gd-modules-box__tag">BM</a>
+            <a href="gwes-detail.html?mod=me" class="gd-modules-box__tag">ME</a>
+            <a href="gwes-detail.html?mod=wf" class="gd-modules-box__tag">WF</a>
+            <a href="gwes-detail.html?mod=pa" class="gd-modules-box__tag">PA</a>
+            <a href="gwes-detail.html?mod=wa" class="gd-modules-box__tag">WA</a>
+            <a href="gwes-detail.html?mod=ia" class="gd-modules-box__tag">IA</a>
+            <a href="gwes-detail.html?mod=so" class="gd-modules-box__tag">SO</a>
+            <a href="gwes-detail.html?mod=ro" class="gd-modules-box__tag">RO</a>
+            <a href="gwes-detail.html?mod=lo" class="gd-modules-box__tag">LO</a>
+            <a href="gwes-detail.html?mod=do" class="gd-modules-box__tag">DO</a>
+            <a href="gwes-detail.html?mod=ra" class="gd-modules-box__tag">RA</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">Before / After</div>
+        <div class="gd-ba">
+          <div class="gd-ba__before"><span class="gd-ba__label">Before（Lv.4到達後）</span><div class="gd-ba__text">最適化エンジンが推奨案を出すが、実行には管理者の承認が必要。AIモデルの更新は定期的な手動作業。環境変化への対応に数時間のタイムラグ。施設ごとに最適化ルールが個別運用。</div></div>
+          <div class="gd-ba__arrow">→</div>
+          <div class="gd-ba__after"><span class="gd-ba__label">After</span><div class="gd-ba__text">施設が自律的に判断・実行・学習のサイクルを回す。環境変化への即時対応。AIモデルの自動進化。全拠点のベストプラクティスが自動的に共有・適用。人は戦略的監督に特化。</div></div>
+        </div>
+      </div>
+
+      <div class="gd-section">
+        <div class="gd-section__title">導入効果</div>
+        <div class="gd-effects-grid">
+          <div class="gd-effect"><span class="gd-effect__label">直接効果</span><div class="gd-effect__text">管理者の運用負荷95%削減。環境変化への対応速度100倍以上（時間単位→秒単位）。施設運営コスト60-70%削減。24時間365日の最適運営の実現。</div></div>
+          <div class="gd-effect"><span class="gd-effect__label">間接効果</span><div class="gd-effect__text">物流施設の「完全自律運営」というビジョンの実現。人的リソースの戦略業務への完全シフト。物流業界の構造的人手不足の根本的解決。持続可能な物流インフラの確立。</div></div>
+        </div>
+      </div>
+      <a href="gpim.html#levels" class="gd-back">GPIMレベル一覧に戻る</a>
+    </div>
+
+  </div><!-- /container -->
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <img src="img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
+          <p class="footer__brand-desc">
+            AI・数理最適化・ロボティクスで、<br>
+            物流の未来を変革する。
+          </p>
+        </div>
+        <div>
+          <h4 class="footer__heading">Company</h4>
+          <div class="footer__links">
+            <a href="about.html" class="footer__link">会社概要</a>
+            <a href="about.html#vision" class="footer__link">ビジョン・ミッション</a>
+            <a href="about.html#ceo" class="footer__link">CEOメッセージ</a>
+            <a href="careers.html" class="footer__link">採用情報</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Solutions</h4>
+          <div class="footer__links">
+            <a href="gwes.html" class="footer__link">GWES</a>
+            <a href="digital-integration.html" class="footer__link">デジタルインテグレーション</a>
+            <a href="consulting.html" class="footer__link">コンサルティング</a>
+            <a href="peer.html" class="footer__link">PEER</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Contact</h4>
+          <div class="footer__links">
+            <a href="contact.html" class="footer__link">お問い合わせ</a>
+            <span class="footer__link" style="cursor: default;">TEL: 03-6457-1650</span>
+            <a href="mailto:Info@groundinc.co.jp" class="footer__link">Info@groundinc.co.jp</a>
+            <span class="footer__link" style="cursor: default;">
+              〒101-0041<br>
+              東京都千代田区神田須田町1-3-33<br>
+              Bizflex神田 10F
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 GROUND Inc. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social" aria-label="LinkedIn">in</a>
+          <a href="#" class="footer__social" aria-label="Note">N</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script defer src="js/main.js?v=31"></script>
+  <script>
+    // Show the correct level based on URL parameter
+    const params = new URLSearchParams(window.location.search);
+    const level = params.get('level');
+    if (level) {
+      const el = document.querySelector(`[data-level="${level}"]`);
+      if (el) {
+        el.classList.add('is-active');
+        // Update breadcrumb
+        const nameEl = el.querySelector('.gd-hero__name');
+        const numEl = el.querySelector('.gd-hero__num');
+        if (nameEl && numEl) {
+          document.getElementById('bc-level').textContent = numEl.textContent + ' - ' + nameEl.textContent;
+          document.title = numEl.textContent + ' ' + nameEl.textContent + ' | GPIM | GROUND Inc.';
+        }
+      }
+    }
+    // If no level found, redirect back
+    if (!document.querySelector('.gd-level.is-active')) {
+      window.location.href = 'gpim.html';
+    }
+  </script>
+<script defer src="js/design-settings.js"></script>
+</body>
+</html>
