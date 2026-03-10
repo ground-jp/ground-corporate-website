@@ -958,9 +958,16 @@
 
 [data-de-id="de-2"] { transform: translate(24px, -2px) !important; } /* de-2-transform */
 
-[data-de-id="de-2"] { transform: translate(21px, -8px) !important; } /* de-2-transform */</style></head>
+[data-de-id="de-2"] { transform: translate(21px, -8px) !important; } /* de-2-transform */
+
+[data-de-id="de-1"] { transform:  !important; } /* de-1-transform */
+[data-de-id="de-2"] { color: #ffffff !important; } /* de-2-color */
+[data-de-id="de-3"] { transform:  !important; } /* de-3-transform */
+[data-de-id="de-4"] { transform:  !important; } /* de-4-transform */
+[data-de-id="de-5"] { transform: translate(-22px, 0px) !important; } /* de-5-transform */
+[data-de-id="de-6"] { transform: translate(0px, 0px) !important; } /* de-6-transform */</style></head>
 <body style="font-size: 15px;">
-<header class="header" id="header" style="background: rgb(10, 12, 20); height: 64px;">
+<header class="header header--scrolled" id="header" style="background: rgb(10, 12, 20); height: 64px;">
     <div class="header__inner" style="">
       <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; position: relative; top: 0px; left: 0px;"></a>
       <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く" style="">
@@ -1019,7 +1026,7 @@
       </div>
       <!-- Col 3: CTA + Contact -->
       <div class="overlay-menu__col-info">
-        <a class="overlay-menu__cta-btn" href="/contact" style="background-color: rgb(232, 97, 77);">お問い合わせ</a>
+        <a class="overlay-menu__cta-btn" href="/contact" style="background-color: rgb(37, 99, 235);">お問い合わせ</a>
         <div class="overlay-menu__contact-info">
           <span>info@groundinc.co.jp</span>
           <span>03-6441-2975</span>
@@ -1057,16 +1064,16 @@
           </div>
         </div>
       </div>
-      <h1 class="gw-hero__title" style="">物流施設の全運営を統合管理する<br>物流OS</h1>
-      <p class="gw-hero__subtitle" style="">施設運営を知性で自律化する</p>
-      <p class="gw-hero__desc" style="">
+      <h1 class="gw-hero__title" style="" data-de-id="de-1">物流施設運営を統合管理する<br>物流OS</h1>
+      <p class="gw-hero__subtitle" style="">施設運営をテクノロジーで自律化する</p>
+      <p class="gw-hero__desc" style="color: rgb(255, 255, 255) !important;" data-de-id="de-2">
         GWESは、物流施設全体の運営に必要な情報の取得・分析・判断・指示を一元的に担う「物流OS（オペレーティングシステム）」です。WMSが個々の作業指示を制御する「実行系システム」であるのに対し、GWESは施設全体を俯瞰し、最適化・自律化を推進する「管理・意思決定系システム」として機能します。
       </p>
     </div>
   </section>
 
   <!-- ==================== UI SHOWCASE: Laptop in Dark ==================== -->
-  <section class="gw-showcase" style="outline: rgb(91, 192, 235) solid 3px; outline-offset: 3px;">
+  <section class="gw-showcase" style="">
     <div class="gw-showcase__viewport" style="">
       <div class="gw-laptop" style="">
         <div class="gw-laptop__body" style="">
@@ -1098,31 +1105,31 @@
 
 <!-- ==================== CONCEPT: What is Logistics OS ==================== -->
   <section class="gw-section">
-    <div class="container">
+    <div class="container" data-de-id="de-6" style="transform: translate(0px, 0px) !important;">
       <!-- ① 課題提起 -->
-      <div class="gw-concept gw-fade is-visible">
-        <div>
+      <div class="gw-concept gw-fade is-visible" style="">
+        <div style="">
           <span class="gw-section__label">Logistics OS</span>
           <h2 class="gw-section__heading" style="font-size: 28px;">なぜ「物流OS」<br>なのか</h2>
         </div>
-        <div class="gw-concept__text">
+        <div class="gw-concept__text" data-de-id="de-3" style="">
           <p>物流業界は今、歴史的な転換点を迎えています。EC拡大による多品種少量・短納期化、深刻な人手不足と高齢化、グローバルサプライチェーンの複雑化、そして荷主からの高度な品質・可視化要求が同時に押し寄せています。</p>
-          <p>こうした課題に対し、従来の「現場の経験と勘に依存した運営」では対応できません。データとテクノロジーに基づく体系的な改善アプローチが不可欠です。</p>
-          <p>GWESは、PCにおけるOSがハードウェアとアプリケーションを統合管理するように、物流施設の全リソース──人・設備・在庫・スペース──を統合的に管理し、最適な運営状態を維持するプラットフォームです。WMS・ERP・マテハンといった既存システムと連携しつつ、施設運営全体の「判断と管理」を担います。</p>
-          <p>この「物流OS」というアーキテクチャは、すでに他産業で実証済みの設計思想に基づいています。</p>
+          <p style="">こうした課題に対し、従来の「現場の経験と勘に依存した運営」では対応できません。データとテクノロジーに基づく体系的な改善アプローチが不可欠です。</p>
+          <p style="">GWESは、PCにおけるOSがハードウェアとアプリケーションを統合管理するように、物流施設の全リソース──人・設備・在庫・スペース──を統合的に管理し、最適な運営状態を維持するプラットフォームです。WMS・ERP・マテハンといった既存システムと連携しつつ、施設運営全体の「判断と管理」を担います。</p>
+          <p style=""><br></p>
         </div>
       </div>
 
       
 
 <!-- ==================== 4 VALUES ==================== -->
-  <section class="gw-section" style="padding-top: 0;">
+  <section class="gw-section" style="padding-top: 0px;">
     <div class="container">
-      <div class="gw-fade">
+      <div class="gw-fade is-visible">
         <span class="gw-section__label">Core Values</span>
         <h2 class="gw-section__heading" style="font-size: 28px;">GWESが提供する4つの価値</h2>
       </div>
-      <div class="gw-values gw-fade">
+      <div class="gw-values gw-fade is-visible">
         <div class="gw-value">
           <div class="gw-value__name">作業量予測</div>
           <div class="gw-value__desc">過去データとAIに基づく入出荷・作業量の事前予測。波動対応・人員計画の精度を飛躍的に向上させます。</div>
@@ -1131,9 +1138,9 @@
           <div class="gw-value__name">可視化</div>
           <div class="gw-value__desc">作業進捗・在庫状況・負荷状態をリアルタイムに一元表示。複数拠点の横断比較を実現します。</div>
         </div>
-        <div class="gw-value">
+        <div class="gw-value" style="">
           <div class="gw-value__name">最適化</div>
-          <div class="gw-value__desc">在庫配置・動線・積付・出荷判断・人員配分をデータとロジックで全体最適化します。</div>
+          <div class="gw-value__desc" style="">在庫配置・動線・積付・出荷判断・要員配分をデータとロジックで全体最適化します。</div>
         </div>
         <div class="gw-value">
           <div class="gw-value__name">拡張性</div>
@@ -1148,12 +1155,12 @@
 <!-- ==================== TRANSFORMATION ==================== -->
   <section class="gw-section" style="padding-top: 0;">
     <div class="container">
-      <div class="gw-fade">
+      <div class="gw-fade is-visible">
         <span class="gw-section__label">Transformation</span>
         <h2 class="gw-section__heading" style="font-size: 28px;">GWESがもたらす変革</h2>
         <p class="gw-section__desc">これらのテクノロジーにより、物流施設の運営は以下のように変わります。</p>
       </div>
-      <div class="gw-compare gw-fade">
+      <div class="gw-compare gw-fade is-visible">
         <div class="gw-compare__card gw-compare__card--before">
           <span class="gw-compare__label gw-compare__label--before">Before ─ 従来型運営</span>
           <div class="gw-compare__item">
@@ -1174,7 +1181,7 @@
           </div>
         </div>
         <div class="gw-compare__arrow">→</div>
-        <div class="gw-compare__card gw-compare__card--after">
+        <div class="gw-compare__card gw-compare__card--after" style="">
           <span class="gw-compare__label gw-compare__label--after">After ─ GWES導入後</span>
           <div class="gw-compare__item">
             <span class="gw-compare__head">判断の根拠</span>
@@ -1184,11 +1191,11 @@
             <span class="gw-compare__head">管理範囲</span>
             複数拠点横断・全体最適視点での運営
           </div>
-          <div class="gw-compare__item">
+          <div class="gw-compare__item" style="">
             <span class="gw-compare__head">改善サイクル</span>
             リアルタイム可視化・即時改善
           </div>
-          <div class="gw-compare__item">
+          <div class="gw-compare__item" style="">
             <span class="gw-compare__head">拡張性</span>
             共通プラットフォームで迅速に展開
           </div>
@@ -1201,22 +1208,22 @@
 
 
   <!-- ==================== TECHNOLOGY PLATFORM ==================== -->
-  <section class="gw-section" id="technology">
-    <div class="container">
+  <section class="gw-section" id="technology" style="">
+    <div class="container" style="">
       <!-- ② OSアーキテクチャの対比 -->
-      <div class="gw-arch-intro gw-fade" style="margin-top: 16px;">
+      <div class="gw-arch-intro gw-fade is-visible" style="margin-top: 16px;">
         <div>
           <span class="gw-section__label">Technology Platform</span>
           <h2 class="gw-section__heading" style="font-size: 28px;">テクノロジー・<br>プラットフォーム</h2>
         </div>
-        <div class="gw-concept__text">
-          <p>スマートフォンのiOS / Androidは、SoCやセンサー群の上位に位置し、AIフレームワークを統合的に提供するOSです。コネクテッドカーのVehicle OS（QNX / Automotive Grade Linux）も同様に、LiDAR・カメラ等のセンサーフュージョンと自律走行アルゴリズムを統合管理しています。</p>
-          <p>GWESはこれらと同じ設計思想で、物流施設のWMS・マテハン・IoTセンサー群の上位に位置するOSとして、4つのアルゴリズムを通じて施設運営の知能化を実現します。</p>
+        <div class="gw-concept__text" data-de-id="de-5" style="transform: translate(-22px, 0px) !important;">
+          <p data-de-id="de-4" style="">スマートフォンのiOS / Androidは、SoCやセンサー群の上位に位置し、AIフレームワークを統合的に提供するOSです。コネクテッドカーの車載OS（QNX / Automotive Grade Linux）も同様に、LiDAR・カメラ等のセンサーフュージョンと自律走行アルゴリズムを統合管理しています。</p>
+          <p style="">GWESはこれらと同じ設計思想で、物流施設のWMS・マテハン・IoTセンサー群の上位に位置するOSとして、4つのアルゴリズムを通じて施設運営の知能化を実現します。</p>
         </div>
       </div>
 
       <!-- ③ アーキテクチャ対比チャート -->
-      <div class="gw-tech-chart gw-fade">
+      <div class="gw-tech-chart gw-fade is-visible">
         <!-- Smartphone OS -->
         <div class="gw-tech-col">
           <div class="gw-tech-col__header">Smartphone OS</div>
@@ -1259,8 +1266,8 @@
         </div>
         <!-- GWES -->
         <div class="gw-tech-col gw-tech-col--active">
-          <div class="gw-tech-col__header">GWES — Logistics OS</div>
-          <div class="gw-tech-layer">
+          <div class="gw-tech-col__header" style="">GWES — Logistics OS</div>
+          <div class="gw-tech-layer" style="">
             <div class="gw-tech-layer__label">Application</div>
             <div class="gw-tech-layer__content">要員配置最適化、出荷予測、品質管理、施設運営の自律化</div>
           </div>
@@ -1615,15 +1622,9 @@
     <div class="container">
       <div class="gw-video__wrap gw-fade">
         <span class="gw-video__label">Movie</span>
-        <h2 class="gw-video__heading">GWESの紹介動画</h2>
+        <h2 class="gw-video__heading" style="font-size: 28px;">GWESの紹介動画</h2>
         <div class="gw-video__player">
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/N4X--NnUGuk"
-            title="GWES 紹介動画"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            loading="lazy"
-          ></iframe>
+          <iframe src="https://www.youtube-nocookie.com/embed/N4X--NnUGuk" title="GWES 紹介動画" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" loading="lazy"></iframe>
         </div>
       </div>
     </div>
@@ -1695,7 +1696,7 @@
     </div>
   </section>
 
-<footer class="footer" style="background-color: rgb(10, 12, 20); color: rgb(138, 140, 154);">
+<footer class="footer" style="background-color: rgb(10, 12, 20); color: rgb(255, 255, 255);">
     <div class="container">
       <div class="footer__grid">
         <div>
