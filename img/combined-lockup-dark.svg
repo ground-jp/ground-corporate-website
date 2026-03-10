@@ -1,73 +1,81 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 60">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 44">
   <defs>
-    <!-- White-to-Titanium gradient for GROUND logo (dark background) -->
-    <linearGradient id="wtf" x1="0" y1="0" x2="0" y2="44" gradientUnits="userSpaceOnUse">
+    <linearGradient id="wg" x1="0" y1="0" x2="0" y2="32" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="65%" stop-color="#FFFFFF"/>
-      <stop offset="80%" stop-color="#F9FAFA"/>
-      <stop offset="90%" stop-color="#EFF0F1"/>
-      <stop offset="95%" stop-color="#E8E9EB"/>
-      <stop offset="100%" stop-color="#E0E1E4"/>
+      <stop offset="70%" stop-color="#FFFFFF"/>
+      <stop offset="85%" stop-color="#F5F5F6"/>
+      <stop offset="100%" stop-color="#E8E9EB"/>
     </linearGradient>
   </defs>
 
-  <!-- === GROUND Logo (left side) === -->
-  <g transform="translate(0, 6)">
-    <!-- G Mark: correct G shape with opening on upper-right side -->
-    <path fill="url(#wtf)"
-          d="M0 0 H60 V3.77 H3.77 V26.4 H56.57 V15.07 H60 V30.17 H0 Z"/>
-    <!-- Wordmark -->
-    <text x="72" y="24"
+  <!-- === GROUND Logo (left) === -->
+  <g transform="translate(0, 4)">
+    <!-- G Mark: 36x24 -->
+    <path fill="url(#wg)"
+          d="M0 0 H36 V2.4 H2.4 V21.6 H33.6 V12 H36 V24 H0 Z"/>
+    <!-- GROUND text -->
+    <text x="44" y="19.5"
           font-family="'Liberation Sans',Arial,Helvetica,sans-serif"
-          font-weight="700" font-size="28" letter-spacing="-0.3"
-          fill="url(#wtf)"
-          stroke="#0a0c14" stroke-width="0.5" stroke-linejoin="round"
+          font-weight="700" font-size="20" letter-spacing="-0.3"
+          fill="url(#wg)"
+          stroke="#0a0c14" stroke-width="0.3" stroke-linejoin="round"
           paint-order="fill stroke">GROUND</text>
-    <!-- Tagline removed -->
   </g>
 
   <!-- === Divider === -->
-  <line x1="310" y1="10" x2="310" y2="50" stroke="#C8CDD8" stroke-opacity="0.2" stroke-width="0.5"/>
+  <line x1="200" y1="6" x2="200" y2="38" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="0.5"/>
 
-  <!-- === GWES Lockup (right side) === -->
-  <g transform="translate(340, 6)">
-    <!-- Particle grid icon -->
-    <g transform="translate(0, 0) scale(0.22)">
-      <circle cx="100" cy="100" r="7" fill="#ffffff" opacity="0.9"/>
-      <circle cx="80" cy="100" r="6" fill="#f0f5fa" opacity="0.85"/>
-      <circle cx="120" cy="100" r="6" fill="#f0f5fa" opacity="0.85"/>
-      <circle cx="100" cy="80" r="6" fill="#f0f5fa" opacity="0.85"/>
-      <circle cx="100" cy="120" r="6" fill="#f0f5fa" opacity="0.85"/>
-      <circle cx="80" cy="80" r="5.5" fill="#d0e4f2" opacity="0.75"/>
-      <circle cx="120" cy="80" r="5.5" fill="#d0e4f2" opacity="0.75"/>
-      <circle cx="80" cy="120" r="5.5" fill="#d0e4f2" opacity="0.75"/>
-      <circle cx="120" cy="120" r="5.5" fill="#d0e4f2" opacity="0.75"/>
-      <circle cx="60" cy="100" r="4.5" fill="#9dd4f0" opacity="0.55"/>
-      <circle cx="140" cy="100" r="4.5" fill="#9dd4f0" opacity="0.55"/>
-      <circle cx="100" cy="60" r="4.5" fill="#9dd4f0" opacity="0.55"/>
-      <circle cx="100" cy="140" r="4.5" fill="#9dd4f0" opacity="0.55"/>
-      <circle cx="60" cy="80" r="4" fill="#7dcbee" opacity="0.4"/>
-      <circle cx="140" cy="80" r="4" fill="#7dcbee" opacity="0.4"/>
-      <circle cx="60" cy="120" r="4" fill="#7dcbee" opacity="0.4"/>
-      <circle cx="140" cy="120" r="4" fill="#7dcbee" opacity="0.4"/>
-      <circle cx="80" cy="60" r="4" fill="#7dcbee" opacity="0.4"/>
-      <circle cx="120" cy="60" r="4" fill="#7dcbee" opacity="0.4"/>
-      <circle cx="80" cy="140" r="4" fill="#7dcbee" opacity="0.4"/>
-      <circle cx="120" cy="140" r="4" fill="#7dcbee" opacity="0.4"/>
-      <circle cx="60" cy="60" r="3.5" fill="#5bc0eb" opacity="0.2"/>
-      <circle cx="140" cy="60" r="3.5" fill="#5bc0eb" opacity="0.2"/>
-      <circle cx="60" cy="140" r="3.5" fill="#5bc0eb" opacity="0.2"/>
-      <circle cx="140" cy="140" r="3.5" fill="#5bc0eb" opacity="0.2"/>
+  <!-- === GWES Lockup (right) === -->
+  <g transform="translate(218, 2)">
+    <!-- Particle grid icon (28x28) -->
+    <g transform="translate(0, 4) scale(0.233)">
+      <circle cx="60" cy="40" r="3.5" fill="#6ac6ec" opacity="0.17"/>
+      <circle cx="80" cy="40" r="3.7" fill="#72c9ed" opacity="0.24"/>
+      <circle cx="100" cy="40" r="3.5" fill="#6ac6ec" opacity="0.17"/>
+      <circle cx="40" cy="60" r="3.8" fill="#7accee" opacity="0.32"/>
+      <circle cx="60" cy="60" r="4.4" fill="#96d6f2" opacity="0.54"/>
+      <circle cx="80" cy="60" r="4.6" fill="#a1dbf3" opacity="0.62"/>
+      <circle cx="100" cy="60" r="4.4" fill="#96d6f2" opacity="0.54"/>
+      <circle cx="120" cy="60" r="3.8" fill="#7accee" opacity="0.32"/>
+      <circle cx="20" cy="80" r="3.5" fill="#6ac6ec" opacity="0.17"/>
+      <circle cx="40" cy="80" r="4.4" fill="#96d6f2" opacity="0.54"/>
+      <circle cx="60" cy="80" r="5.0" fill="#bce5f6" opacity="0.77"/>
+      <circle cx="80" cy="80" r="5.4" fill="#d0edf9" opacity="0.84"/>
+      <circle cx="100" cy="80" r="5.0" fill="#bce5f6" opacity="0.77"/>
+      <circle cx="120" cy="80" r="4.4" fill="#96d6f2" opacity="0.54"/>
+      <circle cx="140" cy="80" r="3.5" fill="#6ac6ec" opacity="0.17"/>
+      <circle cx="20" cy="100" r="3.7" fill="#72c9ed" opacity="0.24"/>
+      <circle cx="40" cy="100" r="4.6" fill="#a1dbf3" opacity="0.62"/>
+      <circle cx="60" cy="100" r="5.4" fill="#d0edf9" opacity="0.84"/>
+      <circle cx="80" cy="100" r="6.2" fill="#ffffff" opacity="0.92"/>
+      <circle cx="100" cy="100" r="5.4" fill="#d0edf9" opacity="0.84"/>
+      <circle cx="120" cy="100" r="4.6" fill="#a1dbf3" opacity="0.62"/>
+      <circle cx="140" cy="100" r="3.7" fill="#72c9ed" opacity="0.24"/>
+      <circle cx="20" cy="120" r="3.5" fill="#6ac6ec" opacity="0.17"/>
+      <circle cx="40" cy="120" r="4.4" fill="#96d6f2" opacity="0.54"/>
+      <circle cx="60" cy="120" r="5.0" fill="#bce5f6" opacity="0.77"/>
+      <circle cx="80" cy="120" r="5.4" fill="#d0edf9" opacity="0.84"/>
+      <circle cx="100" cy="120" r="5.0" fill="#bce5f6" opacity="0.77"/>
+      <circle cx="120" cy="120" r="4.4" fill="#96d6f2" opacity="0.54"/>
+      <circle cx="140" cy="120" r="3.5" fill="#6ac6ec" opacity="0.17"/>
+      <circle cx="40" cy="140" r="3.8" fill="#7accee" opacity="0.32"/>
+      <circle cx="60" cy="140" r="4.4" fill="#96d6f2" opacity="0.54"/>
+      <circle cx="80" cy="140" r="4.6" fill="#a1dbf3" opacity="0.62"/>
+      <circle cx="100" cy="140" r="4.4" fill="#96d6f2" opacity="0.54"/>
+      <circle cx="120" cy="140" r="3.8" fill="#7accee" opacity="0.32"/>
+      <circle cx="60" cy="160" r="3.5" fill="#6ac6ec" opacity="0.17"/>
+      <circle cx="80" cy="160" r="3.7" fill="#72c9ed" opacity="0.24"/>
+      <circle cx="100" cy="160" r="3.5" fill="#6ac6ec" opacity="0.17"/>
     </g>
     <!-- GWES text -->
-    <text x="56" y="24"
+    <text x="46" y="19"
           font-family="'Liberation Sans',Arial,Helvetica,sans-serif"
-          font-weight="700" font-size="20" letter-spacing="6"
-          fill="#C8CDD8">GWES</text>
+          font-weight="700" font-size="19" letter-spacing="4"
+          fill="#FFFFFF">GWES</text>
     <!-- Tagline -->
-    <text x="56" y="36"
+    <text x="46" y="32"
           font-family="Inter,Arial,sans-serif"
-          font-weight="400" font-size="5" fill="#FFFFFF"
-          letter-spacing="0.15">The OS for Autonomous Warehouse</text>
+          font-weight="400" font-size="6.5" fill="#FFFFFF" opacity="0.6"
+          letter-spacing="0.2">The OS for Autonomous Warehouse</text>
   </g>
 </svg>
