@@ -223,17 +223,12 @@
   </a>
 
   <section class="hero" id="hero">
-    <!-- NO class="hero__bg-image" to avoid CSS conflicts -->
-    <video id="heroVideo" class="hero__bg-image" autoplay muted loop playsinline preload="auto" aria-hidden="true" style="">
-      <source src="img/hero-video-neural-v2.mp4" type="video/mp4">
-    </video>
+    <video id="heroVideo" autoplay muted loop playsinline preload="auto" aria-hidden="true" src="img/hero-video-neural-v2.mp4" style=""></video>
     <script>
       (function(){
         var videos=['img/hero-video-2026.mp4','img/hero-video-neural-v2.mp4'];
-        var chosen=videos[Math.floor(Math.random()*videos.length)];
         var vid=document.getElementById('heroVideo');
-        vid.querySelector('source').src=chosen;
-        vid.load();
+        vid.src=videos[Math.floor(Math.random()*videos.length)];
       })();
     </script>
     <div class="hero__gradient"></div>
