@@ -1744,6 +1744,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 
   function getFilePath() {
     var pagePath = document.getElementById('pageSelect').value;
+    if (pagePath === '/' || pagePath === '') return 'index.html';
     return pagePath.startsWith('/') ? pagePath.substring(1) : pagePath;
   }
 
