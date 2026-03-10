@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本通運株式会社 × GWES | グローバル物流プラットフォーム「NX-GLOW」にGWES採用 | GROUND Inc.</title>
+    <meta name="description" content="日本通運がグローバル標準倉庫管理システム「NX-GLOW」にGWESを採用。世界展開を加速し、物流拠点の統合管理を実現。">
+    <meta property="og:title" content="日本通運株式会社 × GWES | グローバル物流プラットフォーム「NX-GLOW」にGWES採用">
+    <meta property="og:description" content="日本通運がグローバル標準倉庫管理システム「NX-GLOW」にGWESを採用。世界展開を加速し、物流拠点の統合管理を実現。">
+    <meta property="og:image" content="https://static.wixstatic.com/media/409c45_19b50ef0b88e4ff1932e3cfb32c88bf5~mv2.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+            --cs-bg: #0A0C14;
+            --cs-surface: #161822;
+            --cs-surface-2: #1A1A1A;
+            --cs-border: #3F4250;
+            --cs-text-1: #FFFFFF;
+            --cs-text-2: rgba(255,255,255,0.92);
+            --cs-text-3: rgba(255,255,255,0.55);
+            --cs-accent: #3B82F6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: var(--cs-bg); color: var(--cs-text-1); line-height: 1.6; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 56px; }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 350 !important;
+            background: rgb(10, 12, 20);
+            height: 64px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s cubic-bezier(0.23,1,0.32,1);
+        }
+        .header--scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
+        .header--hidden { transform: translateY(-100%); }
+        .header__inner { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0 56px; }
+        .header__logo { display: flex; align-items: center; text-decoration: none; }
+        .header__logo-img { height: 26px; width: auto; }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: flex !important;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            width: 52px;
+            height: 52px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 400;
+            position: relative;
+            margin-right: -8px;
+        }
+        .hamburger__line {
+            display: block;
+            width: 26px;
+            height: 1.5px;
+            background: #fff;
+            border-radius: 1px;
+            transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.25s ease;
+            transform-origin: center;
+        }
+        .hamburger.active .hamburger__line:nth-child(1) { transform: rotate(45deg) translate(5.5px,5.5px); }
+        .hamburger.active .hamburger__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.active .hamburger__line:nth-child(3) { transform: rotate(-45deg) translate(5.5px,-5.5px); }
+
+        /* Overlay Menu */
+        .overlay-menu {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            background: #0A0C14;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateY(-20px);
+            transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s, transform 0.4s cubic-bezier(0.23,1,0.32,1);
+            overflow-y: auto;
+        }
+        .overlay-menu.active { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
+        .overlay-menu__inner {
+            display: grid;
+            grid-template-columns: 280px 1fr 340px;
+            gap: 0 48px;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 100px 56px 60px;
+            min-height: 100vh;
+            align-content: start;
+        }
+        .overlay-menu__label {
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.35);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .overlay-menu__col-nav { grid-column: 1; }
+        .overlay-menu__nav-list { display: flex; flex-direction: column; gap: 0; }
+        .overlay-menu__nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 17px;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        .overlay-menu__nav-item:hover, .overlay-menu__nav-item.is-active { background: rgba(255,255,255,0.06); }
+        .overlay-menu__nav-arrow { font-size: 16px; color: rgba(255,255,255,0.4); }
+        .overlay-menu__col-sub { grid-column: 2; }
+        .overlay-menu__panel { display: none; flex-direction: column; gap: 0; }
+        .overlay-menu__panel.is-visible { display: flex; }
+        .overlay-menu__sub-item {
+            display: block;
+            padding: 12px 0;
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            font-size: 16px;
+            font-weight: 400;
+            transition: color 0.15s;
+        }
+        .overlay-menu__sub-item:hover { color: #fff; }
+        .overlay-menu__col-info { grid-column: 3; display: flex; flex-direction: column; justify-content: flex-start; }
+        .overlay-menu__cta-btn {
+            display: block;
+            padding: 16px 32px;
+            border: 1px solid rgba(255,255,255,0.25);
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            background: rgb(37, 99, 235);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .overlay-menu__cta-btn:hover { background: rgb(29, 78, 216); }
+        .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
+        .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.3); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.03em; }
+        .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em; }
+
+        /* Breadcrumb */
+        .cs-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 40px 0 24px;
+            font-size: 13px;
+            color: var(--cs-text-3);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .cs-breadcrumb a { color: var(--cs-text-3); text-decoration: none; transition: color 0.2s; }
+        .cs-breadcrumb a:hover { color: var(--cs-accent); }
+        .cs-breadcrumb span { color: var(--cs-text-3); }
+
+        /* Hero */
+        .cs-hero {
+            padding: 80px 0;
+            position: relative;
+            z-index: 1;
+        }
+        .cs-hero__badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--cs-accent);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.05em;
+            margin-bottom: 24px;
+        }
+        .cs-hero__company {
+            font-size: 14px;
+            color: var(--cs-text-3);
+            font-family: 'Noto Sans JP', sans-serif;
+            margin-bottom: 16px;
+        }
+        .cs-hero__title {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 32px;
+            color: var(--cs-text-1);
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        .cs-hero__meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+        .cs-hero__meta-item {
+            padding: 20px;
+            background: var(--cs-surface);
+            border: 1px solid var(--cs-border);
+            border-radius: 8px;
+        }
+        .cs-hero__meta-label {
+            font-size: 12px;
+            color: var(--cs-text-3);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .cs-hero__meta-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--cs-accent);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Hero Image */
+        .cs-hero__image {
+            width: 100%;
+            height: 400px;
+            background: var(--cs-surface);
+            border: 1px solid var(--cs-border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 48px;
+        }
+        .cs-hero__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Section */
+        .cs-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--cs-border);
+        }
+        .cs-section__label {
+            display: inline-block;
+            font-size: 12px;
+            color: var(--cs-text-3);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .cs-section__title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--cs-text-1);
+            margin-bottom: 40px;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        .cs-section__content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: start;
+        }
+        .cs-section__text p {
+            font-size: 16px;
+            color: var(--cs-text-2);
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        .cs-section__text ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-left: 0;
+        }
+        .cs-section__text li {
+            padding-left: 28px;
+            position: relative;
+            font-size: 16px;
+            color: var(--cs-text-2);
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        .cs-section__text li:before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--cs-accent);
+            font-weight: 600;
+        }
+
+        /* Timeline */
+        .cs-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .cs-timeline__item {
+            padding: 24px;
+            background: var(--cs-surface);
+            border: 1px solid var(--cs-border);
+            border-left: 3px solid var(--cs-accent);
+            border-radius: 8px;
+        }
+        .cs-timeline__date {
+            font-size: 14px;
+            color: var(--cs-accent);
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 8px;
+        }
+        .cs-timeline__description {
+            font-size: 16px;
+            color: var(--cs-text-2);
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        /* KPI Grid */
+        .cs-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .cs-kpi-card {
+            padding: 32px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0) 100%);
+            border: 1px solid var(--cs-border);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .cs-kpi-card__label {
+            font-size: 13px;
+            color: var(--cs-text-3);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.05em;
+        }
+        .cs-kpi-card__value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--cs-accent);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Quote Section */
+        .cs-quote {
+            padding: 60px;
+            background: var(--cs-surface);
+            border: 1px solid var(--cs-border);
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        .cs-quote__text {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--cs-text-1);
+            line-height: 1.8;
+            margin-bottom: 32px;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        .cs-quote__author {
+            font-size: 14px;
+            color: var(--cs-text-3);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.05em;
+        }
+
+        /* CTA Section */
+        .cs-cta {
+            padding: 60px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0) 100%);
+            border: 1px solid var(--cs-accent);
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        .cs-cta__title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        .cs-cta__description {
+            font-size: 16px;
+            color: var(--cs-text-2);
+            margin-bottom: 32px;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        .cs-cta__buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+        .cs-cta__btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border: 1px solid var(--cs-accent);
+            background: var(--cs-accent);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+        }
+        .cs-cta__btn:hover {
+            background: transparent;
+            color: var(--cs-accent);
+        }
+        .cs-cta__btn--secondary {
+            background: transparent;
+            color: var(--cs-accent);
+        }
+        .cs-cta__btn--secondary:hover {
+            background: var(--cs-accent);
+            color: #fff;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: rgb(10, 12, 20);
+            color: rgb(255, 255, 255);
+            border-top: 1px solid var(--cs-border);
+        }
+        .footer .container { padding: 60px 56px; }
+        .footer__grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+        .footer__lockup-img { height: 44px; width: auto; margin-bottom: 20px; }
+        .footer__brand-desc {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.6;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        .footer__heading {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.85);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .footer__links { display: flex; flex-direction: column; gap: 12px; }
+        .footer__link {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: color 0.2s;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        .footer__link:hover { color: var(--cs-accent); }
+        .footer__bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .footer__copy {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .footer__socials { display: flex; gap: 20px; }
+        .footer__social {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .footer__social:hover { color: var(--cs-accent); }
+
+        /* Fade in animation */
+        .cs-fade { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.23,1,0.32,1); }
+        .cs-fade.is-visible { opacity: 1; transform: translateY(0); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container { padding: 0 40px; }
+            .cs-section__content { grid-template-columns: 1fr; gap: 40px; }
+            .cs-hero__title { font-size: 36px; }
+            .cs-kpi-grid { grid-template-columns: 1fr; }
+            .cs-hero__meta { grid-template-columns: repeat(2, 1fr); }
+            .overlay-menu__inner { grid-template-columns: 1fr; gap: 0; padding: 100px 40px 60px; }
+            .overlay-menu__col-sub { grid-column: 1; }
+            .overlay-menu__col-info { grid-column: 1; margin-top: 40px; }
+            .footer__grid { grid-template-columns: repeat(2, 1fr); }
+            .header__inner { padding: 0 40px; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 24px; }
+            .cs-hero { padding: 60px 0; }
+            .cs-section { padding: 60px 0; }
+            .cs-hero__title { font-size: 28px; }
+            .cs-section__title { font-size: 28px; }
+            .cs-hero__meta { grid-template-columns: 1fr; }
+            .cs-kpi-grid { grid-template-columns: 1fr; }
+            .cs-section__content { gap: 24px; }
+            .cs-cta__buttons { flex-direction: column; }
+            .overlay-menu__inner { padding: 80px 24px 60px; }
+            .footer__grid { grid-template-columns: 1fr; gap: 40px; }
+            .footer__bottom { flex-direction: column; gap: 20px; text-align: center; }
+            .header__inner { padding: 0 24px; }
+        }
+
+        @media (max-width: 480px) {
+            .cs-hero__meta-value { font-size: 18px; }
+            .cs-quote__text { font-size: 18px; }
+            .cs-cta__title { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header" style="background: rgb(10, 12, 20); height: 64px;">
+        <div class="header__inner">
+            <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; position: relative; top: 0px; left: 0px;"></a>
+            <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
+                <span class="hamburger__line"></span>
+                <span class="hamburger__line"></span>
+                <span class="hamburger__line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Overlay Menu -->
+    <div class="overlay-menu" id="overlayMenu">
+        <div class="overlay-menu__inner">
+            <div class="overlay-menu__col-nav">
+                <span class="overlay-menu__label">[NAVIGATION]</span>
+                <div class="overlay-menu__nav-list">
+                    <a class="overlay-menu__nav-item" data-panel="company" href="/about">会社情報<span class="overlay-menu__nav-arrow">›</span></a>
+                    <a class="overlay-menu__nav-item" data-panel="gpim" href="/gpim">GPIM<span class="overlay-menu__nav-arrow">›</span></a>
+                    <a class="overlay-menu__nav-item" data-panel="service" href="/service">製品・サービス<span class="overlay-menu__nav-arrow">›</span></a>
+                    <a class="overlay-menu__nav-item" href="/works">導入事例</a>
+                    <a class="overlay-menu__nav-item" href="/news">ニュース</a>
+                    <a class="overlay-menu__nav-item" href="/blog">WAREHOUSE TECH WEEKLY</a>
+                    <a class="overlay-menu__nav-item" data-panel="careers" href="/careers">採用情報<span class="overlay-menu__nav-arrow">›</span></a>
+                </div>
+            </div>
+            <div class="overlay-menu__col-sub">
+                <div class="overlay-menu__panel" data-panel="company">
+                    <span class="overlay-menu__label">[会社情報]</span>
+                    <a class="overlay-menu__sub-item" href="/about">会社概要</a>
+                    <a class="overlay-menu__sub-item" href="/about#ceo">CEOメッセージ</a>
+                    <a class="overlay-menu__sub-item" href="/about#vision">ビジョン・ミッション</a>
+                    <a class="overlay-menu__sub-item" href="/about#bp">行動原則(BP)・価値創造(VCP)プロセス</a>
+                </div>
+                <div class="overlay-menu__panel" data-panel="service">
+                    <span class="overlay-menu__label">[製品・サービス]</span>
+                    <a class="overlay-menu__sub-item" href="/gwes">GWES</a>
+                    <a class="overlay-menu__sub-item" href="/gwes#technology" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
+                    <a class="overlay-menu__sub-item" href="/gwes#modules" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
+                    <a class="overlay-menu__sub-item" href="/gwes#implementation" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
+                    <a class="overlay-menu__sub-item" href="/digital-integration">デジタルインテグレーション</a>
+                    <a class="overlay-menu__sub-item" href="/consulting">コンサルティング＆エンジニアリング</a>
+                    <a class="overlay-menu__sub-item" href="/peer">PEER</a>
+                </div>
+                <div class="overlay-menu__panel" data-panel="gpim">
+                    <span class="overlay-menu__label">[GPIM]</span>
+                    <a class="overlay-menu__sub-item" href="/gpim">GPIMとは</a>
+                    <a class="overlay-menu__sub-item" href="/gpim-consulting">GPIMコンサルティング</a>
+                </div>
+                <div class="overlay-menu__panel" data-panel="careers">
+                    <span class="overlay-menu__label">[採用情報]</span>
+                    <a class="overlay-menu__sub-item" href="/careers">募集ポジション</a>
+                    <a class="overlay-menu__sub-item" href="/about">カルチャー</a>
+                </div>
+            </div>
+            <div class="overlay-menu__col-info">
+                <a class="overlay-menu__cta-btn" href="/contact" style="background-color: rgb(37, 99, 235);">お問い合わせ</a>
+                <div class="overlay-menu__contact-info">
+                    <span>info@groundinc.co.jp</span>
+                    <span>03-6441-2975</span>
+                </div>
+                <p class="overlay-menu__copyright">© GROUND Inc.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="cs-breadcrumb" aria-label="breadcrumb">
+                <a href="/">ホーム</a>
+                <span>/</span>
+                <a href="/works">導入事例</a>
+                <span>/</span>
+                <span>日本通運株式会社</span>
+            </nav>
+
+            <!-- Hero Section -->
+            <section class="cs-hero cs-fade">
+                <span class="cs-hero__badge">GWES</span>
+                <p class="cs-hero__company">日本通運株式会社</p>
+                <h1 class="cs-hero__title">グローバル物流プラットフォーム「NX-GLOW」にGWESを採用、世界展開を加速</h1>
+
+                <div class="cs-hero__meta">
+                    <div class="cs-hero__meta-item">
+                        <div class="cs-hero__meta-label">プロジェクト開始</div>
+                        <div class="cs-hero__meta-value">2022年6月</div>
+                    </div>
+                    <div class="cs-hero__meta-item">
+                        <div class="cs-hero__meta-label">第一号拠点稼働</div>
+                        <div class="cs-hero__meta-value">2024年夏</div>
+                    </div>
+                    <div class="cs-hero__meta-item">
+                        <div class="cs-hero__meta-label">グローバル展開</div>
+                        <div class="cs-hero__meta-value">2025年予定</div>
+                    </div>
+                </div>
+
+                <div class="cs-hero__image">
+                    <img src="https://static.wixstatic.com/media/409c45_19b50ef0b88e4ff1932e3cfb32c88bf5~mv2.jpg/v1/fill/w_960,h_640,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/20240426tokyosoko.jpg" alt="日本通運物流センター">
+                </div>
+            </section>
+
+            <!-- Project Overview -->
+            <section class="cs-section cs-fade">
+                <span class="cs-section__label">[PROJECT OVERVIEW]</span>
+                <h2 class="cs-section__title">プロジェクト概要</h2>
+
+                <div class="cs-section__content">
+                    <div class="cs-section__text">
+                        <p>NXグループは世界最大級の物流企業として、アジア太平洋地域を中心にグローバルなネットワークを展開しています。多くの拠点が異なるシステムで運用されており、情報の統一化と効率化が急務でした。</p>
+                        <p>2022年6月、グローバル標準倉庫管理システム「NX-GLOW」構築プロジェクトを開始。このプロジェクトの中核機能の一つとしてGWESが採用され、世界中の物流拠点における作業進捗管理と最適化を実現します。</p>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px; font-family: 'Noto Sans JP', sans-serif;">主な課題</h3>
+                        <ul class="cs-section__text">
+                            <li>グローバルに展開する物流拠点の統合管理が困難</li>
+                            <li>各拠点のシステムが異なり、標準化されていない</li>
+                            <li>リアルタイムのオペレーション効率化ができない</li>
+                            <li>人員配置と在庫配置のリソース最適化が未実現</li>
+                            <li>多言語対応による運用ローカライズの複雑さ</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Solution -->
+            <section class="cs-section cs-fade">
+                <span class="cs-section__label">[SOLUTION]</span>
+                <h2 class="cs-section__title">導入ソリューション</h2>
+
+                <div class="cs-section__content">
+                    <div class="cs-section__text">
+                        <p>GROUNDはGWESをNX-GLOWのコア機能として統合し、グローバルな物流拠点の一元管理を実現するソリューションを提供しました。リアルタイム作業進捗管理、人員配置の最適化、物流センター内レイアウトのデジタルマップ化、最適在庫配置など、複合的な機能を搭載します。</p>
+                        <p>多言語対応とローカライズされた分析機能により、アジア太平洋地域だけでなく、グローバルな展開に対応可能なプラットフォームとなっています。</p>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px; font-family: 'Noto Sans JP', sans-serif;">統合機能</h3>
+                        <ul class="cs-section__text">
+                            <li><strong>リアルタイム進捗管理</strong>：全拠点の作業状況を一元管理</li>
+                            <li><strong>人員配置最適化</strong>：動的リソース配分の自動化</li>
+                            <li><strong>デジタルマップ化</strong>：物流センター内レイアウトの可視化</li>
+                            <li><strong>在庫最適配置</strong>：SKU配置のAI推奨</li>
+                            <li><strong>多言語対応</strong>：グローバル展開を支援</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Implementation Timeline -->
+            <section class="cs-section cs-fade">
+                <span class="cs-section__label">[IMPLEMENTATION]</span>
+                <h2 class="cs-section__title">導入タイムライン</h2>
+
+                <div class="cs-timeline">
+                    <div class="cs-timeline__item">
+                        <div class="cs-timeline__date">2022年6月</div>
+                        <div class="cs-timeline__description">NX-GLOW構築プロジェクトを開始。GWESのコアモジュールの選定と基本設計を実施</div>
+                    </div>
+                    <div class="cs-timeline__item">
+                        <div class="cs-timeline__date">2024年夏</div>
+                        <div class="cs-timeline__description">第一号拠点での本格稼働を開始。日本国内の主要物流センターでのGWES運用が開始され、リアルタイム管理による効果の実績化</div>
+                    </div>
+                    <div class="cs-timeline__item">
+                        <div class="cs-timeline__date">2024年秋～2025年初春</div>
+                        <div class="cs-timeline__description">国内他拠点への展開を推進。複数の物流センターでの統合運用により、全社的な効果を検証</div>
+                    </div>
+                    <div class="cs-timeline__item">
+                        <div class="cs-timeline__date">2025年予定</div>
+                        <div class="cs-timeline__description">グローバル展開（多言語対応）を開始。アジア太平洋地域の主要拠点への統一プラットフォーム展開</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results & KPIs -->
+            <section class="cs-section cs-fade">
+                <span class="cs-section__label">[RESULTS & KPIS]</span>
+                <h2 class="cs-section__title">導入効果</h2>
+
+                <div class="cs-kpi-grid">
+                    <div class="cs-kpi-card">
+                        <div class="cs-kpi-card__label">シームレス連携</div>
+                        <div class="cs-kpi-card__value">100%</div>
+                        <p style="font-size: 14px; color: var(--cs-text-3); margin-top: 8px;">NX-GLOWとGWESのシームレスな統合により情報精度が向上</p>
+                    </div>
+                    <div class="cs-kpi-card">
+                        <div class="cs-kpi-card__label">リアルタイム管理</div>
+                        <div class="cs-kpi-card__value">実現</div>
+                        <p style="font-size: 14px; color: var(--cs-text-3); margin-top: 8px;">全拠点の進捗状況がダッシュボードで瞬時に把握可能</p>
+                    </div>
+                    <div class="cs-kpi-card">
+                        <div class="cs-kpi-card__label">人員最適化</div>
+                        <div class="cs-kpi-card__value">自動化</div>
+                        <p style="font-size: 14px; color: var(--cs-text-3); margin-top: 8px;">需要予測に基づいた人員配置により効率化</p>
+                    </div>
+                    <div class="cs-kpi-card">
+                        <div class="cs-kpi-card__label">在庫最適化</div>
+                        <div class="cs-kpi-card__value">実装完了</div>
+                        <p style="font-size: 14px; color: var(--cs-text-3); margin-top: 8px;">スマート在庫配置により作業効率とピッキング速度が向上</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Voice Section -->
+            <section class="cs-fade" style="padding: 80px 0;">
+                <div class="cs-quote">
+                    <p class="cs-quote__text">「NX-GLOWにGWESを統合することで、世界規模での物流最適化が可能になりました。グローバル展開時代における統一プラットフォームとしての役割を果たしています。」</p>
+                    <p class="cs-quote__author">日本通運株式会社 デジタル戦略部門</p>
+                </div>
+            </section>
+
+            <!-- Future Plans -->
+            <section class="cs-section cs-fade">
+                <span class="cs-section__label">[FUTURE]</span>
+                <h2 class="cs-section__title">グローバル展開戦略</h2>
+
+                <div class="cs-section__content">
+                    <div class="cs-section__text">
+                        <p>2025年のグローバル展開により、GWESはアジア太平洋地域の主要物流拠点に導入される予定です。多言語対応とローカライズ機能により、各国・各地域の特性に応じた運用が可能になります。</p>
+                        <p>将来的には、これらのグローバルネットワークから得られるデータを集約し、サプライチェーン全体を最適化する次世代プラットフォームの構築を目指しています。</p>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px; font-family: 'Noto Sans JP', sans-serif;">今後の計画</h3>
+                        <ul class="cs-section__text">
+                            <li>アジア太平洋地域への積極的な展開</li>
+                            <li>現地ニーズに応じたカスタマイズと最適化</li>
+                            <li>グローバルデータの集約と分析</li>
+                            <li>サプライチェーン全体の可視化・最適化</li>
+                            <li>次世代プラットフォームの共同開発</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="cs-cta cs-fade" style="margin-bottom: 80px;">
+                <h2 class="cs-cta__title">グローバル物流の最適化をお考えですか？</h2>
+                <p class="cs-cta__description">日本通運様のような大規模グローバル物流ネットワークの統合管理から、多言語対応まで、GWESはスケーラブルなソリューションを提供します。</p>
+                <div class="cs-cta__buttons">
+                    <a href="/contact" class="cs-cta__btn">お問い合わせ</a>
+                    <a href="/gwes" class="cs-cta__btn cs-cta__btn--secondary">GWESの詳細を見る</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" style="background-color: rgb(10, 12, 20); color: rgb(255, 255, 255);">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <img src="img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
+                    <p class="footer__brand-desc">AI・数理最適化・ロボティクスで、<br>物流の未来を変革する。</p>
+                </div>
+                <div>
+                    <h4 class="footer__heading">Company</h4>
+                    <div class="footer__links">
+                        <a class="footer__link" href="/about">会社概要</a>
+                        <a class="footer__link" href="/about#vision">ビジョン・ミッション</a>
+                        <a class="footer__link" href="/about#ceo">CEOメッセージ</a>
+                        <a class="footer__link" href="/careers">採用情報</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer__heading">Solutions</h4>
+                    <div class="footer__links">
+                        <a class="footer__link" href="/gwes">GWES</a>
+                        <a class="footer__link" href="/digital-integration">デジタルインテグレーション</a>
+                        <a class="footer__link" href="/consulting">コンサルティング</a>
+                        <a class="footer__link" href="/peer">PEER</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer__heading">Contact</h4>
+                    <div class="footer__links">
+                        <a class="footer__link" href="/contact">お問い合わせ</a>
+                        <span class="footer__link" style="cursor: default;">TEL: 03-6457-1650</span>
+                        <a href="mailto:Info@groundinc.co.jp" class="footer__link">Info@groundinc.co.jp</a>
+                        <span class="footer__link" style="cursor: default;">〒101-0041<br>東京都千代田区神田須田町1-3-33<br>Bizflex神田 10F</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copy">© 2026 GROUND Inc. All rights reserved.</p>
+                <div class="footer__socials">
+                    <a href="#" class="footer__social" aria-label="LinkedIn">in</a>
+                    <a href="#" class="footer__social" aria-label="Note">N</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JSON-LD Breadcrumb -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://groundinc.co.jp/"},
+            {"@type": "ListItem", "position": 2, "name": "導入事例", "item": "https://groundinc.co.jp/works"},
+            {"@type": "ListItem", "position": 3, "name": "日本通運株式会社"}
+        ]
+    }
+    </script>
+
+    <script>
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const overlayMenu = document.getElementById('overlayMenu');
+        const navItems = document.querySelectorAll('.overlay-menu__nav-item[data-panel]');
+        const panels = document.querySelectorAll('.overlay-menu__panel');
+
+        hamburgerBtn.addEventListener('click', () => {
+            hamburgerBtn.classList.toggle('active');
+            overlayMenu.classList.toggle('active');
+        });
+
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const panelName = item.getAttribute('data-panel');
+                panels.forEach(panel => {
+                    panel.classList.remove('is-visible');
+                });
+                document.querySelector(`[data-panel="${panelName}"]`).classList.add('is-visible');
+                navItems.forEach(nav => nav.classList.remove('is-active'));
+                item.classList.add('is-active');
+            });
+        });
+
+        const nonPanelLinks = document.querySelectorAll('.overlay-menu__nav-item:not([data-panel])');
+        nonPanelLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburgerBtn.classList.remove('active');
+                overlayMenu.classList.remove('active');
+            });
+        });
+
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.cs-fade').forEach(el => io.observe(el));
+
+        let lastScroll = 0;
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.scrollY;
+            if (currentScroll > 80) {
+                header.classList.add('header--scrolled');
+                header.classList.toggle('header--hidden', currentScroll > lastScroll && currentScroll > 300);
+            } else {
+                header.classList.remove('header--scrolled', 'header--hidden');
+            }
+            lastScroll = currentScroll;
+        });
+    </script>
+    <script defer src="js/main.js?v=31"></script>
+    <script defer src="js/design-settings.js"></script>
+</body>
+</html>
