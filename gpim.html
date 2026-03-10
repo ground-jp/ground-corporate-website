@@ -71,19 +71,23 @@
     .gp-chart svg {
       width: 100%; height: auto;
     }
-    /* Chart circle interactivity */
+    /* Chart circle interactivity — warp hover */
     .gp-chart svg .gp-circle-group {
       cursor: pointer;
-      transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+      transform-origin: center center;
+      transform-box: fill-box;
     }
     .gp-chart svg .gp-circle-group:hover {
-      filter: brightness(0.95);
+      transform: scale(1.25);
+      filter: drop-shadow(0 0 18px rgba(26,26,26,0.25));
     }
     .gp-chart svg .gp-circle-group:hover circle {
       stroke-width: 2.5;
     }
-    .gp-chart svg .gp-circle-group:hover .gp-circle-glow {
-      opacity: 1;
+    .gp-chart svg .gp-circle-group:active {
+      transform: scale(1.12);
+      transition-duration: 0.1s;
     }
 
     /* ── Concept Section ── */
@@ -422,44 +426,49 @@
           <text x="64" y="520" font-size="9.5" fill="#A8A69E" font-family="'Noto Sans JP', sans-serif" font-weight="400" letter-spacing="0.1em">基盤づくり</text>
           <text x="840" y="520" font-size="9.5" fill="#A8A69E" font-family="'Noto Sans JP', sans-serif" font-weight="400" letter-spacing="0.1em" text-anchor="end">目指す姿</text>
 
-          <!-- ── Level circles — progressive perspective sizing (no external annotations) ── -->
+          <!-- ── Level circles — enlarged with white halo to prevent arc overlap ── -->
 
-          <!-- L1 体系化 (smallest, r=22) -->
+          <!-- L1 体系化 (r=30) -->
           <g class="gp-circle-group" onclick="document.querySelector('[data-level=&quot;1&quot;]').scrollIntoView({behavior:'smooth',block:'center'})" role="button" tabindex="0" aria-label="L1 体系化 – 詳細を見る">
-            <circle cx="270" cy="400" r="22" fill="#fff" stroke="#1a1a1a" stroke-width="1" filter="url(#gp-shadow)"/>
-            <text x="270" y="396" text-anchor="middle" font-size="11" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">体系化</text>
-            <text x="270" y="410" text-anchor="middle" font-size="7" fill="#A8A69E" font-family="Inter, sans-serif" font-weight="500" letter-spacing="0.1em">L1</text>
+            <circle cx="270" cy="400" r="36" fill="#fff" stroke="none" opacity="0.85"/>
+            <circle cx="270" cy="400" r="30" fill="#fff" stroke="#1a1a1a" stroke-width="1.2" filter="url(#gp-shadow)"/>
+            <text x="270" y="396" text-anchor="middle" font-size="12" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">体系化</text>
+            <text x="270" y="411" text-anchor="middle" font-size="8" fill="#A8A69E" font-family="Inter, sans-serif" font-weight="500" letter-spacing="0.1em">L1</text>
           </g>
 
-          <!-- L2 可視化 (r=28) -->
+          <!-- L2 可視化 (r=36) -->
           <g class="gp-circle-group" onclick="document.querySelector('[data-level=&quot;2&quot;]').scrollIntoView({behavior:'smooth',block:'center'})" role="button" tabindex="0" aria-label="L2 可視化 – 詳細を見る">
-            <circle cx="400" cy="326" r="28" fill="#fff" stroke="#1a1a1a" stroke-width="1" filter="url(#gp-shadow)"/>
-            <text x="400" y="321" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">可視化</text>
-            <text x="400" y="337" text-anchor="middle" font-size="7.5" fill="#A8A69E" font-family="Inter, sans-serif" font-weight="500" letter-spacing="0.1em">L2</text>
+            <circle cx="400" cy="326" r="43" fill="#fff" stroke="none" opacity="0.85"/>
+            <circle cx="400" cy="326" r="36" fill="#fff" stroke="#1a1a1a" stroke-width="1.2" filter="url(#gp-shadow)"/>
+            <text x="400" y="322" text-anchor="middle" font-size="13.5" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">可視化</text>
+            <text x="400" y="338" text-anchor="middle" font-size="8" fill="#A8A69E" font-family="Inter, sans-serif" font-weight="500" letter-spacing="0.1em">L2</text>
           </g>
 
-          <!-- L3 自動化 (r=35) -->
+          <!-- L3 自動化 (r=42) -->
           <g class="gp-circle-group" onclick="document.querySelector('[data-level=&quot;3&quot;]').scrollIntoView({behavior:'smooth',block:'center'})" role="button" tabindex="0" aria-label="L3 自動化 – 詳細を見る">
-            <circle cx="530" cy="252" r="35" fill="#fff" stroke="#1a1a1a" stroke-width="1" filter="url(#gp-shadow)"/>
-            <text x="530" y="247" text-anchor="middle" font-size="14" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">自動化</text>
-            <text x="530" y="264" text-anchor="middle" font-size="8" fill="#A8A69E" font-family="Inter, sans-serif" font-weight="500" letter-spacing="0.1em">L3</text>
+            <circle cx="530" cy="252" r="50" fill="#fff" stroke="none" opacity="0.85"/>
+            <circle cx="530" cy="252" r="42" fill="#fff" stroke="#1a1a1a" stroke-width="1.2" filter="url(#gp-shadow)"/>
+            <text x="530" y="248" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">自動化</text>
+            <text x="530" y="265" text-anchor="middle" font-size="8.5" fill="#A8A69E" font-family="Inter, sans-serif" font-weight="500" letter-spacing="0.1em">L3</text>
           </g>
 
-          <!-- L4 最適化 (r=42) -->
+          <!-- L4 最適化 (r=50) -->
           <g class="gp-circle-group" onclick="document.querySelector('[data-level=&quot;4&quot;]').scrollIntoView({behavior:'smooth',block:'center'})" role="button" tabindex="0" aria-label="L4 最適化 – 詳細を見る">
-            <circle cx="660" cy="176" r="42" fill="#fff" stroke="#1a1a1a" stroke-width="1" filter="url(#gp-shadow)"/>
-            <text x="660" y="171" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">最適化</text>
-            <text x="660" y="189" text-anchor="middle" font-size="8.5" fill="#A8A69E" font-family="Inter, sans-serif" font-weight="500" letter-spacing="0.1em">L4</text>
+            <circle cx="660" cy="176" r="58" fill="#fff" stroke="none" opacity="0.85"/>
+            <circle cx="660" cy="176" r="50" fill="#fff" stroke="#1a1a1a" stroke-width="1.2" filter="url(#gp-shadow)"/>
+            <text x="660" y="172" text-anchor="middle" font-size="16" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans JP', sans-serif">最適化</text>
+            <text x="660" y="190" text-anchor="middle" font-size="9" fill="#A8A69E" font-family="Inter, sans-serif" font-weight="500" letter-spacing="0.1em">L4</text>
           </g>
 
-          <!-- L5 自律化 (largest, r=50) -->
+          <!-- L5 自律化 (largest, r=58) -->
           <g class="gp-circle-group" onclick="document.querySelector('[data-level=&quot;5&quot;]').scrollIntoView({behavior:'smooth',block:'center'})" role="button" tabindex="0" aria-label="L5 自律化 – 詳細を見る">
-            <circle cx="790" cy="98" r="50" fill="#1a1a1a" stroke="none" filter="url(#gp-shadow-dark)"/>
-            <text x="790" y="92" text-anchor="middle" font-size="16" font-weight="600" fill="#fff" font-family="'Noto Sans JP', sans-serif">自律化</text>
-            <text x="790" y="112" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.55)" font-family="Inter, sans-serif" font-weight="500" letter-spacing="0.1em">L5</text>
+            <circle cx="790" cy="98" r="66" fill="#1a1a1a" stroke="none" opacity="0.15"/>
+            <circle cx="790" cy="98" r="58" fill="#1a1a1a" stroke="none" filter="url(#gp-shadow-dark)"/>
+            <text x="790" y="93" text-anchor="middle" font-size="17" font-weight="600" fill="#fff" font-family="'Noto Sans JP', sans-serif">自律化</text>
+            <text x="790" y="113" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.55)" font-family="Inter, sans-serif" font-weight="500" letter-spacing="0.1em">L5</text>
           </g>
-          <!-- L5 vision label — well below the circle -->
-          <text x="790" y="166" text-anchor="middle" font-size="8.5" fill="#A8A69E" font-family="Inter, sans-serif" font-weight="400" letter-spacing="0.06em">Autonomous Warehouse</text>
+          <!-- L5 vision label -->
+          <text x="790" y="174" text-anchor="middle" font-size="8.5" fill="#A8A69E" font-family="Inter, sans-serif" font-weight="400" letter-spacing="0.06em">Autonomous Warehouse</text>
 
         </svg>
       </div>
