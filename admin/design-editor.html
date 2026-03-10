@@ -926,9 +926,11 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     var valSpan = div.querySelector('.val');
 
     var kebab = p.prop.replace(/([A-Z])/g, '-$1').toLowerCase();
-    // undo用: スライダー操作開始時の値を記録
+    // undo用: スライダー操作開始時の値を記録（inputではプレビューのみ、changeで1回だけ記録）
     var sliderOldVal = null;
+    var sliderDragging = false;
     slider.addEventListener('mousedown', function() {
+      sliderDragging = true;
       if (p.isTranslate) {
         var curCs = frame.contentWindow.getComputedStyle(el);
         sliderOldVal = curCs.transform || 'none';
@@ -942,12 +944,11 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
         sliderOldVal = frame.contentWindow.getComputedStyle(el).getPropertyValue(kebab);
       }
     });
-    slider.addEventListener('input', function() {
-      var v = p.isFloat ? parseFloat(this.value) : Math.round(parseFloat(this.value));
+    // inputイベント: リアルタイムプレビューのみ（undo記録しない）
+    function applySliderValue(slider) {
+      var v = p.isFloat ? parseFloat(slider.value) : Math.round(parseFloat(slider.value));
       valSpan.textContent = (p.isFloat ? v.toFixed(1) : v) + (p.unit || '');
-
       if (p.isTranslate) {
-        // transform: translate で移動（レイアウトを壊さない）
         var curCs = frame.contentWindow.getComputedStyle(el);
         var curT = curCs.transform || 'none';
         var curTx = 0, curTy = 0;
@@ -959,23 +960,42 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
         var newTransform = 'translate(' + curTx + 'px, ' + curTy + 'px)';
         el.style.setProperty('transform', newTransform, 'important');
         injectStyleOverride(el, 'transform', newTransform);
-        trackChange(el, 'transform', newTransform, sliderOldVal);
       } else if (p.prop === 'lineHeight') {
         el.style.setProperty('line-height', v, 'important');
-        trackChange(el, 'line-height', String(v), sliderOldVal);
       } else if (p.prop === 'opacity') {
         el.style.setProperty('opacity', v, 'important');
-        trackChange(el, 'opacity', String(v), sliderOldVal);
       } else if (p.prop === 'letterSpacing') {
         el.style.setProperty('letter-spacing', v + 'px', 'important');
-        trackChange(el, 'letter-spacing', v + 'px', sliderOldVal);
       } else {
         el.style.setProperty(kebab, v + 'px', 'important');
-        trackChange(el, kebab, v + 'px', sliderOldVal);
       }
       if (selectedEl) updateDragBoxPosition();
+      return v;
+    }
+    slider.addEventListener('input', function() { applySliderValue(this); });
+    // changeイベント: 操作完了時に1回だけundo記録
+    slider.addEventListener('change', function() {
+      var v = applySliderValue(this);
+      var finalVal;
+      if (p.isTranslate) {
+        finalVal = el.style.transform || frame.contentWindow.getComputedStyle(el).transform;
+      } else if (p.prop === 'lineHeight') {
+        finalVal = String(v);
+      } else if (p.prop === 'opacity') {
+        finalVal = String(v);
+      } else if (p.prop === 'letterSpacing') {
+        finalVal = v + 'px';
+      } else {
+        finalVal = v + 'px';
+      }
+      var propName = p.isTranslate ? 'transform' : (p.prop === 'lineHeight' ? 'line-height' : (p.prop === 'letterSpacing' ? 'letter-spacing' : kebab));
+      injectStyleOverride(el, propName, finalVal);
+      if (sliderOldVal !== null) {
+        trackChange(el, propName, finalVal, sliderOldVal);
+      }
+      sliderOldVal = null;
+      sliderDragging = false;
     });
-    slider.addEventListener('mouseup', function() { sliderOldVal = null; });
 
     container.appendChild(div);
   }
@@ -1019,14 +1039,12 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     var hexInput = div.querySelector('.color-hex');
     var applyBtn = div.querySelector('.color-apply-btn');
     var colorOldVal = raw; // undo用: 変更前の色を保持
+    var colorPickerStartVal = null; // ピッカー操作開始時の値
 
-    function applyColor(v) {
+    function applyColorPreview(v) {
       if (v.charAt(0) !== '#') v = '#' + v;
-      // 直接スタイル設定（!important で上書き）
       try { el.style.setProperty(kebabProp, v, 'important'); } catch(e) {}
-      // <style>タグ注入（CSSルール経由で確実に上書き）
       injectStyleOverride(el, kebabProp, v);
-      // color プロパティの場合は子要素にも適用
       if (kebabProp === 'color') {
         try {
           el.querySelectorAll('*').forEach(function(child) {
@@ -1035,21 +1053,30 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
           });
         } catch(e) {}
       }
-      trackChange(el, kebabProp, v, colorOldVal);
-      colorOldVal = v; // 次の変更の基準値を更新
-      // 透明度バッジを消す
       var badge = div.querySelector('.control-label span[style]');
       if (badge) badge.style.display = 'none';
     }
 
-    // カラーピッカーのイベント
+    function applyColorCommit(v) {
+      if (v.charAt(0) !== '#') v = '#' + v;
+      applyColorPreview(v);
+      var oldVal = colorPickerStartVal || colorOldVal;
+      if (oldVal !== v) {
+        trackChange(el, kebabProp, v, oldVal);
+      }
+      colorOldVal = v;
+      colorPickerStartVal = null;
+    }
+
+    // カラーピッカーのイベント（inputはプレビューのみ、changeで1回だけundo記録）
     colorInput.addEventListener('input', function() {
+      if (colorPickerStartVal === null) colorPickerStartVal = colorOldVal;
       hexInput.value = this.value;
-      applyColor(this.value);
+      applyColorPreview(this.value);
     });
     colorInput.addEventListener('change', function() {
       hexInput.value = this.value;
-      applyColor(this.value);
+      applyColorCommit(this.value);
     });
 
     // hex入力フィールド: changeイベント + Enterキー
@@ -1057,7 +1084,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       var v = this.value;
       if (v.charAt(0) !== '#') v = '#' + v;
       colorInput.value = v;
-      applyColor(v);
+      applyColorCommit(v);
     });
     hexInput.addEventListener('keydown', function(e) {
       if (e.key === 'Enter') {
@@ -1065,7 +1092,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
         var v = this.value;
         if (v.charAt(0) !== '#') v = '#' + v;
         colorInput.value = v;
-        applyColor(v);
+        applyColorCommit(v);
       }
     });
 
@@ -1074,7 +1101,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       var v = hexInput.value;
       if (v.charAt(0) !== '#') v = '#' + v;
       colorInput.value = v;
-      applyColor(v);
+      applyColorCommit(v);
     });
 
     // ── カラーピッカーを閉じた時のフォールバック ──
@@ -1082,7 +1109,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     colorInput.addEventListener('blur', function() {
       if (this.value !== hexInput.value) {
         hexInput.value = this.value;
-        applyColor(this.value);
+        applyColorCommit(this.value);
       }
     });
 
