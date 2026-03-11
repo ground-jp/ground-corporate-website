@@ -436,16 +436,34 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 
 <script>
 (function() {
-  // ── file:// プロトコル対応: パス解決 ──
+  // ── file:// プロトコル対応 ──
   var isFileProtocol = location.protocol === 'file:';
-  // admin/ から見た親ディレクトリのプレフィックス
-  var pathPrefix = isFileProtocol ? '../' : '/';
 
-  // option値を相対パスに変換する関数
+  // file://で開いた場合、iframeのcontentDocumentにアクセスできないため警告表示
+  if (isFileProtocol) {
+    var warn = document.createElement('div');
+    warn.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(10,12,20,0.95);display:flex;align-items:center;justify-content:center;font-family:Inter,Noto Sans JP,sans-serif;';
+    warn.innerHTML = '<div style="background:#1e2030;border:1px solid #2a2d3a;border-radius:12px;padding:40px;max-width:520px;text-align:center;">'
+      + '<div style="font-size:48px;margin-bottom:16px;">🚀</div>'
+      + '<h2 style="color:#fff;font-size:18px;margin-bottom:12px;">ローカルサーバーが必要です</h2>'
+      + '<p style="color:#a0a3b0;font-size:14px;line-height:1.7;margin-bottom:20px;">'
+      + 'デザインエディタはセキュリティ上の理由から、<br><code style="background:#0f1117;padding:2px 6px;border-radius:4px;color:#5BC0EB;">file://</code> では編集機能が使えません。</p>'
+      + '<div style="background:#0f1117;border-radius:8px;padding:16px;margin-bottom:20px;text-align:left;">'
+      + '<p style="color:#8a8c9a;font-size:11px;margin-bottom:8px;">ターミナルで以下を実行：</p>'
+      + '<code style="color:#5BC0EB;font-size:13px;font-family:JetBrains Mono,monospace;word-break:break-all;">'
+      + 'cd ~/Desktop/website && python3 -m http.server 8080</code>'
+      + '</div>'
+      + '<p style="color:#a0a3b0;font-size:13px;margin-bottom:16px;">その後ブラウザで↓を開いてください：</p>'
+      + '<a href="http://localhost:8080/admin/design-editor.html" style="color:#5BC0EB;font-size:14px;text-decoration:underline;">http://localhost:8080/admin/design-editor.html</a>'
+      + '<div style="margin-top:20px;"><button onclick="this.parentElement.parentElement.parentElement.remove()" style="background:#2a2d3a;color:#a0a3b0;border:none;border-radius:6px;padding:8px 20px;cursor:pointer;font-size:12px;">閉じて続行（編集不可）</button></div>'
+      + '</div>';
+    document.body.appendChild(warn);
+  }
+
+  // option値を相対パスに変換する関数（file://対応）
   function resolvePagePath(val) {
     if (!isFileProtocol) return val;
     if (val === '/') return '../index.html';
-    // "/foo.html" → "../foo.html"
     return val.replace(/^\//, '../');
   }
 
