@@ -379,6 +379,15 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
           <option value="/blog-weekly-050.html">Vol.50 - 倉庫自動化トレンド</option>
         </optgroup>
         <option value="/contact.html">お問い合わせ</option>
+        <option value="/history.html">GROUNDの歩み</option>
+        <option value="/privacy.html">プライバシーポリシー</option>
+        <option value="/404.html">404エラーページ</option>
+        <optgroup label="English">
+          <option value="/en/index.html">EN - Home</option>
+          <option value="/en/about.html">EN - About</option>
+          <option value="/en/gwes.html">EN - GWES</option>
+          <option value="/en/contact.html">EN - Contact</option>
+        </optgroup>
       </select>
       <button class="device-btn active" data-width="100%" title="デスクトップ">🖥</button>
       <button class="device-btn" data-width="768px" title="タブレット">📱</button>
@@ -394,7 +403,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       <button id="authBtn" class="auth-btn" title="Netlify Identity でログイン">🔑 ログイン</button>
     </div>
     <div class="preview-frame" id="previewFrameWrap">
-      <iframe id="previewFrame" src="/"></iframe>
+      <iframe id="previewFrame" src="../index.html"></iframe>
       <div class="click-overlay" id="clickOverlay"></div>
       <div class="drag-box" id="dragBox">
         <div class="drag-handle tl" data-dir="tl"></div>
@@ -427,9 +436,32 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 
 <script>
 (function() {
+  // ── file:// プロトコル対応: パス解決 ──
+  var isFileProtocol = location.protocol === 'file:';
+  // admin/ から見た親ディレクトリのプレフィックス
+  var pathPrefix = isFileProtocol ? '../' : '/';
+
+  // option値を相対パスに変換する関数
+  function resolvePagePath(val) {
+    if (!isFileProtocol) return val;
+    if (val === '/') return '../index.html';
+    // "/foo.html" → "../foo.html"
+    return val.replace(/^\//, '../');
+  }
+
+  // ページセレクトのoption値を変換
+  var pageSelect = document.getElementById('pageSelect');
+  Array.from(pageSelect.options).forEach(function(opt) {
+    opt.value = resolvePagePath(opt.value);
+  });
+
   var settings = {};
   var originalSettings = {};
   var frame = document.getElementById('previewFrame');
+  // 初期ページをロード
+  frame.src = resolvePagePath('/');
+  document.getElementById('previewUrl').textContent = pageSelect.value;
+
   var currentHighlightEl = null;
   var currentTextEditEl = null;
   var pendingChanges = {}; // { pagePath: true } — 変更があったページ
