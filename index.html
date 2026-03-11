@@ -235,22 +235,9 @@
   </a>
 
   <section class="hero" id="hero">
-    <video id="heroVideo" autoplay muted loop playsinline preload="auto" aria-hidden="true" src="img/hero-video-2026.mp4"></video>
-    <script>
-      (function(){
-        var videos=['img/hero-video-2026.mp4','img/hero-video-neural-v2.mp4'];
-        var vid=document.getElementById('heroVideo');
-        var chosen=videos[Math.floor(Math.random()*videos.length)];
-        if(vid.src.indexOf(chosen)===-1){
-          vid.muted=true;
-          vid.defaultMuted=true;
-          vid.volume=0;
-          vid.src=chosen;
-          vid.load();
-        }
-        vid.play().catch(function(){});
-      })();
-    </script>
+    <video id="heroVideo" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="img/hero-video-2026.mp4" type="video/mp4">
+    </video>
     <div class="hero__gradient"></div>
     <div class="hero__content" style="">
       <h1 class="hero__title" style="font-size: 80px; position: relative; top: 0px; left: 0px;">Autonomous<br>Warehouse</h1>
@@ -364,55 +351,27 @@
 
   <script defer="" src="js/main.js?v=31"></script>
   <script>
-    // Aggressive video autoplay v3
+    // Video autoplay fallback — ensure muted playback starts
     (function() {
-      var video = document.getElementById('heroVideo');
-      if (!video) return;
-      // Ensure muted (required for autoplay in all browsers)
-      video.muted = true;
-      video.defaultMuted = true;
-      video.setAttribute('muted', '');
-      video.setAttribute('playsinline', '');
-      video.volume = 0;
-      // Remove any browser-added controls
-      video.removeAttribute('controls');
-      var playing = false;
+      var v = document.getElementById('heroVideo');
+      if (!v) return;
+      v.muted = true;
+      v.removeAttribute('controls');
       function tryPlay() {
-        if (playing) return;
-        video.muted = true;
-        video.volume = 0;
-        var p = video.play();
-        if (p !== undefined) {
-          p.then(function() { playing = true; }).catch(function(e) {
-            setTimeout(tryPlay, 300);
-          });
-        } else {
-          playing = true;
-        }
+        v.muted = true;
+        var p = v.play();
+        if (p && p.catch) p.catch(function(){});
       }
-      if (video.readyState >= 1) { tryPlay(); }
-      video.addEventListener('loadedmetadata', tryPlay);
-      video.addEventListener('loadeddata', tryPlay);
-      video.addEventListener('canplay', tryPlay);
-      video.addEventListener('canplaythrough', tryPlay);
+      // Try on key load events
+      v.addEventListener('canplay', tryPlay);
       document.addEventListener('DOMContentLoaded', tryPlay);
       window.addEventListener('load', tryPlay);
-      // User interaction fallback
-      ['click','scroll','touchstart','touchend','mousemove','keydown','pointerdown'].forEach(function(evt) {
-        document.addEventListener(evt, function once() {
+      // Fallback: retry on first user interaction
+      ['click','scroll','touchstart','pointerdown'].forEach(function(e) {
+        document.addEventListener(e, function f() {
           tryPlay();
-          document.removeEventListener(evt, once);
+          document.removeEventListener(e, f);
         }, {once: true});
-      });
-      // Periodic retry for stubborn browsers (every 500ms for 30 seconds)
-      var retries = 0;
-      var interval = setInterval(function() {
-        if (playing || retries > 60) { clearInterval(interval); return; }
-        tryPlay(); retries++;
-      }, 500);
-      // Also retry when tab becomes visible
-      document.addEventListener('visibilitychange', function() {
-        if (!document.hidden && !playing) { tryPlay(); }
       });
     })();
   </script>
