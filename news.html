@@ -258,13 +258,14 @@
       .nw-item__arrow { display: none; }
     }
   
-    /* Language Switcher */
-    .lang-switch { display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono','Inter',monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,0.35); padding: 6px 0; margin-right: 16px; transition: color 0.3s ease; position: relative; border: none; background: none; }
-    .lang-switch::before { content: ''; position: absolute; bottom: 2px; left: 0; width: 0; height: 1px; background: #5BC0EB; transition: width 0.3s cubic-bezier(0.23,1,0.32,1); }
-    .lang-switch:hover { color: rgba(255,255,255,0.9); }
-    .lang-switch:hover::before { width: 100%; }
-    .lang-switch__globe { width: 14px; height: 14px; opacity: 0.4; transition: opacity 0.3s ease; }
-    .lang-switch:hover .lang-switch__globe { opacity: 0.9; }
+    /* Language Switcher — inside overlay menu */
+    .lang-switch-bar { display: flex; align-items: center; gap: 16px; padding: 20px 0 0; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .lang-switch { display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono',monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,0.35); padding: 8px 12px; border: 1px solid rgba(255,255,255,0.1); border-radius: 2px; transition: all 0.25s ease; background: none; }
+    .lang-switch:hover { color: #fff; border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.04); }
+    .lang-switch--current { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.06); pointer-events: none; }
+    .lang-switch__globe { width: 14px; height: 14px; opacity: 0.5; }
+    .lang-switch:hover .lang-switch__globe { opacity: 1; }
+    .lang-switch--current .lang-switch__globe { opacity: 0.7; }
 </style>
   <style>
     .header { z-index: 350 !important; }
@@ -324,7 +325,6 @@
   <header class="header" id="header">
     <div class="header__inner">
       <a href="index.html" class="header__logo"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img"></a>
-      <span class="lang-switch" style="opacity:0.15;cursor:default;" title="English version coming soon"><svg class="lang-switch__globe" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1"/><ellipse cx="8" cy="8" rx="3" ry="6.5" stroke="currentColor" stroke-width="1"/><line x1="1.5" y1="8" x2="14.5" y2="8" stroke="currentColor" stroke-width="1"/></svg><span>EN</span></span>
       <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
         <span class="hamburger__line"></span>
         <span class="hamburger__line"></span>
