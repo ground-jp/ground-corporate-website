@@ -66,6 +66,20 @@ body {
 ::-webkit-scrollbar-thumb { background: var(--t4); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--t3); }
 
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeInUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes slideInRight { from { opacity:0; transform:translateX(20px); } to { opacity:1; transform:none; } }
+@keyframes countUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+@keyframes glowPulse { 0%,100% { box-shadow: 0 0 8px rgba(59,130,246,0.15); } 50% { box-shadow: 0 0 20px rgba(59,130,246,0.3); } }
+.animate-in { animation: fadeInUp 0.5s ease both; }
+.animate-in:nth-child(1) { animation-delay: 0.05s; }
+.animate-in:nth-child(2) { animation-delay: 0.1s; }
+.animate-in:nth-child(3) { animation-delay: 0.15s; }
+.animate-in:nth-child(4) { animation-delay: 0.2s; }
+.animate-in:nth-child(5) { animation-delay: 0.25s; }
+.animate-in:nth-child(6) { animation-delay: 0.3s; }
+
 /* ═══ HEADER ═══ */
 .header {
   position: fixed; top: 0; left: 0; right: 0;
@@ -226,18 +240,33 @@ body {
 /* ═══ KPI Strip ═══ */
 .kpi-strip {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
   margin-bottom: 24px;
 }
 .kpi-card {
-  background: var(--bg-2);
+  background: linear-gradient(135deg, var(--bg-2), var(--bg-3));
   border: 1px solid var(--b1);
   border-radius: var(--radius);
   padding: 18px 20px;
-  transition: border-color 0.2s, transform 0.15s;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
 }
-.kpi-card:hover { border-color: var(--b2); transform: translateY(-1px); }
+.kpi-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--cyan));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.kpi-card:hover {
+  border-color: var(--accent-dim);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(59,130,246,0.1);
+}
+.kpi-card:hover::before { opacity: 1; }
 .kpi-label {
   font-size: 11px; font-weight: 500; color: var(--t3);
   text-transform: uppercase; letter-spacing: 0.5px;
@@ -348,9 +377,20 @@ body {
 .region-item {
   background: var(--bg-3); border: 1px solid var(--b0);
   border-radius: var(--radius-sm); padding: 12px;
-  text-align: center; transition: border-color 0.2s;
+  text-align: center; transition: all 0.25s;
+  position: relative; overflow: hidden;
 }
-.region-item:hover { border-color: var(--accent-dim); }
+.region-item::after {
+  content: '';
+  position: absolute; bottom: 0; left: 20%; right: 20%;
+  height: 2px; border-radius: 2px;
+  background: var(--green); opacity: 0.4;
+  transition: all 0.3s;
+}
+.region-item.partial::after { background: var(--yellow); }
+.region-item.inactive::after { background: var(--t4); opacity: 0.2; }
+.region-item:hover { border-color: var(--accent-dim); transform: translateY(-1px); }
+.region-item:hover::after { left: 10%; right: 10%; opacity: 0.8; }
 .region-name { font-size: 10px; font-weight: 600; color: var(--t3); text-transform: uppercase; letter-spacing: 0.5px; }
 .region-count { font-size: 20px; font-weight: 800; font-family: var(--mono); color: var(--t0); margin-top: 4px; }
 .region-sub { font-size: 9px; color: var(--t4); margin-top: 2px; }
@@ -537,11 +577,22 @@ body {
 .g-login-btn:hover { background: var(--bg-4); border-color: var(--accent-dim); }
 .g-login-btn svg { width: 18px; height: 18px; }
 .login-skip {
-  display: block; margin: 12px auto 0; font-size: 11px;
-  color: var(--t4); cursor: pointer; background: none;
-  border: none; font-family: var(--font); transition: color 0.15s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; margin: 12px auto 0; padding: 12px 20px;
+  font-size: 13px; font-weight: 600;
+  color: var(--t1); cursor: pointer;
+  background: linear-gradient(135deg, var(--bg-3), var(--bg-4));
+  border: 1px solid var(--b2);
+  border-radius: var(--radius-sm);
+  font-family: var(--font); transition: all 0.2s;
 }
-.login-skip:hover { color: var(--t2); }
+.login-skip:hover {
+  background: linear-gradient(135deg, var(--bg-4), rgba(59,130,246,0.15));
+  border-color: var(--accent-dim);
+  color: var(--t0);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59,130,246,0.15);
+}
 .login-config {
   display: block; margin: 16px auto 0; font-size: 10px;
   color: var(--t4); cursor: pointer; background: none;
@@ -579,6 +630,7 @@ body {
   position: fixed; bottom: 24px; right: 24px;
   width: 48px; height: 48px; border-radius: 50%;
   background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+  animation: glowPulse 3s ease-in-out infinite;
   border: none; color: #fff; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 4px 20px rgba(59,130,246,0.3);
@@ -596,17 +648,28 @@ body {
 <!-- LOGIN -->
 <div class="login-overlay" id="loginOverlay">
   <div class="login-card">
-    <div class="login-logo">
-      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="48" height="48" rx="12" fill="url(#lg)"/>
-        <path d="M15 32V20l9-8 9 8v12H27v-7h-6v7z" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <defs><linearGradient id="lg" x1="0" y1="0" x2="48" y2="48"><stop stop-color="#3B82F6"/><stop offset="1" stop-color="#22D3EE"/></linearGradient></defs>
+    <!-- GROUND GWES Logo -->
+    <div class="login-logo" style="margin-bottom:12px">
+      <svg viewBox="0 0 200 44" xmlns="http://www.w3.org/2000/svg" style="width:180px;height:auto">
+        <defs><linearGradient id="lgW" x1="0" y1="0" x2="0" y2="32" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#94A3B8"/><stop offset="100%" stop-color="#64748B"/></linearGradient></defs>
+        <g transform="translate(0,6)"><path fill="url(#lgW)" d="M0 0 H28 V2 H2 V22 H26 V12 H28 V24 H0 Z"/></g>
+        <text x="34" y="24" font-family="'Liberation Sans',Arial,sans-serif" font-weight="700" font-size="17" letter-spacing="-0.2" fill="#94A3B8">GROUND</text>
+        <line x1="118" y1="8" x2="118" y2="36" stroke="#94A3B8" stroke-opacity="0.2" stroke-width="0.5"/>
+        <text x="126" y="22" font-family="'Liberation Sans',Arial,sans-serif" font-weight="700" font-size="14" letter-spacing="3" fill="#60A5FA">GWES</text>
+        <text x="126" y="33" font-family="Inter,Arial,sans-serif" font-weight="400" font-size="5.5" fill="#64748B" letter-spacing="0.2">The OS for Autonomous Warehouse</text>
       </svg>
     </div>
-    <div class="login-title">GWES Portal</div>
-    <svg class="kao-logo-login" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <text x="18" y="30" font-family="'Noto Serif JP', Georgia, serif" font-size="28" font-weight="700" fill="#94A3B8" letter-spacing="6">花王</text>
-    </svg>
+    <div class="login-title" style="font-size:16px;margin-bottom:16px">顧客専用ポータル</div>
+    <!-- 花王ロゴ: 三日月マーク + テキスト -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:16px">
+      <svg viewBox="0 0 44 44" style="width:44px;height:44px" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22 2 A20 20 0 1 1 22 42 A13 13 0 1 0 22 2Z" fill="#CBD5E1"/>
+      </svg>
+      <div style="text-align:left">
+        <div style="font-family:'Noto Serif JP',Georgia,serif;font-size:24px;font-weight:700;color:#CBD5E1;letter-spacing:6px">花王</div>
+        <div style="font-size:9px;color:#64748B;letter-spacing:1px;margin-top:2px">Kao Corporation</div>
+      </div>
+    </div>
     <div class="login-desc">花王株式会社 — Warehouse Execution Intelligence</div>
     <div class="login-divider"></div>
     <div id="loginStepMain">
@@ -614,7 +677,7 @@ body {
       <div id="gsiButtonWrap"></div>
       <div class="login-status" id="gsiStatus">読み込み中…</div>
       <div class="login-or"><span>or</span></div>
-      <button class="login-skip" onclick="skipLogin()">ゲストとして続行（デモ）</button>
+      <button class="login-skip" onclick="skipLogin()"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" style="width:16px;height:16px"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M13.8 12H3"/></svg>デモモードで体験する</button>
       <button class="login-config" onclick="showConfig()">Client ID を設定</button>
     </div>
     <div id="loginStepConfig" style="display:none">
@@ -636,17 +699,19 @@ body {
 <!-- HEADER -->
 <header class="header">
   <div class="header-logo">
-    <svg viewBox="0 0 32 32" fill="none">
-      <rect width="32" height="32" rx="8" fill="url(#hg)"/>
-      <path d="M10 22V14l6-5.5 6 5.5v8h-4v-5h-4v5z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <defs><linearGradient id="hg" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#3B82F6"/><stop offset="1" stop-color="#22D3EE"/></linearGradient></defs>
+    <!-- GROUND G-Mark -->
+    <svg viewBox="0 0 28 18" fill="none" style="width:22px;height:auto">
+      <defs><linearGradient id="hgG" x1="0" y1="0" x2="0" y2="18" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#E2E8F0"/><stop offset="100%" stop-color="#94A3B8"/></linearGradient></defs>
+      <path fill="url(#hgG)" d="M0 0 H28 V1.8 H1.8 V16.2 H26.2 V9 H28 V18 H0 Z"/>
     </svg>
   </div>
   <div class="header-brand">
     <span class="brand-name">GWES</span>
     <span class="brand-customer">
-      <svg class="kao-logo-header" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="30" font-family="'Noto Serif JP', Georgia, serif" font-size="28" font-weight="700" fill="#E2E8F0" letter-spacing="6">花王</text>
+      <!-- 花王 三日月マーク + テキスト -->
+      <svg viewBox="0 0 100 24" style="height:20px;width:auto" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 1 A9 9 0 1 1 10 19 A6 6 0 1 0 10 1Z" fill="#94A3B8" transform="translate(0,2)"/>
+        <text x="26" y="17" font-family="'Noto Serif JP','Yu Mincho',Georgia,serif" font-size="15" font-weight="700" fill="#94A3B8" letter-spacing="2">花王</text>
       </svg>
       花王株式会社
     </span>
@@ -720,28 +785,40 @@ body {
 
   <!-- KPI Strip -->
   <div class="kpi-strip">
-    <div class="kpi-card">
+    <div class="kpi-card animate-in">
       <div class="kpi-label">全拠点 週間処理件数</div>
       <div class="kpi-value" id="kpiThroughput">847,320</div>
       <div class="kpi-trend up"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="18,15 12,9 6,15"/></svg>+8.2%</div>
       <div class="kpi-spark-wrap"><canvas id="sparkThroughput"></canvas></div>
     </div>
-    <div class="kpi-card">
+    <div class="kpi-card animate-in">
       <div class="kpi-label">PA 進捗達成率</div>
       <div class="kpi-value">96.8<span class="kpi-unit">%</span></div>
       <div class="kpi-trend up"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="18,15 12,9 6,15"/></svg>+2.1%</div>
       <div class="kpi-spark-wrap"><canvas id="sparkPA"></canvas></div>
     </div>
-    <div class="kpi-card">
+    <div class="kpi-card animate-in">
       <div class="kpi-label">WA 最適化スコア</div>
       <div class="kpi-value">92.4<span class="kpi-unit">%</span></div>
       <div class="kpi-trend up"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="18,15 12,9 6,15"/></svg>+1.8%</div>
       <div class="kpi-spark-wrap"><canvas id="sparkWA"></canvas></div>
     </div>
-    <div class="kpi-card">
+    <div class="kpi-card animate-in">
       <div class="kpi-label">GWES稼働拠点</div>
       <div class="kpi-value">38<span class="kpi-unit"> / 44</span></div>
       <div class="kpi-trend flat">展開中: 6拠点</div>
+    </div>
+    <div class="kpi-card animate-in">
+      <div class="kpi-label">在庫精度（全拠点平均）</div>
+      <div class="kpi-value">99.7<span class="kpi-unit">%</span></div>
+      <div class="kpi-trend up"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="18,15 12,9 6,15"/></svg>+0.3%</div>
+      <div class="kpi-spark-wrap"><canvas id="sparkInventory"></canvas></div>
+    </div>
+    <div class="kpi-card animate-in">
+      <div class="kpi-label">平均ピッキング時間</div>
+      <div class="kpi-value">23.4<span class="kpi-unit">秒</span></div>
+      <div class="kpi-trend up"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="18,15 12,9 6,15"/></svg>-1.2秒</div>
+      <div class="kpi-spark-wrap"><canvas id="sparkPicking"></canvas></div>
     </div>
   </div>
 
@@ -841,6 +918,13 @@ body {
   </div>
 </main>
 
+<!-- Footer -->
+<footer style="display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-top:1px solid var(--b1);background:var(--bg-2);color:var(--t4);font-size:11px">
+  <svg viewBox="0 0 28 18" fill="none" style="height:12px;width:auto;opacity:0.4"><path fill="#64748B" d="M0 0 H28 V1.8 H1.8 V16.2 H26.2 V9 H28 V18 H0 Z"/></svg>
+  <span>Powered by GROUND Inc. — GWES v3.2</span>
+  <span style="margin-left:16px;opacity:0.5">© 2026 GROUND Inc. All rights reserved.</span>
+</footer>
+
 <!-- Support FAB -->
 <button class="support-fab" title="GROUND サポートに連絡">
   <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
@@ -863,24 +947,25 @@ const CUSTOMER = {
 
 // 花王の全国主要拠点（44拠点のうち代表的なもの）
 const FACILITIES = [
-  { name:'北九州LC', region:'九州', status:'up', pa:98.2, wa:94.1, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
-  { name:'神戸センター', region:'近畿', status:'up', pa:97.5, wa:93.8, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
-  { name:'豊橋LC', region:'中部', status:'up', pa:96.9, wa:92.4, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
-  { name:'川崎センター', region:'関東', status:'up', pa:97.8, wa:95.2, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
-  { name:'岩槻LC', region:'関東', status:'up', pa:96.3, wa:91.7, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
-  { name:'墨田DC', region:'関東', status:'up', pa:95.8, wa:90.3, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
-  { name:'仙台LC', region:'東北', status:'up', pa:97.1, wa:93.5, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
-  { name:'札幌センター', region:'北海道', status:'up', pa:96.5, wa:92.1, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
-  { name:'鳥栖LC', region:'九州', status:'up', pa:97.3, wa:94.0, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
-  { name:'化粧品LC（小田原）', region:'関東', status:'up', pa:98.5, wa:96.1, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'化粧品専用' },
-  { name:'広島DC', region:'中国', status:'up', pa:96.0, wa:91.5, modules:[{n:'PA',s:'up'},{n:'WA',s:'warn'}], note:'' },
-  { name:'新潟LC', region:'甲信越', status:'up', pa:95.5, wa:90.8, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
-  { name:'大阪南港DC', region:'近畿', status:'up', pa:97.0, wa:93.2, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
-  { name:'福岡東センター', region:'九州', status:'up', pa:96.7, wa:92.9, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
-  { name:'名古屋南DC', region:'中部', status:'up', pa:95.9, wa:91.0, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'' },
-  { name:'岡山LC', region:'中国', status:'maint', pa:null, wa:null, modules:[{n:'PA',s:'down'},{n:'WA',s:'down'}], note:'2026年4月 稼働開始予定' },
-  { name:'長野センター', region:'甲信越', status:'maint', pa:null, wa:null, modules:[{n:'PA',s:'down'},{n:'WA',s:'down'}], note:'2026年5月 稼働開始予定' },
-  { name:'高松DC', region:'四国', status:'planned', pa:null, wa:null, modules:[{n:'PA',s:'off'},{n:'WA',s:'off'}], note:'2026年Q3 計画中' },
+  { name:'川崎DC1', region:'関東', status:'up', pa:97.8, wa:95.2, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'H&LC アタック・ハイター等' },
+  { name:'化粧品LC（小田原）', region:'関東', status:'up', pa:98.5, wa:96.1, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'H&BC ビオレ・キュレル等' },
+  { name:'北九州LC', region:'九州', status:'up', pa:98.2, wa:94.1, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'H&LC 洗剤・柔軟剤' },
+  { name:'栃木ハブ', region:'関東', status:'up', pa:97.1, wa:94.8, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'メリーズ等 サニタリー製品' },
+  { name:'神戸センター', region:'近畿', status:'up', pa:97.5, wa:93.8, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'H&BC スキンケア' },
+  { name:'豊橋LC', region:'中部', status:'up', pa:96.9, wa:92.4, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'H&LC 家庭品全般' },
+  { name:'岩槻LC', region:'関東', status:'up', pa:96.3, wa:91.7, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'ライフケア 食品・飲料' },
+  { name:'千葉ケミカルDC', region:'関東', status:'up', pa:96.8, wa:93.5, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'ケミカル原料' },
+  { name:'墨田DC', region:'関東', status:'up', pa:95.8, wa:90.3, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'EC直送 全カテゴリ' },
+  { name:'仙台LC', region:'東北', status:'up', pa:97.1, wa:93.5, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'H&LC 東北エリア配送' },
+  { name:'札幌センター', region:'北海道', status:'up', pa:96.5, wa:92.1, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'全カテゴリ 北海道配送' },
+  { name:'鳥栖LC', region:'九州', status:'up', pa:97.3, wa:94.0, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'H&BC 九州配送' },
+  { name:'広島DC', region:'中国', status:'up', pa:96.0, wa:91.5, modules:[{n:'PA',s:'up'},{n:'WA',s:'warn'}], note:'H&LC 中国エリア' },
+  { name:'大阪南港DC', region:'近畿', status:'up', pa:97.0, wa:93.2, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'メリーズ 関西配送' },
+  { name:'新潟LC', region:'甲信越', status:'up', pa:95.5, wa:90.8, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'H&LC 甲信越配送' },
+  { name:'名古屋南DC', region:'中部', status:'up', pa:95.9, wa:91.0, modules:[{n:'PA',s:'up'},{n:'WA',s:'up'}], note:'全カテゴリ 中部配送' },
+  { name:'岡山LC', region:'中国', status:'maint', pa:null, wa:null, modules:[{n:'PA',s:'down'},{n:'WA',s:'down'}], note:'2026年4月〜 H&LC導入予定' },
+  { name:'長野センター', region:'甲信越', status:'maint', pa:null, wa:null, modules:[{n:'PA',s:'down'},{n:'WA',s:'down'}], note:'2026年5月〜 ケミカル導入予定' },
+  { name:'高松DC', region:'四国', status:'planned', pa:null, wa:null, modules:[{n:'PA',s:'off'},{n:'WA',s:'off'}], note:'2026年Q3〜 H&BC計画中' },
 ];
 
 const REGION_SUMMARY = [
@@ -944,7 +1029,8 @@ function renderRegions() {
   const el = document.getElementById('regionGrid');
   el.innerHTML = REGION_SUMMARY.map(r => {
     const pct = r.total > 0 ? Math.round(r.active / r.total * 100) : 0;
-    return '<div class="region-item">'+
+    const cls = r.active === 0 ? 'inactive' : r.active < r.total ? 'partial' : '';
+    return '<div class="region-item '+cls+'">'+
       '<div class="region-name">'+r.name+'</div>'+
       '<div class="region-count">'+r.active+'<span style="font-size:12px;color:var(--t3);font-weight:400"> / '+r.total+'</span></div>'+
       '<div class="region-sub">稼働率 '+pct+'%</div></div>';
@@ -1004,6 +1090,8 @@ function initSparklines() {
   mk('sparkThroughput', [720000,745000,768000,790000,810000,825000,838000,847320], 'rgb(59,130,246)');
   mk('sparkPA', [93.2,94.1,94.8,95.3,95.9,96.2,96.5,96.8], 'rgb(52,211,153)');
   mk('sparkWA', [88.5,89.2,89.8,90.5,91.0,91.5,92.0,92.4], 'rgb(34,211,238)');
+  mk('sparkInventory', [99.1,99.2,99.3,99.4,99.4,99.5,99.6,99.7], 'rgb(167,139,250)');
+  mk('sparkPicking', [28.1,27.2,26.5,25.8,25.0,24.3,23.8,23.4], 'rgb(251,191,36)');
 }
 
 // ── Clock ──
