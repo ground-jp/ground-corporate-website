@@ -542,7 +542,12 @@
             .cs-quote__text { font-size: 18px; }
             .cs-cta__title { font-size: 20px; }
         }
-    </style>
+    
+    /* Language Switcher */
+    .lang-switch { display: inline-flex; align-items: center; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 4px 8px; margin-right: 8px; transition: all 0.2s ease; }
+    .lang-switch:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+    .lang-switch--active { color: #fff; border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); }
+</style>
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.svg">
 </head>
@@ -551,7 +556,8 @@
     <header class="header" id="header" style="background: rgb(10, 12, 20); height: 64px;">
         <div class="header__inner">
             <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; position: relative; top: 0px; left: 0px;"></a>
-            <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
+            <span class="lang-switch" style="opacity:0.25;cursor:default;" title="English version coming soon">EN</span>
+      <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
                 <span class="hamburger__line"></span>
                 <span class="hamburger__line"></span>
                 <span class="hamburger__line"></span>
