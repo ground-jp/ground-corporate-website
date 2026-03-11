@@ -1056,6 +1056,12 @@
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.ab-fade').forEach(el => observer.observe(el));
+    // フォールバック: 2秒後に全要素を強制表示（IntersectionObserverが動かない場合）
+    setTimeout(function() {
+      document.querySelectorAll('.ab-fade:not(.is-visible)').forEach(function(el) {
+        el.classList.add('is-visible');
+      });
+    }, 2000);
   </script>
 <script defer src="js/design-settings.js"></script>
 <!-- Cookie Consent Banner -->

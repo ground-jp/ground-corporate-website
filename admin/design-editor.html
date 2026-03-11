@@ -1859,6 +1859,21 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     setTimeout(function() {
       applyToPreview();
       setupClickEditing();
+      // デザインエディタ内ではフェードアニメーションを無効化して全要素を表示
+      try {
+        var doc = frame.contentDocument || frame.contentWindow.document;
+        if (doc) {
+          var editorStyle = doc.getElementById('design-editor-visibility');
+          if (!editorStyle) {
+            editorStyle = doc.createElement('style');
+            editorStyle.id = 'design-editor-visibility';
+            doc.head.appendChild(editorStyle);
+          }
+          editorStyle.textContent =
+            '.ab-fade, .fade-in, [class*="fade"] { opacity: 1 !important; transform: none !important; transition: none !important; }' +
+            '.ab-fade.is-visible, .fade-in.visible { opacity: 1 !important; transform: none !important; }';
+        }
+      } catch(e) {}
     }, 300);
   });
 
@@ -1866,6 +1881,9 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
   function getEditedHtml() {
     var doc = frame.contentDocument || frame.contentWindow.document;
     if (!doc) return null;
+    // エディタ専用の表示スタイルを削除（保存時に含めない）
+    var visStyle = doc.getElementById('design-editor-visibility');
+    if (visStyle) visStyle.remove();
     // design-editor-overrides を editor-saved-styles に統合
     var overrideStyle = doc.getElementById('design-editor-overrides');
     if (overrideStyle) {
