@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="https://groundinc.co.jp/img/ogp-default.svg">
   <link rel="icon" href="img/favicon.ico" type="image/x-icon">
   <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
   <title>チーム | GROUND Inc.</title>
@@ -285,6 +286,8 @@
 </script>
   <link rel="alternate" hreflang="ja" href="https://groundinc.co.jp/team.html">
   <link rel="alternate" hreflang="x-default" href="https://groundinc.co.jp/team.html">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.svg">
 </head>
 <body>
 
@@ -473,5 +476,204 @@
 
   <script defer src="js/main.js"></script>
 <script defer src="js/design-settings.js"></script>
+<!-- Cookie Consent Banner -->
+<div id="cc-banner" class="cc-banner" role="dialog" aria-labelledby="cc-title">
+  <div class="cc-banner__content">
+    <p id="cc-title" class="cc-banner__text">当サイトでは、サービス向上のためCookieを使用しています。</p>
+    <div class="cc-banner__buttons">
+      <button id="cc-accept" class="cc-banner__button cc-banner__button--accept" aria-label="同意する">同意する</button>
+      <a href="privacy.html" class="cc-banner__link" aria-label="詳細">詳細</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cc-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(10, 12, 20, 0.95);
+    z-index: 9999;
+    padding: 16px 20px;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+    font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    animation: cc-slide-up 0.3s ease-out;
+    display: none;
+  }
+
+  .cc-banner.cc-show {
+    display: block;
+  }
+
+  @keyframes cc-slide-up {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes cc-slide-down {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+  }
+
+  .cc-banner.cc-hide {
+    animation: cc-slide-down 0.3s ease-in forwards;
+  }
+
+  .cc-banner__content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .cc-banner__text {
+    color: #ffffff;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+    flex: 1;
+  }
+
+  .cc-banner__buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .cc-banner__button {
+    padding: 8px 16px;
+    background-color: #3B82F6;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .cc-banner__button:hover {
+    background-color: #2563EB;
+  }
+
+  .cc-banner__button:active {
+    background-color: #1D4ED8;
+  }
+
+  .cc-banner__link {
+    color: #ffffff;
+    text-decoration: underline;
+    font-size: 13px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  .cc-banner__link:hover {
+    opacity: 0.8;
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 640px) {
+    .cc-banner__content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .cc-banner__buttons {
+      width: 100%;
+      gap: 8px;
+    }
+
+    .cc-banner__button {
+      flex: 1;
+    }
+
+    .cc-banner__link {
+      flex: 1;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    const CONSENT_KEY = 'ground_cookie_consent';
+    const banner = document.getElementById('cc-banner');
+    const acceptBtn = document.getElementById('cc-accept');
+
+    function getConsent() {
+      try {
+        return localStorage.getItem(CONSENT_KEY);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function setConsent(value) {
+      try {
+        localStorage.setItem(CONSENT_KEY, value);
+      } catch (e) {
+        // Fallback if localStorage is not available
+      }
+    }
+
+    function hideBanner() {
+      if (banner) {
+        banner.classList.remove('cc-show');
+        banner.classList.add('cc-hide');
+        setTimeout(() => {
+          banner.style.display = 'none';
+        }, 300);
+      }
+    }
+
+    function showBanner() {
+      if (banner) {
+        banner.classList.add('cc-show');
+        banner.classList.remove('cc-hide');
+      }
+    }
+
+    // Check if consent was already given
+    if (!getConsent()) {
+      showBanner();
+    }
+
+    // Accept button handler
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', function() {
+        setConsent('accepted');
+        hideBanner();
+      });
+    }
+
+    // Close banner on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && banner && banner.classList.contains('cc-show')) {
+        setConsent('accepted');
+        hideBanner();
+      }
+    });
+  })();
+</script>
+
 </body>
 </html>

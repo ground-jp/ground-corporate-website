@@ -1,0 +1,26 @@
+{
+  "name": "GROUND Inc.",
+  "short_name": "GROUND",
+  "description": "AI・数理最適化・ロボティクスで物流の未来を変革するテクノロジーカンパニー",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0C14",
+  "theme_color": "#3B82F6",
+  "icons": [
+    {
+      "src": "img/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

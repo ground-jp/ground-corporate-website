@@ -1,0 +1,18 @@
+<svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark circle background -->
+  <circle cx="90" cy="90" r="90" fill="#0A0C14"/>
+
+  <!-- White "G" letter -->
+  <text
+    x="90"
+    y="104"
+    font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    font-size="112"
+    font-weight="bold"
+    fill="white"
+    text-anchor="middle"
+    dominant-baseline="middle"
+  >
+    G
+  </text>
+</svg>

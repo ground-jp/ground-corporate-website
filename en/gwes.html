@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="ja" style="--accent: #3B82F6; --frost-ice-blue: #60A5FA; --black: #1A1A1A;"><head>
+<html lang="en" style="--accent: #3B82F6; --frost-ice-blue: #60A5FA; --black: #1A1A1A;"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
-  <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="../img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../img/favicon-32.png" type="image/png" sizes="32x32">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="GWES - 倉庫実行管理システム | GROUND Inc.">
-  <meta property="og:description" content="AIと数理最適化が融合した次世代倉庫実行管理システム GWES。リアルタイム最適化でオペレーション生産性を最大化します。">
-  <meta property="og:url" content="https://groundinc.co.jp/gwes.html">
+  <meta property="og:title" content="GWES - Warehouse Execution System | GROUND Inc.">
+  <meta property="og:description" content="GWES: Next-generation warehouse execution system powered by AI and mathematical optimization. Maximize operational productivity with real-time intelligent orchestration.">
+  <meta property="og:url" content="https://groundinc.co.jp/en/gwes.html">
   <meta property="og:site_name" content="GROUND Inc.">
-  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale" content="en_US">
     <meta property="og:image" content="https://groundinc.co.jp/img/ogp-default.svg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="GWES - 倉庫実行管理システム | GROUND Inc.">
-  <meta name="twitter:description" content="AIと数理最適化が融合した次世代倉庫実行管理システム GWES。リアルタイム最適化でオペレーション生産性を最大化します。">
-  <title>GWES - 物流OS | GROUND Inc.</title>
-  <meta name="description" content="GWES（GROUND Warehouse Execution System）は、AI・数理最適化により物流施設全体の運営を管理・最適化・自律化する統合プラットフォームです。">
+  <meta name="twitter:title" content="GWES - Warehouse Execution System | GROUND Inc.">
+  <meta name="twitter:description" content="GWES: Next-generation warehouse execution system powered by AI and mathematical optimization. Maximize operational productivity with real-time intelligent orchestration.">
+  <title>GWES - Logistics OS | GROUND Inc.</title>
+  <meta name="description" content="GWES (GROUND Warehouse Execution System) is an integrated platform that manages, optimizes, and autonomously operates logistics facilities using AI and mathematical optimization.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Noto+Sans+JP:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=54">
+  <link rel="stylesheet" href="../css/style.css?v=54">
   <style>
     :root {
       --gw-bg: #0A0C14;
@@ -548,306 +548,395 @@
     /* ── Module Icon ── */
     .gw-mod__icon {
       width: 44px; height: 44px;
-      margin: 0 0 14px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 10px;
-      transition: transform 0.3s;
-      flex-shrink: 0;
+      color: var(--gw-accent);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .gw-mod__icon svg { width: 24px; height: 24px; }
-    .gw-mod__icon--infra { background: #1A1A1A; color: #C8CDD8; }
-    .gw-mod__icon--l2 { background: #161822; color: #93C5FD; }
-    .gw-mod__icon--l4 { background: #161822; color: #60A5FA; }
+    .gw-mod__icon svg {
+      width: 100%;
+      height: 100%;
+    }
 
-    /* (Module detail pages handle expanded content) */
-
-    /* ── KPI ── */
-    .gw-kpis {
+    /* ── Technology Chart ── */
+    .gw-tech-chart {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
       margin-top: 48px;
-      background: #545867;
-      border-radius: 10px;
+      margin-bottom: 64px;
+    }
+
+    .gw-tech-col {
+      border: 1px solid #3F4250;
+      border-radius: 16px;
+      padding: 32px;
+      background: #161822;
       overflow: hidden;
     }
-    .gw-kpi {
-      background: var(--gw-box-bg);
-      padding: 28px 24px;
-      text-align: center;
-      transition: background 0.3s;
-    }
-    .gw-kpi:hover { background: #3F4250; }
-    .gw-kpi__value {
-      font-family: 'Inter', sans-serif;
-      font-size: 2rem; font-weight: 700;
+
+    .gw-tech-col__header {
+      font-size: 1.1rem;
+      font-weight: 600;
       color: #FFFFFF;
-      margin-bottom: 8px;
-      letter-spacing: -0.02em;
-    }
-    .gw-kpi__label {
-      font-size: 0.82rem; color: var(--gw-text-2);
-      line-height: 1.5;
-    }
-    .gw-kpi__module {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem; color: rgba(255,255,255,0.75);
-      margin-top: 8px; display: block;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #3F4250;
     }
 
-    /* ── Implementation ── */
+    .gw-tech-col--active {
+      border-color: var(--gw-accent);
+      background: linear-gradient(135deg, rgba(59,130,246,0.08) 0%, rgba(96,165,250,0.04) 100%);
+    }
+
+    .gw-tech-col--active .gw-tech-col__header {
+      color: var(--gw-accent);
+    }
+
+    .gw-tech-layer {
+      margin-bottom: 24px;
+    }
+
+    .gw-tech-layer__label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gw-accent);
+      margin-bottom: 8px;
+    }
+
+    .gw-tech-layer__content {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.6;
+    }
+
+    /* ── Technology Algorithms ── */
+    .gw-tech-algo {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .gw-tech-algo__item {
+      display: inline-block;
+      background: rgba(59,130,246,0.15);
+      color: var(--gw-accent);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      width: fit-content;
+    }
+
+    /* ── Technology Description ── */
+    .gw-tech-desc {
+      margin-top: 64px;
+    }
+
+    .gw-tech-desc__title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #FFFFFF;
+      margin-bottom: 24px;
+    }
+
+    .gw-tech-items {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 48px;
+      margin-top: 48px;
+    }
+
+    .gw-tech-item {
+      border-left: 3px solid var(--gw-accent);
+      padding-left: 28px;
+    }
+
+    .gw-tech-item__num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gw-accent);
+      margin-bottom: 12px;
+    }
+
+    .gw-tech-item__name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+    }
+
+    .gw-tech-item__name-en {
+      font-size: 0.9rem;
+      color: var(--gw-accent);
+      margin-bottom: 12px;
+      font-weight: 400;
+    }
+
+    .gw-tech-item__text {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.8;
+    }
+
+    /* ── Implementation Phases ── */
     .gw-phases {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      gap: 24px;
       margin-top: 48px;
     }
+
     .gw-phase {
       background: var(--gw-box-bg);
       border: 1px solid var(--gw-box-border);
       border-radius: 12px;
       padding: 28px 24px;
-      position: relative;
-      transition: border-color 0.35s, background 0.35s;
-    }
-    .gw-phase:hover {
-      border-color: #636A78;
-      background: #3F4250;
-    }
-    .gw-phase__num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.55rem; letter-spacing: 0.12em;
-      color: var(--gw-accent); display: block;
-      margin-bottom: 10px; opacity: 0.8;
-    }
-    .gw-phase__name {
-      font-size: 0.92rem; font-weight: 600;
-      color: var(--gw-text-1); margin-bottom: 6px;
-    }
-    .gw-phase__gpim {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.58rem; color: var(--gw-text-3);
-      margin-bottom: 14px; display: block;
-    }
-    .gw-phase__desc {
-      font-size: 0.78rem; color: var(--gw-text-2);
-      line-height: 1.85;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    /* ── CTA ── */
+    .gw-phase__num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--gw-accent);
+    }
+
+    .gw-phase__name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+
+    .gw-phase__gpim {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(59,130,246,0.2);
+      color: var(--gw-accent);
+      width: fit-content;
+    }
+
+    .gw-phase__desc {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.6;
+    }
+
+    /* ── KPI Results ── */
+    .gw-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .gw-kpi {
+      background: var(--gw-box-bg);
+      border: 1px solid var(--gw-box-border);
+      border-radius: 12px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: all 0.35s ease;
+    }
+
+    .gw-kpi:hover {
+      border-color: #636A78;
+      background: #3F4250;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+
+    .gw-kpi__value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--gw-accent);
+      margin-bottom: 12px;
+    }
+
+    .gw-kpi__label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+    }
+
+    .gw-kpi__module {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ── CTA Section ── */
     .gw-cta {
       padding: 100px 0;
       background: var(--gw-bg);
-      border-top: 1px solid #3F4250;
-    }
-    .gw-cta__inner {
-      text-align: center; max-width: 500px; margin: 0 auto;
-    }
-    .gw-cta__title {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.4rem; font-weight: 600;
-      color: var(--gw-text-1);
-      letter-spacing: -0.02em; line-height: 1.5;
-      margin-bottom: 12px;
-    }
-    .gw-cta__desc {
-      font-size: 0.82rem; color: var(--gw-text-2);
-      line-height: 1.9; margin-bottom: 32px;
-    }
-    .gw-cta__actions {
-      display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
-    }
-    .gw-btn--primary {
-      background: #FFFFFF; color: #0A0C14; border: none; font-weight: 600;
-      padding: 11px 32px; border-radius: 8px; font-size: 0.82rem;
-      letter-spacing: 0.01em; transition: all 0.25s ease; cursor: pointer;
-      text-decoration: none; display: inline-block;
-    }
-    .gw-btn--primary:hover {
-      background: rgba(255,255,255,0.90);
-      box-shadow: 0 2px 16px rgba(255,255,255,0.10);
-    }
-    .gw-btn--outline {
-      border: 1px solid #3F4250; color: var(--gw-text-2);
-      padding: 11px 32px; border-radius: 8px; font-size: 0.82rem;
-      transition: all 0.25s ease; background: transparent; cursor: pointer;
-      text-decoration: none; display: inline-block;
-    }
-    .gw-btn--outline:hover {
-      border-color: #545867; color: var(--gw-text-1);
-    }
-
-    /* ── Module Link ── */
-    .gw-mod { cursor: pointer; position: relative; }
-    .gw-mod__link {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.7rem; color: var(--gw-accent);
-      margin-top: auto; padding-top: 12px; transition: color 0.2s;
-      text-decoration: none;
-    }
-    .gw-mod:hover .gw-mod__link { color: #60A5FA; }
-    .gw-mod__link::after {
-      content: '→'; font-size: 0.8rem;
-    }
-
-    /* ── Fade ── */
-    .gw-fade {
-      opacity: 0; transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .gw-fade.is-visible { opacity: 1; transform: translateY(0); }
-
-    /* ── Technology Platform Section ── */
-    .gw-tech-chart {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-top: 48px;
-    }
-    .gw-tech-col {
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      overflow: hidden;
-      background: rgba(255,255,255,0.02);
-    }
-    .gw-tech-col--active {
-      border-color: rgba(78,130,255,0.3);
-      background: rgba(78,130,255,0.04);
-    }
-    .gw-tech-col__header {
-      padding: 16px 20px;
       text-align: center;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.82rem;
+    }
+
+    .gw-cta__inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .gw-cta__title {
+      font-size: 2rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
-      color: var(--gw-text-2);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      color: #FFFFFF;
+      margin-bottom: 24px;
     }
-    .gw-tech-col--active .gw-tech-col__header {
-      color: #fff;
-      background: rgba(78,130,255,0.08);
+
+    .gw-cta__desc {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.8;
+      margin-bottom: 40px;
     }
-    .gw-tech-layer {
-      padding: 14px 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      min-height: 60px;
+
+    .gw-cta__actions {
       display: flex;
-      flex-direction: column;
+      gap: 16px;
       justify-content: center;
+      flex-wrap: wrap;
     }
-    .gw-tech-layer:last-child { border-bottom: none; }
-    .gw-tech-layer__label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gw-accent);
-      margin-bottom: 6px;
-      opacity: 0.7;
-    }
-    .gw-tech-layer__content {
-      font-size: 0.82rem;
-      color: var(--gw-text-2);
-      line-height: 1.6;
-    }
-    .gw-tech-col--active .gw-tech-layer__content {
-      color: rgba(255,255,255,0.9);
-    }
-    .gw-tech-algo {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .gw-tech-algo__item {
-      font-size: 0.8rem;
-      padding: 3px 0;
-    }
-    .gw-tech-desc {
-      margin-top: 56px;
-    }
-    .gw-tech-desc__title {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 20px;
-    }
-    .gw-tech-items {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      margin-top: 32px;
-    }
-    .gw-tech-item {
-      padding: 24px;
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 10px;
-      background: rgba(255,255,255,0.02);
-    }
-    .gw-tech-item__num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--gw-accent);
-      letter-spacing: 0.08em;
-      margin-bottom: 8px;
-    }
-    .gw-tech-item__name {
+
+    .gw-btn--primary,
+    .gw-btn--outline {
+      padding: 14px 32px;
+      border-radius: 8px;
       font-size: 0.95rem;
       font-weight: 600;
-      color: #fff;
-      margin-bottom: 4px;
-    }
-    .gw-tech-item__name-en {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--gw-text-3);
-      margin-bottom: 12px;
-    }
-    .gw-tech-item__text {
-      font-size: 0.82rem;
-      color: var(--gw-text-2);
-      line-height: 1.9;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
     }
 
-    /* ── Responsive ── */
-    @media (max-width: 1000px) {
-      .gw-modules { grid-template-columns: repeat(2, 1fr); }
-      .gw-kpis { grid-template-columns: repeat(2, 1fr); }
-      .gw-concept, .gw-arch-intro {
-        grid-template-columns: 1fr; gap: 24px;
-      }
+    .gw-btn--primary {
+      background: var(--gw-accent);
+      color: #FFFFFF;
+      border: 1px solid var(--gw-accent);
     }
+
+    .gw-btn--primary:hover {
+      background: #2563EB;
+      border-color: #2563EB;
+      transform: translateY(-2px);
+    }
+
+    .gw-btn--outline {
+      background: transparent;
+      color: #FFFFFF;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .gw-btn--outline:hover {
+      border-color: var(--gw-accent);
+      color: var(--gw-accent);
+    }
+
+    /* ── CTA Stream (inline link) ── */
+    .cta-stream {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--gw-accent);
+      text-decoration: none;
+      margin-top: auto;
+      padding-top: 12px;
+      transition: gap 0.3s ease;
+    }
+
+    .cta-stream__label {
+      font-weight: 500;
+    }
+
+    .cta-stream__icon {
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      background: var(--gw-accent);
+      border-radius: 50%;
+    }
+
+    /* ── Fade In Animation ── */
+    .gw-fade {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .gw-fade.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     @media (max-width: 768px) {
-      .gw-logo__mark { width: 48px; height: 48px; }
-      .gw-logo { gap: 16px; }
-      .gw-logo__name { font-size: 2rem; }
-      .gw-logo__full { font-size: 0.55rem; }
-      .gw-laptop__screen { padding: 10px 10px 0; border-radius: 8px 8px 0 0; }
-      .gw-laptop__base { height: 6px; }
-      .gw-laptop__screen-glow { inset: -30px -40px -10px -40px; }
-      .gw-compare { grid-template-columns: 1fr; }
-      .gw-compare__arrow {
-        width: auto; height: 48px;
-        border-left: none; border-right: none;
-        border-top: 1px solid #3F4250;
-        border-bottom: 1px solid #3F4250;
+      .gw-values,
+      .gw-modules {
+        grid-template-columns: repeat(2, 1fr);
       }
-      .gw-values { grid-template-columns: repeat(2, 1fr); }
-      .gw-modules { grid-template-columns: 1fr; }
-      .gw-phases { grid-template-columns: repeat(2, 1fr); }
-      .gw-hero { padding: 56px 0 0; }
-      .gw-hero__line { margin-top: 56px; }
-      .gw-tech-chart { grid-template-columns: 1fr; }
-      .gw-tech-items { grid-template-columns: 1fr; }
+
+      .gw-tech-items {
+        grid-template-columns: 1fr;
+      }
+
+      .gw-phases,
+      .gw-kpis {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gw-cta__actions {
+        flex-direction: column;
+      }
+
+      .gw-cta__actions a {
+        width: 100%;
+      }
     }
-    @media (max-width: 600px) {
-      .gw-hero__title { font-size: 1.8rem; }
-      .gw-values { grid-template-columns: 1fr; }
-      .gw-kpis { grid-template-columns: 1fr; }
-      .gw-phases { grid-template-columns: 1fr; }
-      .gw-section { padding: 56px 0; }
-      .gw-cta { padding: 64px 0; }
+
+    @media (max-width: 640px) {
+      .gw-values,
+      .gw-modules {
+        grid-template-columns: 1fr;
+      }
+
+      .gw-phases,
+      .gw-kpis {
+        grid-template-columns: 1fr;
+      }
+
+      .gw-concept,
+      .gw-arch-intro {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .gw-compare {
+        grid-template-columns: 1fr;
+      }
+
+      .gw-compare__arrow {
+        display: none;
+      }
+
+      .gw-tech-chart {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
   <style>
@@ -877,7 +966,7 @@
     .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
     .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.3); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
     .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
-  
+
     /* ── GWES Solutions Navigation Cards ── */
     .gw-nav-cards {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;
@@ -921,7 +1010,7 @@
       color: var(--gw-text-1);
     }
 </style>
-  <link rel="canonical" href="https://groundinc.co.jp/gwes.html">
+  <link rel="canonical" href="https://groundinc.co.jp/en/gwes.html">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -930,19 +1019,20 @@
     {
       "@type": "ListItem",
       "position": 1,
-      "name": "ホーム",
-      "item": "https://groundinc.co.jp/index.html"
+      "name": "Home",
+      "item": "https://groundinc.co.jp/en/index.html"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "GWES",
-      "item": "https://groundinc.co.jp/gwes.html"
+      "item": "https://groundinc.co.jp/en/gwes.html"
     }
   ]
 }
 </script>
   <link rel="alternate" hreflang="ja" href="https://groundinc.co.jp/gwes.html">
+  <link rel="alternate" hreflang="en" href="https://groundinc.co.jp/en/gwes.html">
   <link rel="alternate" hreflang="x-default" href="https://groundinc.co.jp/gwes.html">
 <style id="editor-saved-styles">
 
@@ -969,14 +1059,15 @@
 [data-de-id="de-6"] { transform: translate(0px, 0px) !important; } /* de-6-transform */
 
 [data-de-id="de-1"] { height: 48px !important; } /* de-1-height */
-[data-de-id="de-1"] { width: 640px !important; } /* de-1-width */</style>    <link rel="manifest" href="/manifest.json">
+[data-de-id="de-1"] { width: 640px !important; } /* de-1-width */
+</style>    <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.svg">
 </head>
 <body style="font-size: 15px;">
 <header class="header header--scrolled" id="header" style="background: rgb(10, 12, 20); height: 64px;">
     <div class="header__inner" style="">
-      <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; position: relative; top: 0px; left: 0px;"></a>
-      <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く" style="">
+      <a class="header__logo" href="/"><img src="../img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; position: relative; top: 0px; left: 0px;"></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" style="">
         <span class="hamburger__line"></span>
         <span class="hamburger__line"></span>
         <span class="hamburger__line"></span>
@@ -991,51 +1082,51 @@
       <div class="overlay-menu__col-nav">
         <span class="overlay-menu__label">[NAVIGATION]</span>
         <div class="overlay-menu__nav-list">
-          <a class="overlay-menu__nav-item" data-panel="company" href="/about">会社情報<span class="overlay-menu__nav-arrow">›</span></a>
-          <a class="overlay-menu__nav-item" data-panel="gpim" href="/gpim">GPIM<span class="overlay-menu__nav-arrow">›</span></a>
-          <a class="overlay-menu__nav-item" data-panel="service" href="/service">製品・サービス<span class="overlay-menu__nav-arrow">›</span></a>
-          <a class="overlay-menu__nav-item" href="/works">導入事例</a>
-          <a class="overlay-menu__nav-item" href="/news">ニュース</a>
-          <a class="overlay-menu__nav-item" href="/blog">WAREHOUSE TECH WEEKLY</a>
-          <a class="overlay-menu__nav-item" data-panel="careers" href="/careers">採用情報<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" data-panel="company" href="/en/about">About<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" data-panel="gpim" href="/en/gpim">GPIM<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" data-panel="service" href="/en/service">Products & Services<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" href="/en/works">Case Studies</a>
+          <a class="overlay-menu__nav-item" href="/en/news">News</a>
+          <a class="overlay-menu__nav-item" href="/en/blog">WAREHOUSE TECH WEEKLY</a>
+          <a class="overlay-menu__nav-item" data-panel="careers" href="/en/careers">Careers<span class="overlay-menu__nav-arrow">›</span></a>
         </div>
       </div>
       <!-- Col 2: Sub-panels -->
       <div class="overlay-menu__col-sub">
         <div class="overlay-menu__panel" data-panel="company">
-          <span class="overlay-menu__label">[会社情報]</span>
-          <a class="overlay-menu__sub-item" href="/about">会社概要</a>
-          <a class="overlay-menu__sub-item" href="/about#ceo">CEOメッセージ</a>
-          <a class="overlay-menu__sub-item" href="/about#vision">ビジョン・ミッション</a>
-          <a class="overlay-menu__sub-item" href="/about#bp">行動原則(BP)・価値創造(VCP)プロセス</a>
+          <span class="overlay-menu__label">[ABOUT]</span>
+          <a class="overlay-menu__sub-item" href="/en/about">Company Overview</a>
+          <a class="overlay-menu__sub-item" href="/en/about#ceo">CEO Message</a>
+          <a class="overlay-menu__sub-item" href="/en/about#vision">Vision & Mission</a>
+          <a class="overlay-menu__sub-item" href="/en/about#bp">Business Principles</a>
         </div>
         <div class="overlay-menu__panel" data-panel="service">
-          <span class="overlay-menu__label">[製品・サービス]</span>
-          <a class="overlay-menu__sub-item" href="/gwes">GWES</a>
-          <a href="#technology" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
-          <a href="#modules" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
-          <a href="#implementation" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
-          <a class="overlay-menu__sub-item" href="/digital-integration">デジタルインテグレーション</a>
-          <a class="overlay-menu__sub-item" href="/consulting">コンサルティング＆エンジニアリング</a>
-          <a class="overlay-menu__sub-item" href="/peer">PEER</a>
+          <span class="overlay-menu__label">[PRODUCTS & SERVICES]</span>
+          <a class="overlay-menu__sub-item" href="/en/gwes">GWES</a>
+          <a href="#technology" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― Technology</a>
+          <a href="#modules" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― Modules</a>
+          <a href="#implementation" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― Implementation</a>
+          <a class="overlay-menu__sub-item" href="/en/digital-integration">Digital Integration</a>
+          <a class="overlay-menu__sub-item" href="/en/consulting">Consulting & Engineering</a>
+          <a class="overlay-menu__sub-item" href="/en/peer">PEER</a>
         </div>
         <div class="overlay-menu__panel" data-panel="gpim">
           <span class="overlay-menu__label">[GPIM]</span>
-          <a class="overlay-menu__sub-item" href="/gpim">GPIMとは</a>
-          <a class="overlay-menu__sub-item" href="/gpim-consulting">GPIMコンサルティング</a>
+          <a class="overlay-menu__sub-item" href="/en/gpim">What is GPIM</a>
+          <a class="overlay-menu__sub-item" href="/en/gpim-consulting">GPIM Consulting</a>
         </div>
         <div class="overlay-menu__panel" data-panel="careers">
-          <span class="overlay-menu__label">[採用情報]</span>
-          <a class="overlay-menu__sub-item" href="/careers">募集ポジション</a>
-          <a class="overlay-menu__sub-item" href="/about">カルチャー</a>
+          <span class="overlay-menu__label">[CAREERS]</span>
+          <a class="overlay-menu__sub-item" href="/en/careers">Open Positions</a>
+          <a class="overlay-menu__sub-item" href="/en/about">Culture</a>
         </div>
       </div>
       <!-- Col 3: CTA + Contact -->
       <div class="overlay-menu__col-info">
-        <a class="overlay-menu__cta-btn" href="/contact" style="background-color: rgb(37, 99, 235);">お問い合わせ</a>
+        <a class="overlay-menu__cta-btn" href="/en/contact" style="background-color: rgb(37, 99, 235);">Contact</a>
         <div class="overlay-menu__contact-info">
           <span>info@groundinc.co.jp</span>
-          <span>03-6441-2975</span>
+          <span>+81-3-6441-2975</span>
         </div>
         <p class="overlay-menu__copyright">© GROUND Inc.</p>
       </div>
@@ -1044,11 +1135,12 @@
 
 
   <!-- Breadcrumb -->
-    <nav class="breadcrumb-nav" aria-label="パンくずリスト" style="">
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb navigation" style="">
       <ol class="breadcrumb-nav__list" style="">
         <li class="breadcrumb-nav__item"><a class="breadcrumb-nav__link breadcrumb-nav__link--home" href="/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg></a></li>
-        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a class="breadcrumb-nav__link" href="/service">サービス</a></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a class="breadcrumb-nav__link" href="/en/service">Services</a></li>
         <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current" style="">GWES</span></li>
+        <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a class="breadcrumb-nav__link" href="../gwes.html">JP</a></li>
       </ol>
     </nav>
   <div class="page-header" style="">
@@ -1062,7 +1154,7 @@
       <div class="gw-hero__logo-row" style="">
         <div class="gw-logo">
           <div class="gw-logo__mark" style="">
-            <img src="img/gwes-particle-grid.svg" alt="GWES" data-de-id="de-2" style="transform: translate(21px, -8px) !important; margin-left: -7.5px !important; width: 79.5px !important; max-width: none !important; min-width: 0px !important; box-sizing: border-box !important; height: 79.5px !important; max-height: none !important; min-height: 0px !important; outline: rgb(91, 192, 235) solid 3px; outline-offset: 3px;">
+            <img src="../img/gwes-particle-grid.svg" alt="GWES" data-de-id="de-2" style="transform: translate(21px, -8px) !important; margin-left: -7.5px !important; width: 79.5px !important; max-width: none !important; min-width: 0px !important; box-sizing: border-box !important; height: 79.5px !important; max-height: none !important; min-height: 0px !important; outline: rgb(91, 192, 235) solid 3px; outline-offset: 3px;">
           </div>
           <div class="gw-logo__text">
             <span class="gw-logo__name" style="">GWES</span>
@@ -1070,10 +1162,10 @@
           </div>
         </div>
       </div>
-      <h1 class="gw-hero__title" style="" data-de-id="de-1">物流施設運営を統合管理する<br>物流OS</h1>
-      <p class="gw-hero__subtitle" style="">施設運営をテクノロジーで自律化する</p>
+      <h1 class="gw-hero__title" style="" data-de-id="de-1">Intelligent Orchestration for Logistics Facility Operations</h1>
+      <p class="gw-hero__subtitle" style="">Autonomous Operations Powered by Technology</p>
       <p class="gw-hero__desc" style="color: rgb(255, 255, 255) !important;" data-de-id="de-2">
-        GWESは、物流施設全体の運営に必要な情報の取得・分析・判断・指示を一元的に担う「物流OS（オペレーティングシステム）」です。WMSが個々の作業指示を制御する「実行系システム」であるのに対し、GWESは施設全体を俯瞰し、最適化・自律化を推進する「管理・意思決定系システム」として機能します。
+        GWES is a Logistics Operating System that manages all information, analysis, decision-making, and execution necessary for entire logistics facility operations in a unified manner. While WMS controls individual task execution as a transactional system, GWES functions as a management and decision-making system that oversees the entire facility and drives optimization and autonomy.
       </p>
     </div>
   </section>
@@ -1088,7 +1180,7 @@
           <!-- Screen / Lid -->
           <div class="gw-laptop__screen" data-de-id="de-5" style="transform: translate(-25px, -16px) !important;">
             <div class="gw-laptop__display">
-              <picture style=""><source srcset="img/gwes-login.webp" type="image/webp"><img src="img/gwes-login.png" alt="GWES ログイン画面" loading="lazy" data-de-id="de-4" style="margin-left: 143.255132px !important; width: 685.580683px !important; max-width: none !important; min-width: 0px !important; box-sizing: border-box !important; height: 416.178972px !important; max-height: none !important; min-height: 0px !important; transform: translate(-49px, -5px) !important;"></picture>
+              <picture style=""><source srcset="../img/gwes-login.webp" type="image/webp"><img src="../img/gwes-login.png" alt="GWES Login Screen" loading="lazy" data-de-id="de-4" style="margin-left: 143.255132px !important; width: 685.580683px !important; max-width: none !important; min-width: 0px !important; box-sizing: border-box !important; height: 416.178972px !important; max-height: none !important; min-height: 0px !important; transform: translate(-49px, -5px) !important;"></picture>
             </div>
           </div>
           <!-- Keyboard base -->
@@ -1112,142 +1204,142 @@
 <!-- ==================== CONCEPT: What is Logistics OS ==================== -->
   <section class="gw-section">
     <div class="container" data-de-id="de-6" style="transform: translate(0px, 0px) !important;">
-      <!-- ① 課題提起 -->
+      <!-- ① Challenge -->
       <div class="gw-concept gw-fade is-visible" style="">
         <div style="">
           <span class="gw-section__label">Logistics OS</span>
-          <h2 class="gw-section__heading" style="font-size: 28px;">なぜ「物流OS」<br>なのか</h2>
+          <h2 class="gw-section__heading" style="font-size: 28px;">Why a Logistics OS?</h2>
         </div>
         <div class="gw-concept__text" data-de-id="de-3" style="">
-          <p>物流業界は今、歴史的な転換点を迎えています。EC拡大による多品種少量・短納期化、深刻な人手不足と高齢化、グローバルサプライチェーンの複雑化、そして荷主からの高度な品質・可視化要求が同時に押し寄せています。</p>
-          <p style="">こうした課題に対し、従来の「現場の経験と勘に依存した運営」では対応できません。データとテクノロジーに基づく体系的な改善アプローチが不可欠です。</p>
-          <p style="">GWESは、PCにおけるOSがハードウェアとアプリケーションを統合管理するように、物流施設の全リソース──人・設備・在庫・スペース──を統合的に管理し、最適な運営状態を維持するプラットフォームです。WMS・ERP・マテハンといった既存システムと連携しつつ、施設運営全体の「判断と管理」を担います。</p>
+          <p>The logistics industry is at a historic inflection point. We face simultaneous pressures: explosive e-commerce growth driving greater product variety with shorter lead times, severe labor shortages and aging workforce, increasing complexity of global supply chains, and escalating shipper demands for quality and visibility.</p>
+          <p style="">Traditional operations relying on experience and intuition cannot address these challenges. Systematic improvement approaches rooted in data and technology are essential.</p>
+          <p style="">GWES functions as a unified management platform for all warehouse resources—people, equipment, inventory, and space—much as an operating system integrates hardware and applications in a computer. It manages and coordinates entire facility operations while integrating with existing systems like WMS, ERP, and material handling equipment.</p>
           <p style=""><br></p>
         </div>
       </div>
 
-      
+
 
 <!-- ==================== 4 VALUES ==================== -->
   <section class="gw-section" style="padding-top: 0px;">
     <div class="container">
       <div class="gw-fade is-visible">
         <span class="gw-section__label">Core Values</span>
-        <h2 class="gw-section__heading" style="font-size: 28px;">GWESが提供する4つの価値</h2>
+        <h2 class="gw-section__heading" style="font-size: 28px;">Four Core Values of GWES</h2>
       </div>
       <div class="gw-values gw-fade is-visible">
         <div class="gw-value">
-          <div class="gw-value__name">作業量予測</div>
-          <div class="gw-value__desc">過去データとAIに基づく入出荷・作業量の事前予測。波動対応・人員計画の精度を飛躍的に向上させます。</div>
+          <div class="gw-value__name">Workload Forecasting</div>
+          <div class="gw-value__desc">AI-powered predictions of inbound/outbound volumes and task demands based on historical data. Dramatically improves staffing accuracy and capacity planning.</div>
         </div>
         <div class="gw-value">
-          <div class="gw-value__name">可視化</div>
-          <div class="gw-value__desc">作業進捗・在庫状況・負荷状態をリアルタイムに一元表示。複数拠点の横断比較を実現します。</div>
+          <div class="gw-value__name">Real-Time Visibility</div>
+          <div class="gw-value__desc">Unified visualization of task progress, inventory status, and workload across all areas. Enables cross-facility comparison and monitoring.</div>
         </div>
         <div class="gw-value" style="">
-          <div class="gw-value__name">最適化</div>
-          <div class="gw-value__desc" style="">在庫配置・動線・積付・出荷判断・要員配分をデータとロジックで全体最適化します。</div>
+          <div class="gw-value__name">Optimization</div>
+          <div class="gw-value__desc" style="">Data-driven, holistic optimization of inventory placement, material flow, consolidation decisions, dispatch timing, and staffing allocation.</div>
         </div>
         <div class="gw-value">
-          <div class="gw-value__name">拡張性</div>
-          <div class="gw-value__desc">共通プラットフォームにより、新拠点・新業態への展開を迅速かつ低コストで実現します。</div>
+          <div class="gw-value__name">Scalability</div>
+          <div class="gw-value__desc">Unified platform enables rapid, cost-effective expansion to new facilities and business models.</div>
         </div>
       </div>
     </div>
   </section>
 
-  
+
 
 <!-- ==================== TRANSFORMATION ==================== -->
   <section class="gw-section" style="padding-top: 0;">
     <div class="container">
       <div class="gw-fade is-visible">
         <span class="gw-section__label">Transformation</span>
-        <h2 class="gw-section__heading" style="font-size: 28px;">GWESがもたらす変革</h2>
-        <p class="gw-section__desc">これらのテクノロジーにより、物流施設の運営は以下のように変わります。</p>
+        <h2 class="gw-section__heading" style="font-size: 28px;">The GWES Transformation</h2>
+        <p class="gw-section__desc">GWES technology transforms logistics facility operations in the following ways:</p>
       </div>
       <div class="gw-compare gw-fade is-visible">
         <div class="gw-compare__card gw-compare__card--before">
-          <span class="gw-compare__label gw-compare__label--before">Before ─ 従来型運営</span>
+          <span class="gw-compare__label gw-compare__label--before">Before ─ Traditional Operations</span>
           <div class="gw-compare__item">
-            <span class="gw-compare__head">判断の根拠</span>
-            経験・勘・属人的判断に依存
+            <span class="gw-compare__head">Decision Basis</span>
+            Relies on experience, intuition, and individual judgment
           </div>
           <div class="gw-compare__item">
-            <span class="gw-compare__head">管理範囲</span>
-            単一拠点・個別工程ごとの部分管理
+            <span class="gw-compare__head">Management Scope</span>
+            Single-facility, process-specific optimization
           </div>
           <div class="gw-compare__item">
-            <span class="gw-compare__head">改善サイクル</span>
-            月次/四半期のバッチ分析
+            <span class="gw-compare__head">Improvement Cycle</span>
+            Monthly or quarterly batch analysis
           </div>
           <div class="gw-compare__item">
-            <span class="gw-compare__head">拡張性</span>
-            拠点ごとに個別構築、横展開が困難
+            <span class="gw-compare__head">Scalability</span>
+            Custom builds per facility; difficult to scale
           </div>
         </div>
         <div class="gw-compare__arrow">→</div>
         <div class="gw-compare__card gw-compare__card--after" style="">
-          <span class="gw-compare__label gw-compare__label--after">After ─ GWES導入後</span>
+          <span class="gw-compare__label gw-compare__label--after">After ─ With GWES</span>
           <div class="gw-compare__item">
-            <span class="gw-compare__head">判断の根拠</span>
-            データ・ロジック・定量的根拠に基づく判断
+            <span class="gw-compare__head">Decision Basis</span>
+            Data-driven, logic-based, quantitatively justified decisions
           </div>
           <div class="gw-compare__item">
-            <span class="gw-compare__head">管理範囲</span>
-            複数拠点横断・全体最適視点での運営
+            <span class="gw-compare__head">Management Scope</span>
+            Multi-facility, holistic facility-wide optimization
           </div>
           <div class="gw-compare__item" style="">
-            <span class="gw-compare__head">改善サイクル</span>
-            リアルタイム可視化・即時改善
+            <span class="gw-compare__head">Improvement Cycle</span>
+            Real-time visibility and continuous improvement
           </div>
           <div class="gw-compare__item" style="">
-            <span class="gw-compare__head">拡張性</span>
-            共通プラットフォームで迅速に展開
+            <span class="gw-compare__head">Scalability</span>
+            Common platform enables rapid deployment
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  
+
 
 
   <!-- ==================== TECHNOLOGY PLATFORM ==================== -->
   <section class="gw-section" id="technology" style="">
     <div class="container" style="">
-      <!-- ② OSアーキテクチャの対比 -->
+      <!-- ② OS Architecture Comparison -->
       <div class="gw-arch-intro gw-fade is-visible" style="margin-top: 16px;">
         <div>
           <span class="gw-section__label">Technology Platform</span>
-          <h2 class="gw-section__heading" style="font-size: 28px;">テクノロジー・<br>プラットフォーム</h2>
+          <h2 class="gw-section__heading" style="font-size: 28px;">Technology & Platform Architecture</h2>
         </div>
         <div class="gw-concept__text" data-de-id="de-5" style="transform: translate(-22px, 0px) !important;">
-          <p data-de-id="de-4" style="">スマートフォンのiOS / Androidは、SoCやセンサー群の上位に位置し、AIフレームワークを統合的に提供するOSです。コネクテッドカーの車載OS（QNX / Automotive Grade Linux）も同様に、LiDAR・カメラ等のセンサーフュージョンと自律走行アルゴリズムを統合管理しています。</p>
-          <p style="">GWESはこれらと同じ設計思想で、物流施設のWMS・マテハン・IoTセンサー群の上位に位置するOSとして、4つのアルゴリズムを通じて施設運営の知能化を実現します。</p>
+          <p data-de-id="de-4" style="">Smartphone OSs (iOS/Android) position themselves above hardware components and sensors, providing integrated AI frameworks. Similarly, automotive operating systems (QNX/Automotive Grade Linux) coordinate sensor fusion and autonomous driving algorithms.</p>
+          <p style="">GWES adopts this same architectural approach—positioning itself above warehouse WMS, material handling equipment, and IoT sensors to enable facility intelligence through four core algorithms.</p>
         </div>
       </div>
 
-      <!-- ③ アーキテクチャ対比チャート -->
+      <!-- ③ Architecture Comparison Chart -->
       <div class="gw-tech-chart gw-fade is-visible">
         <!-- Smartphone OS -->
         <div class="gw-tech-col">
           <div class="gw-tech-col__header">Smartphone OS</div>
           <div class="gw-tech-layer">
             <div class="gw-tech-layer__label">Application</div>
-            <div class="gw-tech-layer__content">SNS、カメラ、地図、決済</div>
+            <div class="gw-tech-layer__content">Social media, Camera, Maps, Payments</div>
           </div>
           <div class="gw-tech-layer">
             <div class="gw-tech-layer__label">AI / Framework</div>
-            <div class="gw-tech-layer__content">Core ML、Neural Engine、顔認識、音声認識</div>
+            <div class="gw-tech-layer__content">Core ML, Neural Engine, Face recognition, Voice recognition</div>
           </div>
           <div class="gw-tech-layer">
             <div class="gw-tech-layer__label">OS Core</div>
-            <div class="gw-tech-layer__content">iOS / Android（Linux Kernel）</div>
+            <div class="gw-tech-layer__content">iOS / Android (Linux Kernel)</div>
           </div>
           <div class="gw-tech-layer">
             <div class="gw-tech-layer__label">Hardware</div>
-            <div class="gw-tech-layer__content">SoC、センサー、通信モジュール</div>
+            <div class="gw-tech-layer__content">SoC, Sensors, Communication modules</div>
           </div>
         </div>
         <!-- Connected Car -->
@@ -1255,11 +1347,11 @@
           <div class="gw-tech-col__header">Connected Car OS</div>
           <div class="gw-tech-layer">
             <div class="gw-tech-layer__label">Application</div>
-            <div class="gw-tech-layer__content">自動運転、予防保全、デジタルコックピット</div>
+            <div class="gw-tech-layer__content">Autonomous driving, Predictive maintenance, Digital cockpit</div>
           </div>
           <div class="gw-tech-layer">
             <div class="gw-tech-layer__label">AI / Framework</div>
-            <div class="gw-tech-layer__content">センサーフュージョン、経路計画、物体認識</div>
+            <div class="gw-tech-layer__content">Sensor fusion, Path planning, Object detection</div>
           </div>
           <div class="gw-tech-layer">
             <div class="gw-tech-layer__label">OS Core</div>
@@ -1267,7 +1359,7 @@
           </div>
           <div class="gw-tech-layer">
             <div class="gw-tech-layer__label">Hardware</div>
-            <div class="gw-tech-layer__content">ECU、LiDAR、カメラ、V2X通信</div>
+            <div class="gw-tech-layer__content">ECU, LiDAR, Camera, V2X communication</div>
           </div>
         </div>
         <!-- GWES -->
@@ -1275,16 +1367,16 @@
           <div class="gw-tech-col__header" style="">GWES — Logistics OS</div>
           <div class="gw-tech-layer" style="">
             <div class="gw-tech-layer__label">Application</div>
-            <div class="gw-tech-layer__content">要員配置最適化、出荷予測、品質管理、施設運営の自律化</div>
+            <div class="gw-tech-layer__content">Staff allocation optimization, Shipment forecasting, Quality management, Facility autonomy</div>
           </div>
           <div class="gw-tech-layer">
             <div class="gw-tech-layer__label">AI / Algorithm</div>
             <div class="gw-tech-layer__content">
               <div class="gw-tech-algo">
-                <span class="gw-tech-algo__item">数理最適化</span>
-                <span class="gw-tech-algo__item">LLM（生成AI）</span>
-                <span class="gw-tech-algo__item">識別回帰モデル</span>
-                <span class="gw-tech-algo__item">時系列分析</span>
+                <span class="gw-tech-algo__item">Mathematical Optimization</span>
+                <span class="gw-tech-algo__item">LLM (Generative AI)</span>
+                <span class="gw-tech-algo__item">Discriminative Regression</span>
+                <span class="gw-tech-algo__item">Time Series Analysis</span>
               </div>
             </div>
           </div>
@@ -1294,41 +1386,41 @@
           </div>
           <div class="gw-tech-layer">
             <div class="gw-tech-layer__label">Infrastructure</div>
-            <div class="gw-tech-layer__content">WMS、マテハン、IoTセンサー、ERP</div>
+            <div class="gw-tech-layer__content">WMS, Material handling, IoT sensors, ERP</div>
           </div>
         </div>
       </div>
 
-      <!-- ④ 4つの独自アルゴリズム -->
+      <!-- ④ Four Core Algorithms -->
       <div class="gw-tech-desc gw-fade is-visible">
-        <div class="gw-tech-desc__title">GWESを支える4つのアルゴリズム</div>
+        <div class="gw-tech-desc__title">Four Core Algorithms Powering GWES</div>
         <p class="gw-hero__desc" style="max-width:none; margin-bottom:0;">
-          GWESは以下の4つのアルゴリズムを開発・統合し、物流施設の運営における判断・予測・最適化を自動化します。各アルゴリズムは独立して機能するだけでなく、相互に連携することで施設運営全体の知能化を実現します。
+          GWES integrates four proprietary algorithms to automate decision-making, forecasting, and optimization in warehouse operations. These algorithms work independently yet synergistically to enable facility-wide intelligence.
         </p>
         <div class="gw-tech-items">
           <div class="gw-tech-item">
             <div class="gw-tech-item__num">01</div>
-            <div class="gw-tech-item__name">数理最適化</div>
-            <div class="gw-tech-item__name-en">Mathematical Optimization</div>
-            <p class="gw-tech-item__text">要員配置・作業割当・動線設計等の組合せ最適化問題に対し、混合整数計画法（MIP）や制約プログラミングを適用。多数の制約条件を同時に満たしながら、KPIを最大化する実行可能解を高速に導出します。</p>
+            <div class="gw-tech-item__name">Mathematical Optimization</div>
+            <div class="gw-tech-item__name-en">Combinatorial Optimization</div>
+            <p class="gw-tech-item__text">Applies mixed-integer programming (MIP) and constraint programming to complex combinatorial problems like staffing allocation, task assignment, and workflow design. Rapidly identifies optimal solutions satisfying multiple constraints while maximizing KPIs.</p>
           </div>
           <div class="gw-tech-item">
             <div class="gw-tech-item__num">02</div>
-            <div class="gw-tech-item__name">LLM（生成AI）</div>
+            <div class="gw-tech-item__name">LLM (Generative AI)</div>
             <div class="gw-tech-item__name-en">Large Language Models</div>
-            <p class="gw-tech-item__text">大規模言語モデルを活用し、運営レポートの自動生成、異常検知時の原因推定と対策提案、ナレッジベースからの知見抽出を実行。非構造化データから実用的なインサイトを導きます。</p>
+            <p class="gw-tech-item__text">Leverages LLMs to auto-generate operational reports, estimate root causes of anomalies, propose remediation, and extract insights from knowledge bases. Transforms unstructured data into actionable intelligence.</p>
           </div>
           <div class="gw-tech-item">
             <div class="gw-tech-item__num">03</div>
-            <div class="gw-tech-item__name">識別回帰モデル</div>
-            <div class="gw-tech-item__name-en">Discriminative Regression Models</div>
-            <p class="gw-tech-item__text">勾配ブースティング（XGBoost / LightGBM）やニューラルネットワークを用いた教師あり学習により、作業時間予測・品質判定・設備劣化予兆検知を高精度に実現します。</p>
+            <div class="gw-tech-item__name">Discriminative Regression</div>
+            <div class="gw-tech-item__name-en">Supervised Learning Models</div>
+            <p class="gw-tech-item__text">Uses gradient boosting (XGBoost/LightGBM) and neural networks for supervised learning to accurately predict task durations, assess quality, and detect equipment degradation signals.</p>
           </div>
           <div class="gw-tech-item">
             <div class="gw-tech-item__num">04</div>
-            <div class="gw-tech-item__name">時系列分析</div>
-            <div class="gw-tech-item__name-en">Time Series Analysis</div>
-            <p class="gw-tech-item__text">出荷量・入荷量・作業負荷等の時系列データに対し、季節性分解（STL）や状態空間モデルを適用。短期〜中期の需要予測および異常検知により、先を見据えたリソース配分を可能にします。</p>
+            <div class="gw-tech-item__name">Time Series Analysis</div>
+            <div class="gw-tech-item__name-en">Temporal Pattern Recognition</div>
+            <p class="gw-tech-item__text">Applies seasonal decomposition (STL) and state-space models to shipment volumes, inbound flows, and workload patterns. Enables short-to-medium term forecasting and anomaly detection for forward-looking resource planning.</p>
           </div>
         </div>
       </div>
@@ -1345,11 +1437,11 @@
       <div class="gw-arch-intro gw-fade is-visible">
         <div>
           <span class="gw-section__label">Architecture</span>
-          <h2 class="gw-section__heading" style="font-size: 28px;">3レイヤー<br>12モジュール</h2>
+          <h2 class="gw-section__heading" style="font-size: 28px;">3 Layers<br>12 Modules</h2>
         </div>
         <div>
           <p style="font-size: 0.85rem; color: var(--gw-text-2); line-height: 2.0;">
-            GWESは3つのレイヤー──インフラストラクチャ、可視化（L2）、最適化（L4）──にわたる12のモジュールで構成されています。各モジュールは特定のレベルで主たる機能を発揮しつつ、レベルを跨いで連携する設計です。特にWF（作業量予測）はL2からL5まで各段階で異なる役割を果たし、RA（リソース配分）はL4で定義した判断ロジックをL5で自律的に実行する主体となります。
+            GWES comprises 12 modules across three layers: Infrastructure, Visualization (L2), and Optimization (L4). Each module delivers primary functionality at a specific level while collaborating across layers. Notably, Workload Forecasting spans L2 to L5, while Resource Allocation at L4 defines decision logic that L5 autonomously executes.
           </p>
         </div>
       </div>
@@ -1358,39 +1450,39 @@
       <div class="gw-layer gw-fade is-visible">
         <div class="gw-layer__header">
           <span class="gw-layer__badge gw-layer__badge--infra">INFRASTRUCTURE</span>
-          <span class="gw-layer__name">インフラストラクチャ層</span>
+          <span class="gw-layer__name">Infrastructure Layer</span>
         </div>
-        <p class="gw-layer__desc">GWESの全モジュールが利用するデータ収集・連携・変換・処理基盤。すべてのレベルで共通して機能します。</p>
+        <p class="gw-layer__desc">Data collection, integration, transformation, and processing foundation used by all modules across all levels.</p>
         <div class="gw-modules gw-modules--infra">
-          <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=dc'" style="">
+          <div class="gw-mod" onclick="location.href='../gwes-detail.html?mod=dc'" style="">
             <div class="gw-mod__icon gw-mod__icon--infra"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="7" height="12" rx="1.5"></rect><rect x="20" y="10" width="7" height="12" rx="1.5"></rect><path d="M12 14h8"></path><path d="M12 18h8"></path><circle cx="14" cy="14" r="1" fill="currentColor" stroke="none"></circle><circle cx="18" cy="18" r="1" fill="currentColor" stroke="none"></circle></svg></div>
             <div class="gw-mod__top" style="">
               <span class="gw-mod__abbr">DC</span>
               <div class="gw-mod__levels"><span class="gw-mod__level-tag gw-mod__level-tag--infra">ALL LEVELS</span></div>
             </div>
             <div class="gw-mod__name" style="">Data Connector</div>
-            <div class="gw-mod__desc" style="">各種設備・WMS・ERPなどの外部システムからデータを収集・正規化する、GWESのデータパイプラインの中核です。</div>
-            <span class="cta-stream" style=""><span class="cta-stream__icon"></span><span class="cta-stream__label" style="">詳細を見る</span></span>
+            <div class="gw-mod__desc" style="">Collects and normalizes data from equipment, WMS, ERP, and other external systems—the core data pipeline for GWES.</div>
+            <span class="cta-stream" style=""><span class="cta-stream__icon"></span><span class="cta-stream__label" style="">Learn more</span></span>
           </div>
-          <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=bm'" style="">
+          <div class="gw-mod" onclick="location.href='../gwes-detail.html?mod=bm'" style="">
             <div class="gw-mod__icon gw-mod__icon--infra"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="9" rx="10" ry="3"></ellipse><path d="M6 9v6c0 1.66 4.48 3 10 3s10-1.34 10-3V9"></path><path d="M6 15v6c0 1.66 4.48 3 10 3s10-1.34 10-3v-6"></path></svg></div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">BM</span>
               <div class="gw-mod__levels"><span class="gw-mod__level-tag gw-mod__level-tag--infra">ALL LEVELS</span></div>
             </div>
             <div class="gw-mod__name">Base Module</div>
-            <div class="gw-mod__desc" style="">DCが収集したデータを共通マスタ・統一フォーマットに変換し、モジュール間でのデータ共有基盤を提供。拠点横断での統一的な分析・比較を可能にします。</div>
-            <span class="cta-stream" style=""><span class="cta-stream__icon"></span><span class="cta-stream__label" style="">詳細を見る</span></span>
+            <div class="gw-mod__desc" style="">Transforms collected data into common master data and unified formats, enabling consistent analysis and cross-facility comparison.</div>
+            <span class="cta-stream" style=""><span class="cta-stream__icon"></span><span class="cta-stream__label" style="">Learn more</span></span>
           </div>
-          <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=me'">
+          <div class="gw-mod" onclick="location.href='../gwes-detail.html?mod=me'">
             <div class="gw-mod__icon gw-mod__icon--infra"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="4.5"></circle><path d="M16 4v3.5M16 24.5V28M4 16h3.5M24.5 16H28M7.8 7.8l2.5 2.5M21.7 21.7l2.5 2.5M24.2 7.8l-2.5 2.5M10.3 21.7l-2.5 2.5"></path></svg></div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">ME</span>
               <div class="gw-mod__levels"><span class="gw-mod__level-tag gw-mod__level-tag--infra">ALL LEVELS</span></div>
             </div>
             <div class="gw-mod__name">Module Engine</div>
-            <div class="gw-mod__desc">各モジュールの処理パイプラインを管理し、計算・集計・分析エンジンとして機能。スケジューリング・リトライ・負荷分散を統制します。</div>
-            <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
+            <div class="gw-mod__desc">Manages processing pipelines for all modules, serving as the compute, aggregation, and analytics engine with orchestration of scheduling, retry, and load balancing.</div>
+            <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">Learn more</span></span>
           </div>
         </div>
       </div>
@@ -1399,11 +1491,11 @@
       <div class="gw-layer gw-fade is-visible" style="">
         <div class="gw-layer__header" style="">
           <span class="gw-layer__badge gw-layer__badge--l2">LEVEL 2 VISUALIZATION</span>
-          <span class="gw-layer__name">可視化レイヤー</span>
+          <span class="gw-layer__name">Visualization Layer</span>
         </div>
-        <p class="gw-layer__desc" style="width: 701px !important; max-width: none !important; min-width: 0px !important; box-sizing: border-box !important; height: 48px !important; max-height: none !important; min-height: 0px !important;">Level 2（可視化）で主要機能を発揮するモジュール群。特にWFはL2・L4・L5を横断する中核的な役割を担います。</p>
+        <p class="gw-layer__desc" style="width: 701px !important; max-width: none !important; min-width: 0px !important; box-sizing: border-box !important; height: 48px !important; max-height: none !important; min-height: 0px !important;">Modules delivering primary functions at the Visualization level. Workload Forecasting particularly spans L2, L4, and L5 as a core capability.</p>
         <div class="gw-modules gw-modules--l2" style="">
-          <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=wf'">
+          <div class="gw-mod" onclick="location.href='../gwes-detail.html?mod=wf'">
             <div class="gw-mod__icon gw-mod__icon--l2"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 26V6"></path><path d="M4 26h24"></path><path d="M7 20l5-6 4 3 5-7 4-2"></path><circle cx="25" cy="8" r="1.5" fill="currentColor" stroke="none"></circle></svg></div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">WF</span>
@@ -1413,39 +1505,39 @@
                 <span class="gw-mod__level-tag gw-mod__level-tag--l5">L5</span>
               </div>
             </div>
-            <div class="gw-mod__name">Workload Forecasting ── 作業量予測</div>
-            <div class="gw-mod__desc">入出荷データ・過去実績・外部要因を統合分析し、将来の作業量を予測。L2からL5まで各段階で異なる役割を果たす中核モジュールです。</div>
-            <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
+            <div class="gw-mod__name">Workload Forecasting</div>
+            <div class="gw-mod__desc">Integrates inbound/outbound data, historical performance, and external factors to forecast future workload. Core module spanning L2-L5 across all operational levels.</div>
+            <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">Learn more</span></span>
           </div>
-          <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=pa'">
+          <div class="gw-mod" onclick="location.href='../gwes-detail.html?mod=pa'">
             <div class="gw-mod__icon gw-mod__icon--l2"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="11" opacity="0.25"></circle><path d="M16 5a11 11 0 0 1 9.5 16.5" stroke-width="2"></path><path d="M16 11v5l3.5 3.5"></path></svg></div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">PA</span>
               <div class="gw-mod__levels"><span class="gw-mod__level-tag gw-mod__level-tag--l2">L2</span></div>
             </div>
-            <div class="gw-mod__name">Progress Analyzer ── 作業進捗分析</div>
-            <div class="gw-mod__desc">計画に対する実際の作業進捗をリアルタイムに可視化・分析。L4では進捗データに基づく動的な作業計画調整を支援します。</div>
-            <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
+            <div class="gw-mod__name">Progress Analyzer</div>
+            <div class="gw-mod__desc">Visualizes and analyzes actual progress against plan in real-time. At L4, supports dynamic plan adjustments based on progress data.</div>
+            <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">Learn more</span></span>
           </div>
-          <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=wa'" style="">
+          <div class="gw-mod" onclick="location.href='../gwes-detail.html?mod=wa'" style="">
             <div class="gw-mod__icon gw-mod__icon--l2"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="18" width="4" height="8" rx="1"></rect><rect x="11" y="12" width="4" height="14" rx="1"></rect><rect x="17" y="8" width="4" height="18" rx="1"></rect><rect x="23" y="14" width="4" height="12" rx="1"></rect></svg></div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">WA</span>
               <div class="gw-mod__levels"><span class="gw-mod__level-tag gw-mod__level-tag--l2">L2</span></div>
             </div>
-            <div class="gw-mod__name">Workload Analyzer ── 作業負荷分析</div>
-            <div class="gw-mod__desc">各工程・拠点の作業負荷を構造的に分析。負荷の偏在やボトルネックを可視化し、人員再配分やプロセス改善の意思決定を支援します。</div>
-            <span class="cta-stream" style=""><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
+            <div class="gw-mod__name">Workload Analyzer</div>
+            <div class="gw-mod__desc">Structurally analyzes workload across processes and facilities. Visualizes load imbalances and bottlenecks to support resource reallocation and process improvement decisions.</div>
+            <span class="cta-stream" style=""><span class="cta-stream__icon"></span><span class="cta-stream__label">Learn more</span></span>
           </div>
-          <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=ia'" style="">
+          <div class="gw-mod" onclick="location.href='../gwes-detail.html?mod=ia'" style="">
             <div class="gw-mod__icon gw-mod__icon--l2"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="10" height="10" rx="2"></rect><rect x="18" y="4" width="10" height="10" rx="2"></rect><rect x="4" y="18" width="10" height="10" rx="2"></rect><rect x="18" y="18" width="10" height="10" rx="2"></rect><path d="M9 4v10M4 9h10"></path></svg></div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">IA</span>
               <div class="gw-mod__levels"><span class="gw-mod__level-tag gw-mod__level-tag--l2">L2</span></div>
             </div>
-            <div class="gw-mod__name">Inventory Analyzer ── 在庫分析</div>
-            <div class="gw-mod__desc">庫内在庫の状態を多角的に分析。在庫の滞留状況・回転率・配置効率を可視化し、SOと連携して配置見直しの判断材料を提供します。</div>
-            <span class="cta-stream"><span class="cta-stream__icon" style=""></span><span class="cta-stream__label">詳細を見る</span></span>
+            <div class="gw-mod__name">Inventory Analyzer</div>
+            <div class="gw-mod__desc">Multi-faceted analysis of warehouse inventory status. Visualizes aging, turnover, and placement efficiency, providing input to Storage Optimizer for placement decisions.</div>
+            <span class="cta-stream" style=""><span class="cta-stream__icon" style=""></span><span class="cta-stream__label">Learn more</span></span>
           </div>
         </div>
       </div>
@@ -1454,11 +1546,11 @@
       <div class="gw-layer gw-fade is-visible" style="">
         <div class="gw-layer__header" style="">
           <span class="gw-layer__badge gw-layer__badge--l4">LEVEL 4 OPTIMIZATION</span>
-          <span class="gw-layer__name">最適化レイヤー</span>
+          <span class="gw-layer__name">Optimization Layer</span>
         </div>
-        <p class="gw-layer__desc" data-de-id="de-1" style="width: 640px !important; max-width: none !important; min-width: 0px !important; box-sizing: border-box !important; height: 48px !important; max-height: none !important; min-height: 0px !important; outline: rgb(91, 192, 235) solid 3px; outline-offset: 3px;">L4で「あるべき判断ロジック」を定義し、L5ではそのロジックをシステムが自律的に実行。L4→L5の進化は「人が最適解を選ぶ」から「システムが最適解を自動実行する」への転換です。</p>
+        <p class="gw-layer__desc" data-de-id="de-1" style="width: 640px !important; max-width: none !important; min-width: 0px !important; box-sizing: border-box !important; height: 48px !important; max-height: none !important; min-height: 0px !important; outline: rgb(91, 192, 235) solid 3px; outline-offset: 3px;">At L4, "ideal decision logic" is defined; at L5, the system autonomously executes it. The L4→L5 progression represents a shift from "humans selecting optimal solutions" to "system automatically executing optimal solutions."</p>
         <div class="gw-modules gw-modules--l4" style="">
-          <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=so'" style="">
+          <div class="gw-mod" onclick="location.href='../gwes-detail.html?mod=so'" style="">
             <div class="gw-mod__icon gw-mod__icon--l4"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="22" height="24" rx="2"></rect><path d="M5 12h22M5 20h22"></path><path d="M14 4v24"></path></svg></div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">SO</span>
@@ -1467,11 +1559,11 @@
                 <span class="gw-mod__level-tag gw-mod__level-tag--l5">L5</span>
               </div>
             </div>
-            <div class="gw-mod__name">Storage Optimizer ── 在庫配置最適化</div>
-            <div class="gw-mod__desc">庫内の在庫配置を出荷頻度・動線効率・作業効率の観点から最適化。IAの分析データを基に最適な保管場所・ゾーニングを算出します。</div>
-            <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
+            <div class="gw-mod__name">Storage Optimizer</div>
+            <div class="gw-mod__desc">Optimizes warehouse inventory placement considering shipment frequency, material flow efficiency, and picking speed. Calculates optimal storage locations and zoning based on Inventory Analyzer data.</div>
+            <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">Learn more</span></span>
           </div>
-          <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=ro'">
+          <div class="gw-mod" onclick="location.href='../gwes-detail.html?mod=ro'">
             <div class="gw-mod__icon gw-mod__icon--l4"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="26" r="2.5"></circle><circle cx="26" cy="6" r="2.5"></circle><path d="M8 24c4-4 4-8 8-10s8-2 8-6"></path><circle cx="16" cy="16" r="1.5" fill="currentColor" stroke="none"></circle></svg></div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">RO</span>
@@ -1480,11 +1572,11 @@
                 <span class="gw-mod__level-tag gw-mod__level-tag--l5">L5</span>
               </div>
             </div>
-            <div class="gw-mod__name">Routing Optimizer ── 動線最適化</div>
-            <div class="gw-mod__desc">ピッキング動線・搬送ルート・作業順序を最適化。庫内レイアウトと注文特性を考慮し、最短・最効率の動線を算出します。</div>
-            <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
+            <div class="gw-mod__name">Routing Optimizer</div>
+            <div class="gw-mod__desc">Optimizes picking routes, transport paths, and task sequences. Accounts for warehouse layout and order characteristics to calculate shortest, most efficient material flows.</div>
+            <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">Learn more</span></span>
           </div>
-          <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=lo'" style="">
+          <div class="gw-mod" onclick="location.href='../gwes-detail.html?mod=lo'" style="">
             <div class="gw-mod__icon gw-mod__icon--l4"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="16" height="13" rx="2"></rect><path d="M19 14h6l4 5v3H19v-8z"></path><circle cx="9" cy="25" r="2.5"></circle><circle cx="23" cy="25" r="2.5"></circle><path d="M3 21h3.5M19.5 21h1"></path></svg></div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">LO</span>
@@ -1493,11 +1585,11 @@
                 <span class="gw-mod__level-tag gw-mod__level-tag--l5">L5</span>
               </div>
             </div>
-            <div class="gw-mod__name">Loading Optimizer ── 積付最適化</div>
-            <div class="gw-mod__desc">出荷時の積付・積載計画を最適化。荷姿・積載制約・配送順序を考慮し、最適な積付パターンを算出します。</div>
-            <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
+            <div class="gw-mod__name">Loading Optimizer</div>
+            <div class="gw-mod__desc">Optimizes consolidation and shipment planning. Considers package shapes, loading constraints, and delivery sequence to calculate optimal consolidation patterns.</div>
+            <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">Learn more</span></span>
           </div>
-          <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=do'">
+          <div class="gw-mod" onclick="location.href='../gwes-detail.html?mod=do'">
             <div class="gw-mod__icon gw-mod__icon--l4"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16h14"></path><path d="M17 10l6 6-6 6"></path><rect x="4" y="6" width="2" height="20" rx="1"></rect></svg></div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">DO</span>
@@ -1506,11 +1598,11 @@
                 <span class="gw-mod__level-tag gw-mod__level-tag--l5">L5</span>
               </div>
             </div>
-            <div class="gw-mod__name">Dispatch Optimizer ── 出荷判断最適化</div>
-            <div class="gw-mod__desc">出荷のタイミング・便の選定・優先順位付けを最適化。納期・コスト・顧客優先度の複合条件を考慮した判断ロジックを提供します。</div>
-            <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
+            <div class="gw-mod__name">Dispatch Optimizer</div>
+            <div class="gw-mod__desc">Optimizes shipment timing, carrier selection, and priority sequencing. Provides decision logic accounting for delivery windows, costs, and customer priority.</div>
+            <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">Learn more</span></span>
           </div>
-          <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=ra'">
+          <div class="gw-mod" onclick="location.href='../gwes-detail.html?mod=ra'">
             <div class="gw-mod__icon gw-mod__icon--l4"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="8" r="3.5"></circle><path d="M9 28v-3a7 7 0 0 1 14 0v3"></path><circle cx="6" cy="14" r="2.5"></circle><path d="M2 24v-2a4 4 0 0 1 4-4"></path><circle cx="26" cy="14" r="2.5"></circle><path d="M30 24v-2a4 4 0 0 0-4-4"></path></svg></div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">RA</span>
@@ -1519,9 +1611,9 @@
                 <span class="gw-mod__level-tag gw-mod__level-tag--l5">L5</span>
               </div>
             </div>
-            <div class="gw-mod__name">Resource Allocator ── リソース配分最適化</div>
-            <div class="gw-mod__desc">人員・設備・スペースのリソース最適配分を実現。WFの予測データとPAの進捗データから需要に応じた動的配分を算出します。</div>
-            <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
+            <div class="gw-mod__name">Resource Allocator</div>
+            <div class="gw-mod__desc">Optimizes allocation of people, equipment, and space. Uses Workload Forecasting and Progress Analyzer data to dynamically allocate resources according to demand.</div>
+            <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">Learn more</span></span>
           </div>
         </div>
       </div>
@@ -1533,90 +1625,90 @@
     <div class="container" style="">
       <div class="gw-fade is-visible" style="">
         <span class="gw-section__label">Implementation</span>
-        <h2 class="gw-section__heading" style="font-size: 28px;">段階的導入アプローチ</h2>
+        <h2 class="gw-section__heading" style="font-size: 28px;">Phased Implementation Approach</h2>
         <p class="gw-section__desc" style="">
-          GWES導入は4つのフェーズで段階的に進めます。各フェーズで効果を確認しながら次のステップに進むため、投資リスクを最小化できます。ROIは通常12〜18ヶ月で回収されます。
+          GWES deployment proceeds in four phases with measurable results at each stage, minimizing investment risk. ROI is typically achieved within 12–18 months.
         </p>
       </div>
       <div class="gw-phases gw-fade is-visible">
         <div class="gw-phase" style="">
           <span class="gw-phase__num">PHASE 1</span>
-          <div class="gw-phase__name">現状診断</div>
-          <span class="gw-phase__gpim">体系化</span>
-          <div class="gw-phase__desc" style="">現状の業務プロセスを体系的に診断し、各領域の成熟度を評価。改善ロードマップを策定します。</div>
+          <div class="gw-phase__name">Diagnostic Assessment</div>
+          <span class="gw-phase__gpim">Systematization</span>
+          <div class="gw-phase__desc" style="">Systematic evaluation of current operations and maturity assessment of each functional area, followed by roadmap development.</div>
         </div>
         <div class="gw-phase" style="">
           <span class="gw-phase__num">PHASE 2</span>
-          <div class="gw-phase__name">可視化基盤構築</div>
-          <span class="gw-phase__gpim" style="">可視化</span>
-          <div class="gw-phase__desc" style="">WF+PA+WAを導入し、データ基盤を構築。作業量予測・進捗可視化・負荷分析を実現します。</div>
+          <div class="gw-phase__name">Visibility Foundation</div>
+          <span class="gw-phase__gpim" style="">Visibility</span>
+          <div class="gw-phase__desc" style="">Deploy Workload Forecasting, Progress Analyzer, and Workload Analyzer to establish data foundation with workload prediction, progress visibility, and load analysis.</div>
         </div>
         <div class="gw-phase">
           <span class="gw-phase__num">PHASE 3</span>
-          <div class="gw-phase__name">最適化展開</div>
-          <span class="gw-phase__gpim">最適化</span>
-          <div class="gw-phase__desc">SO+RO+RA等を導入し、在庫配置・動線・人員配分の最適化を実現。効果を定量的に測定します。</div>
+          <div class="gw-phase__name">Optimization Rollout</div>
+          <span class="gw-phase__gpim">Optimization</span>
+          <div class="gw-phase__desc">Deploy Storage Optimizer, Routing Optimizer, and Resource Allocator to achieve optimization of inventory placement, material flow, and staffing. Quantitatively measure results.</div>
         </div>
         <div class="gw-phase">
           <span class="gw-phase__num">PHASE 4</span>
-          <div class="gw-phase__name">全拠点展開・自律化</div>
-          <span class="gw-phase__gpim">自律化</span>
-          <div class="gw-phase__desc">実証済みモジュールを全拠点に展開。最適化ロジックの自律実行を段階的に実現します。</div>
+          <div class="gw-phase__name">Full Deployment & Autonomy</div>
+          <span class="gw-phase__gpim">Autonomy</span>
+          <div class="gw-phase__desc">Expand proven modules across all facilities. Progressively enable autonomous execution of optimization logic.</div>
         </div>
       </div>
     </div>
   </section>
 
-  
+
 
 <!-- ==================== KPI / RESULTS ==================== -->
   <section class="gw-section gw-section--alt" style="">
     <div class="container">
       <div class="gw-fade is-visible">
         <span class="gw-section__label">Results</span>
-        <h2 class="gw-section__heading" style="font-size: 28px;">導入効果・KPI</h2>
-        <p class="gw-section__desc">GWESの導入により、物流現場と経営の双方で定量的な効果が確認されています。</p>
+        <h2 class="gw-section__heading" style="font-size: 28px;">Implementation Results & KPIs</h2>
+        <p class="gw-section__desc">GWES implementations have demonstrated quantifiable benefits across both warehouse operations and executive leadership metrics.</p>
       </div>
       <div class="gw-kpis gw-fade is-visible">
         <div class="gw-kpi">
           <div class="gw-kpi__value">75%</div>
-          <div class="gw-kpi__label">計画業務工数削減</div>
+          <div class="gw-kpi__label">Planning work reduction</div>
           <span class="gw-kpi__module">WF / RA</span>
         </div>
         <div class="gw-kpi">
           <div class="gw-kpi__value">90%+</div>
-          <div class="gw-kpi__label">作業量予測精度</div>
+          <div class="gw-kpi__label">Forecast accuracy</div>
           <span class="gw-kpi__module">WF</span>
         </div>
         <div class="gw-kpi">
           <div class="gw-kpi__value">40%</div>
-          <div class="gw-kpi__label">歩行距離短縮</div>
+          <div class="gw-kpi__label">Walking distance reduction</div>
           <span class="gw-kpi__module">SO / RO</span>
         </div>
         <div class="gw-kpi">
           <div class="gw-kpi__value">25%</div>
-          <div class="gw-kpi__label">配送コスト削減</div>
+          <div class="gw-kpi__label">Shipping cost reduction</div>
           <span class="gw-kpi__module">DO / LO</span>
         </div>
         <div class="gw-kpi">
           <div class="gw-kpi__value">10-20%</div>
-          <div class="gw-kpi__label">作業生産性向上</div>
+          <div class="gw-kpi__label">Operational productivity gain</div>
           <span class="gw-kpi__module">RO / RA</span>
         </div>
         <div class="gw-kpi">
           <div class="gw-kpi__value">80%</div>
-          <div class="gw-kpi__label">異常対応時間短縮</div>
+          <div class="gw-kpi__label">Anomaly response time reduction</div>
           <span class="gw-kpi__module">PA</span>
         </div>
         <div class="gw-kpi">
           <div class="gw-kpi__value">30-40%</div>
-          <div class="gw-kpi__label">人件費削減</div>
+          <div class="gw-kpi__label">Labor cost savings</div>
           <span class="gw-kpi__module">WF / RA</span>
         </div>
         <div class="gw-kpi">
           <div class="gw-kpi__value">100+</div>
-          <div class="gw-kpi__label">グローバル導入拠点</div>
-          <span class="gw-kpi__module">全モジュール</span>
+          <div class="gw-kpi__label">Global deployment locations</div>
+          <span class="gw-kpi__module">All modules</span>
         </div>
       </div>
     </div>
@@ -1628,9 +1720,9 @@
     <div class="container">
       <div class="gw-video__wrap gw-fade is-visible">
         <span class="gw-video__label">Movie</span>
-        <h2 class="gw-video__heading" style="font-size: 28px;">GWESの紹介動画</h2>
+        <h2 class="gw-video__heading" style="font-size: 28px;">GWES Overview Video</h2>
         <div class="gw-video__player">
-          <iframe src="https://www.youtube-nocookie.com/embed/N4X--NnUGuk" title="GWES 紹介動画" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" loading="lazy"></iframe>
+          <iframe src="https://www.youtube-nocookie.com/embed/N4X--NnUGuk" title="GWES Overview Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" loading="lazy"></iframe>
         </div>
       </div>
     </div>
@@ -1641,7 +1733,7 @@
     <div class="container">
       <div class="gw-fade is-visible">
         <span class="gw-section__label">Solutions</span>
-        <h2 class="gw-section__heading" style="font-size: 28px;">GWES ソリューション</h2>
+        <h2 class="gw-section__heading" style="font-size: 28px;">GWES Solutions</h2>
       </div>
       <div class="gw-nav-cards gw-fade is-visible">
         <a href="#technology" class="gw-nav-card" style="">
@@ -1652,9 +1744,9 @@
               <circle cx="10" cy="10" r="1.5" fill="currentColor" stroke="none"></circle>
             </svg>
           </div>
-          <h3 class="gw-nav-card__title" style="">テクノロジー・プラットフォーム</h3>
-          <p class="gw-nav-card__desc">AI・4つのアルゴリズムにより、物流施設の知能化を実現するプラットフォーム</p>
-          <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳しく見る</span></span>
+          <h3 class="gw-nav-card__title" style="">Technology & Platform</h3>
+          <p class="gw-nav-card__desc">AI and four core algorithms enabling facility intelligence through an integrated platform</p>
+          <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">Explore</span></span>
         </a>
         <a href="#modules" class="gw-nav-card">
           <div class="gw-nav-card__icon">
@@ -1665,9 +1757,9 @@
               <rect x="19" y="19" width="8" height="8" rx="1"></rect>
             </svg>
           </div>
-          <h3 class="gw-nav-card__title">3レイヤー 12モジュール</h3>
-          <p class="gw-nav-card__desc">インフラ層・可視化層・最適化層からなるモジュールアーキテクチャ</p>
-          <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳しく見る</span></span>
+          <h3 class="gw-nav-card__title">3 Layers, 12 Modules</h3>
+          <p class="gw-nav-card__desc">Modular architecture spanning Infrastructure, Visualization, and Optimization layers</p>
+          <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">Explore</span></span>
         </a>
         <a href="#implementation" class="gw-nav-card">
           <div class="gw-nav-card__icon">
@@ -1676,9 +1768,9 @@
               <circle cx="16" cy="16" r="11"></circle>
             </svg>
           </div>
-          <h3 class="gw-nav-card__title">導入・効果</h3>
-          <p class="gw-nav-card__desc">段階的導入アプローチと、実証済みの導入効果・KPI</p>
-          <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳しく見る</span></span>
+          <h3 class="gw-nav-card__title">Implementation & Results</h3>
+          <p class="gw-nav-card__desc">Phased approach to deployment with proven outcomes and measurable KPIs</p>
+          <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">Explore</span></span>
         </a>
       </div>
     </div>
@@ -1689,14 +1781,14 @@
   <section class="gw-cta">
     <div class="container">
       <div class="gw-cta__inner gw-fade is-visible">
-        <h2 class="gw-cta__title" style="font-size: 28px;">GWESで、物流の未来を。</h2>
+        <h2 class="gw-cta__title" style="font-size: 28px;">Transform Your Logistics with GWES</h2>
         <p class="gw-cta__desc">
-          貴社の物流施設がどのレベルにあり、次に何をすべきか。<br>
-          現状診断から始めてみませんか。
+          Understanding where your facility currently stands and what to do next matters.<br>
+          Begin with a diagnostic assessment.
         </p>
         <div class="gw-cta__actions">
-          <a class="gw-btn--primary" href="/contact">お問い合わせ</a>
-          <a class="gw-btn--outline" href="/service">製品・サービス一覧</a>
+          <a class="gw-btn--primary" href="/en/contact">Contact us</a>
+          <a class="gw-btn--outline" href="/en/service">View all products</a>
         </div>
       </div>
     </div>
@@ -1706,40 +1798,40 @@
     <div class="container">
       <div class="footer__grid">
         <div>
-          <img src="img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
+          <img src="../img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
           <p class="footer__brand-desc">
-            AI・数理最適化・ロボティクスで、<br>
-            物流の未来を変革する。
+            Transforming the future of logistics<br>
+            through AI, mathematical optimization, and robotics.
           </p>
         </div>
         <div>
           <h4 class="footer__heading">Company</h4>
           <div class="footer__links">
-            <a class="footer__link" href="/about">会社概要</a>
-            <a class="footer__link" href="/about#vision">ビジョン・ミッション</a>
-            <a class="footer__link" href="/about#ceo">CEOメッセージ</a>
-            <a class="footer__link" href="/careers">採用情報</a>
+            <a class="footer__link" href="/en/about">Company Overview</a>
+            <a class="footer__link" href="/en/about#vision">Vision & Mission</a>
+            <a class="footer__link" href="/en/about#ceo">CEO Message</a>
+            <a class="footer__link" href="/en/careers">Careers</a>
           </div>
         </div>
         <div>
           <h4 class="footer__heading">Solutions</h4>
           <div class="footer__links">
-            <a class="footer__link" href="/gwes">GWES</a>
-            <a class="footer__link" href="/digital-integration">デジタルインテグレーション</a>
-            <a class="footer__link" href="/consulting">コンサルティング</a>
-            <a class="footer__link" href="/peer">PEER</a>
+            <a class="footer__link" href="/en/gwes">GWES</a>
+            <a class="footer__link" href="/en/digital-integration">Digital Integration</a>
+            <a class="footer__link" href="/en/consulting">Consulting</a>
+            <a class="footer__link" href="/en/peer">PEER</a>
           </div>
         </div>
         <div>
           <h4 class="footer__heading">Contact</h4>
           <div class="footer__links">
-            <a class="footer__link" href="/contact">お問い合わせ</a>
-            <span class="footer__link" style="cursor: default;">TEL: 03-6457-1650</span>
+            <a class="footer__link" href="/en/contact">Contact us</a>
+            <span class="footer__link" style="cursor: default;">TEL: +81-3-6441-2975</span>
             <a href="mailto:Info@groundinc.co.jp" class="footer__link">Info@groundinc.co.jp</a>
             <span class="footer__link" style="cursor: default;">
               〒101-0041<br>
-              東京都千代田区神田須田町1-3-33<br>
-              Bizflex神田 10F
+              Tokyo, Chiyoda Ward, Kanda-sudacho 1-3-33<br>
+              Bizflex Kanda 10F, Japan
             </span>
           </div>
         </div>
@@ -1754,7 +1846,7 @@
     </div>
   </footer>
 
-<script defer="" src="js/main.js?v=31"></script>
+<script defer="" src="../js/main.js?v=31"></script>
   <script>
     const gwObs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -1763,16 +1855,16 @@
     }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
     document.querySelectorAll('.gw-fade').forEach(el => gwObs.observe(el));
   </script>
-<script defer="" src="js/design-settings.js"></script>
+<script defer="" src="../js/design-settings.js"></script>
 
 
 <!-- Cookie Consent Banner -->
 <div id="cc-banner" class="cc-banner" role="dialog" aria-labelledby="cc-title">
   <div class="cc-banner__content">
-    <p id="cc-title" class="cc-banner__text">当サイトでは、サービス向上のためCookieを使用しています。</p>
+    <p id="cc-title" class="cc-banner__text">We use cookies to improve our services. Please review our Cookie Policy.</p>
     <div class="cc-banner__buttons">
-      <button id="cc-accept" class="cc-banner__button cc-banner__button--accept" aria-label="同意する">同意する</button>
-      <a href="privacy.html" class="cc-banner__link" aria-label="詳細">詳細</a>
+      <button id="cc-accept" class="cc-banner__button cc-banner__button--accept" aria-label="Accept">Accept</button>
+      <a href="../privacy.html" class="cc-banner__link" aria-label="Learn more">Learn more</a>
     </div>
   </div>
 </div>

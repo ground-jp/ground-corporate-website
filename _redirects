@@ -1,0 +1,25 @@
+# Clean URLs
+/about      /about.html        200
+/service    /service.html      200
+/gwes       /gwes.html         200
+/gpim       /gpim.html         200
+/peer       /peer.html         200
+/news       /news.html         200
+/blog       /blog.html         200
+/careers    /careers.html      200
+/contact    /contact.html      200
+/works      /works.html        200
+/history    /history.html      200
+/privacy    /privacy.html      200
+/consulting /consulting.html   200
+/team       /team.html         200
+/digital-integration /digital-integration.html 200
+
+# English pages
+/en         /en/index.html     200
+/en/about   /en/about.html     200
+/en/gwes    /en/gwes.html      200
+/en/contact /en/contact.html   200
+
+# SPA-style catch-all for 404
+/*          /404.html          404

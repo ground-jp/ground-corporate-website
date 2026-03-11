@@ -1,0 +1,59 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <style>
+      @font-face {
+        font-family: 'Inter';
+        src: url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+      }
+    </style>
+    <pattern id="gridPattern" width="60" height="60" patternUnits="userSpaceOnUse" patternTransform="translate(0,0)">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#1e293b" stroke-width="1" opacity="0.3"/>
+    </pattern>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A0C14;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#111820;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+
+  <!-- Grid Pattern -->
+  <rect width="1200" height="630" fill="url(#gridPattern)"/>
+
+  <!-- Decorative accent circles (top right) -->
+  <circle cx="1050" cy="80" r="120" fill="none" stroke="#60A5FA" stroke-width="2" opacity="0.15"/>
+  <circle cx="1050" cy="80" r="80" fill="none" stroke="#60A5FA" stroke-width="1" opacity="0.2"/>
+
+  <!-- Decorative accent lines (left side) -->
+  <line x1="0" y1="200" x2="80" y2="200" stroke="#60A5FA" stroke-width="3" opacity="0.4"/>
+  <line x1="0" y1="220" x2="60" y2="220" stroke="#60A5FA" stroke-width="2" opacity="0.3"/>
+
+  <!-- Bottom right accent -->
+  <circle cx="1100" cy="550" r="100" fill="none" stroke="#1e40af" stroke-width="2" opacity="0.15"/>
+
+  <!-- Main Text Group -->
+  <g>
+    <!-- "GROUND" text -->
+    <text x="120" y="320" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="140" font-weight="800" fill="#FFFFFF" letter-spacing="-2">
+      GROUND
+    </text>
+
+    <!-- "Intelligent Logistics" subtitle -->
+    <text x="120" y="410" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="42" font-weight="600" fill="#60A5FA">
+      Intelligent Logistics
+    </text>
+
+    <!-- Japanese tagline -->
+    <text x="120" y="475" font-family="'Noto Sans JP', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="500" fill="#FFFFFF" opacity="0.85">
+      AI・数理最適化・ロボティクスで物流の未来を変革する
+    </text>
+  </g>
+
+  <!-- Right side accent bar -->
+  <rect x="1170" y="0" width="30" height="630" fill="#60A5FA" opacity="0.1"/>
+
+  <!-- Subtle corner accent (top left) -->
+  <rect x="0" y="0" width="8" height="40" fill="#60A5FA" opacity="0.5"/>
+  <rect x="0" y="0" width="40" height="8" fill="#60A5FA" opacity="0.5"/>
+</svg>
