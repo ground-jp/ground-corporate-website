@@ -47,10 +47,16 @@
     .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
     .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.3); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
     .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
-    .lang-switcher { display: flex; align-items: center; gap: 8px; position: absolute; right: 80px; top: 50%; transform: translateY(-50%); z-index: 401; }
-    .lang-switcher__link { font-size: 12px; font-family: var(--font-mono,'JetBrains Mono',monospace); color: #fff; text-decoration: none; font-weight: 500; letter-spacing: 0.06em; padding: 6px 8px; border: 1px solid rgba(255,255,255,0.2); border-radius: 2px; transition: background 0.15s ease; }
-    .lang-switcher__link:hover { background: rgba(255,255,255,0.06); }
-    .lang-switcher__link.active { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); }
+    .lang-switcher { display: flex; align-items: center; gap: 12px; position: absolute; right: 80px; top: 50%; transform: translateY(-50%); z-index: 401; }
+    .lang-switcher__link { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-family: 'JetBrains Mono',monospace; color: rgba(255,255,255,0.35); text-decoration: none; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; padding: 6px 0; border: none; background: none; position: relative; transition: color 0.3s ease; }
+    .lang-switcher__link::before { content: ''; position: absolute; bottom: 2px; left: 0; width: 0; height: 1px; background: #5BC0EB; transition: width 0.3s cubic-bezier(0.23,1,0.32,1); }
+    .lang-switcher__link:hover { color: rgba(255,255,255,0.9); }
+    .lang-switcher__link:hover::before { width: 100%; }
+    .lang-switcher__link.active { color: rgba(255,255,255,0.8); }
+    .lang-switcher__link.active::before { width: 100%; background: rgba(255,255,255,0.3); }
+    .lang-switcher__globe { width: 14px; height: 14px; opacity: 0.4; transition: opacity 0.3s ease; }
+    .lang-switcher__link:hover .lang-switcher__globe { opacity: 0.9; }
+    .lang-switcher__sep { width: 1px; height: 12px; background: rgba(255,255,255,0.12); }
     .hero { align-items: center !important; }
     .hero__content { padding-bottom: 0 !important; padding-top: 0 !important; }
     /* Override: video background styling */
@@ -371,8 +377,9 @@
     <div class="header__inner" style="">
       <a class="header__logo" href="/en/"><img src="../img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; position: relative; top: 0px; left: 0px;"></a>
       <div class="lang-switcher">
-        <a class="lang-switcher__link active" href="/en/" title="English">EN</a>
-        <a class="lang-switcher__link" href="../index.html" title="日本語">JP</a>
+        <a class="lang-switcher__link active" href="/en/" title="English"><svg class="lang-switcher__globe" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1"/><ellipse cx="8" cy="8" rx="3" ry="6.5" stroke="currentColor" stroke-width="1"/><line x1="1.5" y1="8" x2="14.5" y2="8" stroke="currentColor" stroke-width="1"/></svg><span>EN</span></a>
+        <div class="lang-switcher__sep"></div>
+        <a class="lang-switcher__link" href="../index.html" title="日本語"><svg class="lang-switcher__globe" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1"/><ellipse cx="8" cy="8" rx="3" ry="6.5" stroke="currentColor" stroke-width="1"/><line x1="1.5" y1="8" x2="14.5" y2="8" stroke="currentColor" stroke-width="1"/></svg><span>JP</span></a>
       </div>
       <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
         <span class="hamburger__line"></span>
