@@ -6,7 +6,7 @@
   <meta property="og:image" content="https://groundinc.co.jp/img/ogp-default.svg">
   <title>GROUNDの歩み | GROUND Inc.</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css?v=54">
 
@@ -23,249 +23,86 @@
       --color-indigo: #6366F1;
       --color-red: #EF4444;
       --color-dark: #0A0C14;
-      --color-light: #F0F0F4;
-      --color-line: #EEEEF2;
-      --color-gray: #999999;
+      --color-light: #F8F9FC;
+      --color-line: #E5E7EB;
+      --color-gray: #6B7280;
+      --color-text: #1F2937;
+      --color-text-secondary: #4B5563;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       background: #FFFFFF;
-      color: #1A1A24;
+      color: var(--color-text);
       font-family: var(--font-jp);
-      line-height: 1.6;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* =====================================================
-       HEADER & NAVIGATION
+       HEADER & NAVIGATION (same as before)
        ===================================================== */
-    .header {
-      z-index: 350 !important;
-    }
+    .header { z-index: 350 !important; }
+    .hamburger { display: flex !important; flex-direction: column; justify-content: center; align-items: center; gap: 6px; width: 52px; height: 52px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 400; position: relative; margin-right: -8px; }
+    .hamburger__line { display: block; width: 26px; height: 2px; background: #000; border-radius: 1px; transition: all 0.3s ease; }
+    .hamburger.active .hamburger__line:nth-child(1) { transform: rotate(45deg) translateY(10px); }
+    .hamburger.active .hamburger__line:nth-child(2) { opacity: 0; }
+    .hamburger.active .hamburger__line:nth-child(3) { transform: rotate(-45deg) translateY(-10px); }
 
-    .hamburger {
-      display: flex !important;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 6px;
-      width: 52px;
-      height: 52px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 10px;
-      z-index: 400;
-      position: relative;
-      margin-right: -8px;
-    }
-
-    .hamburger__line {
-      display: block;
-      width: 26px;
-      height: 2px;
-      background: #000;
-      border-radius: 1px;
-      transition: all 0.3s ease;
-    }
-
-    .hamburger.active .hamburger__line:nth-child(1) {
-      transform: rotate(45deg) translateY(10px);
-    }
-
-    .hamburger.active .hamburger__line:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active .hamburger__line:nth-child(3) {
-      transform: rotate(-45deg) translateY(-10px);
-    }
-
-    .overlay-menu {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #FFFFFF;
-      z-index: 300;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .overlay-menu.active {
-      display: flex;
-      opacity: 1;
-    }
-
-    .overlay-menu__inner {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 120px 56px 56px;
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 80px;
-      align-items: flex-start;
-    }
-
-    .overlay-menu__label {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: #999999;
-      margin-bottom: 24px;
-    }
-
-    .overlay-menu__nav-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .overlay-menu__nav-item {
-      font-size: 36px;
-      font-weight: 700;
-      color: #1A1A24;
-      text-decoration: none;
-      transition: color 0.3s ease;
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 12px;
-    }
-
-    .overlay-menu__nav-item:hover {
-      color: var(--color-primary);
-    }
-
-    .overlay-menu__nav-item.is-active {
-      color: var(--color-primary);
-    }
-
-    .overlay-menu__nav-arrow {
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .overlay-menu__nav-item:hover .overlay-menu__nav-arrow {
-      opacity: 1;
-    }
-
-    .overlay-menu__cta-btn {
-      display: inline-block;
-      padding: 12px 28px;
-      background: var(--color-primary);
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: 600;
-      font-size: 14px;
-      transition: background 0.3s ease;
-      margin-bottom: 32px;
-    }
-
-    .overlay-menu__cta-btn:hover {
-      background: rgba(59, 130, 246, 0.9);
-    }
-
-    .overlay-menu__contact-info {
-      font-size: 13px;
-      color: #999999;
-      margin-bottom: 40px;
-    }
-
-    .lang-switch-bar {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 40px;
-    }
-
-    .lang-switch {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      color: #999999;
-      text-decoration: none;
-      transition: color 0.3s ease;
-      padding: 6px 12px;
-      border: 1px solid transparent;
-      border-radius: 4px;
-    }
-
-    .lang-switch:hover {
-      color: #1A1A24;
-    }
-
-    .lang-switch--current {
-      color: #1A1A24;
-      border-color: var(--color-line);
-    }
-
-    .lang-switch__globe {
-      width: 16px;
-      height: 16px;
-    }
-
-    .overlay-menu__copyright {
-      font-size: 12px;
-      color: #999999;
-    }
+    .overlay-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #FFFFFF; z-index: 300; display: none; opacity: 0; transition: opacity 0.3s ease; }
+    .overlay-menu.active { display: flex; opacity: 1; }
+    .overlay-menu__inner { width: 100%; max-width: 1200px; margin: 0 auto; padding: 120px 56px 56px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; align-items: flex-start; }
+    .overlay-menu__label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: #999999; margin-bottom: 24px; }
+    .overlay-menu__nav-list { display: flex; flex-direction: column; gap: 12px; }
+    .overlay-menu__nav-item { font-size: 36px; font-weight: 700; color: #1A1A24; text-decoration: none; transition: color 0.3s ease; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .overlay-menu__nav-item:hover { color: var(--color-primary); }
+    .overlay-menu__nav-item.is-active { color: var(--color-primary); }
+    .overlay-menu__nav-arrow { opacity: 0; transition: opacity 0.3s ease; }
+    .overlay-menu__nav-item:hover .overlay-menu__nav-arrow { opacity: 1; }
+    .overlay-menu__cta-btn { display: inline-block; padding: 12px 28px; background: var(--color-primary); color: white; text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 14px; transition: background 0.3s ease; margin-bottom: 32px; }
+    .overlay-menu__cta-btn:hover { background: rgba(59, 130, 246, 0.9); }
+    .overlay-menu__contact-info { font-size: 13px; color: #999999; margin-bottom: 40px; }
+    .lang-switch-bar { display: flex; gap: 16px; margin-bottom: 40px; }
+    .lang-switch { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #999999; text-decoration: none; transition: color 0.3s ease; padding: 6px 12px; border: 1px solid transparent; border-radius: 4px; }
+    .lang-switch:hover { color: #1A1A24; }
+    .lang-switch--current { color: #1A1A24; border-color: var(--color-line); }
+    .lang-switch__globe { width: 16px; height: 16px; }
+    .overlay-menu__copyright { font-size: 12px; color: #999999; }
 
     /* Breadcrumb */
-    .breadcrumb {
-      border-bottom: 1px solid var(--color-line);
-      background: #FAFBFC;
-    }
+    .breadcrumb { border-bottom: 1px solid var(--color-line); background: #FAFBFC; }
+    .breadcrumb__inner { max-width: 1200px; margin: 0 auto; padding: 16px 56px; font-size: 13px; color: #666666; }
+    .breadcrumb__inner a { color: inherit; text-decoration: none; }
+    .breadcrumb__inner a:hover { color: var(--color-primary); }
 
-    .breadcrumb__inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 16px 56px;
-      font-size: 13px;
-      color: #666666;
-    }
-
-    .breadcrumb__inner a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .breadcrumb__inner a:hover {
-      color: var(--color-primary);
-    }
-
-    /* Hero Section */
+    /* =====================================================
+       HERO — Cinematic full-screen
+       ===================================================== */
     .history-hero {
       position: relative;
-      padding: 120px 56px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background: var(--color-dark);
       background-image: url('img/history/butler-warehouse.jpg');
       background-size: cover;
-      background-position: center;
+      background-position: center 40%;
+      background-attachment: fixed;
       color: white;
-      min-height: 600px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      overflow: hidden;
     }
 
     .history-hero::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(10, 12, 20, 0.82) 0%, rgba(26, 31, 58, 0.75) 100%);
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(10, 12, 20, 0.4) 0%,
+        rgba(10, 12, 20, 0.65) 50%,
+        rgba(10, 12, 20, 0.85) 100%
+      );
       z-index: 1;
     }
 
@@ -273,401 +110,603 @@
       position: relative;
       z-index: 2;
       text-align: center;
-      max-width: 800px;
+      max-width: 900px;
+      padding: 0 40px;
     }
 
-    .history-hero__subtitle {
-      font-size: 14px;
+    .history-hero__label {
+      display: inline-block;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 16px;
+      color: var(--color-primary);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      padding: 6px 20px;
+      border-radius: 100px;
+      margin-bottom: 32px;
     }
 
-    .history-hero__title-main {
-      font-size: 64px;
+    .history-hero__title {
+      font-size: 72px;
       font-weight: 800;
       font-family: var(--font-heading);
-      margin-bottom: 24px;
-      letter-spacing: -1px;
+      margin-bottom: 16px;
+      letter-spacing: -2px;
+      line-height: 1.1;
     }
 
     .history-hero__title-jp {
-      font-size: 40px;
-      font-weight: 700;
-      margin-bottom: 32px;
-      color: rgba(255, 255, 255, 0.9);
-    }
-
-    .history-hero__year {
-      font-size: 20px;
-      font-weight: 700;
-      font-family: var(--font-mono);
-      margin-bottom: 24px;
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 48px;
       color: rgba(255, 255, 255, 0.7);
-      letter-spacing: 0.15em;
+      letter-spacing: 0.1em;
     }
 
     .history-hero__tagline {
-      font-size: 22px;
-      font-weight: 500;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.85);
-    }
-
-    /* Opening Section */
-    .history-opening {
-      padding: 80px 56px;
-      background: white;
-    }
-
-    .history-opening__inner {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .history-opening__text {
       font-size: 18px;
+      font-weight: 400;
       line-height: 1.8;
-      margin-bottom: 24px;
-      color: #333333;
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 600px;
+      margin: 0 auto 56px;
     }
 
-    .history-opening__text:last-child {
-      margin-bottom: 0;
-    }
-
-    /* Chapter Divider */
-    .chapter-divider {
-      padding: 60px 56px;
-      background: white;
-    }
-
-    .chapter-divider__inner {
-      max-width: 1000px;
-      margin: 0 auto;
+    .history-hero__scroll-hint {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .history-hero__scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.4), transparent);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.8; }
+    }
+
+    /* =====================================================
+       KEY STATS BAR
+       ===================================================== */
+    .stats-bar {
+      background: var(--color-dark);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 56px 56px;
+    }
+
+    .stats-bar__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 40px;
     }
 
-    .chapter-divider__line {
-      flex: 1;
-      height: 1px;
-      background: var(--color-line);
-    }
-
-    .chapter-divider__label {
+    .stats-bar__item {
       text-align: center;
-      flex-shrink: 0;
     }
 
-    .chapter-divider__number {
-      font-size: 12px;
+    .stats-bar__number {
+      font-size: 48px;
+      font-weight: 800;
+      font-family: var(--font-heading);
+      color: white;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stats-bar__number span {
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--color-primary);
+    }
+
+    .stats-bar__label {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.05em;
+    }
+
+    /* =====================================================
+       INTRO NARRATIVE
+       ===================================================== */
+    .history-intro {
+      padding: 120px 56px;
+      background: white;
+    }
+
+    .history-intro__inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .history-intro__lead {
+      font-size: 28px;
       font-weight: 700;
-      letter-spacing: 0.15em;
+      line-height: 1.6;
+      color: var(--color-text);
+      margin-bottom: 32px;
+      letter-spacing: -0.3px;
+    }
+
+    .history-intro__lead em {
+      font-style: normal;
+      color: var(--color-primary);
+    }
+
+    .history-intro__body {
+      font-size: 16px;
+      line-height: 2;
+      color: var(--color-text-secondary);
+    }
+
+    .history-intro__body + .history-intro__body {
+      margin-top: 24px;
+    }
+
+    /* =====================================================
+       CHAPTER BREAKER — Full-width dramatic sections
+       ===================================================== */
+    .chapter-breaker {
+      padding: 80px 56px;
+      background: var(--color-light);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chapter-breaker--dark {
+      background: var(--color-dark);
+      color: white;
+    }
+
+    .chapter-breaker__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .chapter-breaker__number-block {
+      text-align: right;
+    }
+
+    .chapter-breaker__chapter-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: #999999;
+      color: var(--color-primary);
       margin-bottom: 8px;
       font-family: var(--font-mono);
     }
 
-    .chapter-divider__title {
+    .chapter-breaker--dark .chapter-breaker__chapter-num {
+      color: var(--color-primary);
+    }
+
+    .chapter-breaker__year-range {
+      font-size: 64px;
+      font-weight: 800;
+      font-family: var(--font-heading);
+      line-height: 1;
+      letter-spacing: -2px;
+      color: var(--color-text);
+    }
+
+    .chapter-breaker--dark .chapter-breaker__year-range {
+      color: white;
+    }
+
+    .chapter-breaker__divider {
+      width: 1px;
+      height: 80px;
+      background: var(--color-line);
+      justify-self: start;
+      display: none;
+    }
+
+    .chapter-breaker__text-block {
+      border-left: 3px solid var(--color-primary);
+      padding-left: 32px;
+    }
+
+    .chapter-breaker__title {
       font-size: 28px;
       font-weight: 700;
-      color: #1A1A24;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+      line-height: 1.4;
     }
 
-    .chapter-divider__range {
-      font-size: 14px;
-      color: #999999;
-      font-weight: 500;
+    .chapter-breaker__desc {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--color-text-secondary);
     }
 
-    /* Timeline Section */
+    .chapter-breaker--dark .chapter-breaker__desc {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* =====================================================
+       TIMELINE SECTION
+       ===================================================== */
     .timeline-section {
-      padding: 60px 56px;
+      padding: 64px 56px 80px;
       background: white;
     }
 
+    .timeline-section--alt {
+      background: var(--color-light);
+    }
+
     .timeline-section__inner {
-      max-width: 1000px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
-    /* Timeline Container with left-side accent */
     .timeline {
       position: relative;
-      padding: 0 0 0 60px;
+      padding: 0 0 0 48px;
     }
 
     .timeline__line {
       position: absolute;
-      left: 20px;
+      left: 8px;
       top: 0;
       bottom: 0;
       width: 2px;
-      background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-purple) 50%, var(--color-pink) 100%);
+      background: var(--color-line);
     }
 
-    /* Timeline Entry */
+    /* =====================================================
+       TIMELINE ENTRY — Compact, refined cards
+       ===================================================== */
     .timeline-entry {
       position: relative;
-      margin-bottom: 48px;
+      margin-bottom: 40px;
+    }
+
+    .timeline-entry:last-child {
+      margin-bottom: 0;
     }
 
     .timeline-entry__marker {
       position: absolute;
       left: -48px;
+      top: 0;
     }
 
     .timeline-entry__dot {
-      width: 12px;
-      height: 12px;
+      width: 16px;
+      height: 16px;
       background: white;
       border: 3px solid var(--color-primary);
       border-radius: 50%;
-      position: absolute;
-      top: 4px;
-      left: 14px;
-      transition: all 0.3s ease;
+      position: relative;
+      box-shadow: 0 0 0 4px white;
     }
 
-    .timeline-entry:nth-child(odd) .timeline-entry__dot {
-      border-color: var(--color-purple);
+    .timeline-section--alt .timeline-entry__dot {
+      box-shadow: 0 0 0 4px var(--color-light);
     }
 
-    .timeline-entry:nth-child(even) .timeline-entry__dot {
-      border-color: var(--color-pink);
-    }
-
-    /* Regular text-only card */
     .timeline-entry__content {
-      background: #FAFBFC;
+      background: white;
+      border-radius: 12px;
+      padding: 28px 32px;
       border: 1px solid var(--color-line);
-      border-radius: 8px;
-      padding: 32px;
       transition: all 0.3s ease;
+    }
+
+    .timeline-section--alt .timeline-entry__content {
+      border-color: #E0E3EA;
     }
 
     .timeline-entry:hover .timeline-entry__content {
-      border-color: var(--color-primary);
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
+      border-color: rgba(59, 130, 246, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+      transform: translateY(-2px);
     }
 
-    /* Featured card with image/text layout */
-    .timeline-entry--featured .timeline-entry__content {
+    .timeline-entry__date {
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      color: var(--color-primary);
+      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .timeline-entry__title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .timeline-entry__description {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--color-text-secondary);
+    }
+
+    .timeline-entry__tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 12px;
+      margin-right: 6px;
+    }
+
+    .timeline-entry__tag--industry,
+    .timeline-entry__tag--prehistory { background: #F3F4F6; color: #6B7280; }
+    .timeline-entry__tag--founding { background: rgba(16, 185, 129, 0.1); color: var(--color-green); }
+    .timeline-entry__tag--partnership { background: rgba(139, 92, 246, 0.1); color: var(--color-purple); }
+    .timeline-entry__tag--funding { background: rgba(245, 158, 11, 0.1); color: var(--color-amber); }
+    .timeline-entry__tag--deployment { background: rgba(59, 130, 246, 0.1); color: var(--color-primary); }
+    .timeline-entry__tag--product { background: rgba(236, 72, 153, 0.1); color: var(--color-pink); }
+    .timeline-entry__tag--organization { background: rgba(99, 102, 241, 0.1); color: var(--color-indigo); }
+    .timeline-entry__tag--milestone { background: rgba(239, 68, 68, 0.1); color: var(--color-red); }
+
+    /* =====================================================
+       FEATURED SHOWCASE — Full-bleed highlight cards
+       ===================================================== */
+    .showcase {
+      padding: 0 56px;
+      margin: 24px 0;
+    }
+
+    .showcase__card {
+      max-width: 900px;
+      margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0;
-      padding: 0;
+      background: white;
+      border-radius: 16px;
       overflow: hidden;
+      border: 1px solid var(--color-line);
+      transition: all 0.4s ease;
     }
 
-    .timeline-entry--featured.timeline-entry--img-right .timeline-entry__content {
-      grid-template-columns: 1fr 1fr;
+    .timeline-section--alt .showcase__card {
+      border-color: #E0E3EA;
     }
 
-    .timeline-entry--featured.timeline-entry--img-left .timeline-entry__content {
-      grid-template-columns: 1fr 1fr;
+    .showcase__card:hover {
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
+      transform: translateY(-3px);
     }
 
-    /* Reorder grid columns based on image position */
-    .timeline-entry--featured.timeline-entry--img-right .timeline-entry__text-wrap {
-      order: 1;
+    .showcase__card--reverse {
+      direction: rtl;
     }
 
-    .timeline-entry--featured.timeline-entry--img-right .timeline-entry__image {
-      order: 2;
+    .showcase__card--reverse > * {
+      direction: ltr;
     }
 
-    .timeline-entry--featured.timeline-entry--img-left .timeline-entry__text-wrap {
-      order: 2;
-    }
-
-    .timeline-entry--featured.timeline-entry--img-left .timeline-entry__image {
-      order: 1;
-    }
-
-    /* Image container */
-    .timeline-entry__image {
+    .showcase__image {
       background-size: cover;
       background-position: center;
-      background-color: #F0F0F4;
-      min-height: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      min-height: 340px;
+      position: relative;
     }
 
-    /* SVG images */
-    .timeline-entry__image svg,
-    .timeline-entry__image img {
-      max-width: 80%;
-      max-height: 80%;
-      object-fit: contain;
+    .showcase__image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(10, 12, 20, 0.05), transparent);
     }
 
-    /* Text wrap for featured cards */
-    .timeline-entry__text-wrap {
-      padding: 40px;
+    .showcase__text {
+      padding: 48px 40px;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
 
-    /* Date styling */
-    .timeline-entry__date {
-      font-size: 14px;
-      font-weight: 700;
+    .showcase__date {
+      font-size: 13px;
+      font-weight: 600;
       font-family: var(--font-mono);
       color: var(--color-primary);
       margin-bottom: 8px;
       letter-spacing: 0.05em;
     }
 
-    /* Title styling */
-    .timeline-entry__title {
-      font-size: 20px;
+    .showcase__title {
+      font-size: 22px;
       font-weight: 700;
-      color: #1A1A24;
+      color: var(--color-text);
       margin-bottom: 16px;
       line-height: 1.4;
     }
 
-    /* Description styling */
-    .timeline-entry__description {
-      font-size: 15px;
-      line-height: 1.7;
-      color: #555555;
+    .showcase__desc {
+      font-size: 14px;
+      line-height: 1.9;
+      color: var(--color-text-secondary);
       margin-bottom: 16px;
     }
 
-    /* Tags */
-    .timeline-entry__tag {
+    .showcase__tag {
       display: inline-block;
-      padding: 6px 12px;
+      padding: 4px 10px;
       border-radius: 4px;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      margin-right: 8px;
-      margin-bottom: 8px;
+      align-self: flex-start;
     }
 
-    .timeline-entry__tag--industry,
-    .timeline-entry__tag--prehistory {
-      background: #EEEEEE;
-      color: #666666;
+    /* =====================================================
+       PULL QUOTE — Narrative break
+       ===================================================== */
+    .pull-quote {
+      padding: 80px 56px;
+      text-align: center;
+      background: white;
     }
 
-    .timeline-entry__tag--founding {
-      background: rgba(16, 185, 129, 0.1);
-      color: var(--color-green);
+    .pull-quote--alt {
+      background: var(--color-light);
     }
 
-    .timeline-entry__tag--partnership {
-      background: rgba(139, 92, 246, 0.1);
-      color: var(--color-purple);
+    .pull-quote__inner {
+      max-width: 700px;
+      margin: 0 auto;
     }
 
-    .timeline-entry__tag--funding {
-      background: rgba(245, 158, 11, 0.1);
-      color: var(--color-amber);
+    .pull-quote__text {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.7;
+      color: var(--color-text);
+      position: relative;
     }
 
-    .timeline-entry__tag--deployment {
-      background: rgba(59, 130, 246, 0.1);
+    .pull-quote__text::before {
+      content: '"';
+      display: block;
+      font-size: 72px;
+      font-family: var(--font-heading);
+      color: var(--color-primary);
+      line-height: 1;
+      margin-bottom: -8px;
+      opacity: 0.4;
+    }
+
+    .pull-quote__text em {
+      font-style: normal;
       color: var(--color-primary);
     }
 
-    .timeline-entry__tag--product {
-      background: rgba(236, 72, 153, 0.1);
-      color: var(--color-pink);
+    .pull-quote__source {
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--color-gray);
     }
 
-    .timeline-entry__tag--organization {
-      background: rgba(99, 102, 241, 0.1);
-      color: var(--color-indigo);
-    }
-
-    .timeline-entry__tag--milestone {
-      background: rgba(239, 68, 68, 0.1);
-      color: var(--color-red);
-    }
-
-    /* Closing Section */
+    /* =====================================================
+       CLOSING — Impactful ending
+       ===================================================== */
     .history-closing {
-      padding: 120px 56px;
-      background: linear-gradient(135deg, #F5F7FB 0%, #FAFBFC 100%);
+      padding: 140px 56px;
+      background: var(--color-dark);
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .history-closing::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
     }
 
     .history-closing__content {
-      max-width: 900px;
+      max-width: 700px;
       margin: 0 auto;
-      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .history-closing__number {
+      font-size: 120px;
+      font-weight: 800;
+      font-family: var(--font-heading);
+      line-height: 1;
+      color: rgba(255, 255, 255, 0.06);
+      margin-bottom: -24px;
     }
 
     .history-closing__tagline {
-      font-size: 48px;
+      font-size: 40px;
       font-weight: 800;
-      font-family: var(--font-heading);
-      color: #1A1A24;
-      margin-bottom: 32px;
+      color: white;
+      margin-bottom: 24px;
+      line-height: 1.3;
       letter-spacing: -0.5px;
     }
 
     .history-closing__subtitle {
-      font-size: 18px;
-      line-height: 1.8;
-      color: #555555;
-      margin-bottom: 48px;
+      font-size: 16px;
+      line-height: 2;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 56px;
     }
 
     .history-closing__cta {
       display: flex;
-      gap: 24px;
+      gap: 16px;
       justify-content: center;
     }
 
     .history-closing__cta-link {
-      padding: 12px 32px;
+      padding: 14px 36px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      letter-spacing: 0.02em;
+    }
+
+    .history-closing__cta-link--primary {
       background: var(--color-primary);
       color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 15px;
-      transition: all 0.3s ease;
       border: 2px solid var(--color-primary);
     }
 
-    .history-closing__cta-link:first-child:hover {
-      background: white;
-      color: var(--color-primary);
+    .history-closing__cta-link--primary:hover {
+      background: #2563EB;
+      border-color: #2563EB;
     }
 
-    .history-closing__cta-link:last-child {
-      background: white;
-      color: var(--color-primary);
-      border-color: var(--color-primary);
+    .history-closing__cta-link--secondary {
+      background: transparent;
+      color: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    .history-closing__cta-link:last-child:hover {
-      background: var(--color-primary);
+    .history-closing__cta-link--secondary:hover {
+      border-color: rgba(255, 255, 255, 0.5);
       color: white;
     }
 
-    /* Footer */
+    /* =====================================================
+       FOOTER
+       ===================================================== */
     .footer {
       background: var(--color-dark);
       color: rgba(255, 255, 255, 0.6);
       padding: 32px 56px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .footer__inner {
@@ -680,181 +719,156 @@
       font-size: 13px;
     }
 
-    .footer__text {
-      letter-spacing: 0.01em;
-    }
-
-    .footer__links {
-      display: flex;
-      gap: 32px;
-      justify-content: flex-end;
-    }
-
-    .footer__link {
-      color: rgba(255, 255, 255, 0.6);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .footer__link:hover {
-      color: rgba(255, 255, 255, 0.8);
-    }
+    .footer__text { letter-spacing: 0.01em; }
+    .footer__links { display: flex; gap: 32px; justify-content: flex-end; }
+    .footer__link { color: rgba(255, 255, 255, 0.6); text-decoration: none; transition: color 0.3s ease; }
+    .footer__link:hover { color: rgba(255, 255, 255, 0.8); }
 
     /* Cookie consent banner */
-    .cookie-banner {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(10, 12, 20, 0.95);
-      color: rgba(255,255,255,0.8);
-      padding: 20px 56px;
-      font-size: 13px;
-      font-family: var(--font-mono);
-      z-index: 200;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      display: none;
+    .cookie-banner { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10, 12, 20, 0.95); color: rgba(255,255,255,0.8); padding: 20px 56px; font-size: 13px; font-family: var(--font-mono); z-index: 200; border-top: 1px solid rgba(255,255,255,0.1); display: none; }
+    .cookie-banner.show { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .cookie-banner__text { flex: 1; letter-spacing: 0.01em; }
+    .cookie-banner__accept { padding: 8px 20px; background: var(--color-primary); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; transition: background 0.3s ease; white-space: nowrap; }
+    .cookie-banner__accept:hover { background: rgba(59, 130, 246, 0.9); }
+
+    /* =====================================================
+       SCROLL ANIMATIONS
+       ===================================================== */
+    .hs-fade {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .cookie-banner.show {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
+    .hs-fade.is-visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .cookie-banner__text {
-      flex: 1;
-      letter-spacing: 0.01em;
-    }
-
-    .cookie-banner__accept {
-      padding: 8px 20px;
-      background: var(--color-primary);
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      transition: background 0.3s ease;
-      white-space: nowrap;
-    }
-
-    .cookie-banner__accept:hover {
-      background: rgba(59, 130, 246, 0.9);
-    }
+    .hs-fade-delay-1 { transition-delay: 0.1s; }
+    .hs-fade-delay-2 { transition-delay: 0.2s; }
+    .hs-fade-delay-3 { transition-delay: 0.3s; }
 
     /* =====================================================
        RESPONSIVE DESIGN
        ===================================================== */
     @media (max-width: 768px) {
       .history-hero {
-        padding: 80px 24px;
-        min-height: 520px;
+        min-height: 90vh;
+        background-attachment: scroll;
       }
 
-      .history-hero__title-main {
-        font-size: 40px;
+      .history-hero__title {
+        font-size: 44px;
+        letter-spacing: -1px;
       }
 
       .history-hero__title-jp {
-        font-size: 32px;
-        margin-bottom: 16px;
-      }
-
-      .history-hero__tagline {
         font-size: 18px;
       }
 
-      .history-opening {
-        padding: 60px 24px;
+      .history-hero__tagline {
+        font-size: 15px;
       }
 
-      .history-opening__text {
-        font-size: 16px;
-      }
-
-      .chapter-divider {
+      .stats-bar {
         padding: 40px 24px;
       }
 
-      .chapter-divider__inner {
-        flex-direction: column;
-        gap: 24px;
+      .stats-bar__inner {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
       }
 
-      .chapter-divider__line {
-        height: 1px;
-        width: 100%;
+      .stats-bar__number {
+        font-size: 36px;
       }
 
-      .timeline-section {
+      .history-intro {
+        padding: 80px 24px;
+      }
+
+      .history-intro__lead {
+        font-size: 22px;
+      }
+
+      .chapter-breaker {
         padding: 60px 24px;
       }
 
+      .chapter-breaker__inner {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .chapter-breaker__year-range {
+        font-size: 48px;
+      }
+
+      .timeline-section {
+        padding: 48px 24px;
+      }
+
       .timeline {
-        padding: 0 0 0 40px;
+        padding: 0 0 0 36px;
       }
 
       .timeline__line {
-        left: 14px;
+        left: 6px;
       }
 
       .timeline-entry__marker {
-        left: -42px;
-      }
-
-      .timeline-entry__dot {
-        left: 10px;
-      }
-
-      /* Stack featured cards on mobile */
-      .timeline-entry--featured .timeline-entry__content {
-        grid-template-columns: 1fr;
-      }
-
-      .timeline-entry--featured.timeline-entry--img-right .timeline-entry__content,
-      .timeline-entry--featured.timeline-entry--img-left .timeline-entry__content {
-        grid-template-columns: 1fr;
-      }
-
-      .timeline-entry--featured.timeline-entry--img-right .timeline-entry__text-wrap,
-      .timeline-entry--featured.timeline-entry--img-right .timeline-entry__image,
-      .timeline-entry--featured.timeline-entry--img-left .timeline-entry__text-wrap,
-      .timeline-entry--featured.timeline-entry--img-left .timeline-entry__image {
-        order: unset !important;
-      }
-
-      .timeline-entry__image {
-        min-height: 240px;
-        order: -1;
-      }
-
-      .timeline-entry__text-wrap {
-        padding: 24px;
+        left: -36px;
       }
 
       .timeline-entry__content {
-        padding: 24px;
+        padding: 20px 24px;
+      }
+
+      .showcase {
+        padding: 0 24px;
+      }
+
+      .showcase__card {
+        grid-template-columns: 1fr;
+      }
+
+      .showcase__card--reverse {
+        direction: ltr;
+      }
+
+      .showcase__image {
+        min-height: 220px;
+        order: -1;
+      }
+
+      .showcase__text {
+        padding: 32px 24px;
+      }
+
+      .pull-quote {
+        padding: 56px 24px;
+      }
+
+      .pull-quote__text {
+        font-size: 20px;
       }
 
       .history-closing {
         padding: 80px 24px;
       }
 
-      .history-closing__tagline {
-        font-size: 36px;
+      .history-closing__number {
+        font-size: 72px;
       }
 
-      .history-closing__subtitle {
-        font-size: 16px;
+      .history-closing__tagline {
+        font-size: 28px;
       }
 
       .history-closing__cta {
         flex-direction: column;
+        align-items: center;
       }
 
       .footer__inner {
@@ -867,7 +881,7 @@
       }
 
       .breadcrumb__inner {
-        padding: 0 24px;
+        padding: 12px 24px;
       }
 
       .overlay-menu__inner {
@@ -879,18 +893,6 @@
       .hamburger {
         margin-right: 0;
       }
-    }
-
-    /* Scroll animations */
-    .hs-fade {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .hs-fade.is-visible {
-      opacity: 1;
-      transform: translateY(0);
     }
   </style>
 
@@ -913,43 +915,23 @@
       <div class="overlay-menu__col-nav">
         <div class="overlay-menu__label">Navigation</div>
         <div class="overlay-menu__nav-list">
-          <a href="index.html" class="overlay-menu__nav-item">
-            Home
-            <span class="overlay-menu__nav-arrow">→</span>
-          </a>
-          <a href="about.html" class="overlay-menu__nav-item">
-            企業情報
-            <span class="overlay-menu__nav-arrow">→</span>
-          </a>
-          <a href="history.html" class="overlay-menu__nav-item is-active">
-            GROUNDの歩み
-            <span class="overlay-menu__nav-arrow">→</span>
-          </a>
-          <a href="contact.html" class="overlay-menu__nav-item">
-            お問い合わせ
-            <span class="overlay-menu__nav-arrow">→</span>
-          </a>
+          <a href="index.html" class="overlay-menu__nav-item">Home<span class="overlay-menu__nav-arrow">→</span></a>
+          <a href="about.html" class="overlay-menu__nav-item">企業情報<span class="overlay-menu__nav-arrow">→</span></a>
+          <a href="history.html" class="overlay-menu__nav-item is-active">GROUNDの歩み<span class="overlay-menu__nav-arrow">→</span></a>
+          <a href="contact.html" class="overlay-menu__nav-item">お問い合わせ<span class="overlay-menu__nav-arrow">→</span></a>
         </div>
       </div>
       <div class="overlay-menu__col-sub"></div>
       <div class="overlay-menu__col-info">
         <a href="contact.html" class="overlay-menu__cta-btn">お問い合わせ</a>
-        <div class="overlay-menu__contact-info">
-          <span>Tokyo, Japan</span>
-        </div>
+        <div class="overlay-menu__contact-info"><span>Tokyo, Japan</span></div>
         <div class="lang-switch-bar">
           <a href="#" class="lang-switch lang-switch--current">
-            <svg class="lang-switch__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"></circle>
-              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
+            <svg class="lang-switch__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
             JP
           </a>
           <a href="en/history.html" class="lang-switch">
-            <svg class="lang-switch__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"></circle>
-              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
+            <svg class="lang-switch__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
             EN
           </a>
         </div>
@@ -961,43 +943,73 @@
   <!-- Breadcrumb -->
   <div class="breadcrumb">
     <div class="breadcrumb__inner">
-      <a href="index.html" style="color: inherit; text-decoration: none;">Home</a> / <a href="about.html" style="color: inherit; text-decoration: none;">企業情報</a> / GROUNDの歩み
+      <a href="index.html">Home</a> / <a href="about.html">企業情報</a> / GROUNDの歩み
     </div>
   </div>
 
-  <!-- Hero Section -->
+  <!-- ====================================================
+       HERO — Cinematic full-screen
+       ==================================================== -->
   <section class="history-hero">
-    <div class="history-hero__content">
-      <div class="history-hero__subtitle">Our Journey</div>
-      <h1 class="history-hero__title-main">Our Journey</h1>
-      <p class="history-hero__title-jp">GROUNDの歩み</p>
-      <div class="history-hero__year">EST. 2015</div>
-      <p class="history-hero__tagline">テクノロジーで物流の常識を変える、10年の挑戦</p>
+    <div class="history-hero__content hs-fade">
+      <div class="history-hero__label">Our Journey — Est. 2015</div>
+      <h1 class="history-hero__title">GROUNDの歩み</h1>
+      <p class="history-hero__title-jp">テクノロジーで、物流の常識を変える</p>
+      <p class="history-hero__tagline">ロボティクスとAIの力で物流の未来を切り拓いてきた10年。<br>スタートアップから物流DXのリーディングカンパニーへ。</p>
+      <div class="history-hero__scroll-hint">
+        <span>Scroll</span>
+        <div class="history-hero__scroll-line"></div>
+      </div>
     </div>
   </section>
 
-  <!-- Opening Section -->
-  <section class="history-opening">
-    <div class="history-opening__inner">
-      <p class="history-opening__text">
-        物流業界は長年、労働力不足と属人的なオペレーションという構造的課題を抱えてきました。GROUNDは、AI・数理最適化・ロボティクスの力でこの課題を根本から解決するために、2015年に創業しました。
+  <!-- KEY STATS -->
+  <section class="stats-bar hs-fade">
+    <div class="stats-bar__inner">
+      <div class="stats-bar__item hs-fade hs-fade-delay-1">
+        <div class="stats-bar__number">10<span>年</span></div>
+        <div class="stats-bar__label">創業からの歩み</div>
+      </div>
+      <div class="stats-bar__item hs-fade hs-fade-delay-1">
+        <div class="stats-bar__number">44<span>+</span></div>
+        <div class="stats-bar__label">GWES導入拠点</div>
+      </div>
+      <div class="stats-bar__item hs-fade hs-fade-delay-2">
+        <div class="stats-bar__number">13</div>
+        <div class="stats-bar__label">GWESモジュール</div>
+      </div>
+      <div class="stats-bar__item hs-fade hs-fade-delay-3">
+        <div class="stats-bar__number">1,000</div>
+        <div class="stats-bar__label">拠点目標（2027年）</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO NARRATIVE -->
+  <section class="history-intro hs-fade">
+    <div class="history-intro__inner">
+      <p class="history-intro__lead">
+        物流業界は長年、労働力不足と属人的なオペレーションという構造的課題を抱えてきました。GROUNDは、<em>AI・数理最適化・ロボティクス</em>の力でこの課題を根本から解決するために創業しました。
       </p>
-      <p class="history-opening__text">
+      <p class="history-intro__body">
         海外ロボットの導入販売からスタートし、やがて自社AIソフトウェアの開発へ。そして物流施設を統合管理する「GWES」の誕生へ——この10年間の歩みは、物流産業のDXそのものです。
       </p>
     </div>
   </section>
 
-  <!-- CHAPTER 0 — 前史 -->
-  <div class="chapter-divider hs-fade">
-    <div class="chapter-divider__inner">
-      <div class="chapter-divider__line"></div>
-      <div class="chapter-divider__label">
-        <div class="chapter-divider__number">CHAPTER 0</div>
-        <div class="chapter-divider__title">前史</div>
-        <div class="chapter-divider__range">2012–2014</div>
+  <!-- ====================================================
+       CHAPTER 0 — 前史
+       ==================================================== -->
+  <div class="chapter-breaker hs-fade">
+    <div class="chapter-breaker__inner">
+      <div class="chapter-breaker__number-block">
+        <div class="chapter-breaker__chapter-num">Chapter 0</div>
+        <div class="chapter-breaker__year-range">2012–14</div>
       </div>
-      <div class="chapter-divider__line"></div>
+      <div class="chapter-breaker__text-block">
+        <div class="chapter-breaker__title">前史 — 始まりの予兆</div>
+        <div class="chapter-breaker__desc">Amazonによるロボティクス企業の大型買収。日本でもロボット物流の実用化が始まる。GROUNDの創業に繋がる萌芽の時代。</div>
+      </div>
     </div>
   </div>
 
@@ -1006,32 +1018,22 @@
       <div class="timeline">
         <div class="timeline__line"></div>
 
-        <!-- Entry: 2012 Amazon Kiva -->
-        <div class="timeline-entry">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
+        <div class="timeline-entry hs-fade">
+          <div class="timeline-entry__marker"><div class="timeline-entry__dot"></div></div>
           <div class="timeline-entry__content">
             <div class="timeline-entry__date">2012</div>
             <div class="timeline-entry__title">Amazon、Kiva Systemsを$775Mで買収</div>
-            <div class="timeline-entry__description">
-              ロボティクスが倉庫オペレーションの根幹を担う時代の幕開け。日本の物流現場にも、同様のテクノロジー革新が急務であることが明確になった。
-            </div>
+            <div class="timeline-entry__description">ロボティクスが倉庫オペレーションの根幹を担う時代の幕開け。日本の物流現場にも、同様のテクノロジー革新が急務であることが明確になった。</div>
             <span class="timeline-entry__tag timeline-entry__tag--industry">INDUSTRY</span>
           </div>
         </div>
 
-        <!-- Entry: 2012-2014 Rakuten Logistics -->
-        <div class="timeline-entry">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
+        <div class="timeline-entry hs-fade">
+          <div class="timeline-entry__marker"><div class="timeline-entry__dot"></div></div>
           <div class="timeline-entry__content">
             <div class="timeline-entry__date">2012–2014</div>
             <div class="timeline-entry__title">楽天物流、日立製作所と物流ロボットを共同開発</div>
-            <div class="timeline-entry__description">
-              プロトタイプを重ね、2014年に「Racrew」として発表。日本でも物流ロボティクスの実用化に向けた挑戦が始まった。この経験と知見が、のちのGROUND創業へと繋がっていく。
-            </div>
+            <div class="timeline-entry__description">プロトタイプを重ね、2014年に「Racrew」として発表。日本でも物流ロボティクスの実用化に向けた挑戦が始まった。この経験と知見が、のちのGROUND創業へと繋がっていく。</div>
             <span class="timeline-entry__tag timeline-entry__tag--prehistory">PREHISTORY</span>
           </div>
         </div>
@@ -1039,161 +1041,124 @@
     </div>
   </section>
 
-  <!-- CHAPTER 1 — GROUNDの創業と挑戦 (2015-2019) -->
-  <div class="chapter-divider hs-fade">
-    <div class="chapter-divider__inner">
-      <div class="chapter-divider__line"></div>
-      <div class="chapter-divider__label">
-        <div class="chapter-divider__number">CHAPTER 1</div>
-        <div class="chapter-divider__title">GROUNDの創業と挑戦</div>
-        <div class="chapter-divider__range">2015–2019</div>
+  <!-- ====================================================
+       CHAPTER 1 — 創業と挑戦
+       ==================================================== -->
+  <div class="chapter-breaker chapter-breaker--dark hs-fade">
+    <div class="chapter-breaker__inner">
+      <div class="chapter-breaker__number-block">
+        <div class="chapter-breaker__chapter-num">Chapter 1</div>
+        <div class="chapter-breaker__year-range">2015–19</div>
       </div>
-      <div class="chapter-divider__line"></div>
+      <div class="chapter-breaker__text-block">
+        <div class="chapter-breaker__title">創業と挑戦</div>
+        <div class="chapter-breaker__desc">物流テックカンパニーの誕生。インド発のロボットを日本へ。海外パートナーとの協業から、自社AIソフトウェア開発への転換を決断。</div>
+      </div>
     </div>
   </div>
 
-  <section class="timeline-section hs-fade">
+  <section class="timeline-section timeline-section--alt hs-fade">
     <div class="timeline-section__inner">
       <div class="timeline">
         <div class="timeline__line"></div>
 
-        <!-- Entry: 2015.04 GROUND Founded -->
-        <div class="timeline-entry">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
+        <div class="timeline-entry hs-fade">
+          <div class="timeline-entry__marker"><div class="timeline-entry__dot"></div></div>
           <div class="timeline-entry__content">
             <div class="timeline-entry__date">2015.04</div>
             <div class="timeline-entry__title">GROUND株式会社 設立</div>
-            <div class="timeline-entry__description">
-              テクノロジーと物流を融合させた「Intelligent Logistics」を実現するために設立。楽天物流での経験と、海外で急速に進む物流ロボティクスの潮流を背景に、日本発の物流テックカンパニーとしてスタート。
-            </div>
+            <div class="timeline-entry__description">テクノロジーと物流を融合させた「Intelligent Logistics」を実現するために設立。楽天物流での経験と、海外で急速に進む物流ロボティクスの潮流を背景に、日本発の物流テックカンパニーとしてスタート。</div>
             <span class="timeline-entry__tag timeline-entry__tag--founding">創業</span>
           </div>
         </div>
 
-        <!-- Entry: 2016.01 GreyOrange Partnership -->
-        <div class="timeline-entry">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
+        <div class="timeline-entry hs-fade">
+          <div class="timeline-entry__marker"><div class="timeline-entry__dot"></div></div>
           <div class="timeline-entry__content">
             <div class="timeline-entry__date">2016.01</div>
             <div class="timeline-entry__title">GreyOrangeと資本業務提携</div>
-            <div class="timeline-entry__description">
-              インドのロボティクス企業GreyOrange社と戦略的パートナーシップを締結。物流ロボット「Butler®」の日本独占販売権を獲得。
-            </div>
+            <div class="timeline-entry__description">インドのロボティクス企業GreyOrange社と戦略的パートナーシップを締結。物流ロボット「Butler®」の日本独占販売権を獲得。</div>
             <span class="timeline-entry__tag timeline-entry__tag--partnership">提携</span>
           </div>
         </div>
 
-        <!-- Entry: 2016.05 Okamura Partnership -->
-        <div class="timeline-entry">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
+        <div class="timeline-entry hs-fade">
+          <div class="timeline-entry__marker"><div class="timeline-entry__dot"></div></div>
           <div class="timeline-entry__content">
             <div class="timeline-entry__date">2016.05</div>
             <div class="timeline-entry__title">オカムラと資本業務提携</div>
-            <div class="timeline-entry__description">
-              オフィス・物流設備大手のオカムラと資本業務提携。ロボット技術を活用した物流システム事業の共同推進を開始。10年後の運命的な関係強化の始まり。
-            </div>
+            <div class="timeline-entry__description">オフィス・物流設備大手のオカムラと資本業務提携。ロボット技術を活用した物流システム事業の共同推進を開始。10年後の運命的な関係強化の始まり。</div>
             <span class="timeline-entry__tag timeline-entry__tag--partnership">提携</span>
           </div>
         </div>
 
-        <!-- Entry: 2017.06 Daiwa House Partnership -->
-        <div class="timeline-entry">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
+        <div class="timeline-entry hs-fade">
+          <div class="timeline-entry__marker"><div class="timeline-entry__dot"></div></div>
           <div class="timeline-entry__content">
             <div class="timeline-entry__date">2017.06</div>
             <div class="timeline-entry__title">大和ハウス工業と資本業務提携</div>
-            <div class="timeline-entry__description">
-              物流施設のリーディングカンパニー・大和ハウス工業との資本業務提携を締結。10億円の出資を受け、物流施設へのロボット導入を加速。
-            </div>
+            <div class="timeline-entry__description">物流施設のリーディングカンパニー・大和ハウス工業との資本業務提携を締結。10億円の出資を受け、物流施設へのロボット導入を加速。</div>
             <span class="timeline-entry__tag timeline-entry__tag--funding">資金調達</span>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- Entry: 2017.12 Butler® First Deployment -->
-        <div class="timeline-entry timeline-entry--featured timeline-entry--img-left">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
-          <div class="timeline-entry__content">
-            <div class="timeline-entry__image" style="background-image: url('img/history/butler-warehouse.jpg');"></div>
-            <div class="timeline-entry__text-wrap">
-              <div class="timeline-entry__date">2017.12</div>
-              <div class="timeline-entry__title">Butler®国内初稼働 — ニトリグループ</div>
-              <div class="timeline-entry__description">
-                家具・インテリア大手ニトリグループとの納入契約に基づき、物流ロボット「Butler®」が国内で初めて稼働。日本の物流ロボティクスの新たな幕開け。
-              </div>
-              <span class="timeline-entry__tag timeline-entry__tag--deployment">導入</span>
-            </div>
-          </div>
-        </div>
+  <!-- SHOWCASE: Butler -->
+  <div class="showcase hs-fade" style="padding-bottom: 24px; background: var(--color-light);">
+    <div class="showcase__card">
+      <div class="showcase__image" style="background-image: url('img/history/butler-warehouse.jpg');"></div>
+      <div class="showcase__text">
+        <div class="showcase__date">2017.12</div>
+        <div class="showcase__title">Butler®国内初稼働 — ニトリグループ</div>
+        <div class="showcase__desc">家具・インテリア大手ニトリグループの物流センターで、物流ロボット「Butler®」が国内初稼働。日本の物流ロボティクスの新たな幕開けとなった。</div>
+        <div class="showcase__tag timeline-entry__tag--deployment">導入</div>
+      </div>
+    </div>
+  </div>
 
-        <!-- Entry: 2018.07 DyAS Pilot -->
-        <div class="timeline-entry timeline-entry--featured timeline-entry--img-right">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
-          <div class="timeline-entry__content">
-            <div class="timeline-entry__text-wrap">
-              <div class="timeline-entry__date">2018.07</div>
-              <div class="timeline-entry__title">AI物流ソフトウェア「DyAS」の実証実験</div>
-              <div class="timeline-entry__description">
-                トラスコ中山の物流センターにおいてDyASの実証実験を開始。在庫配置最適化と人員配置の効率化に取り組み、ロボット企業からソフトウェア企業への転換を見据えた重要な一歩。
-              </div>
-              <span class="timeline-entry__tag timeline-entry__tag--product">プロダクト</span>
-            </div>
-            <div class="timeline-entry__image" style="background-image: url('img/history/dyas-nikkei.jpg');"></div>
-          </div>
-        </div>
+  <!-- Pull Quote -->
+  <div class="pull-quote pull-quote--alt hs-fade">
+    <div class="pull-quote__inner">
+      <p class="pull-quote__text">
+        ロボットの導入販売だけでは、物流の本質的な課題は解決できない。<em>ソフトウェアの力</em>で、倉庫全体を最適化する必要がある。
+      </p>
+    </div>
+  </div>
 
-        <!-- Entry: 2018.08 HIT ROBOT GROUP Partnership -->
-        <div class="timeline-entry">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
+  <!-- Continue Chapter 1 timeline -->
+  <section class="timeline-section timeline-section--alt hs-fade">
+    <div class="timeline-section__inner">
+      <div class="timeline">
+        <div class="timeline__line"></div>
+
+        <div class="timeline-entry hs-fade">
+          <div class="timeline-entry__marker"><div class="timeline-entry__dot"></div></div>
           <div class="timeline-entry__content">
             <div class="timeline-entry__date">2018.08</div>
             <div class="timeline-entry__title">HIT ROBOT GROUP（中国）と戦略的提携</div>
-            <div class="timeline-entry__description">
-              中国・ハルビン工業大学発のロボティクス企業HRGとの戦略的パートナーシップを締結。グローバルなロボット調達ネットワークを拡大。
-            </div>
+            <div class="timeline-entry__description">中国・ハルビン工業大学発のロボティクス企業HRGとの戦略的パートナーシップを締結。グローバルなロボット調達ネットワークを拡大。</div>
             <span class="timeline-entry__tag timeline-entry__tag--partnership">提携</span>
           </div>
         </div>
 
-        <!-- Entry: 2019.03 DyAS Patent -->
-        <div class="timeline-entry">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
+        <div class="timeline-entry hs-fade">
+          <div class="timeline-entry__marker"><div class="timeline-entry__dot"></div></div>
           <div class="timeline-entry__content">
             <div class="timeline-entry__date">2019.03</div>
             <div class="timeline-entry__title">DyAS特許取得・AMRロボット導入</div>
-            <div class="timeline-entry__description">
-              AI物流ソフトウェア「DyAS」の在庫配置最適化アルゴリズムが特許を取得。同年7月にはダイヤモンドヘッド社にAMR導入。
-            </div>
+            <div class="timeline-entry__description">AI物流ソフトウェア「DyAS」の在庫配置最適化アルゴリズムが特許を取得。同年7月にはダイヤモンドヘッド社にAMR導入。</div>
             <span class="timeline-entry__tag timeline-entry__tag--product">プロダクト</span>
           </div>
         </div>
 
-        <!-- Entry: 2019.08 Series B Funding -->
-        <div class="timeline-entry">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
+        <div class="timeline-entry hs-fade">
+          <div class="timeline-entry__marker"><div class="timeline-entry__dot"></div></div>
           <div class="timeline-entry__content">
             <div class="timeline-entry__date">2019.08</div>
             <div class="timeline-entry__title">総額17.1億円の大型資金調達</div>
-            <div class="timeline-entry__description">
-              INCJ、ソニーイノベーションファンド、サファイア・キャピタル、JA三井リースなどから総額17.1億円を調達。
-            </div>
+            <div class="timeline-entry__description">INCJ、ソニーイノベーションファンド、サファイア・キャピタル、JA三井リースなどから総額17.1億円を調達。</div>
             <span class="timeline-entry__tag timeline-entry__tag--funding">資金調達</span>
           </div>
         </div>
@@ -1201,16 +1166,48 @@
     </div>
   </section>
 
-  <!-- CHAPTER 2 — ソフトウェア企業への進化 (2020-2023) -->
-  <div class="chapter-divider hs-fade">
-    <div class="chapter-divider__inner">
-      <div class="chapter-divider__line"></div>
-      <div class="chapter-divider__label">
-        <div class="chapter-divider__number">CHAPTER 2</div>
-        <div class="chapter-divider__title">ソフトウェア企業への進化</div>
-        <div class="chapter-divider__range">2020–2023</div>
+  <!-- SHOWCASE: DyAS -->
+  <div class="showcase hs-fade" style="padding-bottom: 0; background: var(--color-light);">
+    <div class="showcase__card showcase__card--reverse">
+      <div class="showcase__image" style="background-image: url('img/history/dyas-nikkei.jpg');"></div>
+      <div class="showcase__text">
+        <div class="showcase__date">2018.07</div>
+        <div class="showcase__title">AI物流ソフトウェア「DyAS」の実証実験</div>
+        <div class="showcase__desc">トラスコ中山の物流センターにおいてDyASの実証実験を開始。在庫配置最適化と人員配置の効率化に取り組み、ロボット企業からソフトウェア企業への転換を見据えた重要な一歩となった。</div>
+        <div class="showcase__tag timeline-entry__tag--product">プロダクト</div>
       </div>
-      <div class="chapter-divider__line"></div>
+    </div>
+  </div>
+
+  <!-- Spacer for alt background -->
+  <div style="height: 80px; background: var(--color-light);"></div>
+
+  <!-- ====================================================
+       CHAPTER 2 — ソフトウェア企業への進化
+       ==================================================== -->
+  <div class="chapter-breaker hs-fade">
+    <div class="chapter-breaker__inner">
+      <div class="chapter-breaker__number-block">
+        <div class="chapter-breaker__chapter-num">Chapter 2</div>
+        <div class="chapter-breaker__year-range">2020–23</div>
+      </div>
+      <div class="chapter-breaker__text-block">
+        <div class="chapter-breaker__title">ソフトウェア企業への進化</div>
+        <div class="chapter-breaker__desc">ロボット導入の経験を基盤に、自社AIソフトウェア「DyAS」を正式リリース。そしてその発展形として、物流施設全体を統合管理する「GWES」が誕生する。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOWCASE: PEER -->
+  <div class="showcase hs-fade" style="padding-top: 64px; padding-bottom: 24px;">
+    <div class="showcase__card">
+      <div class="showcase__image" style="background-image: url('img/history/peer-warehouse.jpg');"></div>
+      <div class="showcase__text">
+        <div class="showcase__date">2020.06</div>
+        <div class="showcase__title">日本ユニシスと物流エコシステム始動 / PEER提供開始</div>
+        <div class="showcase__desc">日本ユニシス（現BIPROGY）との物流エコシステム共同事業を発表。同月、自律型協働ロボット「PEER」のアセスメントプログラムを開始。</div>
+        <div class="showcase__tag timeline-entry__tag--product">プロダクト</div>
+      </div>
     </div>
   </div>
 
@@ -1219,85 +1216,29 @@
       <div class="timeline">
         <div class="timeline__line"></div>
 
-        <!-- Entry: 2020.06 Japan Unisys Ecosystem (FEATURED with image left) -->
-        <div class="timeline-entry timeline-entry--featured timeline-entry--img-left">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
-          <div class="timeline-entry__content">
-            <div class="timeline-entry__image" style="background-image: url('img/history/peer-warehouse.jpg');"></div>
-            <div class="timeline-entry__text-wrap">
-              <div class="timeline-entry__date">2020.06</div>
-              <div class="timeline-entry__title">日本ユニシスと物流エコシステム始動 / PEER提供開始</div>
-              <div class="timeline-entry__description">
-                日本ユニシス（現BIPROGY）との物流エコシステム共同事業を発表。同月、自律型協働ロボット「PEER」のアセスメントプログラムを開始。
-              </div>
-              <span class="timeline-entry__tag timeline-entry__tag--product">プロダクト</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Entry: 2020.09 DyAS Release -->
-        <div class="timeline-entry">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
+        <div class="timeline-entry hs-fade">
+          <div class="timeline-entry__marker"><div class="timeline-entry__dot"></div></div>
           <div class="timeline-entry__content">
             <div class="timeline-entry__date">2020.09</div>
             <div class="timeline-entry__title">AI物流ソフトウェア「DyAS」提供開始</div>
-            <div class="timeline-entry__description">
-              自社開発のAI物流ソフトウェア「DyAS」を正式リリース。特許取得済みアルゴリズムによる在庫配置最適化・リソース配分最適化を実現。ロボット企業からソフトウェア企業へ、大きな転換点。
-            </div>
+            <div class="timeline-entry__description">自社開発のAI物流ソフトウェア「DyAS」を正式リリース。特許取得済みアルゴリズムによる在庫配置最適化・リソース配分最適化を実現。ロボット企業からソフトウェア企業へ、大きな転換点。</div>
             <span class="timeline-entry__tag timeline-entry__tag--product">プロダクト</span>
-          </div>
-        </div>
-
-        <!-- Entry: 2021.06 GWES Release (FEATURED with image right) -->
-        <div class="timeline-entry timeline-entry--featured timeline-entry--img-right">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
-          <div class="timeline-entry__content">
-            <div class="timeline-entry__text-wrap">
-              <div class="timeline-entry__date">2021.06</div>
-              <div class="timeline-entry__title">GWES正式リリース — 物流OSの誕生</div>
-              <div class="timeline-entry__description">
-                DyASの知見を進化させ、物流施設統合管理・最適化システム「GWES」を正式リリース。13のモジュールで構成される「物流OS」。GROUNDの核となるプロダクトが、ついに世に出る。
-              </div>
-              <span class="timeline-entry__tag timeline-entry__tag--product">プロダクト</span>
-            </div>
-            <div class="timeline-entry__image" style="background-image: url('img/history/gwes-dashboard-detail.jpg');"></div>
-          </div>
-        </div>
-
-        <!-- Entry: 2021 Tosoku Partnership -->
-        <div class="timeline-entry">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
-          <div class="timeline-entry__content">
-            <div class="timeline-entry__date">2021</div>
-            <div class="timeline-entry__title">トラスコ中山と資本業務提携</div>
-            <div class="timeline-entry__description">
-              プロツールの流通を支えるトラスコ中山から5億円の出資。
-            </div>
-            <span class="timeline-entry__tag timeline-entry__tag--funding">資金調達</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CHAPTER 3 — 成長フェーズへ (2024-) -->
-  <div class="chapter-divider hs-fade">
-    <div class="chapter-divider__inner">
-      <div class="chapter-divider__line"></div>
-      <div class="chapter-divider__label">
-        <div class="chapter-divider__number">CHAPTER 3</div>
-        <div class="chapter-divider__title">成長フェーズへ</div>
-        <div class="chapter-divider__range">2024–</div>
+  <!-- SHOWCASE: GWES -->
+  <div class="showcase hs-fade" style="padding-bottom: 24px;">
+    <div class="showcase__card showcase__card--reverse">
+      <div class="showcase__image" style="background-image: url('img/history/gwes-dashboard-detail.jpg');"></div>
+      <div class="showcase__text">
+        <div class="showcase__date">2021.06</div>
+        <div class="showcase__title">GWES正式リリース — 物流OSの誕生</div>
+        <div class="showcase__desc">DyASの知見を進化させ、物流施設統合管理・最適化システム「GWES」を正式リリース。13のモジュールで構成される「物流OS」。GROUNDの核となるプロダクトが、ついに世に出る。</div>
+        <div class="showcase__tag timeline-entry__tag--product">プロダクト</div>
       </div>
-      <div class="chapter-divider__line"></div>
     </div>
   </div>
 
@@ -1306,85 +1247,111 @@
       <div class="timeline">
         <div class="timeline__line"></div>
 
-        <!-- Entry: 2024.03 Okamura Integration -->
-        <div class="timeline-entry">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
+        <div class="timeline-entry hs-fade">
+          <div class="timeline-entry__marker"><div class="timeline-entry__dot"></div></div>
+          <div class="timeline-entry__content">
+            <div class="timeline-entry__date">2021</div>
+            <div class="timeline-entry__title">トラスコ中山と資本業務提携</div>
+            <div class="timeline-entry__description">プロツールの流通を支えるトラスコ中山から5億円の出資。</div>
+            <span class="timeline-entry__tag timeline-entry__tag--funding">資金調達</span>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pull Quote -->
+  <div class="pull-quote hs-fade">
+    <div class="pull-quote__inner">
+      <p class="pull-quote__text">
+        GWESは単なるソフトウェアではない。<em>物流施設のOS</em>として、人とロボットの協働を最適化するプラットフォームだ。
+      </p>
+    </div>
+  </div>
+
+  <!-- ====================================================
+       CHAPTER 3 — 成長フェーズへ
+       ==================================================== -->
+  <div class="chapter-breaker chapter-breaker--dark hs-fade">
+    <div class="chapter-breaker__inner">
+      <div class="chapter-breaker__number-block">
+        <div class="chapter-breaker__chapter-num">Chapter 3</div>
+        <div class="chapter-breaker__year-range">2024–</div>
+      </div>
+      <div class="chapter-breaker__text-block">
+        <div class="chapter-breaker__title">成長フェーズへ</div>
+        <div class="chapter-breaker__desc">オカムラとの関係を深化させ新経営体制を構築。日本通運、花王など大手企業への導入が加速。1,000拠点への挑戦が始まる。</div>
+      </div>
+    </div>
+  </div>
+
+  <section class="timeline-section timeline-section--alt hs-fade">
+    <div class="timeline-section__inner">
+      <div class="timeline">
+        <div class="timeline__line"></div>
+
+        <div class="timeline-entry hs-fade">
+          <div class="timeline-entry__marker"><div class="timeline-entry__dot"></div></div>
           <div class="timeline-entry__content">
             <div class="timeline-entry__date">2024.03</div>
             <div class="timeline-entry__title">オカムラとの提携強化・新経営体制へ</div>
-            <div class="timeline-entry__description">
-              INCJが保有株式全量をオカムラに譲渡。8年前に始まった関係が、さらに深い絆に。新経営体制を構築し、次の10年への基盤を固める。
-            </div>
+            <div class="timeline-entry__description">INCJが保有株式全量をオカムラに譲渡。8年前に始まった関係が、さらに深い絆に。新経営体制を構築し、次の10年への基盤を固める。</div>
             <span class="timeline-entry__tag timeline-entry__tag--organization">組織</span>
           </div>
         </div>
 
-        <!-- Entry: 2024.04 NX-GLOW Adoption -->
-        <div class="timeline-entry">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
+        <div class="timeline-entry hs-fade">
+          <div class="timeline-entry__marker"><div class="timeline-entry__dot"></div></div>
           <div class="timeline-entry__content">
             <div class="timeline-entry__date">2024.04</div>
             <div class="timeline-entry__title">日本通運「NX-GLOW」にGWES採用</div>
-            <div class="timeline-entry__description">
-              日本最大級の物流企業・日本通運のグローバル標準倉庫管理システム「NX-GLOW」にGWESが採用される。グローバルスケールでのGWES展開が始まる。
-            </div>
+            <div class="timeline-entry__description">日本最大級の物流企業・日本通運のグローバル標準倉庫管理システム「NX-GLOW」にGWESが採用される。グローバルスケールでのGWES展開が始まる。</div>
             <span class="timeline-entry__tag timeline-entry__tag--deployment">導入</span>
-          </div>
-        </div>
-
-        <!-- Entry: 2024.06 Kao Deployment (FEATURED with image left) -->
-        <div class="timeline-entry timeline-entry--featured timeline-entry--img-left">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
-          <div class="timeline-entry__content">
-            <div class="timeline-entry__image" style="background-image: url('img/gwes-dashboard.png');"></div>
-            <div class="timeline-entry__text-wrap">
-              <div class="timeline-entry__date">2024.06</div>
-              <div class="timeline-entry__title">花王全国44拠点にGWES導入開始</div>
-              <div class="timeline-entry__description">
-                日用品トップメーカー・花王のロジスティクスセンターにGWES導入開始。八王子LCを皮切りに、2025年末までに全国44拠点への展開を計画。
-              </div>
-              <span class="timeline-entry__tag timeline-entry__tag--deployment">導入</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Entry: 2025 10th Anniversary -->
-        <div class="timeline-entry timeline-entry--featured timeline-entry--img-right">
-          <div class="timeline-entry__marker">
-            <div class="timeline-entry__dot"></div>
-          </div>
-          <div class="timeline-entry__content">
-            <div class="timeline-entry__text-wrap">
-              <div class="timeline-entry__date">2025</div>
-              <div class="timeline-entry__title">創業10周年 — 1,000拠点への挑戦</div>
-              <div class="timeline-entry__description">
-                創業から10年。GWESの累計導入は加速し、2027年までに1,000拠点への導入を目指す。シーエックスカーゴ全13拠点、そして海外展開へ。
-              </div>
-              <span class="timeline-entry__tag timeline-entry__tag--milestone">マイルストーン</span>
-            </div>
-            <div class="timeline-entry__image" style="background-image: url('img/history/team-remote.jpg');"></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Closing Section -->
+  <!-- SHOWCASE: Kao -->
+  <div class="showcase hs-fade" style="padding-top: 0; padding-bottom: 24px; background: var(--color-light);">
+    <div class="showcase__card">
+      <div class="showcase__image" style="background-image: url('img/gwes-dashboard.png');"></div>
+      <div class="showcase__text">
+        <div class="showcase__date">2024.06</div>
+        <div class="showcase__title">花王全国44拠点にGWES導入開始</div>
+        <div class="showcase__desc">日用品トップメーカー・花王のロジスティクスセンターにGWES導入開始。八王子LCを皮切りに、2025年末までに全国44拠点への展開を計画。</div>
+        <div class="showcase__tag timeline-entry__tag--deployment">導入</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOWCASE: 10th Anniversary -->
+  <div class="showcase hs-fade" style="padding-bottom: 80px; background: var(--color-light);">
+    <div class="showcase__card showcase__card--reverse">
+      <div class="showcase__image" style="background-image: url('img/history/team-remote.jpg');"></div>
+      <div class="showcase__text">
+        <div class="showcase__date">2025</div>
+        <div class="showcase__title">創業10周年 — 1,000拠点への挑戦</div>
+        <div class="showcase__desc">創業から10年。GWESの累計導入は加速し、2027年までに1,000拠点への導入を目指す。シーエックスカーゴ全13拠点、そして海外展開へ。</div>
+        <div class="showcase__tag timeline-entry__tag--milestone">マイルストーン</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================
+       CLOSING — Cinematic ending
+       ==================================================== -->
   <section class="history-closing hs-fade">
     <div class="history-closing__content">
-      <h2 class="history-closing__tagline">THE FUTURE STARTS NOW</h2>
+      <div class="history-closing__number">∞</div>
+      <h2 class="history-closing__tagline">次の10年を、<br>一緒に書きませんか。</h2>
       <p class="history-closing__subtitle">
-        この10年の歩みは、物流産業に根ざした一つの大きな挑戦の序章に過ぎません。GWESの導入拠点は1,000へ、そしてグローバルへ。私たちは、テクノロジーと人の力を合わせて、物流の未来を変え続けます。次の章を、一緒に書きませんか。
+        この10年の歩みは、一つの大きな挑戦の序章に過ぎません。<br>GWESの導入拠点は1,000へ、そしてグローバルへ。<br>テクノロジーと人の力を合わせて、物流の未来を変え続けます。
       </p>
       <div class="history-closing__cta">
-        <a href="about.html" class="history-closing__cta-link">企業情報に戻る</a>
-        <a href="contact.html" class="history-closing__cta-link">お問い合わせ</a>
+        <a href="about.html" class="history-closing__cta-link history-closing__cta-link--primary">企業情報を見る</a>
+        <a href="contact.html" class="history-closing__cta-link history-closing__cta-link--secondary">お問い合わせ</a>
       </div>
     </div>
   </section>
@@ -1402,9 +1369,7 @@
 
   <!-- Cookie Consent Banner -->
   <div class="cookie-banner" id="cookieBanner">
-    <div class="cookie-banner__text">
-      このサイトはより良いユーザー体験を提供するためにクッキーを使用しています。
-    </div>
+    <div class="cookie-banner__text">このサイトはより良いユーザー体験を提供するためにクッキーを使用しています。</div>
     <button class="cookie-banner__accept" id="cookieAccept">Accept</button>
   </div>
 
@@ -1416,39 +1381,16 @@
     // Hamburger menu toggle
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const overlayMenu = document.getElementById('overlayMenu');
-
-    hamburgerBtn?.addEventListener('click', () => {
-      hamburgerBtn.classList.toggle('active');
-      overlayMenu.classList.toggle('active');
-    });
-
-    // Close menu when clicking a link
-    document.querySelectorAll('.overlay-menu__nav-item, .overlay-menu__cta-btn').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburgerBtn.classList.remove('active');
-        overlayMenu.classList.remove('active');
-      });
-    });
+    hamburgerBtn?.addEventListener('click', () => { hamburgerBtn.classList.toggle('active'); overlayMenu.classList.toggle('active'); });
+    document.querySelectorAll('.overlay-menu__nav-item, .overlay-menu__cta-btn').forEach(link => { link.addEventListener('click', () => { hamburgerBtn.classList.remove('active'); overlayMenu.classList.remove('active'); }); });
 
     // Cookie banner
     const cookieBanner = document.getElementById('cookieBanner');
     const cookieAccept = document.getElementById('cookieAccept');
+    if (!localStorage.getItem('cookieConsent')) { cookieBanner.classList.add('show'); }
+    cookieAccept?.addEventListener('click', () => { localStorage.setItem('cookieConsent', 'true'); cookieBanner.classList.remove('show'); });
 
-    if (!localStorage.getItem('cookieConsent')) {
-      cookieBanner.classList.add('show');
-    }
-
-    cookieAccept?.addEventListener('click', () => {
-      localStorage.setItem('cookieConsent', 'true');
-      cookieBanner.classList.remove('show');
-    });
-
-    // Scroll animations with IntersectionObserver
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
-    };
-
+    // Scroll animations with IntersectionObserver — staggered
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1456,12 +1398,9 @@
           observer.unobserve(entry.target);
         }
       });
-    }, observerOptions);
+    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
 
-    document.querySelectorAll('.hs-fade').forEach(el => {
-      observer.observe(el);
-    });
+    document.querySelectorAll('.hs-fade').forEach(el => observer.observe(el));
   </script>
 </body>
-
 </html>
