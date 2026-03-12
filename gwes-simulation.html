@@ -416,6 +416,16 @@
       font-size: 0.8rem;
       margin-right: 8px;
     }
+    .sim-question__hint {
+      color: var(--gw-text-3);
+      font-size: 0.78rem;
+      line-height: 1.5;
+      margin: 4px 0 8px 0;
+      padding-left: 2px;
+      border-left: 2px solid var(--gw-accent);
+      padding-left: 10px;
+      opacity: 0.8;
+    }
     .sim-options {
       display: flex;
       flex-direction: column;
@@ -728,89 +738,89 @@
   <section class="sim-section sim-section--alt">
     <div class="container">
       <div class="sim-challenges">
-        <!-- Infrastructure Layer -->
+        <!-- Infrastructure Layer: DC / ME -->
         <div class="sim-challenge sim-challenge--infra sim-fade">
           <div class="sim-challenge__icon">🔌</div>
           <div class="sim-challenge__title">システム間のデータ分断</div>
-          <div class="sim-challenge__desc">WMS、ERP、設備制御など複数システムのデータがばらばらで、統合的な意思決定ができない</div>
-          <div class="sim-challenge__layer">Infrastructure</div>
+          <div class="sim-challenge__desc">WMS・TMS・ERPなど複数システムのデータがばらばらで、統合的な意思決定ができない</div>
+          <div class="sim-challenge__layer">DC — Data Connector</div>
         </div>
         <div class="sim-challenge sim-challenge--infra sim-fade">
           <div class="sim-challenge__icon">🏢</div>
-          <div class="sim-challenge__title">拠点間データの比較不能</div>
-          <div class="sim-challenge__desc">複数施設のデータを横並びで比較できず、全社的な改善ポイントが見えない</div>
-          <div class="sim-challenge__layer">Infrastructure</div>
-        </div>
-        <div class="sim-challenge sim-challenge--infra sim-fade">
-          <div class="sim-challenge__icon">⚡</div>
-          <div class="sim-challenge__title">処理遅延とリアルタイム性</div>
-          <div class="sim-challenge__desc">バッチ処理に依存し、リアルタイムでの状況判断・対応ができていない</div>
-          <div class="sim-challenge__layer">Infrastructure</div>
+          <div class="sim-challenge__title">拠点間の統一管理が困難</div>
+          <div class="sim-challenge__desc">複数拠点のKPIを横並びで比較できず、全社的な改善ポイントが見えない</div>
+          <div class="sim-challenge__layer">ME — Map Editor</div>
         </div>
 
-        <!-- L2 Visualization Layer -->
+        <!-- L2 Visualization Layer: WF / PA / WA / 標準化 / IA -->
         <div class="sim-challenge sim-challenge--l2 sim-fade">
           <div class="sim-challenge__icon">📊</div>
-          <div class="sim-challenge__title">仕事量予測の精度不足</div>
-          <div class="sim-challenge__desc">翌日の作業量が予測できず、人員配置が後付けの対応になっている</div>
-          <div class="sim-challenge__layer">Visualization</div>
+          <div class="sim-challenge__title">作業量予測の精度不足</div>
+          <div class="sim-challenge__desc">翌日・翌週の工程別作業量が予測できず、人員配置が後手に回っている</div>
+          <div class="sim-challenge__layer">WF — Workload Forecasting</div>
         </div>
         <div class="sim-challenge sim-challenge--l2 sim-fade">
           <div class="sim-challenge__icon">📈</div>
-          <div class="sim-challenge__title">計画と実績のギャップ</div>
-          <div class="sim-challenge__desc">作業計画に対する実際の進捗がリアルタイムで見えず、遅延対応が遅れる</div>
-          <div class="sim-challenge__layer">Visualization</div>
+          <div class="sim-challenge__title">進捗・遅延の把握が遅い</div>
+          <div class="sim-challenge__desc">作業計画に対する実績がリアルタイムで可視化されず、遅延・滞留に気づくのが遅れる</div>
+          <div class="sim-challenge__layer">PA — Progress Analyzer</div>
         </div>
         <div class="sim-challenge sim-challenge--l2 sim-fade">
           <div class="sim-challenge__icon">🔍</div>
-          <div class="sim-challenge__title">ボトルネックの不可視</div>
-          <div class="sim-challenge__desc">タスク配分が経験と勘に依存し、本当のボトルネックが特定できない</div>
-          <div class="sim-challenge__layer">Visualization</div>
+          <div class="sim-challenge__title">作業者別の生産性が不透明</div>
+          <div class="sim-challenge__desc">誰がどの工程でどの程度の生産性か定量的に把握できず、改善活動に活かせない</div>
+          <div class="sim-challenge__layer">WA — Workload Analyzer</div>
+        </div>
+        <div class="sim-challenge sim-challenge--l2 sim-fade">
+          <div class="sim-challenge__icon">👤</div>
+          <div class="sim-challenge__title">管理業務の属人化</div>
+          <div class="sim-challenge__desc">特定リーダーに業務知識が集中し、異動・退職時にオペレーション品質が大きく低下する</div>
+          <div class="sim-challenge__layer">標準化 — Standardization</div>
         </div>
         <div class="sim-challenge sim-challenge--l2 sim-fade">
           <div class="sim-challenge__icon">📦</div>
-          <div class="sim-challenge__title">在庫の鮮度・配置が不明</div>
-          <div class="sim-challenge__desc">在庫の回転率や長期滞留品が把握できず、保管スペースが非効率に使われている</div>
-          <div class="sim-challenge__layer">Visualization</div>
+          <div class="sim-challenge__title">在庫構造の可視化不足</div>
+          <div class="sim-challenge__desc">出荷頻度・滞留日数・ロケーション別の在庫状況が見えず、保管効率が低い</div>
+          <div class="sim-challenge__layer">IA — Inventory Analyzer</div>
         </div>
-        <div class="sim-challenge sim-challenge--l2 sim-fade">
+
+        <!-- L4 Optimization Layer: RA / SO / RO / LO / DO -->
+        <div class="sim-challenge sim-challenge--l4 sim-fade">
+          <div class="sim-challenge__icon">👥</div>
+          <div class="sim-challenge__title">要員配置の最適化が困難</div>
+          <div class="sim-challenge__desc">繁閑差に応じた要員計画やスキルを考慮した配置ができず、人件費が高止まりしている</div>
+          <div class="sim-challenge__layer">RA — Resource Allocator</div>
+        </div>
+        <div class="sim-challenge sim-challenge--l4 sim-fade">
           <div class="sim-challenge__icon">🗄️</div>
           <div class="sim-challenge__title">保管配置の非効率</div>
           <div class="sim-challenge__desc">出荷頻度を考慮した棚割が行われておらず、ピッキング動線が無駄に長い</div>
-          <div class="sim-challenge__layer">Visualization</div>
+          <div class="sim-challenge__layer">SO — Slotting Optimizer</div>
         </div>
-
-        <!-- L4 Optimization Layer -->
         <div class="sim-challenge sim-challenge--l4 sim-fade">
           <div class="sim-challenge__icon">🚶</div>
           <div class="sim-challenge__title">ピッキング経路の非最適</div>
           <div class="sim-challenge__desc">手作業で経路を決定しており、歩行距離が長く生産性が低い</div>
-          <div class="sim-challenge__layer">Optimization</div>
+          <div class="sim-challenge__layer">RO — Routing Optimizer</div>
+        </div>
+        <div class="sim-challenge sim-challenge--l4 sim-fade">
+          <div class="sim-challenge__icon">📐</div>
+          <div class="sim-challenge__title">梱包・積付の非効率</div>
+          <div class="sim-challenge__desc">梱包サイズや積付の最適化がなく、資材コスト・配送コストが高止まりしている</div>
+          <div class="sim-challenge__layer">LO — Loading Optimizer</div>
         </div>
         <div class="sim-challenge sim-challenge--l4 sim-fade">
           <div class="sim-challenge__icon">🚛</div>
-          <div class="sim-challenge__title">積載・混載の非効率</div>
-          <div class="sim-challenge__desc">積載率の最適化や混載判断がなく、配送コストが高止まりしている</div>
-          <div class="sim-challenge__layer">Optimization</div>
-        </div>
-        <div class="sim-challenge sim-challenge--l4 sim-fade">
-          <div class="sim-challenge__icon">🕐</div>
-          <div class="sim-challenge__title">出荷タイミングの硬直化</div>
-          <div class="sim-challenge__desc">配送手段や出荷タイミングが固定的で、需要変動への柔軟な対応ができない</div>
-          <div class="sim-challenge__layer">Optimization</div>
-        </div>
-        <div class="sim-challenge sim-challenge--l4 sim-fade">
-          <div class="sim-challenge__icon">👥</div>
-          <div class="sim-challenge__title">リソース配置の固定化</div>
-          <div class="sim-challenge__desc">人員・機械・スペースの配分が固定的で、需要変動に応じた動的な最適化ができていない</div>
-          <div class="sim-challenge__layer">Optimization</div>
+          <div class="sim-challenge__title">配送計画の硬直化</div>
+          <div class="sim-challenge__desc">配送手段・ルート・タイミングが固定的で、需要変動やコスト変動への柔軟な対応ができない</div>
+          <div class="sim-challenge__layer">DO — Delivery Optimizer</div>
         </div>
       </div>
 
       <div class="sim-narrative sim-fade" style="padding-top: 64px;">
         <p class="sim-narrative__text">
           これら12の課題は、それぞれが独立しているようで、実は深く関連し合っています。<br>
-          GWESの12のモジュールは、まさにこの12の課題に対応するように設計されています。
+          GWESの各モジュールは、まさにこれらの課題に1対1で対応するように設計されています。
         </p>
       </div>
     </div>
@@ -917,20 +927,48 @@
               <input type="text" name="contact_name" class="sim-input" placeholder="例: 山田 太郎" required>
             </div>
             <div class="sim-input-group">
+              <label>部署・役職</label>
+              <input type="text" name="department" class="sim-input" placeholder="例: 物流部 部長">
+            </div>
+            <div class="sim-input-group">
               <label>メールアドレス<span class="req">*</span></label>
               <input type="email" name="email" class="sim-input" placeholder="例: taro@example.co.jp" required>
             </div>
             <div class="sim-input-group">
-              <label>施設の種類</label>
-              <select name="facility_type" class="sim-input">
+              <label>業態</label>
+              <select name="business_type" class="sim-input">
                 <option value="">選択してください</option>
-                <option value="dc">配送センター（DC）</option>
-                <option value="fc">フルフィルメントセンター（FC）</option>
-                <option value="tc">通過型センター（TC）</option>
-                <option value="cold">冷蔵・冷凍倉庫</option>
-                <option value="general">一般倉庫</option>
+                <option value="3pl">3PL（物流受託）</option>
+                <option value="own">自社倉庫</option>
+                <option value="manufacturing">製造業</option>
+                <option value="wholesale">卸売業</option>
+                <option value="retail">小売業・EC</option>
                 <option value="other">その他</option>
               </select>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div class="sim-input-group">
+                <label>物流拠点数</label>
+                <select name="site_count" class="sim-input">
+                  <option value="">選択してください</option>
+                  <option value="1">1拠点</option>
+                  <option value="2-4">2〜4拠点</option>
+                  <option value="5-10">5〜10拠点</option>
+                  <option value="11-30">11〜30拠点</option>
+                  <option value="31+">31拠点以上</option>
+                </select>
+              </div>
+              <div class="sim-input-group">
+                <label>1拠点あたりの作業者数</label>
+                <select name="worker_count" class="sim-input">
+                  <option value="">選択してください</option>
+                  <option value="under20">20名未満</option>
+                  <option value="20-49">20〜49名</option>
+                  <option value="50-100">50〜100名</option>
+                  <option value="101-300">101〜300名</option>
+                  <option value="301+">301名以上</option>
+                </select>
+              </div>
             </div>
 
             <div class="sim-form__nav">
@@ -939,35 +977,28 @@
             </div>
           </div>
 
-          <!-- Step 1: Infrastructure (Q1-Q3) -->
+          <!-- Step 1: データ基盤・可視化 (Q1-Q2) → DC, ME対応 -->
           <div class="sim-form__step" data-step="1">
-            <span class="sim-form__step-label">Step 2 of 7 — Infrastructure</span>
-            <div class="sim-form__step-title">データ基盤・システム統合</div>
+            <span class="sim-form__step-label">Step 2 of 7 — データ基盤</span>
+            <div class="sim-form__step-title">データ連携・可視化基盤</div>
 
             <div class="sim-question">
-              <div class="sim-question__text"><span class="sim-question__num">Q1.</span>施設内の各システム（WMS、ERP、設備制御等）のデータ統合状況は？</div>
+              <div class="sim-question__text"><span class="sim-question__num">Q1.</span>WMSや設備制御システムからのデータ連携状況は？</div>
+              <p class="sim-question__hint">GWESはWMSと連携し、作業実績やマスタデータを統合管理します（Data Connector）</p>
               <div class="sim-options">
-                <label class="sim-option"><input type="radio" name="q1" value="1" required><span>複数システムがばらばらに存在している</span></label>
-                <label class="sim-option"><input type="radio" name="q1" value="2"><span>一部のシステム間でデータが連携されている</span></label>
-                <label class="sim-option"><input type="radio" name="q1" value="3"><span>ほぼすべてのシステムが統合的に連携している</span></label>
+                <label class="sim-option"><input type="radio" name="q1" value="1" required><span>WMSの実績データ出力が施設ごとにカスタマイズされ、統合できていない</span></label>
+                <label class="sim-option"><input type="radio" name="q1" value="2"><span>WMSからデータ出力は可能だが、集計・加工は手作業やExcelで行っている</span></label>
+                <label class="sim-option"><input type="radio" name="q1" value="3"><span>WMSや各システムのデータが統合的に連携され、共通基盤で分析可能</span></label>
               </div>
             </div>
 
             <div class="sim-question">
-              <div class="sim-question__text"><span class="sim-question__num">Q2.</span>複数拠点がある場合、施設間のデータ比較はできていますか？</div>
+              <div class="sim-question__text"><span class="sim-question__num">Q2.</span>複数拠点を統一指標で評価できていますか？</div>
+              <p class="sim-question__hint">GWESは共通ダッシュボードで複数センターのKPIを比較管理できます</p>
               <div class="sim-options">
-                <label class="sim-option"><input type="radio" name="q2" value="1" required><span>各施設が独立しており、比較する手段がない</span></label>
-                <label class="sim-option"><input type="radio" name="q2" value="2"><span>定期的に手作業で比較レポートを作成している</span></label>
-                <label class="sim-option"><input type="radio" name="q2" value="3"><span>共通基盤でリアルタイムに比較・分析できている</span></label>
-              </div>
-            </div>
-
-            <div class="sim-question">
-              <div class="sim-question__text"><span class="sim-question__num">Q3.</span>データ処理のリアルタイム性はどの程度ですか？</div>
-              <div class="sim-options">
-                <label class="sim-option"><input type="radio" name="q3" value="1" required><span>日次バッチ処理が中心で、リアルタイム性がない</span></label>
-                <label class="sim-option"><input type="radio" name="q3" value="2"><span>一部リアルタイムだが、多くはバッチ処理</span></label>
-                <label class="sim-option"><input type="radio" name="q3" value="3"><span>ほぼリアルタイムでデータが処理・反映されている</span></label>
+                <label class="sim-option"><input type="radio" name="q2" value="1" required><span>拠点ごとに管理方法が異なり、統一的な評価ができていない</span></label>
+                <label class="sim-option"><input type="radio" name="q2" value="2"><span>定期的にレポートを集約しているが、指標やフォーマットが統一されていない</span></label>
+                <label class="sim-option"><input type="radio" name="q2" value="3"><span>共通指標で全拠点をリアルタイムに比較・分析できている</span></label>
               </div>
             </div>
 
@@ -977,35 +1008,38 @@
             </div>
           </div>
 
-          <!-- Step 2: Forecasting & Planning (Q4-Q6) -->
+          <!-- Step 2: 作業量予測・進捗管理 (Q3-Q5) → WF, PA, WA対応 -->
           <div class="sim-form__step" data-step="2">
-            <span class="sim-form__step-label">Step 3 of 7 — Forecasting</span>
-            <div class="sim-form__step-title">需要予測・進捗管理</div>
+            <span class="sim-form__step-label">Step 3 of 7 — 予測・進捗</span>
+            <div class="sim-form__step-title">作業量予測・進捗管理・生産性分析</div>
 
             <div class="sim-question">
-              <div class="sim-question__text"><span class="sim-question__num">Q4.</span>翌日以降の作業量の予測精度はどの程度ですか？</div>
+              <div class="sim-question__text"><span class="sim-question__num">Q3.</span>工程別・時間帯別の作業量予測はどのように行っていますか？</div>
+              <p class="sim-question__hint">GWESは入出荷計画・実績・波動要因から作業量を自動予測します（Workload Forecasting）</p>
               <div class="sim-options">
-                <label class="sim-option"><input type="radio" name="q4" value="1" required><span>予測できておらず、日々の状況に対応している</span></label>
-                <label class="sim-option"><input type="radio" name="q4" value="2"><span>経験則やExcelベースでおおよその予測をしている</span></label>
-                <label class="sim-option"><input type="radio" name="q4" value="3"><span>統計・AI手法で高精度な予測が可能</span></label>
+                <label class="sim-option"><input type="radio" name="q3" value="1" required><span>予測しておらず、当日の状況に合わせて対応している</span></label>
+                <label class="sim-option"><input type="radio" name="q3" value="2"><span>管理者が過去実績をもとにExcel等で見積もっているが属人的</span></label>
+                <label class="sim-option"><input type="radio" name="q3" value="3"><span>繁閑要因を考慮した統計・AI手法で工程別に高精度な予測が可能</span></label>
               </div>
             </div>
 
             <div class="sim-question">
-              <div class="sim-question__text"><span class="sim-question__num">Q5.</span>作業計画に対する実績の進捗をどう把握していますか？</div>
+              <div class="sim-question__text"><span class="sim-question__num">Q4.</span>各工程の作業進捗をどのように把握していますか？</div>
+              <p class="sim-question__hint">GWESは作業状況・遅延・滞留を共通指標でリアルタイム可視化します（Progress Analyzer）</p>
               <div class="sim-options">
-                <label class="sim-option"><input type="radio" name="q5" value="1" required><span>作業終了後に実績を集計している</span></label>
-                <label class="sim-option"><input type="radio" name="q5" value="2"><span>数時間ごとに進捗を確認している</span></label>
-                <label class="sim-option"><input type="radio" name="q5" value="3"><span>リアルタイムダッシュボードで常に把握している</span></label>
+                <label class="sim-option"><input type="radio" name="q4" value="1" required><span>巡回や聞き取りで状況を把握しており、判断に時間がかかっている</span></label>
+                <label class="sim-option"><input type="radio" name="q4" value="2"><span>ホワイトボードやExcelで数時間ごとに進捗を確認している</span></label>
+                <label class="sim-option"><input type="radio" name="q4" value="3"><span>ダッシュボードでリアルタイムに進捗・遅延を把握し、即座に対策判断できる</span></label>
               </div>
             </div>
 
             <div class="sim-question">
-              <div class="sim-question__text"><span class="sim-question__num">Q6.</span>作業のボトルネック特定と改善はどう行っていますか？</div>
+              <div class="sim-question__text"><span class="sim-question__num">Q5.</span>作業者別の生産性やスキルを定量的に管理できていますか？</div>
+              <p class="sim-question__hint">GWESはスタッフ生産性を共通指標で整理し、改善議論を効率化します（Workload Analyzer）</p>
               <div class="sim-options">
-                <label class="sim-option"><input type="radio" name="q6" value="1" required><span>経験と勘に頼っており、体系的な分析がない</span></label>
-                <label class="sim-option"><input type="radio" name="q6" value="2"><span>データを元に定期的に分析・改善を行っている</span></label>
-                <label class="sim-option"><input type="radio" name="q6" value="3"><span>自動的にボトルネックを検知し、対策を提案できる</span></label>
+                <label class="sim-option"><input type="radio" name="q5" value="1" required><span>生産性の把握が感覚的で、スタッフとの改善議論が進みにくい</span></label>
+                <label class="sim-option"><input type="radio" name="q5" value="2"><span>実績データを手動で集計し、定期的に生産性を確認している</span></label>
+                <label class="sim-option"><input type="radio" name="q5" value="3"><span>作業者別の生産性・スキルが数値化され、データに基づく改善ができている</span></label>
               </div>
             </div>
 
@@ -1015,26 +1049,28 @@
             </div>
           </div>
 
-          <!-- Step 3: Inventory & Storage (Q7-Q8) -->
+          <!-- Step 3: 要員計画・配置 (Q6-Q7) → RA対応 -->
           <div class="sim-form__step" data-step="3">
-            <span class="sim-form__step-label">Step 4 of 7 — Inventory</span>
-            <div class="sim-form__step-title">在庫管理・保管最適化</div>
+            <span class="sim-form__step-label">Step 4 of 7 — 要員計画</span>
+            <div class="sim-form__step-title">要員計画・人員配置</div>
 
             <div class="sim-question">
-              <div class="sim-question__text"><span class="sim-question__num">Q7.</span>在庫の回転率・滞留状況を把握できていますか？</div>
+              <div class="sim-question__text"><span class="sim-question__num">Q6.</span>作業量の変動（繁閑差）に応じた要員計画はできていますか？</div>
+              <p class="sim-question__hint">GWESは作業量予測に基づき、スキルを考慮した最適シフト計画を自動出力します（Resource Allocator）</p>
               <div class="sim-options">
-                <label class="sim-option"><input type="radio" name="q7" value="1" required><span>在庫データの分析がほぼできていない</span></label>
-                <label class="sim-option"><input type="radio" name="q7" value="2"><span>月次で在庫分析レポートを作成している</span></label>
-                <label class="sim-option"><input type="radio" name="q7" value="3"><span>リアルタイムで在庫の状態を多角的に分析可能</span></label>
+                <label class="sim-option"><input type="radio" name="q6" value="1" required><span>固定シフトで運営し、繁閑差への対応は当日判断に頼っている</span></label>
+                <label class="sim-option"><input type="radio" name="q6" value="2"><span>経験値で要員計画を作成しているが、過不足が発生しがち</span></label>
+                <label class="sim-option"><input type="radio" name="q6" value="3"><span>作業量予測に基づく要員計画で、工程間の流動配置も含め最適化している</span></label>
               </div>
             </div>
 
             <div class="sim-question">
-              <div class="sim-question__text"><span class="sim-question__num">Q8.</span>保管配置（棚割・ロケーション）の最適化は行っていますか？</div>
+              <div class="sim-question__text"><span class="sim-question__num">Q7.</span>現場の属人化はどの程度解消されていますか？</div>
+              <p class="sim-question__hint">GWESは管理業務を仕組み化し、判断の標準化・リーダー育成を支援します</p>
               <div class="sim-options">
-                <label class="sim-option"><input type="radio" name="q8" value="1" required><span>入庫順に空きスペースへ配置している</span></label>
-                <label class="sim-option"><input type="radio" name="q8" value="2"><span>出荷頻度等を考慮したルールベースの棚割がある</span></label>
-                <label class="sim-option"><input type="radio" name="q8" value="3"><span>データ駆動で動的に保管配置を最適化している</span></label>
+                <label class="sim-option"><input type="radio" name="q7" value="1" required><span>特定のベテランに依存しており、その人がいないと業務が回らない</span></label>
+                <label class="sim-option"><input type="radio" name="q7" value="2"><span>マニュアルやルールはあるが、実際の判断は個人の経験に頼る部分が多い</span></label>
+                <label class="sim-option"><input type="radio" name="q7" value="3"><span>業務がシステム化・標準化され、誰でも一定品質の運営ができる</span></label>
               </div>
             </div>
 
@@ -1044,35 +1080,28 @@
             </div>
           </div>
 
-          <!-- Step 4: Operations Optimization (Q9-Q11) -->
+          <!-- Step 4: 在庫管理・配置最適化 (Q8-Q9) → IA, SO対応 -->
           <div class="sim-form__step" data-step="4">
-            <span class="sim-form__step-label">Step 5 of 7 — Optimization</span>
-            <div class="sim-form__step-title">オペレーション最適化</div>
+            <span class="sim-form__step-label">Step 5 of 7 — 在庫</span>
+            <div class="sim-form__step-title">在庫可視化・配置最適化</div>
 
             <div class="sim-question">
-              <div class="sim-question__text"><span class="sim-question__num">Q9.</span>ピッキング経路の最適化はどの程度行われていますか？</div>
+              <div class="sim-question__text"><span class="sim-question__num">Q8.</span>在庫のロケーション・滞留状況を構造的に把握できていますか？</div>
+              <p class="sim-question__hint">GWESは在庫構造をヒートマップで可視化し、配置見直しの判断を支援します（Inventory Analyzer）</p>
               <div class="sim-options">
-                <label class="sim-option"><input type="radio" name="q9" value="1" required><span>作業者の判断で経路を決めている</span></label>
-                <label class="sim-option"><input type="radio" name="q9" value="2"><span>ゾーン分けやリスト順序で一定の効率化を実施</span></label>
-                <label class="sim-option"><input type="radio" name="q9" value="3"><span>アルゴリズムによる最適経路の自動生成が可能</span></label>
+                <label class="sim-option"><input type="radio" name="q8" value="1" required><span>在庫は数量単位の管理が中心で、滞留や偏在の把握が不十分</span></label>
+                <label class="sim-option"><input type="radio" name="q8" value="2"><span>定期的にABC分析や棚卸で状況確認しているが、リアルタイム性が低い</span></label>
+                <label class="sim-option"><input type="radio" name="q8" value="3"><span>ロケーション・滞留日数・出荷頻度をリアルタイムで多角的に分析可能</span></label>
               </div>
             </div>
 
             <div class="sim-question">
-              <div class="sim-question__text"><span class="sim-question__num">Q10.</span>積載・混載の最適化はどうしていますか？</div>
+              <div class="sim-question__text"><span class="sim-question__num">Q9.</span>出荷頻度に基づくロケーション配置の最適化はできていますか？</div>
+              <p class="sim-question__hint">GWESは出荷頻度・滞留日数を考慮し、効果の高い配置見直しを提案します（Slotting Optimizer）</p>
               <div class="sim-options">
-                <label class="sim-option"><input type="radio" name="q10" value="1" required><span>固定的な積載パターンで出荷している</span></label>
-                <label class="sim-option"><input type="radio" name="q10" value="2"><span>経験者が手動で混載判断を行っている</span></label>
-                <label class="sim-option"><input type="radio" name="q10" value="3"><span>制約条件を考慮した自動最適化が可能</span></label>
-              </div>
-            </div>
-
-            <div class="sim-question">
-              <div class="sim-question__text"><span class="sim-question__num">Q11.</span>出荷タイミング・配送手段の選定はどう行っていますか？</div>
-              <div class="sim-options">
-                <label class="sim-option"><input type="radio" name="q11" value="1" required><span>固定スケジュールで出荷し、配送手段も固定</span></label>
-                <label class="sim-option"><input type="radio" name="q11" value="2"><span>状況に応じて手動で調整を行っている</span></label>
-                <label class="sim-option"><input type="radio" name="q11" value="3"><span>需要・コスト・納期を考慮した動的な最適化が可能</span></label>
+                <label class="sim-option"><input type="radio" name="q9" value="1" required><span>入庫順に空きスペースへ配置し、定期的な見直しルールがない</span></label>
+                <label class="sim-option"><input type="radio" name="q9" value="2"><span>出荷頻度に基づく固定ルールで棚割を決めているが、見直し頻度が低い</span></label>
+                <label class="sim-option"><input type="radio" name="q9" value="3"><span>データに基づき、優先度と効果を確認しながら動的に配置を最適化している</span></label>
               </div>
             </div>
 
@@ -1082,17 +1111,38 @@
             </div>
           </div>
 
-          <!-- Step 5: Resource Allocation (Q12) -->
+          <!-- Step 5: オペレーション最適化 (Q10-Q12) → RO, LO, DO対応 -->
           <div class="sim-form__step" data-step="5">
-            <span class="sim-form__step-label">Step 6 of 7 — Resource</span>
-            <div class="sim-form__step-title">リソース配分</div>
+            <span class="sim-form__step-label">Step 6 of 7 — 最適化</span>
+            <div class="sim-form__step-title">動線・梱包・配送の最適化</div>
 
             <div class="sim-question">
-              <div class="sim-question__text"><span class="sim-question__num">Q12.</span>人員・機械・スペースの動的配分はできていますか？</div>
+              <div class="sim-question__text"><span class="sim-question__num">Q10.</span>ピッキング動線やバッチ処理の最適化はどの程度行っていますか？</div>
+              <p class="sim-question__hint">GWESはオーダーまとめと最適ピッキングルートを自動生成します（Routing Optimizer）</p>
               <div class="sim-options">
-                <label class="sim-option"><input type="radio" name="q12" value="1" required><span>固定シフトと固定配置で運営している</span></label>
-                <label class="sim-option"><input type="radio" name="q12" value="2"><span>需要変動に応じて手動で調整を行っている</span></label>
-                <label class="sim-option"><input type="radio" name="q12" value="3"><span>予測データに基づく動的・自動的な配分が可能</span></label>
+                <label class="sim-option"><input type="radio" name="q10" value="1" required><span>作業者の判断任せで、ピッキングルートやバッチ処理は標準化されていない</span></label>
+                <label class="sim-option"><input type="radio" name="q10" value="2"><span>ゾーン分けやリスト順序で一定の効率化を実施している</span></label>
+                <label class="sim-option"><input type="radio" name="q10" value="3"><span>アルゴリズムによる最適な経路・バッチ処理が自動生成されている</span></label>
+              </div>
+            </div>
+
+            <div class="sim-question">
+              <div class="sim-question__text"><span class="sim-question__num">Q11.</span>梱包サイズの最適化や積載効率の改善に取り組んでいますか？</div>
+              <p class="sim-question__hint">GWESは梱包サイズ・積付計画を最適化し、輸配送コストを削減します（Loading Optimizer）</p>
+              <div class="sim-options">
+                <label class="sim-option"><input type="radio" name="q11" value="1" required><span>固定の梱包サイズ・積載パターンで出荷している</span></label>
+                <label class="sim-option"><input type="radio" name="q11" value="2"><span>経験者が手動で梱包サイズ判断や混載調整を行っている</span></label>
+                <label class="sim-option"><input type="radio" name="q11" value="3"><span>商品サイズ・制約条件を考慮した自動最適化が可能</span></label>
+              </div>
+            </div>
+
+            <div class="sim-question">
+              <div class="sim-question__text"><span class="sim-question__num">Q12.</span>配送計画の作成・最適化はどのように行っていますか？</div>
+              <p class="sim-question__hint">GWESは配送先・委託先・コストを考慮した配送計画を自動最適化します（Delivery Optimizer）</p>
+              <div class="sim-options">
+                <label class="sim-option"><input type="radio" name="q12" value="1" required><span>固定スケジュールで出荷し、配送手段・ルートも固定</span></label>
+                <label class="sim-option"><input type="radio" name="q12" value="2"><span>手作業やExcelで配送計画を作成し、状況に応じて手動調整</span></label>
+                <label class="sim-option"><input type="radio" name="q12" value="3"><span>コスト・納期・積載率を考慮した動的な配送計画最適化が可能</span></label>
               </div>
             </div>
 
@@ -1248,9 +1298,9 @@
       new Chart(teaserCtx, {
         type: 'radar',
         data: {
-          labels: ['DC', 'Base', 'Engine', 'WF', 'PA', 'WA', 'IA', 'SO', 'RO', 'LO', 'DO', 'RA'],
+          labels: ['DC', 'ME', 'WF', 'PA', 'WA', 'RA', '標準化', 'IA', 'SO', 'RO', 'LO', 'DO'],
           datasets: [{
-            data: [2.1, 1.8, 1.5, 2.4, 1.9, 1.6, 2.0, 1.7, 1.3, 1.5, 1.8, 2.2],
+            data: [2.1, 1.8, 2.4, 1.9, 1.6, 2.2, 1.5, 2.0, 1.7, 1.3, 1.5, 1.8],
             backgroundColor: 'rgba(59,130,246,0.15)',
             borderColor: 'rgba(59,130,246,0.4)',
             borderWidth: 2,
@@ -1277,19 +1327,20 @@
     }
 
     // ── Module metadata ──
+    // Q1-Q2: インフラ層(DC/ME), Q3-Q5: 可視化層(WF/PA/WA), Q6-Q7: RA+標準化, Q8-Q9: IA/SO, Q10-Q12: RO/LO/DO
     const MODULES = [
-      { key: 'q1', name: 'Data Connector', nameJa: 'データコネクタ', abbr: 'DC', layer: 'infra', desc: 'WMS・ERP・設備データの統合収集' },
-      { key: 'q2', name: 'Base Module', nameJa: 'ベースモジュール', abbr: 'Base', layer: 'infra', desc: '統一スキーマによる拠点横断分析' },
-      { key: 'q3', name: 'Module Engine', nameJa: 'モジュールエンジン', abbr: 'Engine', layer: 'infra', desc: 'リアルタイム処理パイプライン' },
-      { key: 'q4', name: 'Workload Forecasting', nameJa: '作業量予測', abbr: 'WF', layer: 'l2', desc: 'AI需要予測による人員計画最適化' },
-      { key: 'q5', name: 'Progress Analyzer', nameJa: '進捗分析', abbr: 'PA', layer: 'l2', desc: '計画vs実績のリアルタイム追跡' },
-      { key: 'q6', name: 'Workload Analyzer', nameJa: '作業量分析', abbr: 'WA', layer: 'l2', desc: 'ボトルネック特定と改善提案' },
-      { key: 'q7', name: 'Inventory Analyzer', nameJa: '在庫分析', abbr: 'IA', layer: 'l2', desc: '在庫回転率・滞留・配置効率の分析' },
-      { key: 'q8', name: 'Storage Optimizer', nameJa: '保管最適化', abbr: 'SO', layer: 'l2', desc: 'データ駆動型の棚割・配置最適化' },
-      { key: 'q9', name: 'Routing Optimizer', nameJa: '経路最適化', abbr: 'RO', layer: 'l4', desc: 'ピッキング動線の最短化' },
-      { key: 'q10', name: 'Loading Optimizer', nameJa: '積載最適化', abbr: 'LO', layer: 'l4', desc: '混載・積載率の最大化' },
-      { key: 'q11', name: 'Dispatch Optimizer', nameJa: '配車最適化', abbr: 'DO', layer: 'l4', desc: '出荷タイミング・配送手段の最適化' },
-      { key: 'q12', name: 'Resource Allocator', nameJa: 'リソース配分', abbr: 'RA', layer: 'l4', desc: '人員・機械・スペースの動的最適配分' }
+      { key: 'q1', name: 'Data Connector', nameJa: 'データ連携', abbr: 'DC', layer: 'infra', desc: 'WMSや設備制御システムとのデータ統合・連携基盤' },
+      { key: 'q2', name: 'Map Editor', nameJa: '統合管理基盤', abbr: 'ME', layer: 'infra', desc: '複数拠点を統一指標で管理するための共通基盤' },
+      { key: 'q3', name: 'Workload Forecasting', nameJa: '作業量予測', abbr: 'WF', layer: 'l2', desc: '入出荷計画・波動要因からの工程別作業量予測' },
+      { key: 'q4', name: 'Progress Analyzer', nameJa: '進捗分析', abbr: 'PA', layer: 'l2', desc: '作業進捗・遅延・滞留のリアルタイム可視化' },
+      { key: 'q5', name: 'Workload Analyzer', nameJa: '作業実績分析', abbr: 'WA', layer: 'l2', desc: '作業者別生産性・コスト・スキルの定量分析' },
+      { key: 'q6', name: 'Resource Allocator', nameJa: '要員計画・配置', abbr: 'RA', layer: 'l4', desc: '作業量予測に基づく要員計画と作業者スキルを考慮した最適配置' },
+      { key: 'q7', name: 'Standardization', nameJa: '業務標準化', abbr: '標準化', layer: 'l2', desc: '管理業務の仕組み化・属人化リスクの低減・リーダー育成基盤' },
+      { key: 'q8', name: 'Inventory Analyzer', nameJa: '在庫可視化', abbr: 'IA', layer: 'l2', desc: 'ロケーション・滞留日数・出荷頻度による在庫構造可視化' },
+      { key: 'q9', name: 'Slotting Optimizer', nameJa: '在庫配置最適化', abbr: 'SO', layer: 'l4', desc: '出荷頻度・滞留条件を考慮した保管配置の最適化' },
+      { key: 'q10', name: 'Routing Optimizer', nameJa: '動線最適化', abbr: 'RO', layer: 'l4', desc: 'オーダーまとめ・ピッキング動線の最適化' },
+      { key: 'q11', name: 'Loading Optimizer', nameJa: '梱包・積付最適化', abbr: 'LO', layer: 'l4', desc: '梱包サイズ・積付計画の最適化' },
+      { key: 'q12', name: 'Delivery Optimizer', nameJa: '配送計画最適化', abbr: 'DO', layer: 'l4', desc: '委託先選定・ルート・コストを考慮した配送計画最適化' }
     ];
 
     const GPIM_LEVELS = [
@@ -1365,9 +1416,12 @@
       }
 
       // Calculate layer averages
-      const infraScore = (scores.q1 + scores.q2 + scores.q3) / 3;
-      const l2Score = (scores.q4 + scores.q5 + scores.q6 + scores.q7 + scores.q8) / 5;
-      const l4Score = (scores.q9 + scores.q10 + scores.q11 + scores.q12) / 4;
+      // infra: DC(q1) + ME(q2)
+      // l2 (可視化・分析): WF(q3) + PA(q4) + WA(q5) + 標準化(q7) + IA(q8)
+      // l4 (最適化): RA(q6) + SO(q9) + RO(q10) + LO(q11) + DO(q12)
+      const infraScore = (scores.q1 + scores.q2) / 2;
+      const l2Score = (scores.q3 + scores.q4 + scores.q5 + scores.q7 + scores.q8) / 5;
+      const l4Score = (scores.q6 + scores.q9 + scores.q10 + scores.q11 + scores.q12) / 5;
       const totalAvg = Object.values(scores).reduce((a, b) => a + b, 0) / 12;
 
       // GPIM Level
@@ -1452,19 +1506,19 @@
           <span class="sim-rec__layer sim-rec__layer--infra">Infrastructure Layer</span>
           <div class="sim-rec__title">インフラストラクチャ層</div>
           <div class="sim-rec__score">${infraScore.toFixed(1)} / 3.0</div>
-          <div class="sim-rec__desc">DC・Base・Engineの平均スコア。データ基盤の成熟度を示します。</div>
+          <div class="sim-rec__desc">DC・MEの平均スコア。データ連携・統合管理基盤の成熟度を示します。</div>
         </div>
         <div class="sim-rec">
           <span class="sim-rec__layer sim-rec__layer--l2">L2 Visualization Layer</span>
-          <div class="sim-rec__title">可視化層</div>
+          <div class="sim-rec__title">可視化・分析層</div>
           <div class="sim-rec__score">${l2Score.toFixed(1)} / 3.0</div>
-          <div class="sim-rec__desc">WF・PA・WA・IA・SOの平均スコア。分析・予測能力を示します。</div>
+          <div class="sim-rec__desc">WF・PA・WA・標準化・IAの平均スコア。予測・分析・業務標準化の能力を示します。</div>
         </div>
         <div class="sim-rec">
           <span class="sim-rec__layer sim-rec__layer--l4">L4 Optimization Layer</span>
           <div class="sim-rec__title">最適化層</div>
           <div class="sim-rec__score">${l4Score.toFixed(1)} / 3.0</div>
-          <div class="sim-rec__desc">RO・LO・DO・RAの平均スコア。オペレーション最適化の成熟度を示します。</div>
+          <div class="sim-rec__desc">RA・SO・RO・LO・DOの平均スコア。要員配置・在庫配置・動線・梱包・配送の最適化成熟度を示します。</div>
         </div>
       `;
       document.getElementById('layerScores').innerHTML = layerHTML;
