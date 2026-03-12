@@ -1414,169 +1414,190 @@
 
     // ── Show Results ──
     function showResults() {
-      const form = document.getElementById('simForm');
-      const data = new FormData(form);
-      const scores = {};
-      let allAnswered = true;
+      try {
+        var form = document.getElementById('simForm');
+        var data = new FormData(form);
+        var scores = {};
+        var allAnswered = true;
 
-      MODULES.forEach(m => {
-        const val = data.get(m.key);
-        if (!val) allAnswered = false;
-        scores[m.key] = parseInt(val) || 0;
-      });
+        MODULES.forEach(function(m) {
+          var val = data.get(m.key);
+          if (!val) allAnswered = false;
+          scores[m.key] = parseInt(val) || 0;
+        });
 
-      if (!allAnswered) {
-        alert('すべての質問にお答えください');
-        return;
-      }
-
-      // Calculate layer averages
-      // infra: DC(q1) + ME(q2)
-      // l2 (可視化・分析): WF(q3) + PA(q4) + WA(q5) + 標準化(q7) + IA(q8)
-      // l4 (最適化): RA(q6) + SO(q9) + RO(q10) + LO(q11) + DO(q12)
-      const infraScore = (scores.q1 + scores.q2) / 2;
-      const l2Score = (scores.q3 + scores.q4 + scores.q5 + scores.q7 + scores.q8) / 5;
-      const l4Score = (scores.q6 + scores.q9 + scores.q10 + scores.q11 + scores.q12) / 5;
-      const totalAvg = Object.values(scores).reduce((a, b) => a + b, 0) / 12;
-
-      // GPIM Level
-      let gpimLevel;
-      if (totalAvg < 1.4) gpimLevel = 1;
-      else if (totalAvg < 1.8) gpimLevel = 2;
-      else if (totalAvg < 2.3) gpimLevel = 3;
-      else if (totalAvg < 2.7) gpimLevel = 4;
-      else gpimLevel = 5;
-
-      const levelInfo = GPIM_LEVELS[gpimLevel - 1];
-
-      // Hide form, show results
-      document.getElementById('simulationSection').style.display = 'none';
-      const resultsEl = document.getElementById('resultsSection');
-      resultsEl.style.display = 'block';
-      resultsEl.scrollIntoView({ behavior: 'smooth' });
-
-      // Populate results
-      document.getElementById('resultCompany').textContent = data.get('company') || '';
-      const badge = document.getElementById('resultLevelBadge');
-      badge.textContent = `GPIM Level ${gpimLevel}: ${levelInfo.name}`;
-      badge.className = `sim-results__level-badge sim-results__level-badge--${gpimLevel}`;
-
-      // Draw Radar Chart
-      const chartData = MODULES.map(m => scores[m.key]);
-      const chartLabels = MODULES.map(m => m.abbr);
-
-      new Chart(document.getElementById('resultChart'), {
-        type: 'radar',
-        data: {
-          labels: chartLabels,
-          datasets: [{
-            label: 'あなたの施設',
-            data: chartData,
-            backgroundColor: 'rgba(59,130,246,0.2)',
-            borderColor: '#3B82F6',
-            borderWidth: 2,
-            pointBackgroundColor: '#3B82F6',
-            pointRadius: 4,
-            pointHoverRadius: 6
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              callbacks: {
-                title: (items) => {
-                  const idx = items[0].dataIndex;
-                  return MODULES[idx].nameJa + ' (' + MODULES[idx].abbr + ')';
-                },
-                label: (item) => 'スコア: ' + item.raw + ' / 3'
-              }
-            }
-          },
-          scales: {
-            r: {
-              beginAtZero: true,
-              min: 0, max: 3,
-              ticks: {
-                stepSize: 1,
-                color: 'rgba(255,255,255,0.3)',
-                backdropColor: 'transparent',
-                font: { size: 10 }
-              },
-              grid: { color: 'rgba(255,255,255,0.08)' },
-              angleLines: { color: 'rgba(255,255,255,0.08)' },
-              pointLabels: {
-                color: 'rgba(255,255,255,0.7)',
-                font: { family: 'JetBrains Mono', size: 11 }
-              }
-            }
-          }
+        if (!allAnswered) {
+          alert('すべての質問にお答えください');
+          return;
         }
-      });
 
-      // Layer scores
-      const layerHTML = `
-        <div class="sim-rec">
-          <span class="sim-rec__layer sim-rec__layer--infra">Infrastructure Layer</span>
-          <div class="sim-rec__title">インフラストラクチャ層</div>
-          <div class="sim-rec__score">${infraScore.toFixed(1)} / 3.0</div>
-          <div class="sim-rec__desc">DC・MEの平均スコア。データ連携・統合管理基盤の成熟度を示します。</div>
-        </div>
-        <div class="sim-rec">
-          <span class="sim-rec__layer sim-rec__layer--l2">L2 Visualization Layer</span>
-          <div class="sim-rec__title">可視化・分析層</div>
-          <div class="sim-rec__score">${l2Score.toFixed(1)} / 3.0</div>
-          <div class="sim-rec__desc">WF・PA・WA・標準化・IAの平均スコア。予測・分析・業務標準化の能力を示します。</div>
-        </div>
-        <div class="sim-rec">
-          <span class="sim-rec__layer sim-rec__layer--l4">L4 Optimization Layer</span>
-          <div class="sim-rec__title">最適化層</div>
-          <div class="sim-rec__score">${l4Score.toFixed(1)} / 3.0</div>
-          <div class="sim-rec__desc">RA・SO・RO・LO・DOの平均スコア。要員配置・在庫配置・動線・梱包・配送の最適化成熟度を示します。</div>
-        </div>
-      `;
-      document.getElementById('layerScores').innerHTML = layerHTML;
+        // Calculate layer averages
+        // infra: DC(q1) + ME(q2)
+        // l2 (可視化・分析): WF(q3) + PA(q4) + WA(q5) + 標準化(q7) + IA(q8)
+        // l4 (最適化): RA(q6) + SO(q9) + RO(q10) + LO(q11) + DO(q12)
+        var infraScore = (scores.q1 + scores.q2) / 2;
+        var l2Score = (scores.q3 + scores.q4 + scores.q5 + scores.q7 + scores.q8) / 5;
+        var l4Score = (scores.q6 + scores.q9 + scores.q10 + scores.q11 + scores.q12) / 5;
+        var totalAvg = Object.values(scores).reduce(function(a, b) { return a + b; }, 0) / 12;
 
-      // Recommendations
-      const lowModules = MODULES
-        .map((m, i) => ({ ...m, score: chartData[i] }))
-        .filter(m => m.score < 3)
-        .sort((a, b) => a.score - b.score)
-        .slice(0, 6);
+        // GPIM Level
+        var gpimLevel;
+        if (totalAvg < 1.4) gpimLevel = 1;
+        else if (totalAvg < 1.8) gpimLevel = 2;
+        else if (totalAvg < 2.3) gpimLevel = 3;
+        else if (totalAvg < 2.7) gpimLevel = 4;
+        else gpimLevel = 5;
 
-      const recsHTML = lowModules.map(m => {
-        const layerClass = m.layer === 'infra' ? 'infra' : m.layer;
-        const layerLabel = m.layer === 'infra' ? 'Infrastructure' : m.layer === 'l2' ? 'L2 Visualization' : 'L4 Optimization';
-        const action = m.score === 1 ? '導入を強く推奨' : '強化を推奨';
-        return `
-          <div class="sim-rec">
-            <span class="sim-rec__layer sim-rec__layer--${layerClass}">${layerLabel}</span>
-            <div class="sim-rec__title">${m.nameJa}（${m.abbr}）</div>
-            <div class="sim-rec__score">${action}</div>
-            <div class="sim-rec__desc">${m.desc}</div>
-          </div>
-        `;
-      }).join('');
-      document.getElementById('recommendations').innerHTML = recsHTML;
+        var levelInfo = GPIM_LEVELS[gpimLevel - 1];
 
-      // Re-observe new fade elements
-      document.querySelectorAll('#resultsSection .sim-fade').forEach(el => {
-        el.classList.remove('is-visible');
-        simObserver.observe(el);
-      });
+        // Hide form, show results
+        document.getElementById('simulationSection').style.display = 'none';
+        var resultsEl = document.getElementById('resultsSection');
+        resultsEl.style.display = 'block';
+        resultsEl.scrollIntoView({ behavior: 'smooth' });
 
-      // Submit form data to Netlify (async)
-      const submitData = new FormData(form);
-      submitData.append('gpim_level', gpimLevel);
-      submitData.append('total_score', totalAvg.toFixed(2));
-      submitData.append('infra_score', infraScore.toFixed(2));
-      submitData.append('l2_score', l2Score.toFixed(2));
-      submitData.append('l4_score', l4Score.toFixed(2));
-      fetch('/', {
-        method: 'POST',
-        body: submitData
-      }).catch(() => {});
+        // Populate results
+        document.getElementById('resultCompany').textContent = data.get('company') || '';
+        var badge = document.getElementById('resultLevelBadge');
+        badge.textContent = 'GPIM Level ' + gpimLevel + ': ' + levelInfo.name;
+        badge.className = 'sim-results__level-badge sim-results__level-badge--' + gpimLevel;
+
+        // Draw Radar Chart — delay to let browser layout the visible container
+        var chartData = MODULES.map(function(m) { return scores[m.key]; });
+        var chartLabels = MODULES.map(function(m) { return m.abbr; });
+
+        setTimeout(function() {
+          try {
+            var canvas = document.getElementById('resultChart');
+            // Reset canvas to avoid reuse issues
+            canvas.width = canvas.parentElement.clientWidth - 80;
+            canvas.height = canvas.width;
+
+            new Chart(canvas, {
+              type: 'radar',
+              data: {
+                labels: chartLabels,
+                datasets: [{
+                  label: 'あなたの施設',
+                  data: chartData,
+                  backgroundColor: 'rgba(59,130,246,0.2)',
+                  borderColor: '#3B82F6',
+                  borderWidth: 2,
+                  pointBackgroundColor: '#3B82F6',
+                  pointRadius: 4,
+                  pointHoverRadius: 6
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                  legend: { display: false },
+                  tooltip: {
+                    callbacks: {
+                      title: function(items) {
+                        var idx = items[0].dataIndex;
+                        return MODULES[idx].nameJa + ' (' + MODULES[idx].abbr + ')';
+                      },
+                      label: function(item) { return 'スコア: ' + item.raw + ' / 3'; }
+                    }
+                  }
+                },
+                scales: {
+                  r: {
+                    beginAtZero: true,
+                    min: 0, max: 3,
+                    ticks: {
+                      stepSize: 1,
+                      color: 'rgba(255,255,255,0.3)',
+                      backdropColor: 'transparent',
+                      font: { size: 10 }
+                    },
+                    grid: { color: 'rgba(255,255,255,0.08)' },
+                    angleLines: { color: 'rgba(255,255,255,0.08)' },
+                    pointLabels: {
+                      color: 'rgba(255,255,255,0.7)',
+                      font: { family: 'JetBrains Mono', size: 11 }
+                    }
+                  }
+                }
+              }
+            });
+          } catch(chartErr) {
+            console.error('Chart render error:', chartErr);
+          }
+        }, 100);
+
+        // Layer scores
+        var layerHTML = ''
+          + '<div class="sim-rec">'
+          + '  <span class="sim-rec__layer sim-rec__layer--infra">Infrastructure Layer</span>'
+          + '  <div class="sim-rec__title">インフラストラクチャ層</div>'
+          + '  <div class="sim-rec__score">' + infraScore.toFixed(1) + ' / 3.0</div>'
+          + '  <div class="sim-rec__desc">DC・MEの平均スコア。データ連携・統合管理基盤の成熟度を示します。</div>'
+          + '</div>'
+          + '<div class="sim-rec">'
+          + '  <span class="sim-rec__layer sim-rec__layer--l2">L2 Visualization Layer</span>'
+          + '  <div class="sim-rec__title">可視化・分析層</div>'
+          + '  <div class="sim-rec__score">' + l2Score.toFixed(1) + ' / 3.0</div>'
+          + '  <div class="sim-rec__desc">WF・PA・WA・標準化・IAの平均スコア。予測・分析・業務標準化の能力を示します。</div>'
+          + '</div>'
+          + '<div class="sim-rec">'
+          + '  <span class="sim-rec__layer sim-rec__layer--l4">L4 Optimization Layer</span>'
+          + '  <div class="sim-rec__title">最適化層</div>'
+          + '  <div class="sim-rec__score">' + l4Score.toFixed(1) + ' / 3.0</div>'
+          + '  <div class="sim-rec__desc">RA・SO・RO・LO・DOの平均スコア。要員配置・在庫配置・動線・梱包・配送の最適化成熟度を示します。</div>'
+          + '</div>';
+        document.getElementById('layerScores').innerHTML = layerHTML;
+
+        // Recommendations
+        var lowModules = MODULES
+          .map(function(m, i) { return { key: m.key, nameJa: m.nameJa, abbr: m.abbr, layer: m.layer, desc: m.desc, score: chartData[i] }; })
+          .filter(function(m) { return m.score < 3; })
+          .sort(function(a, b) { return a.score - b.score; })
+          .slice(0, 6);
+
+        var recsHTML = lowModules.map(function(m) {
+          var layerClass = m.layer === 'infra' ? 'infra' : m.layer;
+          var layerLabel = m.layer === 'infra' ? 'Infrastructure' : m.layer === 'l2' ? 'L2 Visualization' : 'L4 Optimization';
+          var action = m.score === 1 ? '導入を強く推奨' : '強化を推奨';
+          var comment = '';
+          if (m.score === 1) {
+            comment = '現状では' + m.nameJa + 'の仕組みがほぼ未整備です。GWES ' + m.abbr + ' モジュールの導入により、大幅な改善が期待できます。';
+          } else if (m.score === 2) {
+            comment = m.nameJa + 'は一部対応されていますが、まだ改善余地があります。GWES ' + m.abbr + ' モジュールでさらなる高度化が可能です。';
+          }
+          return ''
+            + '<div class="sim-rec">'
+            + '  <span class="sim-rec__layer sim-rec__layer--' + layerClass + '">' + layerLabel + '</span>'
+            + '  <div class="sim-rec__title">' + m.nameJa + '（' + m.abbr + '）</div>'
+            + '  <div class="sim-rec__score">' + action + '</div>'
+            + '  <div class="sim-rec__desc">' + (comment || m.desc) + '</div>'
+            + '</div>';
+        }).join('');
+        document.getElementById('recommendations').innerHTML = recsHTML;
+
+        // Re-observe new fade elements
+        document.querySelectorAll('#resultsSection .sim-fade').forEach(function(el) {
+          el.classList.remove('is-visible');
+          simObserver.observe(el);
+        });
+
+        // Submit form data to Netlify (async)
+        var submitData = new FormData(form);
+        submitData.append('gpim_level', gpimLevel);
+        submitData.append('total_score', totalAvg.toFixed(2));
+        submitData.append('infra_score', infraScore.toFixed(2));
+        submitData.append('l2_score', l2Score.toFixed(2));
+        submitData.append('l4_score', l4Score.toFixed(2));
+        fetch('/', {
+          method: 'POST',
+          body: submitData
+        }).catch(function() {});
+      } catch(e) {
+        console.error('showResults error:', e);
+        alert('結果表示中にエラーが発生しました: ' + e.message);
+      }
     }
   </script>
 
