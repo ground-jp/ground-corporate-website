@@ -17,7 +17,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css?v=54">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script>if(typeof Chart==='undefined'){document.write('<scr'+'ipt src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.7/chart.umd.min.js"><\/scr'+'ipt>');}</script>
   <style>
     :root {
       --gw-bg: #FFFFFF;
@@ -1531,114 +1532,115 @@
           return scores[m.key] === 0 ? '#6B7280' : '#3B82F6';
         });
 
-        // Render chart: destroy any existing instance, replace canvas,
-        // force explicit dimensions, then create chart.
-        // This solves the display:none→block layout timing issue.
-        var oldCanvas = document.getElementById('resultChart');
-        if (oldCanvas) {
-          // Destroy existing Chart.js instance if any
-          var existingChart = Chart.getChart(oldCanvas);
-          if (existingChart) existingChart.destroy();
-          // Replace canvas entirely to avoid stale state
-          var newCanvas = document.createElement('canvas');
-          newCanvas.id = 'resultChart';
-          oldCanvas.parentNode.replaceChild(newCanvas, oldCanvas);
-        }
+        // Render chart: guard against Chart.js not loaded
+        if (typeof Chart === 'undefined') {
+          console.error('Chart.js not loaded');
+          var chartWrap = document.querySelector('.sim-results__chart-wrap');
+          if (chartWrap) chartWrap.innerHTML = '<p style="text-align:center;color:var(--gw-text-3);padding:40px 0;">チャートライブラリの読み込みに失敗しました。ページを再読み込みしてください。</p>';
+        } else {
+          // Destroy any existing instance and replace canvas
+          var oldCanvas = document.getElementById('resultChart');
+          if (oldCanvas) {
+            try { var ex = Chart.getChart(oldCanvas); if (ex) ex.destroy(); } catch(e) {}
+            var newCanvas = document.createElement('canvas');
+            newCanvas.id = 'resultChart';
+            oldCanvas.parentNode.replaceChild(newCanvas, oldCanvas);
+          }
 
-        function renderRadarChart(retries) {
-          retries = retries || 0;
-          try {
-            var canvas = document.getElementById('resultChart');
-            if (!canvas) { console.error('resultChart canvas not found'); return; }
-            var wrap = canvas.closest('.sim-results__chart-wrap');
-            if (!wrap) { console.error('chart wrap not found'); return; }
+          function renderRadarChart(retries) {
+            retries = retries || 0;
+            try {
+              var canvas = document.getElementById('resultChart');
+              if (!canvas) return;
+              var wrap = canvas.closest('.sim-results__chart-wrap');
+              if (!wrap) return;
 
-            // Force layout reflow
-            void wrap.offsetHeight;
+              // Force layout reflow
+              void wrap.offsetHeight;
 
-            var wrapWidth = wrap.clientWidth;
-            if (wrapWidth < 100 && retries < 15) {
-              setTimeout(function() { renderRadarChart(retries + 1); }, 100);
-              return;
-            }
+              var wrapWidth = wrap.clientWidth;
+              if (wrapWidth < 100 && retries < 15) {
+                setTimeout(function() { renderRadarChart(retries + 1); }, 100);
+                return;
+              }
 
-            // Set explicit canvas dimensions so Chart.js can calculate
-            var chartSize = Math.min(wrapWidth - 80, 480);
-            canvas.style.width = chartSize + 'px';
-            canvas.style.height = chartSize + 'px';
-            canvas.width = chartSize * (window.devicePixelRatio || 1);
-            canvas.height = chartSize * (window.devicePixelRatio || 1);
+              // Set explicit canvas dimensions
+              var chartSize = Math.min(wrapWidth - 80, 480);
+              canvas.style.width = chartSize + 'px';
+              canvas.style.height = chartSize + 'px';
+              canvas.width = chartSize * (window.devicePixelRatio || 1);
+              canvas.height = chartSize * (window.devicePixelRatio || 1);
 
-            new Chart(canvas, {
-              type: 'radar',
-              data: {
-                labels: chartLabels,
-                datasets: [{
-                  label: 'あなたの施設',
-                  data: chartData,
-                  backgroundColor: 'rgba(37,99,235,0.15)',
-                  borderColor: '#2563EB',
-                  borderWidth: 2,
-                  pointBackgroundColor: pointColors,
-                  pointRadius: 4,
-                  pointHoverRadius: 6
-                }]
-              },
-              options: {
-                responsive: false,
-                maintainAspectRatio: false,
-                animation: { duration: 600 },
-                plugins: {
-                  legend: { display: false },
-                  tooltip: {
-                    callbacks: {
-                      title: function(items) {
-                        var idx = items[0].dataIndex;
-                        return MODULES[idx].nameJa + ' (' + MODULES[idx].abbr + ')';
+              new Chart(canvas, {
+                type: 'radar',
+                data: {
+                  labels: chartLabels,
+                  datasets: [{
+                    label: 'あなたの施設',
+                    data: chartData,
+                    backgroundColor: 'rgba(37,99,235,0.15)',
+                    borderColor: '#2563EB',
+                    borderWidth: 2,
+                    pointBackgroundColor: pointColors,
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                  }]
+                },
+                options: {
+                  responsive: false,
+                  maintainAspectRatio: false,
+                  animation: { duration: 600 },
+                  plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                      callbacks: {
+                        title: function(items) {
+                          var idx = items[0].dataIndex;
+                          return MODULES[idx].nameJa + ' (' + MODULES[idx].abbr + ')';
+                        },
+                        label: function(item) {
+                          if (item.raw === 0) return '対象外';
+                          return 'スコア: ' + item.raw + ' / 3';
+                        }
+                      }
+                    }
+                  },
+                  scales: {
+                    r: {
+                      beginAtZero: true,
+                      min: 0, max: 3,
+                      ticks: {
+                        stepSize: 1,
+                        color: 'rgba(0,0,0,0.25)',
+                        backdropColor: 'transparent',
+                        font: { size: 10 }
                       },
-                      label: function(item) {
-                        if (item.raw === 0) return '対象外';
-                        return 'スコア: ' + item.raw + ' / 3';
+                      grid: { color: 'rgba(0,0,0,0.08)' },
+                      angleLines: { color: 'rgba(0,0,0,0.08)' },
+                      pointLabels: {
+                        color: function(ctx) {
+                          return chartData[ctx.index] === 0 ? 'rgba(0,0,0,0.25)' : 'rgba(0,0,0,0.7)';
+                        },
+                        font: { family: 'JetBrains Mono', size: 11 }
                       }
                     }
                   }
-                },
-                scales: {
-                  r: {
-                    beginAtZero: true,
-                    min: 0, max: 3,
-                    ticks: {
-                      stepSize: 1,
-                      color: 'rgba(0,0,0,0.25)',
-                      backdropColor: 'transparent',
-                      font: { size: 10 }
-                    },
-                    grid: { color: 'rgba(0,0,0,0.08)' },
-                    angleLines: { color: 'rgba(0,0,0,0.08)' },
-                    pointLabels: {
-                      color: function(ctx) {
-                        return chartData[ctx.index] === 0 ? 'rgba(0,0,0,0.25)' : 'rgba(0,0,0,0.7)';
-                      },
-                      font: { family: 'JetBrains Mono', size: 11 }
-                    }
-                  }
                 }
+              });
+            } catch(chartErr) {
+              console.error('Chart render error:', chartErr);
+              if (retries < 15) {
+                setTimeout(function() { renderRadarChart(retries + 1); }, 200);
               }
-            });
-            console.log('Radar chart rendered successfully, size:', chartSize);
-          } catch(chartErr) {
-            console.error('Chart render error:', chartErr);
-            if (retries < 15) {
-              setTimeout(function() { renderRadarChart(retries + 1); }, 200);
             }
           }
-        }
-        // Use requestAnimationFrame to ensure DOM is painted after display:block
-        requestAnimationFrame(function() {
+          // Double rAF ensures DOM paint after display:none→block
           requestAnimationFrame(function() {
-            renderRadarChart(0);
+            requestAnimationFrame(function() {
+              renderRadarChart(0);
+            });
           });
-        });
+        }
 
         // Layer scores (with N/A count)
         function layerNACount(keys) {
