@@ -168,8 +168,28 @@
       transform: translateY(-2px);
     }
     .sim-challenge__icon {
-      font-size: 1.6rem;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.04em;
+      border-radius: 8px;
       margin-bottom: 16px;
+    }
+    .sim-challenge--infra .sim-challenge__icon {
+      background: rgba(138,140,154,0.12);
+      color: var(--gw-infra);
+      border: 1px solid rgba(138,140,154,0.2);
+    }
+    .sim-challenge--l2 .sim-challenge__icon {
+      background: rgba(96,165,250,0.1);
+      color: var(--gw-l2);
+      border: 1px solid rgba(96,165,250,0.18);
+    }
+    .sim-challenge--l4 .sim-challenge__icon {
+      background: rgba(59,130,246,0.1);
+      color: var(--gw-l4);
+      border: 1px solid rgba(59,130,246,0.18);
     }
     .sim-challenge__title {
       font-size: 0.92rem;
@@ -525,9 +545,12 @@
       max-width: 560px;
       margin: 0 auto 64px;
       padding: 40px;
-      background: var(--gw-surface);
+      background: #161822 !important;
       border: 1px solid var(--gw-border);
       border-radius: 16px;
+    }
+    .sim-results__chart-wrap canvas {
+      background: transparent !important;
     }
     .sim-results__chart-title {
       font-size: 1rem;
@@ -738,8 +761,7 @@
       <div class="sim-narrative sim-fade">
         <h2 class="sim-narrative__heading">あなたの施設は、<br>こんな課題を抱えていませんか？</h2>
         <p class="sim-narrative__text">
-          物流施設の運営には、データ統合、需要予測、在庫管理、動線最適化、人員配置など、
-          複雑に絡み合う課題が存在します。以下の12の課題は、多くの物流施設に共通するものです。
+          GWESの12モジュールは、それぞれが物流施設の具体的な課題に対応しています。
         </p>
       </div>
     </div>
@@ -754,87 +776,87 @@
       <div class="sim-challenges">
         <!-- Infrastructure Layer: DC / ME -->
         <div class="sim-challenge sim-challenge--infra sim-fade">
-          <div class="sim-challenge__icon">🔌</div>
+          <div class="sim-challenge__icon">DC</div>
           <div class="sim-challenge__title">システム間のデータ分断</div>
-          <div class="sim-challenge__desc">WMS・TMS・ERPなど複数システムのデータがばらばらで、統合的な意思決定ができない</div>
-          <div class="sim-challenge__layer">DC — Data Connector</div>
+          <div class="sim-challenge__desc">WMS・TMS・ERPのデータが統合されず、意思決定が遅延</div>
+          <div class="sim-challenge__layer">Data Connector</div>
         </div>
         <div class="sim-challenge sim-challenge--infra sim-fade">
-          <div class="sim-challenge__icon">🏢</div>
+          <div class="sim-challenge__icon">ME</div>
           <div class="sim-challenge__title">拠点間の統一管理が困難</div>
-          <div class="sim-challenge__desc">複数拠点のKPIを横並びで比較できず、全社的な改善ポイントが見えない</div>
-          <div class="sim-challenge__layer">ME — Map Editor</div>
+          <div class="sim-challenge__desc">複数拠点のKPIを横並びで比較できず、改善ポイントが不明</div>
+          <div class="sim-challenge__layer">Map Editor</div>
         </div>
 
         <!-- L2 Visualization Layer: WF / PA / WA / 標準化 / IA -->
         <div class="sim-challenge sim-challenge--l2 sim-fade">
-          <div class="sim-challenge__icon">📊</div>
+          <div class="sim-challenge__icon">WF</div>
           <div class="sim-challenge__title">作業量予測の精度不足</div>
-          <div class="sim-challenge__desc">翌日・翌週の工程別作業量が予測できず、人員配置が後手に回っている</div>
-          <div class="sim-challenge__layer">WF — Workload Forecasting</div>
+          <div class="sim-challenge__desc">工程別作業量の予測ができず、人員配置が後手に</div>
+          <div class="sim-challenge__layer">Workload Forecasting</div>
         </div>
         <div class="sim-challenge sim-challenge--l2 sim-fade">
-          <div class="sim-challenge__icon">📈</div>
+          <div class="sim-challenge__icon">PA</div>
           <div class="sim-challenge__title">進捗・遅延の把握が遅い</div>
-          <div class="sim-challenge__desc">作業計画に対する実績がリアルタイムで可視化されず、遅延・滞留に気づくのが遅れる</div>
-          <div class="sim-challenge__layer">PA — Progress Analyzer</div>
+          <div class="sim-challenge__desc">リアルタイムな可視化がなく、遅延・滞留の発見が遅れる</div>
+          <div class="sim-challenge__layer">Progress Analyzer</div>
         </div>
         <div class="sim-challenge sim-challenge--l2 sim-fade">
-          <div class="sim-challenge__icon">🔍</div>
-          <div class="sim-challenge__title">作業者別の生産性が不透明</div>
-          <div class="sim-challenge__desc">誰がどの工程でどの程度の生産性か定量的に把握できず、改善活動に活かせない</div>
-          <div class="sim-challenge__layer">WA — Workload Analyzer</div>
+          <div class="sim-challenge__icon">WA</div>
+          <div class="sim-challenge__title">生産性の定量把握が不十分</div>
+          <div class="sim-challenge__desc">作業者別の生産性が数値化されず、改善議論が進まない</div>
+          <div class="sim-challenge__layer">Workload Analyzer</div>
         </div>
         <div class="sim-challenge sim-challenge--l2 sim-fade">
-          <div class="sim-challenge__icon">👤</div>
+          <div class="sim-challenge__icon">STD</div>
           <div class="sim-challenge__title">管理業務の属人化</div>
-          <div class="sim-challenge__desc">特定リーダーに業務知識が集中し、異動・退職時にオペレーション品質が大きく低下する</div>
-          <div class="sim-challenge__layer">標準化 — Standardization</div>
+          <div class="sim-challenge__desc">特定リーダーへの依存で、異動・退職時に品質が低下</div>
+          <div class="sim-challenge__layer">Standardization</div>
         </div>
         <div class="sim-challenge sim-challenge--l2 sim-fade">
-          <div class="sim-challenge__icon">📦</div>
+          <div class="sim-challenge__icon">IA</div>
           <div class="sim-challenge__title">在庫構造の可視化不足</div>
-          <div class="sim-challenge__desc">出荷頻度・滞留日数・ロケーション別の在庫状況が見えず、保管効率が低い</div>
-          <div class="sim-challenge__layer">IA — Inventory Analyzer</div>
+          <div class="sim-challenge__desc">滞留・偏在が把握できず、保管効率が改善されない</div>
+          <div class="sim-challenge__layer">Inventory Analyzer</div>
         </div>
 
         <!-- L4 Optimization Layer: RA / SO / RO / LO / DO -->
         <div class="sim-challenge sim-challenge--l4 sim-fade">
-          <div class="sim-challenge__icon">👥</div>
+          <div class="sim-challenge__icon">RA</div>
           <div class="sim-challenge__title">要員配置の最適化が困難</div>
-          <div class="sim-challenge__desc">繁閑差に応じた要員計画やスキルを考慮した配置ができず、人件費が高止まりしている</div>
-          <div class="sim-challenge__layer">RA — Resource Allocator</div>
+          <div class="sim-challenge__desc">繁閑差に応じた計画ができず、人件費が高止まり</div>
+          <div class="sim-challenge__layer">Resource Allocator</div>
         </div>
         <div class="sim-challenge sim-challenge--l4 sim-fade">
-          <div class="sim-challenge__icon">🗄️</div>
+          <div class="sim-challenge__icon">SO</div>
           <div class="sim-challenge__title">保管配置の非効率</div>
-          <div class="sim-challenge__desc">出荷頻度を考慮した棚割が行われておらず、ピッキング動線が無駄に長い</div>
-          <div class="sim-challenge__layer">SO — Slotting Optimizer</div>
+          <div class="sim-challenge__desc">出荷頻度を考慮した棚割がなく、動線が無駄に長い</div>
+          <div class="sim-challenge__layer">Slotting Optimizer</div>
         </div>
         <div class="sim-challenge sim-challenge--l4 sim-fade">
-          <div class="sim-challenge__icon">🚶</div>
+          <div class="sim-challenge__icon">RO</div>
           <div class="sim-challenge__title">ピッキング経路の非最適</div>
-          <div class="sim-challenge__desc">手作業で経路を決定しており、歩行距離が長く生産性が低い</div>
-          <div class="sim-challenge__layer">RO — Routing Optimizer</div>
+          <div class="sim-challenge__desc">経路が標準化されず、歩行距離と作業時間が膨張</div>
+          <div class="sim-challenge__layer">Routing Optimizer</div>
         </div>
         <div class="sim-challenge sim-challenge--l4 sim-fade">
-          <div class="sim-challenge__icon">📐</div>
+          <div class="sim-challenge__icon">LO</div>
           <div class="sim-challenge__title">梱包・積付の非効率</div>
-          <div class="sim-challenge__desc">梱包サイズや積付の最適化がなく、資材コスト・配送コストが高止まりしている</div>
-          <div class="sim-challenge__layer">LO — Loading Optimizer</div>
+          <div class="sim-challenge__desc">固定パターンでの出荷により、資材・配送コストが増大</div>
+          <div class="sim-challenge__layer">Loading Optimizer</div>
         </div>
         <div class="sim-challenge sim-challenge--l4 sim-fade">
-          <div class="sim-challenge__icon">🚛</div>
+          <div class="sim-challenge__icon">DO</div>
           <div class="sim-challenge__title">配送計画の硬直化</div>
-          <div class="sim-challenge__desc">配送手段・ルート・タイミングが固定的で、需要変動やコスト変動への柔軟な対応ができない</div>
-          <div class="sim-challenge__layer">DO — Delivery Optimizer</div>
+          <div class="sim-challenge__desc">ルート・手段が固定で、需要変動への柔軟な対応が困難</div>
+          <div class="sim-challenge__layer">Delivery Optimizer</div>
         </div>
       </div>
 
       <div class="sim-narrative sim-fade" style="padding-top: 64px;">
         <p class="sim-narrative__text">
-          これら12の課題は、それぞれが独立しているようで、実は深く関連し合っています。<br>
-          GWESの各モジュールは、まさにこれらの課題に1対1で対応するように設計されています。
+          これら12の領域は相互に関連しています。<br>
+          診断では、各領域の成熟度を評価し、最適な導入戦略を導き出します。
         </p>
       </div>
     </div>
@@ -850,7 +872,7 @@
         <span class="sim-hero__label">GPIM Framework</span>
         <h2 class="sim-narrative__heading">物流施設の進化 — 5つのレベル</h2>
         <p style="font-size: 0.9rem; color: var(--gw-text-3); max-width: 600px; margin: 0 auto;">
-          GROUNDは物流施設の成熟度を5段階で定義しています。<br>あなたの施設は、今どのレベルにあるでしょうか。
+          GROUNDが定義する物流施設の成熟度フレームワーク。あなたの現在地を診断します。
         </p>
       </div>
 
@@ -1503,12 +1525,18 @@
           return scores[m.key] === 0 ? '#6B7280' : '#3B82F6';
         });
 
-        setTimeout(function() {
+        // Use rAF + setTimeout for reliable rendering after display:none→block
+        requestAnimationFrame(function() { setTimeout(function() {
           try {
             var canvas = document.getElementById('resultChart');
-            // Reset canvas to avoid reuse issues
-            canvas.width = canvas.parentElement.clientWidth - 80;
-            canvas.height = canvas.width;
+            var wrap = canvas.parentElement;
+            // Force layout recalc
+            var wrapW = wrap.offsetWidth;
+            var cw = Math.min(wrapW - 80, 480);
+            canvas.style.width = cw + 'px';
+            canvas.style.height = cw + 'px';
+            canvas.width = cw * (window.devicePixelRatio || 1);
+            canvas.height = cw * (window.devicePixelRatio || 1);
 
             new Chart(canvas, {
               type: 'radar',
@@ -1568,7 +1596,7 @@
           } catch(chartErr) {
             console.error('Chart render error:', chartErr);
           }
-        }, 100);
+        }, 150); });
 
         // Layer scores (with N/A count)
         function layerNACount(keys) {
