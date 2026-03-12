@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="ja" style="--accent: #3B82F6; --frost-ice-blue: #60A5FA; --black: #1A1A1A;"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="GWES適合性シミュレーション | GROUND Inc.">
+  <meta property="og:description" content="あなたの物流施設にGWESはどこまでフィットするか。2分の診断で適合性をレーダーチャートで可視化します。">
+  <meta property="og:url" content="https://groundinc.co.jp/gwes-simulation.html">
+  <meta property="og:site_name" content="GROUND Inc.">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>GWES適合性シミュレーション | GROUND Inc.</title>
+  <meta name="description" content="物流施設の運営課題を診断し、GWES 12モジュールの適合性をレーダーチャートで可視化。2分の無料診断で最適な導入戦略が見えてきます。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=54">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <style>
+    :root {
+      --gw-bg: #0A0C14;
+      --gw-surface: #161822;
+      --gw-surface-2: #1A1A1A;
+      --gw-border: #3F4250;
+      --gw-border-hover: #545867;
+      --gw-text-1: #FFFFFF;
+      --gw-text-2: rgba(255,255,255,0.92);
+      --gw-text-3: rgba(255,255,255,0.55);
+      --gw-accent: #3B82F6;
+      --gw-infra: #8A8C9A;
+      --gw-l2: #60A5FA;
+      --gw-l4: #3B82F6;
+      --gw-green: #34D399;
+    }
+    body { background: var(--gw-bg) !important; }
+    .header { background: var(--gw-bg) !important; }
+
+    /* ── Phase Sections ── */
+    .sim-section {
+      padding: 100px 0;
+      position: relative;
+    }
+    .sim-section--alt { background: #0E1018; }
+
+    /* ── Phase 1: Hero / Hook ── */
+    .sim-hero {
+      text-align: center;
+      padding: 140px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .sim-hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .sim-hero__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gw-accent);
+      margin-bottom: 24px; display: block;
+    }
+    .sim-hero__title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700; color: var(--gw-text-1);
+      line-height: 1.3; margin: 0 0 24px;
+      letter-spacing: -0.02em;
+    }
+    .sim-hero__subtitle {
+      font-size: 1rem; color: var(--gw-text-3);
+      line-height: 1.8; max-width: 640px;
+      margin: 0 auto;
+    }
+
+    /* ── Stats Grid ── */
+    .sim-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 72px;
+    }
+    .sim-stat {
+      background: var(--gw-surface);
+      border: 1px solid var(--gw-border);
+      border-radius: 16px;
+      padding: 40px 32px;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .sim-stat:hover {
+      border-color: var(--gw-accent);
+      transform: translateY(-4px);
+    }
+    .sim-stat__number {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: var(--gw-accent);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .sim-stat__text {
+      font-size: 0.88rem;
+      color: var(--gw-text-2);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .sim-stat__source {
+      font-size: 0.7rem;
+      color: var(--gw-text-3);
+      font-style: italic;
+    }
+
+    /* ── Narrative / Problem Section ── */
+    .sim-narrative {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 80px 0;
+    }
+    .sim-narrative__heading {
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      font-weight: 600; color: var(--gw-text-1);
+      line-height: 1.5; margin-bottom: 24px;
+    }
+    .sim-narrative__text {
+      font-size: 0.9rem;
+      color: var(--gw-text-2);
+      line-height: 2.0;
+    }
+
+    /* ── Phase 2: Challenge Cards ── */
+    .sim-challenges {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .sim-challenge {
+      background: var(--gw-surface);
+      border: 1px solid var(--gw-border);
+      border-radius: 12px;
+      padding: 32px 24px;
+      transition: all 0.3s ease;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .sim-challenge::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      border-radius: 12px 0 0 12px;
+    }
+    .sim-challenge--infra::before { background: var(--gw-infra); }
+    .sim-challenge--l2::before { background: var(--gw-l2); }
+    .sim-challenge--l4::before { background: var(--gw-l4); }
+    .sim-challenge:hover {
+      border-color: var(--gw-border-hover);
+      transform: translateY(-2px);
+    }
+    .sim-challenge__icon {
+      font-size: 1.6rem;
+      margin-bottom: 16px;
+    }
+    .sim-challenge__title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--gw-text-1);
+      margin-bottom: 8px;
+    }
+    .sim-challenge__desc {
+      font-size: 0.8rem;
+      color: var(--gw-text-3);
+      line-height: 1.7;
+    }
+    .sim-challenge__layer {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gw-text-3);
+      margin-top: 16px;
+      opacity: 0.6;
+    }
+
+    /* ── Phase 3: Bridge / GPIM Levels ── */
+    .sim-levels {
+      display: flex;
+      gap: 0;
+      margin: 48px 0;
+      position: relative;
+    }
+    .sim-level {
+      flex: 1;
+      text-align: center;
+      padding: 32px 16px;
+      position: relative;
+      border: 1px solid var(--gw-border);
+      background: var(--gw-surface);
+      transition: all 0.3s;
+    }
+    .sim-level:first-child { border-radius: 12px 0 0 12px; }
+    .sim-level:last-child { border-radius: 0 12px 12px 0; }
+    .sim-level:hover { background: var(--gw-surface-2); }
+    .sim-level__badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--gw-accent);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .sim-level__name {
+      font-size: 0.85rem; font-weight: 600;
+      color: var(--gw-text-1);
+      margin-bottom: 4px;
+    }
+    .sim-level__sub {
+      font-size: 0.72rem;
+      color: var(--gw-text-3);
+    }
+
+    /* Radar teaser */
+    .sim-teaser {
+      text-align: center;
+      margin: 64px 0;
+      position: relative;
+    }
+    .sim-teaser__chart {
+      max-width: 360px;
+      margin: 0 auto;
+      opacity: 0.4;
+      filter: blur(3px);
+      transition: all 0.5s;
+    }
+    .sim-teaser__overlay {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 2;
+    }
+    .sim-teaser__overlay-text {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--gw-text-1);
+      margin-bottom: 8px;
+    }
+
+    /* CTA Button */
+    .sim-cta {
+      text-align: center;
+      padding: 48px 0;
+    }
+    .sim-cta__heading {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--gw-text-1);
+      margin-bottom: 12px;
+    }
+    .sim-cta__sub {
+      color: var(--gw-text-3);
+      font-size: 0.9rem;
+      margin-bottom: 32px;
+    }
+    .sim-btn {
+      display: inline-flex;
+      align-items: center; gap: 10px;
+      font-size: 0.95rem; font-weight: 600;
+      padding: 16px 40px;
+      border-radius: 8px;
+      border: none; cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+    .sim-btn--primary {
+      background: var(--gw-accent);
+      color: #fff;
+    }
+    .sim-btn--primary:hover {
+      background: #2563EB;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(59,130,246,0.3);
+    }
+    .sim-btn--secondary {
+      background: transparent;
+      color: var(--gw-text-2);
+      border: 1px solid var(--gw-border);
+    }
+    .sim-btn--secondary:hover {
+      border-color: var(--gw-accent);
+      color: var(--gw-text-1);
+    }
+    .sim-btn--lg {
+      font-size: 1.05rem;
+      padding: 18px 48px;
+    }
+
+    /* ── Phase 4: Simulation Form ── */
+    .sim-form-container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .sim-form__header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .sim-form__step {
+      display: none;
+    }
+    .sim-form__step.is-active {
+      display: block;
+      animation: simFadeIn 0.4s ease;
+    }
+    @keyframes simFadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .sim-form__step-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gw-accent);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .sim-form__step-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--gw-text-1);
+      margin-bottom: 32px;
+    }
+
+    /* Progress bar */
+    .sim-progress {
+      margin-bottom: 48px;
+    }
+    .sim-progress__bar {
+      width: 100%;
+      height: 4px;
+      background: var(--gw-border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .sim-progress__fill {
+      height: 100%;
+      background: var(--gw-accent);
+      border-radius: 2px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+    .sim-progress__text {
+      font-size: 0.72rem;
+      color: var(--gw-text-3);
+      margin-top: 8px;
+      text-align: right;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Form inputs */
+    .sim-input-group {
+      margin-bottom: 24px;
+    }
+    .sim-input-group label {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--gw-text-3);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .sim-input-group label .req {
+      color: #EF4444;
+      margin-left: 4px;
+    }
+    .sim-input {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--gw-surface);
+      border: 1px solid var(--gw-border);
+      border-radius: 8px;
+      color: var(--gw-text-1);
+      font-size: 0.9rem;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .sim-input:focus {
+      outline: none;
+      border-color: var(--gw-accent);
+    }
+    .sim-input::placeholder { color: var(--gw-text-3); }
+
+    /* Question styling */
+    .sim-question {
+      margin-bottom: 36px;
+    }
+    .sim-question__text {
+      font-size: 0.95rem;
+      color: var(--gw-text-1);
+      font-weight: 500;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .sim-question__num {
+      color: var(--gw-accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      margin-right: 8px;
+    }
+    .sim-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sim-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 18px;
+      background: var(--gw-surface);
+      border: 1px solid var(--gw-border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.88rem;
+      color: var(--gw-text-2);
+      line-height: 1.5;
+    }
+    .sim-option:hover {
+      border-color: var(--gw-border-hover);
+      background: var(--gw-surface-2);
+    }
+    .sim-option input[type="radio"] {
+      appearance: none;
+      width: 18px; height: 18px;
+      border: 2px solid var(--gw-border);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .sim-option input[type="radio"]:checked {
+      border-color: var(--gw-accent);
+      background: var(--gw-accent);
+    }
+    .sim-option input[type="radio"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 8px; height: 8px;
+      background: white;
+      border-radius: 50%;
+    }
+    .sim-option:has(input:checked) {
+      border-color: var(--gw-accent);
+      background: rgba(59,130,246,0.08);
+    }
+
+    /* Navigation buttons */
+    .sim-form__nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--gw-border);
+    }
+
+    /* ── Phase 5: Results ── */
+    #resultsSection {
+      display: none;
+    }
+    .sim-results__hero {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .sim-results__level-badge {
+      display: inline-block;
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .sim-results__level-badge--1 { background: rgba(138,140,154,0.2); color: var(--gw-infra); border: 1px solid var(--gw-infra); }
+    .sim-results__level-badge--2 { background: rgba(96,165,250,0.15); color: var(--gw-l2); border: 1px solid var(--gw-l2); }
+    .sim-results__level-badge--3 { background: rgba(59,130,246,0.15); color: var(--gw-l4); border: 1px solid var(--gw-l4); }
+    .sim-results__level-badge--4 { background: rgba(52,211,153,0.15); color: var(--gw-green); border: 1px solid var(--gw-green); }
+    .sim-results__level-badge--5 { background: rgba(52,211,153,0.25); color: var(--gw-green); border: 1px solid var(--gw-green); }
+
+    .sim-results__chart-wrap {
+      max-width: 560px;
+      margin: 0 auto 64px;
+      padding: 40px;
+      background: var(--gw-surface);
+      border: 1px solid var(--gw-border);
+      border-radius: 16px;
+    }
+    .sim-results__chart-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gw-text-1);
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    /* Recommendations */
+    .sim-recs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin: 48px 0;
+    }
+    .sim-rec {
+      background: var(--gw-surface);
+      border: 1px solid var(--gw-border);
+      border-radius: 12px;
+      padding: 28px 24px;
+    }
+    .sim-rec__layer {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .sim-rec__layer--infra { color: var(--gw-infra); }
+    .sim-rec__layer--l2 { color: var(--gw-l2); }
+    .sim-rec__layer--l4 { color: var(--gw-l4); }
+    .sim-rec__title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--gw-text-1);
+      margin-bottom: 8px;
+    }
+    .sim-rec__score {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--gw-accent);
+      margin-bottom: 12px;
+    }
+    .sim-rec__desc {
+      font-size: 0.8rem;
+      color: var(--gw-text-3);
+      line-height: 1.7;
+    }
+
+    .sim-results__actions {
+      text-align: center;
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 48px;
+    }
+
+    /* ── Scroll Reveal ── */
+    .sim-fade {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .sim-fade.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .sim-stats { grid-template-columns: 1fr; }
+      .sim-challenges { grid-template-columns: 1fr; }
+      .sim-levels { flex-direction: column; }
+      .sim-level:first-child { border-radius: 12px 12px 0 0; }
+      .sim-level:last-child { border-radius: 0 0 12px 12px; }
+      .sim-recs { grid-template-columns: 1fr; }
+      .sim-hero { padding: 100px 0 60px; }
+      .sim-section { padding: 64px 0; }
+      .sim-form__nav { flex-direction: column; gap: 12px; }
+      .sim-form__nav .sim-btn { width: 100%; justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .sim-challenges { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .sim-challenges { grid-template-columns: repeat(2, 1fr); }
+      .sim-stats { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header header--scrolled" id="header" style="background: rgb(10, 12, 20); height: 64px;">
+    <div class="header__inner" style="">
+      <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; position: relative; top: 0px; left: 0px;"></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く" style="">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="overlay-menu" id="overlayMenu">
+    <div class="overlay-menu__inner">
+      <div class="overlay-menu__col-nav">
+        <span class="overlay-menu__label">[NAVIGATION]</span>
+        <div class="overlay-menu__nav-list">
+          <a class="overlay-menu__nav-item" data-panel="company" href="/about">会社情報<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" data-panel="gpim" href="/gpim">GPIM<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" data-panel="service" href="/service">製品・サービス<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" href="/works">導入事例</a>
+          <a class="overlay-menu__nav-item" href="/news">ニュース</a>
+          <a class="overlay-menu__nav-item" href="/blog">WAREHOUSE TECH WEEKLY</a>
+          <a class="overlay-menu__nav-item" data-panel="careers" href="/careers">採用情報<span class="overlay-menu__nav-arrow">›</span></a>
+        </div>
+      </div>
+      <div class="overlay-menu__col-sub">
+        <div class="overlay-menu__panel" data-panel="company">
+          <span class="overlay-menu__label">[会社情報]</span>
+          <a class="overlay-menu__sub-item" href="/about">会社概要</a>
+          <a class="overlay-menu__sub-item" href="/about#ceo">CEOメッセージ</a>
+          <a class="overlay-menu__sub-item" href="/about#vision">ビジョン・ミッション</a>
+          <a class="overlay-menu__sub-item" href="/about#bp">行動原則(BP)・価値創造(VCP)プロセス</a>
+          <a href="history.html" class="overlay-menu__sub-item">GROUNDの歩み</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="service">
+          <span class="overlay-menu__label">[製品・サービス]</span>
+          <a class="overlay-menu__sub-item" href="/gwes">GWES</a>
+          <a href="gwes-technology.html" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
+          <a href="gwes-modules.html" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
+          <a href="gwes-implementation.html" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
+          <a href="gwes-simulation.html" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: var(--gw-accent);">― 適合性シミュレーション</a>
+          <a class="overlay-menu__sub-item" href="/digital-integration">デジタルインテグレーション</a>
+          <a class="overlay-menu__sub-item" href="/consulting">コンサルティング＆エンジニアリング</a>
+          <a class="overlay-menu__sub-item" href="/peer">PEER</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="gpim">
+          <span class="overlay-menu__label">[GPIM]</span>
+          <a class="overlay-menu__sub-item" href="/gpim">GPIMとは</a>
+          <a class="overlay-menu__sub-item" href="/gpim-consulting">GPIMコンサルティング</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="careers">
+          <span class="overlay-menu__label">[採用情報]</span>
+          <a class="overlay-menu__sub-item" href="/careers">募集ポジション</a>
+          <a class="overlay-menu__sub-item" href="/about">カルチャー</a>
+        </div>
+      </div>
+      <div class="overlay-menu__col-info">
+        <a class="overlay-menu__cta-btn" href="/contact" style="background-color: rgb(37, 99, 235);">お問い合わせ</a>
+        <div class="overlay-menu__contact-info">
+          <span>info@groundinc.co.jp</span>
+          <span>03-6441-2975</span>
+        </div>
+        <p class="overlay-menu__copyright">© GROUND Inc.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ===== BREADCRUMB ===== -->
+  <nav class="breadcrumb-nav" aria-label="パンくずリスト">
+    <ol class="breadcrumb-nav__list">
+      <li class="breadcrumb-nav__item"><a class="breadcrumb-nav__link breadcrumb-nav__link--home" href="/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a></li>
+      <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a class="breadcrumb-nav__link" href="/gwes">GWES</a></li>
+      <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current">適合性シミュレーション</span></li>
+    </ol>
+  </nav>
+
+
+  <!-- =========================================================
+       PHASE 1: HOOK — 物流業界の現実
+       ========================================================= -->
+  <section class="sim-hero">
+    <div class="container">
+      <span class="sim-hero__label sim-fade">GWES Compatibility Simulation</span>
+      <h1 class="sim-hero__title sim-fade">物流施設の最適化は、<br>もう選択肢ではない。</h1>
+      <p class="sim-hero__subtitle sim-fade">人手不足、コスト上昇、需要拡大 —— 構造的な課題が加速する今、<br>あなたの施設はどこまで対応できていますか。</p>
+
+      <div class="sim-stats sim-fade">
+        <div class="sim-stat">
+          <div class="sim-stat__number">62.3%</div>
+          <div class="sim-stat__text">のトラック事業者が<br>ドライバー不足を報告</div>
+          <div class="sim-stat__source">出典: 全日本トラック協会（2025年3月）</div>
+        </div>
+        <div class="sim-stat">
+          <div class="sim-stat__number">34.1%</div>
+          <div class="sim-stat__text">2030年の輸送力不足予測<br>（対策なしの場合）</div>
+          <div class="sim-stat__source">出典: 国土交通省「持続可能な物流の実現に向けた検討会」</div>
+        </div>
+        <div class="sim-stat">
+          <div class="sim-stat__number">5.45%</div>
+          <div class="sim-stat__text">売上高物流コスト比率<br>（2024年度・過去最高水準）</div>
+          <div class="sim-stat__source">出典: 日本ロジスティクスシステム協会（2024年度調査）</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><div style="width:100%;height:1px;background:var(--gw-border);"></div></div>
+
+  <!-- Transition narrative -->
+  <section class="sim-section">
+    <div class="container">
+      <div class="sim-narrative sim-fade">
+        <h2 class="sim-narrative__heading">あなたの施設は、<br>こんな課題を抱えていませんか？</h2>
+        <p class="sim-narrative__text">
+          物流施設の運営には、データ統合、需要予測、在庫管理、動線最適化、人員配置など、
+          複雑に絡み合う課題が存在します。以下の12の課題は、多くの物流施設に共通するものです。
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       PHASE 2: MIRROR — 12の物流課題（＝12モジュール）
+       ========================================================= -->
+  <section class="sim-section sim-section--alt">
+    <div class="container">
+      <div class="sim-challenges">
+        <!-- Infrastructure Layer -->
+        <div class="sim-challenge sim-challenge--infra sim-fade">
+          <div class="sim-challenge__icon">🔌</div>
+          <div class="sim-challenge__title">システム間のデータ分断</div>
+          <div class="sim-challenge__desc">WMS、ERP、設備制御など複数システムのデータがばらばらで、統合的な意思決定ができない</div>
+          <div class="sim-challenge__layer">Infrastructure</div>
+        </div>
+        <div class="sim-challenge sim-challenge--infra sim-fade">
+          <div class="sim-challenge__icon">🏢</div>
+          <div class="sim-challenge__title">拠点間データの比較不能</div>
+          <div class="sim-challenge__desc">複数施設のデータを横並びで比較できず、全社的な改善ポイントが見えない</div>
+          <div class="sim-challenge__layer">Infrastructure</div>
+        </div>
+        <div class="sim-challenge sim-challenge--infra sim-fade">
+          <div class="sim-challenge__icon">⚡</div>
+          <div class="sim-challenge__title">処理遅延とリアルタイム性</div>
+          <div class="sim-challenge__desc">バッチ処理に依存し、リアルタイムでの状況判断・対応ができていない</div>
+          <div class="sim-challenge__layer">Infrastructure</div>
+        </div>
+
+        <!-- L2 Visualization Layer -->
+        <div class="sim-challenge sim-challenge--l2 sim-fade">
+          <div class="sim-challenge__icon">📊</div>
+          <div class="sim-challenge__title">仕事量予測の精度不足</div>
+          <div class="sim-challenge__desc">翌日の作業量が予測できず、人員配置が後付けの対応になっている</div>
+          <div class="sim-challenge__layer">Visualization</div>
+        </div>
+        <div class="sim-challenge sim-challenge--l2 sim-fade">
+          <div class="sim-challenge__icon">📈</div>
+          <div class="sim-challenge__title">計画と実績のギャップ</div>
+          <div class="sim-challenge__desc">作業計画に対する実際の進捗がリアルタイムで見えず、遅延対応が遅れる</div>
+          <div class="sim-challenge__layer">Visualization</div>
+        </div>
+        <div class="sim-challenge sim-challenge--l2 sim-fade">
+          <div class="sim-challenge__icon">🔍</div>
+          <div class="sim-challenge__title">ボトルネックの不可視</div>
+          <div class="sim-challenge__desc">タスク配分が経験と勘に依存し、本当のボトルネックが特定できない</div>
+          <div class="sim-challenge__layer">Visualization</div>
+        </div>
+        <div class="sim-challenge sim-challenge--l2 sim-fade">
+          <div class="sim-challenge__icon">📦</div>
+          <div class="sim-challenge__title">在庫の鮮度・配置が不明</div>
+          <div class="sim-challenge__desc">在庫の回転率や長期滞留品が把握できず、保管スペースが非効率に使われている</div>
+          <div class="sim-challenge__layer">Visualization</div>
+        </div>
+        <div class="sim-challenge sim-challenge--l2 sim-fade">
+          <div class="sim-challenge__icon">🗄️</div>
+          <div class="sim-challenge__title">保管配置の非効率</div>
+          <div class="sim-challenge__desc">出荷頻度を考慮した棚割が行われておらず、ピッキング動線が無駄に長い</div>
+          <div class="sim-challenge__layer">Visualization</div>
+        </div>
+
+        <!-- L4 Optimization Layer -->
+        <div class="sim-challenge sim-challenge--l4 sim-fade">
+          <div class="sim-challenge__icon">🚶</div>
+          <div class="sim-challenge__title">ピッキング経路の非最適</div>
+          <div class="sim-challenge__desc">手作業で経路を決定しており、歩行距離が長く生産性が低い</div>
+          <div class="sim-challenge__layer">Optimization</div>
+        </div>
+        <div class="sim-challenge sim-challenge--l4 sim-fade">
+          <div class="sim-challenge__icon">🚛</div>
+          <div class="sim-challenge__title">積載・混載の非効率</div>
+          <div class="sim-challenge__desc">積載率の最適化や混載判断がなく、配送コストが高止まりしている</div>
+          <div class="sim-challenge__layer">Optimization</div>
+        </div>
+        <div class="sim-challenge sim-challenge--l4 sim-fade">
+          <div class="sim-challenge__icon">🕐</div>
+          <div class="sim-challenge__title">出荷タイミングの硬直化</div>
+          <div class="sim-challenge__desc">配送手段や出荷タイミングが固定的で、需要変動への柔軟な対応ができない</div>
+          <div class="sim-challenge__layer">Optimization</div>
+        </div>
+        <div class="sim-challenge sim-challenge--l4 sim-fade">
+          <div class="sim-challenge__icon">👥</div>
+          <div class="sim-challenge__title">リソース配置の固定化</div>
+          <div class="sim-challenge__desc">人員・機械・スペースの配分が固定的で、需要変動に応じた動的な最適化ができていない</div>
+          <div class="sim-challenge__layer">Optimization</div>
+        </div>
+      </div>
+
+      <div class="sim-narrative sim-fade" style="padding-top: 64px;">
+        <p class="sim-narrative__text">
+          これら12の課題は、それぞれが独立しているようで、実は深く関連し合っています。<br>
+          GWESの12のモジュールは、まさにこの12の課題に対応するように設計されています。
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       PHASE 3: BRIDGE — GPIM成熟度とレーダーチャートの予告
+       ========================================================= -->
+  <section class="sim-section">
+    <div class="container">
+      <div class="sim-fade" style="text-align: center; margin-bottom: 48px;">
+        <span class="sim-hero__label">GPIM Framework</span>
+        <h2 class="sim-narrative__heading">物流施設の進化 — 5つのレベル</h2>
+        <p style="font-size: 0.9rem; color: var(--gw-text-3); max-width: 600px; margin: 0 auto;">
+          GROUNDは物流施設の成熟度を5段階で定義しています。<br>あなたの施設は、今どのレベルにあるでしょうか。
+        </p>
+      </div>
+
+      <div class="sim-levels sim-fade">
+        <div class="sim-level">
+          <span class="sim-level__badge">Level 1</span>
+          <div class="sim-level__name">可視化</div>
+          <div class="sim-level__sub">Visualization</div>
+        </div>
+        <div class="sim-level">
+          <span class="sim-level__badge">Level 2</span>
+          <div class="sim-level__name">分析</div>
+          <div class="sim-level__sub">Analysis</div>
+        </div>
+        <div class="sim-level">
+          <span class="sim-level__badge">Level 3</span>
+          <div class="sim-level__name">最適化</div>
+          <div class="sim-level__sub">Optimization</div>
+        </div>
+        <div class="sim-level">
+          <span class="sim-level__badge">Level 4</span>
+          <div class="sim-level__name">自動化</div>
+          <div class="sim-level__sub">Automation</div>
+        </div>
+        <div class="sim-level">
+          <span class="sim-level__badge">Level 5</span>
+          <div class="sim-level__name">自律運営</div>
+          <div class="sim-level__sub">Autonomous</div>
+        </div>
+      </div>
+
+      <!-- Radar Chart Teaser -->
+      <div class="sim-teaser sim-fade">
+        <div class="sim-teaser__chart">
+          <canvas id="teaserChart" width="360" height="360"></canvas>
+        </div>
+        <div class="sim-teaser__overlay">
+          <div class="sim-teaser__overlay-text">あなたの施設の適合スコアは？</div>
+        </div>
+      </div>
+
+      <div class="sim-cta sim-fade">
+        <h2 class="sim-cta__heading">2分の診断で、最適な導入戦略が見える。</h2>
+        <p class="sim-cta__sub">12の質問に答えるだけで、あなたの施設のGWES適合性をレーダーチャートで可視化します。</p>
+        <button class="sim-btn sim-btn--primary sim-btn--lg" onclick="document.getElementById('simulationSection').scrollIntoView({behavior:'smooth'})">
+          シミュレーションを開始する →
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><div style="width:100%;height:1px;background:var(--gw-border);"></div></div>
+
+
+  <!-- =========================================================
+       PHASE 4: SIMULATION — 質問フォーム
+       ========================================================= -->
+  <section class="sim-section" id="simulationSection">
+    <div class="container">
+      <div class="sim-form-container">
+        <div class="sim-form__header sim-fade">
+          <span class="sim-hero__label">Simulation</span>
+          <h2 class="sim-narrative__heading">GWES 適合性診断</h2>
+          <p style="color: var(--gw-text-3); font-size: 0.88rem;">基本情報をご入力いただき、12の質問にお答えください。</p>
+        </div>
+
+        <div class="sim-progress">
+          <div class="sim-progress__bar">
+            <div class="sim-progress__fill" id="progressFill"></div>
+          </div>
+          <div class="sim-progress__text" id="progressText">Step 0 / 7</div>
+        </div>
+
+        <form id="simForm" name="gwes-simulation" method="POST" data-netlify="true">
+          <input type="hidden" name="form-name" value="gwes-simulation">
+
+          <!-- Step 0: Lead Info -->
+          <div class="sim-form__step is-active" data-step="0">
+            <span class="sim-form__step-label">Step 1 of 7</span>
+            <div class="sim-form__step-title">お客様情報</div>
+
+            <div class="sim-input-group">
+              <label>企業名<span class="req">*</span></label>
+              <input type="text" name="company" class="sim-input" placeholder="例: 株式会社GROUND" required>
+            </div>
+            <div class="sim-input-group">
+              <label>ご担当者名<span class="req">*</span></label>
+              <input type="text" name="contact_name" class="sim-input" placeholder="例: 山田 太郎" required>
+            </div>
+            <div class="sim-input-group">
+              <label>メールアドレス<span class="req">*</span></label>
+              <input type="email" name="email" class="sim-input" placeholder="例: taro@example.co.jp" required>
+            </div>
+            <div class="sim-input-group">
+              <label>施設の種類</label>
+              <select name="facility_type" class="sim-input">
+                <option value="">選択してください</option>
+                <option value="dc">配送センター（DC）</option>
+                <option value="fc">フルフィルメントセンター（FC）</option>
+                <option value="tc">通過型センター（TC）</option>
+                <option value="cold">冷蔵・冷凍倉庫</option>
+                <option value="general">一般倉庫</option>
+                <option value="other">その他</option>
+              </select>
+            </div>
+
+            <div class="sim-form__nav">
+              <div></div>
+              <button type="button" class="sim-btn sim-btn--primary" onclick="goToStep(1)">診断を始める →</button>
+            </div>
+          </div>
+
+          <!-- Step 1: Infrastructure (Q1-Q3) -->
+          <div class="sim-form__step" data-step="1">
+            <span class="sim-form__step-label">Step 2 of 7 — Infrastructure</span>
+            <div class="sim-form__step-title">データ基盤・システム統合</div>
+
+            <div class="sim-question">
+              <div class="sim-question__text"><span class="sim-question__num">Q1.</span>施設内の各システム（WMS、ERP、設備制御等）のデータ統合状況は？</div>
+              <div class="sim-options">
+                <label class="sim-option"><input type="radio" name="q1" value="1" required><span>複数システムがばらばらに存在している</span></label>
+                <label class="sim-option"><input type="radio" name="q1" value="2"><span>一部のシステム間でデータが連携されている</span></label>
+                <label class="sim-option"><input type="radio" name="q1" value="3"><span>ほぼすべてのシステムが統合的に連携している</span></label>
+              </div>
+            </div>
+
+            <div class="sim-question">
+              <div class="sim-question__text"><span class="sim-question__num">Q2.</span>複数拠点がある場合、施設間のデータ比較はできていますか？</div>
+              <div class="sim-options">
+                <label class="sim-option"><input type="radio" name="q2" value="1" required><span>各施設が独立しており、比較する手段がない</span></label>
+                <label class="sim-option"><input type="radio" name="q2" value="2"><span>定期的に手作業で比較レポートを作成している</span></label>
+                <label class="sim-option"><input type="radio" name="q2" value="3"><span>共通基盤でリアルタイムに比較・分析できている</span></label>
+              </div>
+            </div>
+
+            <div class="sim-question">
+              <div class="sim-question__text"><span class="sim-question__num">Q3.</span>データ処理のリアルタイム性はどの程度ですか？</div>
+              <div class="sim-options">
+                <label class="sim-option"><input type="radio" name="q3" value="1" required><span>日次バッチ処理が中心で、リアルタイム性がない</span></label>
+                <label class="sim-option"><input type="radio" name="q3" value="2"><span>一部リアルタイムだが、多くはバッチ処理</span></label>
+                <label class="sim-option"><input type="radio" name="q3" value="3"><span>ほぼリアルタイムでデータが処理・反映されている</span></label>
+              </div>
+            </div>
+
+            <div class="sim-form__nav">
+              <button type="button" class="sim-btn sim-btn--secondary" onclick="goToStep(0)">← 戻る</button>
+              <button type="button" class="sim-btn sim-btn--primary" onclick="goToStep(2)">次へ →</button>
+            </div>
+          </div>
+
+          <!-- Step 2: Forecasting & Planning (Q4-Q6) -->
+          <div class="sim-form__step" data-step="2">
+            <span class="sim-form__step-label">Step 3 of 7 — Forecasting</span>
+            <div class="sim-form__step-title">需要予測・進捗管理</div>
+
+            <div class="sim-question">
+              <div class="sim-question__text"><span class="sim-question__num">Q4.</span>翌日以降の作業量の予測精度はどの程度ですか？</div>
+              <div class="sim-options">
+                <label class="sim-option"><input type="radio" name="q4" value="1" required><span>予測できておらず、日々の状況に対応している</span></label>
+                <label class="sim-option"><input type="radio" name="q4" value="2"><span>経験則やExcelベースでおおよその予測をしている</span></label>
+                <label class="sim-option"><input type="radio" name="q4" value="3"><span>統計・AI手法で高精度な予測が可能</span></label>
+              </div>
+            </div>
+
+            <div class="sim-question">
+              <div class="sim-question__text"><span class="sim-question__num">Q5.</span>作業計画に対する実績の進捗をどう把握していますか？</div>
+              <div class="sim-options">
+                <label class="sim-option"><input type="radio" name="q5" value="1" required><span>作業終了後に実績を集計している</span></label>
+                <label class="sim-option"><input type="radio" name="q5" value="2"><span>数時間ごとに進捗を確認している</span></label>
+                <label class="sim-option"><input type="radio" name="q5" value="3"><span>リアルタイムダッシュボードで常に把握している</span></label>
+              </div>
+            </div>
+
+            <div class="sim-question">
+              <div class="sim-question__text"><span class="sim-question__num">Q6.</span>作業のボトルネック特定と改善はどう行っていますか？</div>
+              <div class="sim-options">
+                <label class="sim-option"><input type="radio" name="q6" value="1" required><span>経験と勘に頼っており、体系的な分析がない</span></label>
+                <label class="sim-option"><input type="radio" name="q6" value="2"><span>データを元に定期的に分析・改善を行っている</span></label>
+                <label class="sim-option"><input type="radio" name="q6" value="3"><span>自動的にボトルネックを検知し、対策を提案できる</span></label>
+              </div>
+            </div>
+
+            <div class="sim-form__nav">
+              <button type="button" class="sim-btn sim-btn--secondary" onclick="goToStep(1)">← 戻る</button>
+              <button type="button" class="sim-btn sim-btn--primary" onclick="goToStep(3)">次へ →</button>
+            </div>
+          </div>
+
+          <!-- Step 3: Inventory & Storage (Q7-Q8) -->
+          <div class="sim-form__step" data-step="3">
+            <span class="sim-form__step-label">Step 4 of 7 — Inventory</span>
+            <div class="sim-form__step-title">在庫管理・保管最適化</div>
+
+            <div class="sim-question">
+              <div class="sim-question__text"><span class="sim-question__num">Q7.</span>在庫の回転率・滞留状況を把握できていますか？</div>
+              <div class="sim-options">
+                <label class="sim-option"><input type="radio" name="q7" value="1" required><span>在庫データの分析がほぼできていない</span></label>
+                <label class="sim-option"><input type="radio" name="q7" value="2"><span>月次で在庫分析レポートを作成している</span></label>
+                <label class="sim-option"><input type="radio" name="q7" value="3"><span>リアルタイムで在庫の状態を多角的に分析可能</span></label>
+              </div>
+            </div>
+
+            <div class="sim-question">
+              <div class="sim-question__text"><span class="sim-question__num">Q8.</span>保管配置（棚割・ロケーション）の最適化は行っていますか？</div>
+              <div class="sim-options">
+                <label class="sim-option"><input type="radio" name="q8" value="1" required><span>入庫順に空きスペースへ配置している</span></label>
+                <label class="sim-option"><input type="radio" name="q8" value="2"><span>出荷頻度等を考慮したルールベースの棚割がある</span></label>
+                <label class="sim-option"><input type="radio" name="q8" value="3"><span>データ駆動で動的に保管配置を最適化している</span></label>
+              </div>
+            </div>
+
+            <div class="sim-form__nav">
+              <button type="button" class="sim-btn sim-btn--secondary" onclick="goToStep(2)">← 戻る</button>
+              <button type="button" class="sim-btn sim-btn--primary" onclick="goToStep(4)">次へ →</button>
+            </div>
+          </div>
+
+          <!-- Step 4: Operations Optimization (Q9-Q11) -->
+          <div class="sim-form__step" data-step="4">
+            <span class="sim-form__step-label">Step 5 of 7 — Optimization</span>
+            <div class="sim-form__step-title">オペレーション最適化</div>
+
+            <div class="sim-question">
+              <div class="sim-question__text"><span class="sim-question__num">Q9.</span>ピッキング経路の最適化はどの程度行われていますか？</div>
+              <div class="sim-options">
+                <label class="sim-option"><input type="radio" name="q9" value="1" required><span>作業者の判断で経路を決めている</span></label>
+                <label class="sim-option"><input type="radio" name="q9" value="2"><span>ゾーン分けやリスト順序で一定の効率化を実施</span></label>
+                <label class="sim-option"><input type="radio" name="q9" value="3"><span>アルゴリズムによる最適経路の自動生成が可能</span></label>
+              </div>
+            </div>
+
+            <div class="sim-question">
+              <div class="sim-question__text"><span class="sim-question__num">Q10.</span>積載・混載の最適化はどうしていますか？</div>
+              <div class="sim-options">
+                <label class="sim-option"><input type="radio" name="q10" value="1" required><span>固定的な積載パターンで出荷している</span></label>
+                <label class="sim-option"><input type="radio" name="q10" value="2"><span>経験者が手動で混載判断を行っている</span></label>
+                <label class="sim-option"><input type="radio" name="q10" value="3"><span>制約条件を考慮した自動最適化が可能</span></label>
+              </div>
+            </div>
+
+            <div class="sim-question">
+              <div class="sim-question__text"><span class="sim-question__num">Q11.</span>出荷タイミング・配送手段の選定はどう行っていますか？</div>
+              <div class="sim-options">
+                <label class="sim-option"><input type="radio" name="q11" value="1" required><span>固定スケジュールで出荷し、配送手段も固定</span></label>
+                <label class="sim-option"><input type="radio" name="q11" value="2"><span>状況に応じて手動で調整を行っている</span></label>
+                <label class="sim-option"><input type="radio" name="q11" value="3"><span>需要・コスト・納期を考慮した動的な最適化が可能</span></label>
+              </div>
+            </div>
+
+            <div class="sim-form__nav">
+              <button type="button" class="sim-btn sim-btn--secondary" onclick="goToStep(3)">← 戻る</button>
+              <button type="button" class="sim-btn sim-btn--primary" onclick="goToStep(5)">次へ →</button>
+            </div>
+          </div>
+
+          <!-- Step 5: Resource Allocation (Q12) -->
+          <div class="sim-form__step" data-step="5">
+            <span class="sim-form__step-label">Step 6 of 7 — Resource</span>
+            <div class="sim-form__step-title">リソース配分</div>
+
+            <div class="sim-question">
+              <div class="sim-question__text"><span class="sim-question__num">Q12.</span>人員・機械・スペースの動的配分はできていますか？</div>
+              <div class="sim-options">
+                <label class="sim-option"><input type="radio" name="q12" value="1" required><span>固定シフトと固定配置で運営している</span></label>
+                <label class="sim-option"><input type="radio" name="q12" value="2"><span>需要変動に応じて手動で調整を行っている</span></label>
+                <label class="sim-option"><input type="radio" name="q12" value="3"><span>予測データに基づく動的・自動的な配分が可能</span></label>
+              </div>
+            </div>
+
+            <div class="sim-form__nav">
+              <button type="button" class="sim-btn sim-btn--secondary" onclick="goToStep(4)">← 戻る</button>
+              <button type="button" class="sim-btn sim-btn--primary" onclick="goToStep(6)">次へ →</button>
+            </div>
+          </div>
+
+          <!-- Step 6: Confirmation -->
+          <div class="sim-form__step" data-step="6">
+            <span class="sim-form__step-label">Step 7 of 7</span>
+            <div class="sim-form__step-title">診断結果を表示する</div>
+
+            <div style="text-align: center; padding: 24px 0;">
+              <p style="color: var(--gw-text-2); font-size: 0.92rem; line-height: 1.8; margin-bottom: 32px;">
+                すべての質問にお答えいただきました。<br>
+                「結果を見る」をクリックすると、あなたの施設のGWES適合性が<br>
+                レーダーチャートで可視化されます。
+              </p>
+              <button type="button" class="sim-btn sim-btn--primary sim-btn--lg" onclick="showResults()">
+                結果を見る →
+              </button>
+            </div>
+
+            <div class="sim-form__nav">
+              <button type="button" class="sim-btn sim-btn--secondary" onclick="goToStep(5)">← 戻る</button>
+              <div></div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       PHASE 5: RESULTS — レーダーチャート & 推奨
+       ========================================================= -->
+  <section class="sim-section" id="resultsSection">
+    <div class="container">
+      <div class="sim-results__hero sim-fade">
+        <span class="sim-hero__label">Diagnosis Report</span>
+        <h2 class="sim-narrative__heading" style="margin-bottom: 16px;">
+          <span id="resultCompany"></span>様の<br>GWES適合性レポート
+        </h2>
+        <p style="color: var(--gw-text-3); margin-bottom: 24px;">
+          あなたの施設は現在 <span id="resultLevelBadge" class="sim-results__level-badge"></span> にあります
+        </p>
+      </div>
+
+      <!-- Radar Chart -->
+      <div class="sim-results__chart-wrap sim-fade">
+        <div class="sim-results__chart-title">モジュール別適合スコア</div>
+        <canvas id="resultChart"></canvas>
+      </div>
+
+      <!-- Layer Scores -->
+      <div class="sim-recs sim-fade" id="layerScores">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Module Recommendations -->
+      <div class="sim-fade" style="margin-top: 48px;">
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--gw-text-1); text-align: center; margin-bottom: 32px;">
+          推奨アクション
+        </h3>
+        <div class="sim-recs" id="recommendations">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="sim-results__actions sim-fade">
+        <a href="contact.html" class="sim-btn sim-btn--primary sim-btn--lg">
+          コンサルティング相談を申し込む
+        </a>
+        <a href="gpim-consulting.html" class="sim-btn sim-btn--secondary">
+          GPIMコンサルティングについて詳しく
+        </a>
+      </div>
+
+      <div style="text-align: center; margin-top: 32px;">
+        <p style="font-size: 0.78rem; color: var(--gw-text-3);">
+          この診断結果は、ご入力いただいた情報に基づく簡易的な適合性評価です。<br>
+          より詳細な分析は、GROUNDのコンサルタントが個別にご対応いたします。
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" style="background-color: rgb(10, 12, 20); color: rgb(255, 255, 255);">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__col">
+          <img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="footer__logo" style="height: 22px; width: auto;">
+          <p class="footer__tagline" style="color: rgba(255, 255, 255, 0.55);">Autonomous Warehouse</p>
+        </div>
+        <div class="footer__col">
+          <span class="footer__heading">Company</span>
+          <a href="/about" class="footer__link">会社概要</a>
+          <a href="/history" class="footer__link">GROUNDの歩み</a>
+          <a href="/about#vision" class="footer__link">ビジョン</a>
+          <a href="/about#ceo" class="footer__link">CEO</a>
+          <a href="/careers" class="footer__link">採用情報</a>
+        </div>
+        <div class="footer__col">
+          <span class="footer__heading">Solutions</span>
+          <a href="/gwes" class="footer__link">GWES</a>
+          <a href="/gwes-simulation" class="footer__link" style="color: var(--gw-accent);">GWES適合診断</a>
+          <a href="/digital-integration" class="footer__link">デジタルインテグレーション</a>
+          <a href="/consulting" class="footer__link">コンサルティング</a>
+          <a href="/peer" class="footer__link">PEER</a>
+        </div>
+        <div class="footer__col">
+          <span class="footer__heading">Contact</span>
+          <a href="/contact" class="footer__link">お問い合わせ</a>
+          <a class="footer__link">03-6457-1650</a>
+          <a href="mailto:Info@groundinc.co.jp" class="footer__link">Info@groundinc.co.jp</a>
+          <span class="footer__link" style="font-size: 0.72rem; opacity: 0.5;">〒107-0052 東京都港区赤坂9-7-1<br>ミッドタウン・タワー</span>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copy">© 2015 - 2025 GROUND Inc.</span>
+        <div class="footer__social">
+          <a href="https://www.linkedin.com/company/ground-inc/" target="_blank" rel="noopener" class="footer__social-link" aria-label="LinkedIn">in</a>
+          <a href="https://note.com/and_and_and" target="_blank" rel="noopener" class="footer__social-link" aria-label="Note">N</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script src="js/main.js"></script>
+  <script>
+    // ── Scroll Reveal ──
+    const simObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          simObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.sim-fade').forEach(el => simObserver.observe(el));
+
+    // ── Teaser Chart (blurred preview) ──
+    const teaserCtx = document.getElementById('teaserChart');
+    if (teaserCtx) {
+      new Chart(teaserCtx, {
+        type: 'radar',
+        data: {
+          labels: ['DC', 'Base', 'Engine', 'WF', 'PA', 'WA', 'IA', 'SO', 'RO', 'LO', 'DO', 'RA'],
+          datasets: [{
+            data: [2.1, 1.8, 1.5, 2.4, 1.9, 1.6, 2.0, 1.7, 1.3, 1.5, 1.8, 2.2],
+            backgroundColor: 'rgba(59,130,246,0.15)',
+            borderColor: 'rgba(59,130,246,0.4)',
+            borderWidth: 2,
+            pointRadius: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: {
+            r: {
+              beginAtZero: true, max: 3,
+              grid: { color: 'rgba(255,255,255,0.06)' },
+              angleLines: { color: 'rgba(255,255,255,0.06)' },
+              ticks: { display: false },
+              pointLabels: {
+                color: 'rgba(255,255,255,0.3)',
+                font: { family: 'JetBrains Mono', size: 10 }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // ── Module metadata ──
+    const MODULES = [
+      { key: 'q1', name: 'Data Connector', nameJa: 'データコネクタ', abbr: 'DC', layer: 'infra', desc: 'WMS・ERP・設備データの統合収集' },
+      { key: 'q2', name: 'Base Module', nameJa: 'ベースモジュール', abbr: 'Base', layer: 'infra', desc: '統一スキーマによる拠点横断分析' },
+      { key: 'q3', name: 'Module Engine', nameJa: 'モジュールエンジン', abbr: 'Engine', layer: 'infra', desc: 'リアルタイム処理パイプライン' },
+      { key: 'q4', name: 'Workload Forecasting', nameJa: '作業量予測', abbr: 'WF', layer: 'l2', desc: 'AI需要予測による人員計画最適化' },
+      { key: 'q5', name: 'Progress Analyzer', nameJa: '進捗分析', abbr: 'PA', layer: 'l2', desc: '計画vs実績のリアルタイム追跡' },
+      { key: 'q6', name: 'Workload Analyzer', nameJa: '作業量分析', abbr: 'WA', layer: 'l2', desc: 'ボトルネック特定と改善提案' },
+      { key: 'q7', name: 'Inventory Analyzer', nameJa: '在庫分析', abbr: 'IA', layer: 'l2', desc: '在庫回転率・滞留・配置効率の分析' },
+      { key: 'q8', name: 'Storage Optimizer', nameJa: '保管最適化', abbr: 'SO', layer: 'l2', desc: 'データ駆動型の棚割・配置最適化' },
+      { key: 'q9', name: 'Routing Optimizer', nameJa: '経路最適化', abbr: 'RO', layer: 'l4', desc: 'ピッキング動線の最短化' },
+      { key: 'q10', name: 'Loading Optimizer', nameJa: '積載最適化', abbr: 'LO', layer: 'l4', desc: '混載・積載率の最大化' },
+      { key: 'q11', name: 'Dispatch Optimizer', nameJa: '配車最適化', abbr: 'DO', layer: 'l4', desc: '出荷タイミング・配送手段の最適化' },
+      { key: 'q12', name: 'Resource Allocator', nameJa: 'リソース配分', abbr: 'RA', layer: 'l4', desc: '人員・機械・スペースの動的最適配分' }
+    ];
+
+    const GPIM_LEVELS = [
+      { level: 1, name: '可視化', nameEn: 'Visualization', desc: '施設の現状データを収集・可視化する段階です。まずはデータ基盤の整備とGWESの可視化モジュール導入から始めることを推奨します。' },
+      { level: 2, name: '分析', nameEn: 'Analysis', desc: '収集したデータを分析し、課題を数値で把握できる段階です。GWESのL2可視化層モジュールが効果を発揮するフェーズです。' },
+      { level: 3, name: '最適化', nameEn: 'Optimization', desc: '分析結果をもとに、オペレーションの最適化設計を行う段階です。GWESのL4最適化層モジュールの導入が推奨されます。' },
+      { level: 4, name: '自動化', nameEn: 'Automation', desc: '最適化されたオペレーションをシステムで自動実行する段階です。GWES全モジュールの統合運用が効果を最大化します。' },
+      { level: 5, name: '自律運営', nameEn: 'Autonomous', desc: '施設全体が自律的に最適化を継続する段階です。GWESを核とした完全自律型オペレーションの実現フェーズです。' }
+    ];
+
+    // ── Step Navigation ──
+    let currentStep = 0;
+    const totalSteps = 7;
+
+    function goToStep(step) {
+      // Validate current step
+      if (step > currentStep) {
+        const currentEl = document.querySelector(`[data-step="${currentStep}"]`);
+        if (currentStep === 0) {
+          const reqInputs = currentEl.querySelectorAll('[required]');
+          for (const inp of reqInputs) {
+            if (!inp.value.trim()) {
+              inp.focus();
+              inp.style.borderColor = '#EF4444';
+              setTimeout(() => inp.style.borderColor = '', 2000);
+              return;
+            }
+          }
+        } else {
+          const radios = currentEl.querySelectorAll('.sim-question');
+          for (const q of radios) {
+            const checked = q.querySelector('input[type="radio"]:checked');
+            if (!checked) {
+              q.querySelector('.sim-options').style.outline = '1px solid #EF4444';
+              q.querySelector('.sim-options').style.borderRadius = '10px';
+              setTimeout(() => q.querySelector('.sim-options').style.outline = '', 2000);
+              return;
+            }
+          }
+        }
+      }
+
+      // Switch steps
+      document.querySelectorAll('.sim-form__step').forEach(el => el.classList.remove('is-active'));
+      document.querySelector(`[data-step="${step}"]`).classList.add('is-active');
+      currentStep = step;
+
+      // Update progress
+      const pct = (step / (totalSteps - 1)) * 100;
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressText').textContent = `Step ${step + 1} / ${totalSteps}`;
+
+      // Scroll to form
+      document.getElementById('simulationSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ── Show Results ──
+    function showResults() {
+      const form = document.getElementById('simForm');
+      const data = new FormData(form);
+      const scores = {};
+      let allAnswered = true;
+
+      MODULES.forEach(m => {
+        const val = data.get(m.key);
+        if (!val) allAnswered = false;
+        scores[m.key] = parseInt(val) || 0;
+      });
+
+      if (!allAnswered) {
+        alert('すべての質問にお答えください');
+        return;
+      }
+
+      // Calculate layer averages
+      const infraScore = (scores.q1 + scores.q2 + scores.q3) / 3;
+      const l2Score = (scores.q4 + scores.q5 + scores.q6 + scores.q7 + scores.q8) / 5;
+      const l4Score = (scores.q9 + scores.q10 + scores.q11 + scores.q12) / 4;
+      const totalAvg = Object.values(scores).reduce((a, b) => a + b, 0) / 12;
+
+      // GPIM Level
+      let gpimLevel;
+      if (totalAvg < 1.4) gpimLevel = 1;
+      else if (totalAvg < 1.8) gpimLevel = 2;
+      else if (totalAvg < 2.3) gpimLevel = 3;
+      else if (totalAvg < 2.7) gpimLevel = 4;
+      else gpimLevel = 5;
+
+      const levelInfo = GPIM_LEVELS[gpimLevel - 1];
+
+      // Hide form, show results
+      document.getElementById('simulationSection').style.display = 'none';
+      const resultsEl = document.getElementById('resultsSection');
+      resultsEl.style.display = 'block';
+      resultsEl.scrollIntoView({ behavior: 'smooth' });
+
+      // Populate results
+      document.getElementById('resultCompany').textContent = data.get('company') || '';
+      const badge = document.getElementById('resultLevelBadge');
+      badge.textContent = `GPIM Level ${gpimLevel}: ${levelInfo.name}`;
+      badge.className = `sim-results__level-badge sim-results__level-badge--${gpimLevel}`;
+
+      // Draw Radar Chart
+      const chartData = MODULES.map(m => scores[m.key]);
+      const chartLabels = MODULES.map(m => m.abbr);
+
+      new Chart(document.getElementById('resultChart'), {
+        type: 'radar',
+        data: {
+          labels: chartLabels,
+          datasets: [{
+            label: 'あなたの施設',
+            data: chartData,
+            backgroundColor: 'rgba(59,130,246,0.2)',
+            borderColor: '#3B82F6',
+            borderWidth: 2,
+            pointBackgroundColor: '#3B82F6',
+            pointRadius: 4,
+            pointHoverRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                title: (items) => {
+                  const idx = items[0].dataIndex;
+                  return MODULES[idx].nameJa + ' (' + MODULES[idx].abbr + ')';
+                },
+                label: (item) => 'スコア: ' + item.raw + ' / 3'
+              }
+            }
+          },
+          scales: {
+            r: {
+              beginAtZero: true,
+              min: 0, max: 3,
+              ticks: {
+                stepSize: 1,
+                color: 'rgba(255,255,255,0.3)',
+                backdropColor: 'transparent',
+                font: { size: 10 }
+              },
+              grid: { color: 'rgba(255,255,255,0.08)' },
+              angleLines: { color: 'rgba(255,255,255,0.08)' },
+              pointLabels: {
+                color: 'rgba(255,255,255,0.7)',
+                font: { family: 'JetBrains Mono', size: 11 }
+              }
+            }
+          }
+        }
+      });
+
+      // Layer scores
+      const layerHTML = `
+        <div class="sim-rec">
+          <span class="sim-rec__layer sim-rec__layer--infra">Infrastructure Layer</span>
+          <div class="sim-rec__title">インフラストラクチャ層</div>
+          <div class="sim-rec__score">${infraScore.toFixed(1)} / 3.0</div>
+          <div class="sim-rec__desc">DC・Base・Engineの平均スコア。データ基盤の成熟度を示します。</div>
+        </div>
+        <div class="sim-rec">
+          <span class="sim-rec__layer sim-rec__layer--l2">L2 Visualization Layer</span>
+          <div class="sim-rec__title">可視化層</div>
+          <div class="sim-rec__score">${l2Score.toFixed(1)} / 3.0</div>
+          <div class="sim-rec__desc">WF・PA・WA・IA・SOの平均スコア。分析・予測能力を示します。</div>
+        </div>
+        <div class="sim-rec">
+          <span class="sim-rec__layer sim-rec__layer--l4">L4 Optimization Layer</span>
+          <div class="sim-rec__title">最適化層</div>
+          <div class="sim-rec__score">${l4Score.toFixed(1)} / 3.0</div>
+          <div class="sim-rec__desc">RO・LO・DO・RAの平均スコア。オペレーション最適化の成熟度を示します。</div>
+        </div>
+      `;
+      document.getElementById('layerScores').innerHTML = layerHTML;
+
+      // Recommendations
+      const lowModules = MODULES
+        .map((m, i) => ({ ...m, score: chartData[i] }))
+        .filter(m => m.score < 3)
+        .sort((a, b) => a.score - b.score)
+        .slice(0, 6);
+
+      const recsHTML = lowModules.map(m => {
+        const layerClass = m.layer === 'infra' ? 'infra' : m.layer;
+        const layerLabel = m.layer === 'infra' ? 'Infrastructure' : m.layer === 'l2' ? 'L2 Visualization' : 'L4 Optimization';
+        const action = m.score === 1 ? '導入を強く推奨' : '強化を推奨';
+        return `
+          <div class="sim-rec">
+            <span class="sim-rec__layer sim-rec__layer--${layerClass}">${layerLabel}</span>
+            <div class="sim-rec__title">${m.nameJa}（${m.abbr}）</div>
+            <div class="sim-rec__score">${action}</div>
+            <div class="sim-rec__desc">${m.desc}</div>
+          </div>
+        `;
+      }).join('');
+      document.getElementById('recommendations').innerHTML = recsHTML;
+
+      // Re-observe new fade elements
+      document.querySelectorAll('#resultsSection .sim-fade').forEach(el => {
+        el.classList.remove('is-visible');
+        simObserver.observe(el);
+      });
+
+      // Submit form data to Netlify (async)
+      const submitData = new FormData(form);
+      submitData.append('gpim_level', gpimLevel);
+      submitData.append('total_score', totalAvg.toFixed(2));
+      submitData.append('infra_score', infraScore.toFixed(2));
+      submitData.append('l2_score', l2Score.toFixed(2));
+      submitData.append('l4_score', l4Score.toFixed(2));
+      fetch('/', {
+        method: 'POST',
+        body: submitData
+      }).catch(() => {});
+    }
+  </script>
+
+</body>
+</html>
