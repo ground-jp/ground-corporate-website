@@ -68,408 +68,276 @@
     .hamburger__line {
       display: block;
       width: 26px;
-      height: 1.5px;
-      background: #fff;
+      height: 2px;
+      background: #000;
       border-radius: 1px;
-      transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.25s ease;
-      transform-origin: center;
+      transition: all 0.3s ease;
     }
 
     .hamburger.active .hamburger__line:nth-child(1) {
-      transform: rotate(45deg) translate(5.5px,5.5px);
+      transform: rotate(45deg) translateY(10px);
     }
 
     .hamburger.active .hamburger__line:nth-child(2) {
       opacity: 0;
-      transform: scaleX(0);
     }
 
     .hamburger.active .hamburger__line:nth-child(3) {
-      transform: rotate(-45deg) translate(5.5px,-5.5px);
+      transform: rotate(-45deg) translateY(-10px);
     }
 
     .overlay-menu {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #FFFFFF;
       z-index: 300;
-      background: #0A0C14;
+      display: none;
       opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transform: translateY(-20px);
-      transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s, transform 0.4s cubic-bezier(0.23,1,0.32,1);
-      overflow-y: auto;
+      transition: opacity 0.3s ease;
     }
 
     .overlay-menu.active {
+      display: flex;
       opacity: 1;
-      visibility: visible;
-      pointer-events: all;
-      transform: translateY(0);
     }
 
     .overlay-menu__inner {
-      display: grid;
-      grid-template-columns: 280px 1fr 340px;
-      gap: 0 48px;
-      max-width: 1200px;
       width: 100%;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 100px 56px 60px;
-      min-height: 100vh;
-      align-content: start;
+      padding: 120px 56px 56px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 80px;
+      align-items: flex-start;
     }
 
     .overlay-menu__label {
-      display: block;
-      font-family: var(--font-mono);
       font-size: 11px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.35);
-      letter-spacing: 0.14em;
+      font-weight: 700;
       text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-
-    .overlay-menu__col-nav {
-      grid-column: 1;
+      letter-spacing: 0.15em;
+      color: #999999;
+      margin-bottom: 24px;
     }
 
     .overlay-menu__nav-list {
       display: flex;
       flex-direction: column;
-      gap: 0;
+      gap: 12px;
     }
 
     .overlay-menu__nav-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 16px;
+      font-size: 36px;
+      font-weight: 700;
+      color: #1A1A24;
       text-decoration: none;
-      color: #fff;
-      font-size: 17px;
-      font-weight: 500;
-      letter-spacing: 0.01em;
-      cursor: pointer;
-      transition: background 0.15s ease;
+      transition: color 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
     }
 
-    .overlay-menu__nav-item:hover,
+    .overlay-menu__nav-item:hover {
+      color: var(--color-primary);
+    }
+
     .overlay-menu__nav-item.is-active {
-      background: rgba(255,255,255,0.06);
+      color: var(--color-primary);
     }
 
     .overlay-menu__nav-arrow {
-      font-size: 16px;
-      color: rgba(255,255,255,0.4);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
-    .overlay-menu__col-sub {
-      grid-column: 2;
-    }
-
-    .overlay-menu__panel {
-      display: none;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .overlay-menu__panel.is-visible {
-      display: flex;
-    }
-
-    .overlay-menu__sub-item {
-      display: block;
-      padding: 12px 0;
-      text-decoration: none;
-      color: rgba(255,255,255,0.85);
-      font-size: 16px;
-      font-weight: 400;
-      transition: color 0.15s;
-    }
-
-    .overlay-menu__sub-item:hover {
-      color: #fff;
-    }
-
-    .overlay-menu__col-info {
-      grid-column: 3;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
-
-    .overlay-menu__cta-btn {
-      display: block;
-      padding: 16px 32px;
-      border: 1px solid rgba(255,255,255,0.25);
-      color: #fff;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 500;
-      text-align: center;
-      text-decoration: none;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    .overlay-menu__contact-info {
-      margin-top: 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .overlay-menu__contact-info span {
-      font-size: 12px;
-      color: rgba(255,255,255,0.3);
-      font-family: var(--font-mono);
-      letter-spacing: 0.03em;
-    }
-
-    .overlay-menu__copyright {
-      margin-top: 40px;
-      font-size: 10px;
-      color: rgba(255,255,255,0.12);
-      font-family: var(--font-mono);
-      letter-spacing: 0.06em;
-    }
-
-    /* Language Switcher */
-    .lang-switch-bar {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 20px 0 0;
-      margin-top: 20px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .lang-switch {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: rgba(255,255,255,0.35);
-      padding: 8px 12px;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 2px;
-      transition: all 0.25s ease;
-      background: none;
-    }
-
-    .lang-switch:hover {
-      color: #fff;
-      border-color: rgba(255,255,255,0.3);
-      background: rgba(255,255,255,0.04);
-    }
-
-    .lang-switch--current {
-      color: rgba(255,255,255,0.8);
-      border-color: rgba(255,255,255,0.25);
-      background: rgba(255,255,255,0.06);
-      pointer-events: none;
-    }
-
-    .lang-switch__globe {
-      width: 14px;
-      height: 14px;
-      opacity: 0.5;
-    }
-
-    .lang-switch:hover .lang-switch__globe {
+    .overlay-menu__nav-item:hover .overlay-menu__nav-arrow {
       opacity: 1;
     }
 
-    .lang-switch--current .lang-switch__globe {
-      opacity: 0.7;
+    .overlay-menu__cta-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--color-primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 0.3s ease;
+      margin-bottom: 32px;
     }
 
-    /* =====================================================
-       BREADCRUMB
-       ===================================================== */
-    .breadcrumb {
-      background: #FFFFFF;
-      padding: 16px 0;
-      border-bottom: 1px solid var(--color-line);
-      font-family: var(--font-mono);
+    .overlay-menu__cta-btn:hover {
+      background: rgba(59, 130, 246, 0.9);
+    }
+
+    .overlay-menu__contact-info {
+      font-size: 13px;
+      color: #999999;
+      margin-bottom: 40px;
+    }
+
+    .lang-switch-bar {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .lang-switch {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #999999;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      padding: 6px 12px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+    }
+
+    .lang-switch:hover {
+      color: #1A1A24;
+    }
+
+    .lang-switch--current {
+      color: #1A1A24;
+      border-color: var(--color-line);
+    }
+
+    .lang-switch__globe {
+      width: 16px;
+      height: 16px;
+    }
+
+    .overlay-menu__copyright {
       font-size: 12px;
-      color: #8A8C9A;
-      letter-spacing: 0.01em;
+      color: #999999;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      border-bottom: 1px solid var(--color-line);
+      background: #FAFBFC;
     }
 
     .breadcrumb__inner {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 56px;
+      padding: 16px 56px;
+      font-size: 13px;
+      color: #666666;
     }
 
-    /* =====================================================
-       HERO SECTION — Premium with gradient background
-       ===================================================== */
+    .breadcrumb__inner a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .breadcrumb__inner a:hover {
+      color: var(--color-primary);
+    }
+
+    /* Hero Section */
     .history-hero {
       position: relative;
-      background: var(--color-dark);
-      color: #fff;
       padding: 120px 56px;
-      overflow: hidden;
-      min-height: 640px;
+      background: linear-gradient(135deg, var(--color-dark) 0%, #1a1f3a 100%);
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+      color: white;
+      min-height: 600px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .history-hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(0deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px),
-        linear-gradient(135deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
-      background-size: 80px 80px, 80px 80px, 113px 113px;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .history-hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.06) 0%, rgba(139, 92, 246, 0.04) 50%, transparent 100%);
-      pointer-events: none;
-      z-index: 1;
-    }
-
     .history-hero__content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
       text-align: center;
-      animation: fadeInUp 0.8s ease;
+      max-width: 800px;
     }
 
     .history-hero__subtitle {
-      font-family: var(--font-mono);
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 24px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 16px;
     }
 
     .history-hero__title-main {
+      font-size: 64px;
+      font-weight: 800;
       font-family: var(--font-heading);
-      font-size: 56px;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 16px;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
     }
 
     .history-hero__title-jp {
-      font-family: var(--font-jp);
-      font-size: 48px;
+      font-size: 40px;
       font-weight: 700;
-      color: rgba(255,255,255,0.95);
-      margin-bottom: 24px;
-      letter-spacing: 0.01em;
-      line-height: 1.3;
+      margin-bottom: 32px;
+      color: rgba(255, 255, 255, 0.9);
     }
 
     .history-hero__year {
+      font-size: 20px;
+      font-weight: 700;
       font-family: var(--font-mono);
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--color-primary);
-      letter-spacing: 0.1em;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 0.15em;
     }
 
     .history-hero__tagline {
-      font-family: var(--font-jp);
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 500;
-      color: rgba(255,255,255,0.8);
       line-height: 1.6;
+      color: rgba(255, 255, 255, 0.85);
     }
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* =====================================================
-       OPENING SECTION
-       ===================================================== */
+    /* Opening Section */
     .history-opening {
-      position: relative;
-      background: #FFFFFF;
       padding: 80px 56px;
-      overflow: hidden;
-    }
-
-    .history-opening::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(0deg, rgba(59, 130, 246, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59, 130, 246, 0.02) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-      z-index: 0;
+      background: white;
     }
 
     .history-opening__inner {
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
     .history-opening__text {
       font-size: 18px;
-      font-weight: 400;
       line-height: 1.8;
-      color: #1A1A24;
-      letter-spacing: 0.01em;
       margin-bottom: 24px;
-      animation: fadeInUp 0.8s ease 0.1s both;
+      color: #333333;
     }
 
-    /* =====================================================
-       CHAPTER SECTION DIVIDERS
-       ===================================================== */
+    .history-opening__text:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Chapter Divider */
     .chapter-divider {
-      position: relative;
       padding: 60px 56px;
-      background: linear-gradient(90deg, #F5F5F8 0%, #FFFFFF 50%, #F5F5F8 100%);
-      border-top: 1px solid var(--color-line);
-      border-bottom: 1px solid var(--color-line);
+      background: white;
     }
 
     .chapter-divider__inner {
-      max-width: 1200px;
+      max-width: 1000px;
       margin: 0 auto;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 48px;
+      justify-content: center;
+      gap: 40px;
     }
 
     .chapter-divider__line {
@@ -479,425 +347,344 @@
     }
 
     .chapter-divider__label {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      white-space: nowrap;
+      text-align: center;
+      flex-shrink: 0;
     }
 
     .chapter-divider__number {
-      font-family: var(--font-mono);
       font-size: 12px;
-      font-weight: 600;
-      color: rgba(26,26,36,0.4);
-      letter-spacing: 0.1em;
+      font-weight: 700;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
+      color: #999999;
+      margin-bottom: 8px;
+      font-family: var(--font-mono);
     }
 
     .chapter-divider__title {
-      font-family: var(--font-jp);
-      font-size: 24px;
+      font-size: 28px;
       font-weight: 700;
       color: #1A1A24;
-      letter-spacing: 0.01em;
+      margin-bottom: 8px;
     }
 
     .chapter-divider__range {
-      font-family: var(--font-jp);
       font-size: 14px;
+      color: #999999;
       font-weight: 500;
-      color: #8A8C9A;
-      letter-spacing: 0.01em;
     }
 
-    /* =====================================================
-       TIMELINE CONTAINER
-       ===================================================== */
+    /* Timeline Section */
     .timeline-section {
-      position: relative;
-      background: #FFFFFF;
-      padding: 80px 56px;
-      overflow: hidden;
-    }
-
-    .timeline-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(0deg, rgba(59, 130, 246, 0.01) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59, 130, 246, 0.01) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-      z-index: 0;
+      padding: 60px 56px;
+      background: white;
     }
 
     .timeline-section__inner {
-      position: relative;
-      z-index: 1;
-      max-width: 1200px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
+    /* Timeline Container with left-side accent */
     .timeline {
       position: relative;
-      padding: 40px 0;
+      padding: 0 0 0 60px;
     }
 
     .timeline__line {
       position: absolute;
-      left: 50%;
+      left: 20px;
       top: 0;
       bottom: 0;
       width: 2px;
-      background: linear-gradient(to bottom,
-        #999999 0%,
-        #999999 15%,
-        #3B82F6 25%,
-        #3B82F6 40%,
-        #8B5CF6 55%,
-        #8B5CF6 75%,
-        #EF4444 85%,
-        #EF4444 100%);
-      transform: translateX(-1px);
+      background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-purple) 50%, var(--color-pink) 100%);
     }
 
-    /* Desktop: alternating layout */
-    @media (min-width: 1025px) {
-      .timeline__line {
-        left: 50%;
-      }
-
-      .timeline-entry {
-        display: grid;
-        grid-template-columns: 1fr 2px 1fr;
-        gap: 48px;
-        margin-bottom: 80px;
-        position: relative;
-        align-items: start;
-      }
-
-      .timeline-entry:nth-child(even) {
-        direction: rtl;
-      }
-
-      .timeline-entry:nth-child(even) > * {
-        direction: ltr;
-      }
-
-      .timeline-entry__content {
-        grid-column: 1;
-      }
-
-      .timeline-entry:nth-child(even) .timeline-entry__content {
-        grid-column: 3;
-      }
-
-      .timeline-entry__marker {
-        grid-column: 2;
-        position: relative;
-        height: 100%;
-        display: flex;
-        align-items: flex-start;
-        padding-top: 12px;
-      }
-
-      .timeline-entry__dot {
-        width: 12px;
-        height: 12px;
-        background: #fff;
-        border: 3px solid #3B82F6;
-        border-radius: 50%;
-        position: absolute;
-        left: -7.5px;
-        top: 0;
-        z-index: 10;
-        transition: all 0.3s ease;
-      }
-
-      .timeline-entry:hover .timeline-entry__dot {
-        width: 16px;
-        height: 16px;
-        left: -9.5px;
-        border-width: 3px;
-      }
+    /* Timeline Entry */
+    .timeline-entry {
+      position: relative;
+      margin-bottom: 48px;
     }
 
-    /* Mobile: single column */
-    @media (max-width: 1024px) {
-      .timeline__line {
-        left: 32px;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-      }
-
-      .timeline-entry {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 60px;
-        padding-left: 80px;
-        position: relative;
-      }
-
-      .timeline-entry__marker {
-        position: absolute;
-        left: 0;
-        top: 0;
-      }
-
-      .timeline-entry__dot {
-        width: 12px;
-        height: 12px;
-        background: #fff;
-        border: 3px solid #3B82F6;
-        border-radius: 50%;
-        position: absolute;
-        left: 26px;
-        top: 0;
-        z-index: 10;
-      }
-
-      .timeline-entry__content {
-        flex: 1;
-      }
+    .timeline-entry__marker {
+      position: absolute;
+      left: -48px;
     }
 
-    /* Timeline entry card styling */
+    .timeline-entry__dot {
+      width: 12px;
+      height: 12px;
+      background: white;
+      border: 3px solid var(--color-primary);
+      border-radius: 50%;
+      position: absolute;
+      top: 4px;
+      left: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .timeline-entry:nth-child(odd) .timeline-entry__dot {
+      border-color: var(--color-purple);
+    }
+
+    .timeline-entry:nth-child(even) .timeline-entry__dot {
+      border-color: var(--color-pink);
+    }
+
+    /* Regular text-only card */
     .timeline-entry__content {
       background: #FAFBFC;
       border: 1px solid var(--color-line);
       border-radius: 8px;
       padding: 32px;
       transition: all 0.3s ease;
-      position: relative;
     }
 
-    .timeline-entry__content:hover {
-      background: #F5F7FB;
+    .timeline-entry:hover .timeline-entry__content {
       border-color: var(--color-primary);
-      box-shadow: 0 12px 40px rgba(59, 130, 246, 0.08);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
     }
 
+    /* Featured card with image/text layout */
+    .timeline-entry--featured .timeline-entry__content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .timeline-entry--featured.timeline-entry--img-right .timeline-entry__content {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .timeline-entry--featured.timeline-entry--img-left .timeline-entry__content {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* Reorder grid columns based on image position */
+    .timeline-entry--featured.timeline-entry--img-right .timeline-entry__text-wrap {
+      order: 1;
+    }
+
+    .timeline-entry--featured.timeline-entry--img-right .timeline-entry__image {
+      order: 2;
+    }
+
+    .timeline-entry--featured.timeline-entry--img-left .timeline-entry__text-wrap {
+      order: 2;
+    }
+
+    .timeline-entry--featured.timeline-entry--img-left .timeline-entry__image {
+      order: 1;
+    }
+
+    /* Image container */
+    .timeline-entry__image {
+      background-size: cover;
+      background-position: center;
+      background-color: #F0F0F4;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* SVG images */
+    .timeline-entry__image svg,
+    .timeline-entry__image img {
+      max-width: 80%;
+      max-height: 80%;
+      object-fit: contain;
+    }
+
+    /* Text wrap for featured cards */
+    .timeline-entry__text-wrap {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Date styling */
     .timeline-entry__date {
+      font-size: 14px;
+      font-weight: 700;
       font-family: var(--font-mono);
-      font-size: 13px;
-      font-weight: 600;
       color: var(--color-primary);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
     }
 
+    /* Title styling */
     .timeline-entry__title {
-      font-family: var(--font-jp);
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
       color: #1A1A24;
       margin-bottom: 16px;
-      letter-spacing: 0.01em;
       line-height: 1.4;
     }
 
+    /* Description styling */
     .timeline-entry__description {
-      font-family: var(--font-jp);
       font-size: 15px;
-      font-weight: 400;
-      color: #4A4A5A;
       line-height: 1.7;
-      letter-spacing: 0.01em;
+      color: #555555;
       margin-bottom: 16px;
     }
 
+    /* Tags */
     .timeline-entry__tag {
       display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 600;
       padding: 6px 12px;
       border-radius: 4px;
-      letter-spacing: 0.08em;
+      font-size: 11px;
+      font-weight: 700;
       text-transform: uppercase;
+      letter-spacing: 0.08em;
       margin-right: 8px;
       margin-bottom: 8px;
     }
 
+    .timeline-entry__tag--industry,
+    .timeline-entry__tag--prehistory {
+      background: #EEEEEE;
+      color: #666666;
+    }
+
     .timeline-entry__tag--founding {
       background: rgba(16, 185, 129, 0.1);
-      color: #10B981;
+      color: var(--color-green);
     }
 
     .timeline-entry__tag--partnership {
       background: rgba(139, 92, 246, 0.1);
-      color: #8B5CF6;
+      color: var(--color-purple);
     }
 
     .timeline-entry__tag--funding {
       background: rgba(245, 158, 11, 0.1);
-      color: #F59E0B;
+      color: var(--color-amber);
     }
 
     .timeline-entry__tag--deployment {
       background: rgba(59, 130, 246, 0.1);
-      color: #3B82F6;
+      color: var(--color-primary);
     }
 
     .timeline-entry__tag--product {
       background: rgba(236, 72, 153, 0.1);
-      color: #EC4899;
+      color: var(--color-pink);
     }
 
     .timeline-entry__tag--organization {
       background: rgba(99, 102, 241, 0.1);
-      color: #6366F1;
+      color: var(--color-indigo);
     }
 
     .timeline-entry__tag--milestone {
       background: rgba(239, 68, 68, 0.1);
-      color: #EF4444;
+      color: var(--color-red);
     }
 
-    .timeline-entry__tag--industry {
-      background: rgba(153, 153, 153, 0.1);
-      color: #999999;
-    }
-
-    .timeline-entry__tag--prehistory {
-      background: rgba(153, 153, 153, 0.1);
-      color: #999999;
-    }
-
-    /* =====================================================
-       CLOSING SECTION
-       ===================================================== */
+    /* Closing Section */
     .history-closing {
-      position: relative;
-      background: linear-gradient(135deg, var(--color-dark) 0%, rgba(10, 12, 20, 0.95) 100%);
-      color: #fff;
       padding: 120px 56px;
-      overflow: hidden;
-      text-align: center;
-    }
-
-    .history-closing::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(0deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
-      background-size: 80px 80px;
-      pointer-events: none;
-      z-index: 1;
+      background: linear-gradient(135deg, #F5F7FB 0%, #FAFBFC 100%);
     }
 
     .history-closing__content {
-      position: relative;
-      z-index: 2;
       max-width: 900px;
       margin: 0 auto;
+      text-align: center;
     }
 
     .history-closing__tagline {
-      font-family: var(--font-heading);
       font-size: 48px;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 24px;
-      letter-spacing: -0.01em;
-      line-height: 1.2;
+      font-weight: 800;
+      font-family: var(--font-heading);
+      color: #1A1A24;
+      margin-bottom: 32px;
+      letter-spacing: -0.5px;
     }
 
     .history-closing__subtitle {
-      font-family: var(--font-jp);
       font-size: 18px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.8);
       line-height: 1.8;
-      margin-bottom: 32px;
-      letter-spacing: 0.01em;
+      color: #555555;
+      margin-bottom: 48px;
     }
 
     .history-closing__cta {
-      display: inline-flex;
-      gap: 16px;
-      flex-wrap: wrap;
+      display: flex;
+      gap: 24px;
       justify-content: center;
     }
 
     .history-closing__cta-link {
-      display: inline-block;
-      padding: 14px 32px;
-      background: transparent;
-      border: 2px solid rgba(255,255,255,0.3);
-      color: #fff;
-      font-family: var(--font-jp);
-      font-size: 15px;
-      font-weight: 600;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: all 0.3s ease;
-      letter-spacing: 0.01em;
-    }
-
-    .history-closing__cta-link:hover {
-      background: rgba(59, 130, 246, 0.1);
-      border-color: var(--color-primary);
-      color: #fff;
-      transform: translateY(-2px);
-    }
-
-    .history-closing__cta-link:first-child {
+      padding: 12px 32px;
       background: var(--color-primary);
-      border-color: var(--color-primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      border: 2px solid var(--color-primary);
     }
 
     .history-closing__cta-link:first-child:hover {
-      background: rgba(59, 130, 246, 0.9);
+      background: white;
+      color: var(--color-primary);
     }
 
-    /* =====================================================
-       FOOTER
-       ===================================================== */
+    .history-closing__cta-link:last-child {
+      background: white;
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+
+    .history-closing__cta-link:last-child:hover {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    /* Footer */
     .footer {
-      background: #0A0C14;
-      color: rgba(255,255,255,0.6);
-      padding: 48px 56px;
-      font-size: 13px;
-      font-family: var(--font-mono);
-      border-top: 1px solid rgba(255,255,255,0.06);
+      background: var(--color-dark);
+      color: rgba(255, 255, 255, 0.6);
+      padding: 32px 56px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .footer__inner {
       max-width: 1200px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr auto;
       gap: 32px;
       align-items: center;
+      font-size: 13px;
     }
 
     .footer__text {
-      font-size: 12px;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.01em;
     }
 
     .footer__links {
       display: flex;
+      gap: 32px;
       justify-content: flex-end;
-      gap: 24px;
     }
 
     .footer__link {
-      color: rgba(255,255,255,0.5);
+      color: rgba(255, 255, 255, 0.6);
       text-decoration: none;
-      font-size: 12px;
       transition: color 0.3s ease;
     }
 
     .footer__link:hover {
-      color: rgba(255,255,255,0.8);
+      color: rgba(255, 255, 255, 0.8);
     }
 
     /* Cookie consent banner */
@@ -995,16 +782,46 @@
         padding: 60px 24px;
       }
 
-      .timeline-entry {
-        padding-left: 60px;
-      }
-
-      .timeline-entry__dot {
-        left: 18px;
+      .timeline {
+        padding: 0 0 0 40px;
       }
 
       .timeline__line {
-        left: 24px;
+        left: 14px;
+      }
+
+      .timeline-entry__marker {
+        left: -42px;
+      }
+
+      .timeline-entry__dot {
+        left: 10px;
+      }
+
+      /* Stack featured cards on mobile */
+      .timeline-entry--featured .timeline-entry__content {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-entry--featured.timeline-entry--img-right .timeline-entry__content,
+      .timeline-entry--featured.timeline-entry--img-left .timeline-entry__content {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-entry--featured.timeline-entry--img-right .timeline-entry__text-wrap,
+      .timeline-entry--featured.timeline-entry--img-right .timeline-entry__image,
+      .timeline-entry--featured.timeline-entry--img-left .timeline-entry__text-wrap,
+      .timeline-entry--featured.timeline-entry--img-left .timeline-entry__image {
+        order: unset !important;
+      }
+
+      .timeline-entry__image {
+        min-height: 240px;
+        order: -1;
+      }
+
+      .timeline-entry__text-wrap {
+        padding: 24px;
       }
 
       .timeline-entry__content {
@@ -1023,6 +840,10 @@
         font-size: 16px;
       }
 
+      .history-closing__cta {
+        flex-direction: column;
+      }
+
       .footer__inner {
         grid-template-columns: 1fr;
         gap: 16px;
@@ -1034,6 +855,16 @@
 
       .breadcrumb__inner {
         padding: 0 24px;
+      }
+
+      .overlay-menu__inner {
+        padding: 80px 24px 24px;
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .hamburger {
+        margin-right: 0;
       }
     }
 
@@ -1162,18 +993,21 @@
       <div class="timeline">
         <div class="timeline__line"></div>
 
-        <!-- Entry: 2012 Amazon Kiva -->
-        <div class="timeline-entry">
+        <!-- Entry: 2012 Amazon Kiva (FEATURED with image right) -->
+        <div class="timeline-entry timeline-entry--featured timeline-entry--img-right">
           <div class="timeline-entry__marker">
             <div class="timeline-entry__dot"></div>
           </div>
           <div class="timeline-entry__content">
-            <div class="timeline-entry__date">2012</div>
-            <div class="timeline-entry__title">Amazon、Kiva Systemsを$775Mで買収</div>
-            <div class="timeline-entry__description">
-              ロボティクスが倉庫オペレーションの根幹を担う時代の幕開け。日本の物流現場にも、同様のテクノロジー革新が急務であることが明確になった。
+            <div class="timeline-entry__text-wrap">
+              <div class="timeline-entry__date">2012</div>
+              <div class="timeline-entry__title">Amazon、Kiva Systemsを$775Mで買収</div>
+              <div class="timeline-entry__description">
+                ロボティクスが倉庫オペレーションの根幹を担う時代の幕開け。日本の物流現場にも、同様のテクノロジー革新が急務であることが明確になった。
+              </div>
+              <span class="timeline-entry__tag timeline-entry__tag--industry">INDUSTRY</span>
             </div>
-            <span class="timeline-entry__tag timeline-entry__tag--industry">INDUSTRY</span>
+            <div class="timeline-entry__image" style="background-image: url('img/history/kiva-warehouse.svg');"></div>
           </div>
         </div>
 
@@ -1273,33 +1107,39 @@
           </div>
         </div>
 
-        <!-- Entry: 2017.12 Butler® First Deployment -->
-        <div class="timeline-entry">
+        <!-- Entry: 2017.12 Butler® First Deployment (FEATURED with image left) -->
+        <div class="timeline-entry timeline-entry--featured timeline-entry--img-left">
           <div class="timeline-entry__marker">
             <div class="timeline-entry__dot"></div>
           </div>
           <div class="timeline-entry__content">
-            <div class="timeline-entry__date">2017.12</div>
-            <div class="timeline-entry__title">Butler®国内初稼働 — ニトリグループ</div>
-            <div class="timeline-entry__description">
-              家具・インテリア大手ニトリグループとの納入契約に基づき、物流ロボット「Butler®」が国内で初めて稼働。日本の物流ロボティクスの新たな幕開け。
+            <div class="timeline-entry__image" style="background-image: url('img/history/butler-robot.svg');"></div>
+            <div class="timeline-entry__text-wrap">
+              <div class="timeline-entry__date">2017.12</div>
+              <div class="timeline-entry__title">Butler®国内初稼働 — ニトリグループ</div>
+              <div class="timeline-entry__description">
+                家具・インテリア大手ニトリグループとの納入契約に基づき、物流ロボット「Butler®」が国内で初めて稼働。日本の物流ロボティクスの新たな幕開け。
+              </div>
+              <span class="timeline-entry__tag timeline-entry__tag--deployment">導入</span>
             </div>
-            <span class="timeline-entry__tag timeline-entry__tag--deployment">導入</span>
           </div>
         </div>
 
-        <!-- Entry: 2018.07 DyAS Pilot -->
-        <div class="timeline-entry">
+        <!-- Entry: 2018.07 DyAS Pilot (FEATURED with image right) -->
+        <div class="timeline-entry timeline-entry--featured timeline-entry--img-right">
           <div class="timeline-entry__marker">
             <div class="timeline-entry__dot"></div>
           </div>
           <div class="timeline-entry__content">
-            <div class="timeline-entry__date">2018.07</div>
-            <div class="timeline-entry__title">AI物流ソフトウェア「DyAS」の実証実験</div>
-            <div class="timeline-entry__description">
-              トラスコ中山の物流センターにおいてDyASの実証実験を開始。在庫配置最適化と人員配置の効率化に取り組み、ロボット企業からソフトウェア企業への転換を見据えた重要な一歩。
+            <div class="timeline-entry__text-wrap">
+              <div class="timeline-entry__date">2018.07</div>
+              <div class="timeline-entry__title">AI物流ソフトウェア「DyAS」の実証実験</div>
+              <div class="timeline-entry__description">
+                トラスコ中山の物流センターにおいてDyASの実証実験を開始。在庫配置最適化と人員配置の効率化に取り組み、ロボット企業からソフトウェア企業への転換を見据えた重要な一歩。
+              </div>
+              <span class="timeline-entry__tag timeline-entry__tag--product">プロダクト</span>
             </div>
-            <span class="timeline-entry__tag timeline-entry__tag--product">プロダクト</span>
+            <div class="timeline-entry__image" style="background-image: url('img/history/dyas-algorithm.svg');"></div>
           </div>
         </div>
 
@@ -1369,18 +1209,21 @@
       <div class="timeline">
         <div class="timeline__line"></div>
 
-        <!-- Entry: 2020.06 Japan Unisys Ecosystem -->
-        <div class="timeline-entry">
+        <!-- Entry: 2020.06 Japan Unisys Ecosystem (FEATURED with image left) -->
+        <div class="timeline-entry timeline-entry--featured timeline-entry--img-left">
           <div class="timeline-entry__marker">
             <div class="timeline-entry__dot"></div>
           </div>
           <div class="timeline-entry__content">
-            <div class="timeline-entry__date">2020.06</div>
-            <div class="timeline-entry__title">日本ユニシスと物流エコシステム始動 / PEER提供開始</div>
-            <div class="timeline-entry__description">
-              日本ユニシス（現BIPROGY）との物流エコシステム共同事業を発表。同月、自律型協働ロボット「PEER」のアセスメントプログラムを開始。
+            <div class="timeline-entry__image" style="background-image: url('img/peer-robot.svg');"></div>
+            <div class="timeline-entry__text-wrap">
+              <div class="timeline-entry__date">2020.06</div>
+              <div class="timeline-entry__title">日本ユニシスと物流エコシステム始動 / PEER提供開始</div>
+              <div class="timeline-entry__description">
+                日本ユニシス（現BIPROGY）との物流エコシステム共同事業を発表。同月、自律型協働ロボット「PEER」のアセスメントプログラムを開始。
+              </div>
+              <span class="timeline-entry__tag timeline-entry__tag--product">プロダクト</span>
             </div>
-            <span class="timeline-entry__tag timeline-entry__tag--product">プロダクト</span>
           </div>
         </div>
 
@@ -1399,18 +1242,21 @@
           </div>
         </div>
 
-        <!-- Entry: 2021.06 GWES Release -->
-        <div class="timeline-entry">
+        <!-- Entry: 2021.06 GWES Release (FEATURED with image right) -->
+        <div class="timeline-entry timeline-entry--featured timeline-entry--img-right">
           <div class="timeline-entry__marker">
             <div class="timeline-entry__dot"></div>
           </div>
           <div class="timeline-entry__content">
-            <div class="timeline-entry__date">2021.06</div>
-            <div class="timeline-entry__title">GWES正式リリース — 物流OSの誕生</div>
-            <div class="timeline-entry__description">
-              DyASの知見を進化させ、物流施設統合管理・最適化システム「GWES」を正式リリース。13のモジュールで構成される「物流OS」。GROUNDの核となるプロダクトが、ついに世に出る。
+            <div class="timeline-entry__text-wrap">
+              <div class="timeline-entry__date">2021.06</div>
+              <div class="timeline-entry__title">GWES正式リリース — 物流OSの誕生</div>
+              <div class="timeline-entry__description">
+                DyASの知見を進化させ、物流施設統合管理・最適化システム「GWES」を正式リリース。13のモジュールで構成される「物流OS」。GROUNDの核となるプロダクトが、ついに世に出る。
+              </div>
+              <span class="timeline-entry__tag timeline-entry__tag--product">プロダクト</span>
             </div>
-            <span class="timeline-entry__tag timeline-entry__tag--product">プロダクト</span>
+            <div class="timeline-entry__image" style="background-image: url('img/history/gwes-platform.svg');"></div>
           </div>
         </div>
 
@@ -1480,33 +1326,39 @@
           </div>
         </div>
 
-        <!-- Entry: 2024.06 Kao Deployment -->
-        <div class="timeline-entry">
+        <!-- Entry: 2024.06 Kao Deployment (FEATURED with image left) -->
+        <div class="timeline-entry timeline-entry--featured timeline-entry--img-left">
           <div class="timeline-entry__marker">
             <div class="timeline-entry__dot"></div>
           </div>
           <div class="timeline-entry__content">
-            <div class="timeline-entry__date">2024.06</div>
-            <div class="timeline-entry__title">花王全国44拠点にGWES導入開始</div>
-            <div class="timeline-entry__description">
-              日用品トップメーカー・花王のロジスティクスセンターにGWES導入開始。八王子LCを皮切りに、2025年末までに全国44拠点への展開を計画。
+            <div class="timeline-entry__image" style="background-image: url('img/gwes-dashboard.png');"></div>
+            <div class="timeline-entry__text-wrap">
+              <div class="timeline-entry__date">2024.06</div>
+              <div class="timeline-entry__title">花王全国44拠点にGWES導入開始</div>
+              <div class="timeline-entry__description">
+                日用品トップメーカー・花王のロジスティクスセンターにGWES導入開始。八王子LCを皮切りに、2025年末までに全国44拠点への展開を計画。
+              </div>
+              <span class="timeline-entry__tag timeline-entry__tag--deployment">導入</span>
             </div>
-            <span class="timeline-entry__tag timeline-entry__tag--deployment">導入</span>
           </div>
         </div>
 
-        <!-- Entry: 2025 10th Anniversary -->
-        <div class="timeline-entry">
+        <!-- Entry: 2025 10th Anniversary (FEATURED with image right) -->
+        <div class="timeline-entry timeline-entry--featured timeline-entry--img-right">
           <div class="timeline-entry__marker">
             <div class="timeline-entry__dot"></div>
           </div>
           <div class="timeline-entry__content">
-            <div class="timeline-entry__date">2025</div>
-            <div class="timeline-entry__title">創業10周年 — 1,000拠点への挑戦</div>
-            <div class="timeline-entry__description">
-              創業から10年。GWESの累計導入は加速し、2027年までに1,000拠点への導入を目指す。シーエックスカーゴ全13拠点、そして海外展開へ。
+            <div class="timeline-entry__text-wrap">
+              <div class="timeline-entry__date">2025</div>
+              <div class="timeline-entry__title">創業10周年 — 1,000拠点への挑戦</div>
+              <div class="timeline-entry__description">
+                創業から10年。GWESの累計導入は加速し、2027年までに1,000拠点への導入を目指す。シーエックスカーゴ全13拠点、そして海外展開へ。
+              </div>
+              <span class="timeline-entry__tag timeline-entry__tag--milestone">マイルストーン</span>
             </div>
-            <span class="timeline-entry__tag timeline-entry__tag--milestone">マイルストーン</span>
+            <div class="timeline-entry__image" style="background-image: url('img/history/growth-network.svg');"></div>
           </div>
         </div>
       </div>

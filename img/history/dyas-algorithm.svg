@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A0C14;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#111827;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="400" fill="url(#bg3)"/>
+  <!-- Neural network nodes -->
+  <g>
+    <!-- Layer 1 -->
+    <circle cx="150" cy="100" r="12" fill="none" stroke="#8B5CF6" stroke-width="2" opacity="0.7"/>
+    <circle cx="150" cy="170" r="12" fill="none" stroke="#8B5CF6" stroke-width="2" opacity="0.7"/>
+    <circle cx="150" cy="240" r="12" fill="none" stroke="#8B5CF6" stroke-width="2" opacity="0.7"/>
+    <circle cx="150" cy="310" r="12" fill="none" stroke="#8B5CF6" stroke-width="2" opacity="0.7"/>
+    <!-- Layer 2 -->
+    <circle cx="320" cy="120" r="14" fill="rgba(59,130,246,0.3)" stroke="#3B82F6" stroke-width="2"/>
+    <circle cx="320" cy="200" r="14" fill="rgba(59,130,246,0.3)" stroke="#3B82F6" stroke-width="2"/>
+    <circle cx="320" cy="280" r="14" fill="rgba(59,130,246,0.3)" stroke="#3B82F6" stroke-width="2"/>
+    <!-- Layer 3 -->
+    <circle cx="490" cy="140" r="16" fill="rgba(16,185,129,0.2)" stroke="#10B981" stroke-width="2"/>
+    <circle cx="490" cy="240" r="16" fill="rgba(16,185,129,0.2)" stroke="#10B981" stroke-width="2"/>
+    <!-- Output -->
+    <circle cx="650" cy="200" r="20" fill="rgba(245,158,11,0.2)" stroke="#F59E0B" stroke-width="2.5"/>
+    <text x="650" y="205" text-anchor="middle" fill="#F59E0B" font-family="monospace" font-size="12" font-weight="bold">AI</text>
+  </g>
+  <!-- Connections -->
+  <g stroke="rgba(139,92,246,0.15)" stroke-width="1" fill="none">
+    <line x1="162" y1="100" x2="306" y2="120"/>
+    <line x1="162" y1="100" x2="306" y2="200"/>
+    <line x1="162" y1="170" x2="306" y2="120"/>
+    <line x1="162" y1="170" x2="306" y2="200"/>
+    <line x1="162" y1="170" x2="306" y2="280"/>
+    <line x1="162" y1="240" x2="306" y2="200"/>
+    <line x1="162" y1="240" x2="306" y2="280"/>
+    <line x1="162" y1="310" x2="306" y2="280"/>
+    <line x1="162" y1="310" x2="306" y2="200"/>
+  </g>
+  <g stroke="rgba(59,130,246,0.15)" stroke-width="1" fill="none">
+    <line x1="334" y1="120" x2="474" y2="140"/>
+    <line x1="334" y1="120" x2="474" y2="240"/>
+    <line x1="334" y1="200" x2="474" y2="140"/>
+    <line x1="334" y1="200" x2="474" y2="240"/>
+    <line x1="334" y1="280" x2="474" y2="240"/>
+    <line x1="334" y1="280" x2="474" y2="140"/>
+  </g>
+  <g stroke="rgba(16,185,129,0.2)" stroke-width="1.5" fill="none">
+    <line x1="506" y1="140" x2="630" y2="200"/>
+    <line x1="506" y1="240" x2="630" y2="200"/>
+  </g>
+  <!-- Data flow particles -->
+  <circle r="3" fill="#8B5CF6" opacity="0.8">
+    <animateMotion dur="3s" repeatCount="indefinite" path="M150,170 L320,200 L490,140 L650,200"/>
+  </circle>
+  <circle r="3" fill="#3B82F6" opacity="0.8">
+    <animateMotion dur="4s" repeatCount="indefinite" path="M150,240 L320,280 L490,240 L650,200"/>
+  </circle>
+  <!-- Labels -->
+  <text x="150" y="360" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="monospace" font-size="10" letter-spacing="2">INPUT</text>
+  <text x="400" y="360" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="monospace" font-size="10" letter-spacing="2">OPTIMIZATION</text>
+  <text x="650" y="360" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="monospace" font-size="10" letter-spacing="2">OUTPUT</text>
+  <text x="400" y="40" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="monospace" font-size="13" letter-spacing="4">DyAS — AI OPTIMIZATION ENGINE</text>
+</svg>
