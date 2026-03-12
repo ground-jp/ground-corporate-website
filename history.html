@@ -16,12 +16,6 @@
       --font-jp: 'Noto Sans JP', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       --color-primary: #3B82F6;
-      --color-green: #10B981;
-      --color-amber: #F59E0B;
-      --color-purple: #8B5CF6;
-      --color-pink: #EC4899;
-      --color-indigo: #6366F1;
-      --color-red: #EF4444;
       --color-dark: #0A0C14;
       --color-light: #F8F9FC;
       --color-line: #E5E7EB;
@@ -456,15 +450,19 @@
       margin-right: 6px;
     }
 
+    /* Single unified tag style - brand blue only */
     .timeline-entry__tag--industry,
-    .timeline-entry__tag--prehistory { background: #F3F4F6; color: #6B7280; }
-    .timeline-entry__tag--founding { background: rgba(16, 185, 129, 0.1); color: var(--color-green); }
-    .timeline-entry__tag--partnership { background: rgba(139, 92, 246, 0.1); color: var(--color-purple); }
-    .timeline-entry__tag--funding { background: rgba(245, 158, 11, 0.1); color: var(--color-amber); }
-    .timeline-entry__tag--deployment { background: rgba(59, 130, 246, 0.1); color: var(--color-primary); }
-    .timeline-entry__tag--product { background: rgba(236, 72, 153, 0.1); color: var(--color-pink); }
-    .timeline-entry__tag--organization { background: rgba(99, 102, 241, 0.1); color: var(--color-indigo); }
-    .timeline-entry__tag--milestone { background: rgba(239, 68, 68, 0.1); color: var(--color-red); }
+    .timeline-entry__tag--prehistory,
+    .timeline-entry__tag--founding,
+    .timeline-entry__tag--partnership,
+    .timeline-entry__tag--funding,
+    .timeline-entry__tag--deployment,
+    .timeline-entry__tag--product,
+    .timeline-entry__tag--organization,
+    .timeline-entry__tag--milestone {
+      background: rgba(59, 130, 246, 0.08);
+      color: #3B82F6;
+    }
 
     /* =====================================================
        FEATURED SHOWCASE — Full-bleed highlight cards
@@ -748,6 +746,16 @@
     .hs-fade-delay-1 { transition-delay: 0.1s; }
     .hs-fade-delay-2 { transition-delay: 0.2s; }
     .hs-fade-delay-3 { transition-delay: 0.3s; }
+    /* =====================================================
+       TIMELINE ENTRY INLINE IMAGE
+       ===================================================== */
+    .timeline-entry__image {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-top: 12px;
+      display: block;
+    }
 
     /* =====================================================
        RESPONSIVE DESIGN
@@ -1101,9 +1109,47 @@
             <span class="timeline-entry__tag timeline-entry__tag--funding">資金調達</span>
           </div>
         </div>
+
+<div class="timeline-entry hs-fade">
+          <div class="timeline-entry__marker"><div class="timeline-entry__dot"></div></div>
+          <div class="timeline-entry__content">
+            <div class="timeline-entry__date">2019.11</div>
+            <div class="timeline-entry__title">Thailand MOU Signing — Japan-Thailand Open Innovation</div>
+            <div class="timeline-entry__description">MOU Signing Ceremony for Open Innovation between Thailand and Japan at the Residence of the Ambassador of Japan. International expansion begins.</div>
+            <span class="timeline-entry__tag timeline-entry__tag--partnership">提携</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
+
+  <!-- SHOWCASE: GreyOrange Partnership -->
+  <div class="showcase hs-fade" style="padding-bottom: 24px; background: var(--color-light);">
+    <div class="showcase__card">
+      <div class="showcase__image" style="background-image: url('img/history/greyorange-exhibition.jpg');"></div>
+      <div class="showcase__text">
+        <div class="showcase__date">2016.01</div>
+        <div class="showcase__title">GreyOrange Partnership Exhibition</div>
+        <div class="showcase__desc">GROUND and GreyOrange teams showcasing Butler robots at an international exhibition. The beginning of Japan's robot logistics revolution.</div>
+        <div class="showcase__tag timeline-entry__tag--partnership">提携</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- SHOWCASE: GreyOrange Partnership Exhibition -->
+  <div class="showcase hs-fade" style="padding-bottom: 24px; background: var(--color-light);">
+    <div class="showcase__card">
+      <div class="showcase__image" style="background-image: url('img/history/greyorange-exhibition.jpg');"></div>
+      <div class="showcase__text">
+        <div class="showcase__date">2016.01</div>
+        <div class="showcase__title">GreyOrange Partnership Exhibition</div>
+        <div class="showcase__desc">GROUND and GreyOrange teams showcasing Butler robots at an international exhibition, marking the beginning of Japan's robot logistics revolution.</div>
+        <div class="showcase__tag timeline-entry__tag--partnership">提携</div>
+      </div>
+    </div>
+  </div>
 
   <!-- SHOWCASE: Butler -->
   <div class="showcase hs-fade" style="padding-bottom: 24px; background: var(--color-light);">
@@ -1113,6 +1159,7 @@
         <div class="showcase__date">2017.12</div>
         <div class="showcase__title">Butler®国内初稼働 — ニトリグループ</div>
         <div class="showcase__desc">家具・インテリア大手ニトリグループの物流センターで、物流ロボット「Butler®」が国内初稼働。日本の物流ロボティクスの新たな幕開けとなった。</div>
+        <img src="img/history/butler-exhibition.jpg" alt="Butler Robot Exhibition" class="timeline-entry__image">
         <div class="showcase__tag timeline-entry__tag--deployment">導入</div>
       </div>
     </div>
@@ -1149,6 +1196,7 @@
             <div class="timeline-entry__date">2019.03</div>
             <div class="timeline-entry__title">DyAS特許取得・AMRロボット導入</div>
             <div class="timeline-entry__description">AI物流ソフトウェア「DyAS」の在庫配置最適化アルゴリズムが特許を取得。同年7月にはダイヤモンドヘッド社にAMR導入。</div>
+            <img src="img/history/nikkei-dxtrend.jpg" alt="Nikkei DX Trend Article" class="timeline-entry__image">
             <span class="timeline-entry__tag timeline-entry__tag--product">プロダクト</span>
           </div>
         </div>
@@ -1162,11 +1210,36 @@
             <span class="timeline-entry__tag timeline-entry__tag--funding">資金調達</span>
           </div>
         </div>
+
+<div class="timeline-entry hs-fade">
+          <div class="timeline-entry__marker"><div class="timeline-entry__dot"></div></div>
+          <div class="timeline-entry__content">
+            <div class="timeline-entry__date">2019.11</div>
+            <div class="timeline-entry__title">Thailand MOU Signing — Japan-Thailand Open Innovation</div>
+            <div class="timeline-entry__description">MOU Signing Ceremony for Open Innovation between Thailand and Japan at the Residence of the Ambassador of Japan. International expansion begins.</div>
+            <span class="timeline-entry__tag timeline-entry__tag--partnership">提携</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SHOWCASE: DyAS -->
+
+  <!-- SHOWCASE: China TECHHUB -->
+  <div class="showcase hs-fade" style="padding-bottom: 24px; background: var(--color-light);">
+    <div class="showcase__card showcase__card--reverse">
+      <div class="showcase__image" style="background-image: url('img/history/china-techhub.jpg');"></div>
+      <div class="showcase__text">
+        <div class="showcase__date">2018.08</div>
+        <div class="showcase__title">HIT China TECHHUB Launch</div>
+        <div class="showcase__desc">GROUND team with HIT ROBOT GROUP establishing China's logistics innovation hub. Expanding robot technology adoption across Asia.</div>
+        <div class="showcase__tag timeline-entry__tag--partnership">提携</div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- SHOWCASE: DyAS -->
   <div class="showcase hs-fade" style="padding-bottom: 0; background: var(--color-light);">
     <div class="showcase__card showcase__card--reverse">
       <div class="showcase__image" style="background-image: url('img/history/dyas-nikkei.jpg');"></div>
@@ -1182,7 +1255,20 @@
   <!-- Spacer for alt background -->
   <div style="height: 80px; background: var(--color-light);"></div>
 
-  <!-- ====================================================
+    <!-- SHOWCASE: Thailand MOU Signing -->
+  <div class="showcase hs-fade" style="padding-bottom: 24px; background: var(--color-light);">
+    <div class="showcase__card">
+      <div class="showcase__image" style="background-image: url('img/history/thailand-mou.jpg');"></div>
+      <div class="showcase__text">
+        <div class="showcase__date">2019.11</div>
+        <div class="showcase__title">Thailand MOU Signing Ceremony</div>
+        <div class="showcase__desc">Historic MOU signing at the Residence of the Ambassador of Japan. GROUND's first step toward Southeast Asian expansion and Japan-Thailand collaboration.</div>
+        <div class="showcase__tag timeline-entry__tag--partnership">提携</div>
+      </div>
+    </div>
+  </div>
+
+<!-- ====================================================
        CHAPTER 2 — ソフトウェア企業への進化
        ==================================================== -->
   <div class="chapter-breaker hs-fade">
@@ -1201,7 +1287,7 @@
   <!-- SHOWCASE: PEER -->
   <div class="showcase hs-fade" style="padding-top: 64px; padding-bottom: 24px;">
     <div class="showcase__card">
-      <div class="showcase__image" style="background-image: url('img/history/peer-warehouse.jpg');"></div>
+      <div class="showcase__image" style="background-image: url('img/history/peer-aisle.jpg');"></div>
       <div class="showcase__text">
         <div class="showcase__date">2020.06</div>
         <div class="showcase__title">日本ユニシスと物流エコシステム始動 / PEER提供開始</div>
@@ -1227,7 +1313,22 @@
         </div>
       </div>
     </div>
-  </section>
+  
+  
+  <!-- SHOWCASE: Series B Funding -->
+  <div class="showcase hs-fade" style="padding-bottom: 24px; background: var(--color-light);">
+    <div class="showcase__card">
+      <div class="showcase__image" style="background-image: url('img/history/funding-investors.jpg');"></div>
+      <div class="showcase__text">
+        <div class="showcase__date">2019.08</div>
+        <div class="showcase__title">17.1億円 Series B Funding Round</div>
+        <div class="showcase__desc">GROUND team with investors from Sony Innovation Fund, INCJ, Sapphire Capital, and JA Mitsui Lease. Backing the vision of AI-powered logistics transformation.</div>
+        <div class="showcase__tag timeline-entry__tag--funding">資金調達</div>
+      </div>
+    </div>
+  </div>
+
+  </section></section>
 
   <!-- SHOWCASE: GWES -->
   <div class="showcase hs-fade" style="padding-bottom: 24px;">
@@ -1254,6 +1355,16 @@
             <div class="timeline-entry__title">トラスコ中山と資本業務提携</div>
             <div class="timeline-entry__description">プロツールの流通を支えるトラスコ中山から5億円の出資。</div>
             <span class="timeline-entry__tag timeline-entry__tag--funding">資金調達</span>
+          </div>
+        </div>
+
+<div class="timeline-entry hs-fade">
+          <div class="timeline-entry__marker"><div class="timeline-entry__dot"></div></div>
+          <div class="timeline-entry__content">
+            <div class="timeline-entry__date">2019.11</div>
+            <div class="timeline-entry__title">Thailand MOU Signing — Japan-Thailand Open Innovation</div>
+            <div class="timeline-entry__description">MOU Signing Ceremony for Open Innovation between Thailand and Japan at the Residence of the Ambassador of Japan. International expansion begins.</div>
+            <span class="timeline-entry__tag timeline-entry__tag--partnership">提携</span>
           </div>
         </div>
       </div>
@@ -1306,7 +1417,15 @@
             <div class="timeline-entry__date">2024.04</div>
             <div class="timeline-entry__title">日本通運「NX-GLOW」にGWES採用</div>
             <div class="timeline-entry__description">日本最大級の物流企業・日本通運のグローバル標準倉庫管理システム「NX-GLOW」にGWESが採用される。グローバルスケールでのGWES展開が始まる。</div>
-            <span class="timeline-entry__tag timeline-entry__tag--deployment">導入</span>
+
+        <div class="timeline-entry hs-fade">
+          <div class="timeline-entry__marker"><div class="timeline-entry__dot"></div></div>
+          <div class="timeline-entry__content">
+            <div class="timeline-entry__date">2024.09</div>
+            <div class="timeline-entry__title">Autobacs Seven Partnership</div>
+            <div class="timeline-entry__description">Partnership with automotive aftermarket leader Autobacs Seven for logistics optimization. Bringing GWES to retail logistics operations.</div>
+            <img src="img/history/autobacs-handshake.jpg" alt="Autobacs Handshake" class="timeline-entry__image">
+            <span class="timeline-entry__tag timeline-entry__tag--partnership">提携</span>
           </div>
         </div>
       </div>
@@ -1329,7 +1448,7 @@
   <!-- SHOWCASE: 10th Anniversary -->
   <div class="showcase hs-fade" style="padding-bottom: 80px; background: var(--color-light);">
     <div class="showcase__card showcase__card--reverse">
-      <div class="showcase__image" style="background-image: url('img/history/team-remote.jpg');"></div>
+      <div class="showcase__image" style="background-image: url('img/history/team-exhibition.jpg');"></div>
       <div class="showcase__text">
         <div class="showcase__date">2025</div>
         <div class="showcase__title">創業10周年 — 1,000拠点への挑戦</div>
