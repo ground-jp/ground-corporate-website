@@ -382,7 +382,7 @@
     </div>
 
     <!-- ===== BM ===== -->
-    <div class="gd-module is-active" data-mod="bm" style="">
+    <div class="gd-module" data-mod="bm" style="">
       <div class="gd-hero">
         <div class="gd-hero__top">
           <span class="gd-hero__abbr gd-hero__abbr--infra">BM</span>
@@ -866,6 +866,8 @@
     const params = new URLSearchParams(window.location.search);
     const mod = params.get('mod');
     if (mod) {
+      // Remove any existing is-active first
+      document.querySelectorAll('.gd-module.is-active').forEach(m => m.classList.remove('is-active'));
       const el = document.querySelector(`[data-mod="${mod}"]`);
       if (el) {
         el.classList.add('is-active');
