@@ -20,29 +20,34 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
   <style>
     :root {
-      --gw-bg: #0A0C14;
-      --gw-surface: #161822;
-      --gw-surface-2: #1A1A1A;
-      --gw-border: #3F4250;
-      --gw-border-hover: #545867;
-      --gw-text-1: #FFFFFF;
-      --gw-text-2: rgba(255,255,255,0.92);
-      --gw-text-3: rgba(255,255,255,0.55);
-      --gw-accent: #3B82F6;
-      --gw-infra: #8A8C9A;
-      --gw-l2: #60A5FA;
-      --gw-l4: #3B82F6;
-      --gw-green: #34D399;
+      --gw-bg: #FFFFFF;
+      --gw-surface: #F7F8FA;
+      --gw-surface-2: #F0F1F4;
+      --gw-border: #E0E2E8;
+      --gw-border-hover: #C8CBD3;
+      --gw-text-1: #1A1A1A;
+      --gw-text-2: rgba(0,0,0,0.72);
+      --gw-text-3: rgba(0,0,0,0.44);
+      --gw-accent: #2563EB;
+      --gw-infra: #6B7280;
+      --gw-l2: #3B82F6;
+      --gw-l4: #1D4ED8;
+      --gw-green: #059669;
     }
     body { background: var(--gw-bg) !important; }
-    .header { background: var(--gw-bg) !important; }
+    .header { background: var(--gw-bg) !important; border-bottom: 1px solid var(--gw-border); }
+    .hamburger__line { background: #1A1A1A !important; }
+    .breadcrumb-nav { background: transparent; }
+    .breadcrumb-nav__link, .breadcrumb-nav__current, .breadcrumb-nav__separator { color: rgba(0,0,0,0.5) !important; }
+    .breadcrumb-nav__link:hover { color: var(--gw-accent) !important; }
+    .breadcrumb-nav__link--home svg { fill: rgba(0,0,0,0.5); }
 
     /* ── Phase Sections ── */
     .sim-section {
       padding: 100px 0;
       position: relative;
     }
-    .sim-section--alt { background: #0E1018; }
+    .sim-section--alt { background: #F2F3F6; }
 
     /* ── Phase 1: Hero / Hook ── */
     .sim-hero {
@@ -57,7 +62,7 @@
       top: -200px; left: 50%;
       transform: translateX(-50%);
       width: 800px; height: 800px;
-      background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%);
       pointer-events: none;
     }
     .sim-hero__label {
@@ -177,19 +182,19 @@
       margin-bottom: 16px;
     }
     .sim-challenge--infra .sim-challenge__icon {
-      background: rgba(138,140,154,0.12);
+      background: rgba(107,114,128,0.08);
       color: var(--gw-infra);
-      border: 1px solid rgba(138,140,154,0.2);
+      border: 1px solid rgba(107,114,128,0.18);
     }
     .sim-challenge--l2 .sim-challenge__icon {
-      background: rgba(96,165,250,0.1);
+      background: rgba(59,130,246,0.07);
       color: var(--gw-l2);
-      border: 1px solid rgba(96,165,250,0.18);
+      border: 1px solid rgba(59,130,246,0.18);
     }
     .sim-challenge--l4 .sim-challenge__icon {
-      background: rgba(59,130,246,0.1);
+      background: rgba(29,78,216,0.07);
       color: var(--gw-l4);
-      border: 1px solid rgba(59,130,246,0.18);
+      border: 1px solid rgba(29,78,216,0.18);
     }
     .sim-challenge__title {
       font-size: 0.92rem;
@@ -307,9 +312,9 @@
       color: #fff;
     }
     .sim-btn--primary:hover {
-      background: #2563EB;
+      background: #1D4ED8;
       transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(59,130,246,0.3);
+      box-shadow: 0 8px 32px rgba(37,99,235,0.25);
     }
     .sim-btn--secondary {
       background: transparent;
@@ -493,7 +498,7 @@
     }
     .sim-option:has(input:checked) {
       border-color: var(--gw-accent);
-      background: rgba(59,130,246,0.08);
+      background: rgba(37,99,235,0.06);
     }
     .sim-option--na {
       border-style: dashed;
@@ -535,19 +540,20 @@
       font-weight: 700;
       font-size: 1rem;
     }
-    .sim-results__level-badge--1 { background: rgba(138,140,154,0.2); color: var(--gw-infra); border: 1px solid var(--gw-infra); }
-    .sim-results__level-badge--2 { background: rgba(96,165,250,0.15); color: var(--gw-l2); border: 1px solid var(--gw-l2); }
-    .sim-results__level-badge--3 { background: rgba(59,130,246,0.15); color: var(--gw-l4); border: 1px solid var(--gw-l4); }
-    .sim-results__level-badge--4 { background: rgba(52,211,153,0.15); color: var(--gw-green); border: 1px solid var(--gw-green); }
-    .sim-results__level-badge--5 { background: rgba(52,211,153,0.25); color: var(--gw-green); border: 1px solid var(--gw-green); }
+    .sim-results__level-badge--1 { background: rgba(107,114,128,0.1); color: var(--gw-infra); border: 1px solid rgba(107,114,128,0.3); }
+    .sim-results__level-badge--2 { background: rgba(59,130,246,0.08); color: var(--gw-l2); border: 1px solid rgba(59,130,246,0.3); }
+    .sim-results__level-badge--3 { background: rgba(29,78,216,0.08); color: var(--gw-l4); border: 1px solid rgba(29,78,216,0.3); }
+    .sim-results__level-badge--4 { background: rgba(5,150,105,0.08); color: var(--gw-green); border: 1px solid rgba(5,150,105,0.3); }
+    .sim-results__level-badge--5 { background: rgba(5,150,105,0.12); color: var(--gw-green); border: 1px solid rgba(5,150,105,0.4); }
 
     .sim-results__chart-wrap {
       max-width: 560px;
       margin: 0 auto 64px;
       padding: 40px;
-      background: #161822 !important;
+      background: #FFFFFF;
       border: 1px solid var(--gw-border);
       border-radius: 16px;
+      box-shadow: 0 1px 12px rgba(0,0,0,0.06);
     }
     .sim-results__chart-wrap canvas {
       background: transparent !important;
@@ -646,9 +652,9 @@
 </head>
 <body>
 
-<header class="header header--scrolled" id="header" style="background: rgb(10, 12, 20); height: 64px;">
+<header class="header header--scrolled" id="header" style="background: #FFFFFF; height: 64px; border-bottom: 1px solid #E0E2E8;">
     <div class="header__inner" style="">
-      <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; position: relative; top: 0px; left: 0px;"></a>
+      <a class="header__logo" href="/"><img src="img/ground-logo-dark.svg" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; position: relative; top: 0px; left: 0px;"></a>
       <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く" style="">
         <span class="hamburger__line"></span>
         <span class="hamburger__line"></span>
@@ -753,7 +759,7 @@
     </div>
   </section>
 
-  <div class="container"><div style="width:100%;height:1px;background:var(--gw-border);"></div></div>
+  <div class="container"><div style="width:100%;height:1px;background:#E0E2E8;"></div></div>
 
   <!-- Transition narrative -->
   <section class="sim-section">
@@ -924,7 +930,7 @@
     </div>
   </section>
 
-  <div class="container"><div style="width:100%;height:1px;background:var(--gw-border);"></div></div>
+  <div class="container"><div style="width:100%;height:1px;background:#E0E2E8;"></div></div>
 
 
   <!-- =========================================================
@@ -1354,11 +1360,11 @@
             scales: {
               r: {
                 beginAtZero: true, max: 3,
-                grid: { color: 'rgba(255,255,255,0.06)' },
-                angleLines: { color: 'rgba(255,255,255,0.06)' },
+                grid: { color: 'rgba(0,0,0,0.06)' },
+                angleLines: { color: 'rgba(0,0,0,0.06)' },
                 ticks: { display: false },
                 pointLabels: {
-                  color: 'rgba(255,255,255,0.3)',
+                  color: 'rgba(0,0,0,0.3)',
                   font: { family: 'JetBrains Mono', size: 10 }
                 }
               }
@@ -1577,15 +1583,15 @@
                     min: 0, max: 3,
                     ticks: {
                       stepSize: 1,
-                      color: 'rgba(255,255,255,0.3)',
+                      color: 'rgba(0,0,0,0.25)',
                       backdropColor: 'transparent',
                       font: { size: 10 }
                     },
-                    grid: { color: 'rgba(255,255,255,0.08)' },
-                    angleLines: { color: 'rgba(255,255,255,0.08)' },
+                    grid: { color: 'rgba(0,0,0,0.08)' },
+                    angleLines: { color: 'rgba(0,0,0,0.08)' },
                     pointLabels: {
                       color: function(ctx) {
-                        return chartData[ctx.index] === 0 ? 'rgba(107,114,128,0.5)' : 'rgba(255,255,255,0.7)';
+                        return chartData[ctx.index] === 0 ? 'rgba(0,0,0,0.25)' : 'rgba(0,0,0,0.7)';
                       },
                       font: { family: 'JetBrains Mono', size: 11 }
                     }
