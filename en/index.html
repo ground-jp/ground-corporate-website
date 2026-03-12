@@ -181,115 +181,8 @@
       }
     }
 
-    /* Testimonials Section (tv-) */
-    .tv-section {
-      position: relative;
-      background: #F5F5F8;
-      padding: 80px 0;
-      overflow: hidden;
-    }
-    .tv-section__top {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      margin-bottom: 60px;
-    }
-    .tv-section__title-ja {
-      font-family: 'Inter', sans-serif;
-      font-size: 32px;
-      font-weight: 700;
-      color: #1A1A1A;
-      margin: 0 0 12px 0;
-      letter-spacing: 0.01em;
-    }
-    .tv-section__title-en {
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      color: #3B82F6;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin: 0;
-    }
-    .tv-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-      padding: 0;
-    }
-    .tv-card {
-      display: flex;
-      flex-direction: column;
-      background: #FFFFFF;
-      border-left: 4px solid #3B82F6;
-      padding: 32px;
-      border-radius: 4px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .tv-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(59, 130, 246, 0.1);
-    }
-    .tv-card__quote {
-      font-family: 'Inter', sans-serif;
-      font-size: 15px;
-      font-weight: 400;
-      color: #1A1A1A;
-      line-height: 1.7;
-      margin: 0 0 24px 0;
-      letter-spacing: 0.01em;
-    }
-    .tv-card__company {
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      color: #1A1A1A;
-      margin: 0 0 6px 0;
-      letter-spacing: 0.02em;
-    }
-    .tv-card__person {
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      font-weight: 500;
-      color: #8A8C9A;
-      margin: 0;
-      letter-spacing: 0.01em;
-    }
-
-    /* Responsive: tablet */
-    @media (max-width: 1024px) {
-      .tv-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 28px;
-      }
-      .tv-section {
-        padding: 60px 0;
-      }
-      .tv-section__title-ja {
-        font-size: 28px;
-      }
-    }
-
     /* Responsive: mobile */
     @media (max-width: 640px) {
-      .tv-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
-      .tv-section {
-        padding: 48px 0;
-      }
-      .tv-section__title-ja {
-        font-size: 24px;
-      }
-      .tv-card {
-        padding: 24px;
-      }
-      .tv-card__quote {
-        font-size: 14px;
-        margin-bottom: 20px;
-      }
       .lang-switcher {
         right: 70px;
       }
@@ -552,33 +445,6 @@
         <a class="case-item fade-in visible" href="/../works"><div class="case-item__image"><img src="https://static.wixstatic.com/media/409c45_19b50ef0b88e4ff1932e3cfb32c88bf5~mv2.jpg/v1/fill/w_600,h_400,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/20240426tokyosoko.jpg" alt="Nippon Express" class="case-item__img" loading="lazy"></div><div class="case-item__body"><span class="case-item__company">Nippon Express Co., Ltd.</span><h3 class="case-item__title">Multi-Facility Integration and Real-Time Optimization</h3></div></a>
         <a class="case-item fade-in visible" href="/../works"><div class="case-item__image"><img src="https://static.wixstatic.com/media/409c45_e1a5fe12ef164bfc974365b12ade8432~mv2.png/v1/fill/w_600,h_400,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/20250520_thumb.png" alt="CX Cargo" class="case-item__img" loading="lazy"></div><div class="case-item__body"><span class="case-item__company">CX Cargo Co., Ltd.</span><h3 class="case-item__title">GWES Implementation and Operational Efficiency in Cooperative Logistics</h3></div></a>
         <a class="case-item fade-in visible" href="/../works"><div class="case-item__image"><img src="https://static.wixstatic.com/media/409c45_d3b03473c6ae4fd09580b967709279c8~mv2.jpg/v1/fill/w_600,h_400,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/casestudy_peer_int001_img006.jpg" alt="Autobacs Seven" class="case-item__img" loading="lazy"></div><div class="case-item__body"><span class="case-item__company">Autobacs Seven Co., Ltd.</span><h3 class="case-item__title">Building AI-Optimized Operations for E-Commerce Logistics Expansion</h3></div></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials Section -->
-  <section class="tv-section" id="testimonials">
-    <div class="container">
-      <div class="tv-section__top">
-        <h2 class="tv-section__title-ja">Client Voices</h2>
-        <p class="tv-section__title-en">TESTIMONIALS</p>
-      </div>
-      <div class="tv-grid">
-        <div class="tv-card fade-in visible">
-          <p class="tv-card__quote">GWES deployment significantly improved warehouse operational efficiency. AI-driven optimization has delivered results far exceeding our expectations.</p>
-          <p class="tv-card__company">Leading Retail Enterprise - Logistics Division</p>
-          <p class="tv-card__person">Distribution Center Director</p>
-        </div>
-        <div class="tv-card fade-in visible">
-          <p class="tv-card__quote">GROUND's consulting team thoroughly understood our challenges and proposed optimal solutions. Post-implementation support has been exceptional throughout.</p>
-          <p class="tv-card__company">Major Consumer Goods Manufacturer</p>
-          <p class="tv-card__person">SCM Executive Director</p>
-        </div>
-        <div class="tv-card fade-in visible">
-          <p class="tv-card__quote">The fusion of robotics and AI-driven automation has addressed labor shortages while simultaneously improving work quality and operational excellence.</p>
-          <p class="tv-card__company">Leading E-Commerce Operator</p>
-          <p class="tv-card__person">Fulfillment Operations Director</p>
-        </div>
       </div>
     </div>
   </section>
