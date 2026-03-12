@@ -475,6 +475,20 @@
       border-color: var(--gw-accent);
       background: rgba(59,130,246,0.08);
     }
+    .sim-option--na {
+      border-style: dashed;
+      opacity: 0.75;
+      font-size: 0.82rem;
+    }
+    .sim-option--na:has(input:checked) {
+      border-color: #6B7280;
+      background: rgba(107,114,128,0.1);
+      opacity: 1;
+    }
+    .sim-option--na input[type="radio"]:checked {
+      border-color: #6B7280;
+      background: #6B7280;
+    }
 
     /* Navigation buttons */
     .sim-form__nav {
@@ -999,6 +1013,7 @@
                 <label class="sim-option"><input type="radio" name="q2" value="1" required><span>拠点ごとに管理方法が異なり、統一的な評価ができていない</span></label>
                 <label class="sim-option"><input type="radio" name="q2" value="2"><span>定期的にレポートを集約しているが、指標やフォーマットが統一されていない</span></label>
                 <label class="sim-option"><input type="radio" name="q2" value="3"><span>共通指標で全拠点をリアルタイムに比較・分析できている</span></label>
+                <label class="sim-option sim-option--na"><input type="radio" name="q2" value="0"><span>対象外 — 拠点は1つのみ</span></label>
               </div>
             </div>
 
@@ -1102,6 +1117,7 @@
                 <label class="sim-option"><input type="radio" name="q9" value="1" required><span>入庫順に空きスペースへ配置し、定期的な見直しルールがない</span></label>
                 <label class="sim-option"><input type="radio" name="q9" value="2"><span>出荷頻度に基づく固定ルールで棚割を決めているが、見直し頻度が低い</span></label>
                 <label class="sim-option"><input type="radio" name="q9" value="3"><span>データに基づき、優先度と効果を確認しながら動的に配置を最適化している</span></label>
+                <label class="sim-option sim-option--na"><input type="radio" name="q9" value="0"><span>対象外 — ロケーション配置管理は自社で行っていない</span></label>
               </div>
             </div>
 
@@ -1133,6 +1149,7 @@
                 <label class="sim-option"><input type="radio" name="q11" value="1" required><span>固定の梱包サイズ・積載パターンで出荷している</span></label>
                 <label class="sim-option"><input type="radio" name="q11" value="2"><span>経験者が手動で梱包サイズ判断や混載調整を行っている</span></label>
                 <label class="sim-option"><input type="radio" name="q11" value="3"><span>商品サイズ・制約条件を考慮した自動最適化が可能</span></label>
+                <label class="sim-option sim-option--na"><input type="radio" name="q11" value="0"><span>対象外 — 梱包・積載業務は自社で行っていない</span></label>
               </div>
             </div>
 
@@ -1143,6 +1160,7 @@
                 <label class="sim-option"><input type="radio" name="q12" value="1" required><span>固定スケジュールで出荷し、配送手段・ルートも固定</span></label>
                 <label class="sim-option"><input type="radio" name="q12" value="2"><span>手作業やExcelで配送計画を作成し、状況に応じて手動調整</span></label>
                 <label class="sim-option"><input type="radio" name="q12" value="3"><span>コスト・納期・積載率を考慮した動的な配送計画最適化が可能</span></label>
+                <label class="sim-option sim-option--na"><input type="radio" name="q12" value="0"><span>対象外 — 配送計画は自社で管理していない（委託先に依存）</span></label>
               </div>
             </div>
 
@@ -1422,7 +1440,7 @@
 
         MODULES.forEach(function(m) {
           var val = data.get(m.key);
-          if (!val) allAnswered = false;
+          if (val === null || val === undefined) allAnswered = false;
           scores[m.key] = parseInt(val) || 0;
         });
 
@@ -1431,14 +1449,27 @@
           return;
         }
 
-        // Calculate layer averages
+        // Helper: calculate average excluding N/A (value=0)
+        function avgExcludeNA(keys) {
+          var sum = 0, count = 0;
+          for (var i = 0; i < keys.length; i++) {
+            if (scores[keys[i]] > 0) {
+              sum += scores[keys[i]];
+              count++;
+            }
+          }
+          return count > 0 ? sum / count : 0;
+        }
+
+        // Calculate layer averages (excluding N/A responses)
         // infra: DC(q1) + ME(q2)
         // l2 (可視化・分析): WF(q3) + PA(q4) + WA(q5) + 標準化(q7) + IA(q8)
         // l4 (最適化): RA(q6) + SO(q9) + RO(q10) + LO(q11) + DO(q12)
-        var infraScore = (scores.q1 + scores.q2) / 2;
-        var l2Score = (scores.q3 + scores.q4 + scores.q5 + scores.q7 + scores.q8) / 5;
-        var l4Score = (scores.q6 + scores.q9 + scores.q10 + scores.q11 + scores.q12) / 5;
-        var totalAvg = Object.values(scores).reduce(function(a, b) { return a + b; }, 0) / 12;
+        var infraScore = avgExcludeNA(['q1', 'q2']);
+        var l2Score = avgExcludeNA(['q3', 'q4', 'q5', 'q7', 'q8']);
+        var l4Score = avgExcludeNA(['q6', 'q9', 'q10', 'q11', 'q12']);
+        var allKeys = MODULES.map(function(m) { return m.key; });
+        var totalAvg = avgExcludeNA(allKeys);
 
         // GPIM Level
         var gpimLevel;
@@ -1464,7 +1495,13 @@
 
         // Draw Radar Chart — delay to let browser layout the visible container
         var chartData = MODULES.map(function(m) { return scores[m.key]; });
-        var chartLabels = MODULES.map(function(m) { return m.abbr; });
+        var chartLabels = MODULES.map(function(m) {
+          return scores[m.key] === 0 ? m.abbr + ' (対象外)' : m.abbr;
+        });
+        // Point colors: grey for N/A, blue for scored
+        var pointColors = MODULES.map(function(m) {
+          return scores[m.key] === 0 ? '#6B7280' : '#3B82F6';
+        });
 
         setTimeout(function() {
           try {
@@ -1483,7 +1520,7 @@
                   backgroundColor: 'rgba(59,130,246,0.2)',
                   borderColor: '#3B82F6',
                   borderWidth: 2,
-                  pointBackgroundColor: '#3B82F6',
+                  pointBackgroundColor: pointColors,
                   pointRadius: 4,
                   pointHoverRadius: 6
                 }]
@@ -1499,7 +1536,10 @@
                         var idx = items[0].dataIndex;
                         return MODULES[idx].nameJa + ' (' + MODULES[idx].abbr + ')';
                       },
-                      label: function(item) { return 'スコア: ' + item.raw + ' / 3'; }
+                      label: function(item) {
+                        if (item.raw === 0) return '対象外';
+                        return 'スコア: ' + item.raw + ' / 3';
+                      }
                     }
                   }
                 },
@@ -1516,7 +1556,9 @@
                     grid: { color: 'rgba(255,255,255,0.08)' },
                     angleLines: { color: 'rgba(255,255,255,0.08)' },
                     pointLabels: {
-                      color: 'rgba(255,255,255,0.7)',
+                      color: function(ctx) {
+                        return chartData[ctx.index] === 0 ? 'rgba(107,114,128,0.5)' : 'rgba(255,255,255,0.7)';
+                      },
                       font: { family: 'JetBrains Mono', size: 11 }
                     }
                   }
@@ -1528,34 +1570,53 @@
           }
         }, 100);
 
-        // Layer scores
+        // Layer scores (with N/A count)
+        function layerNACount(keys) {
+          var c = 0;
+          for (var i = 0; i < keys.length; i++) { if (scores[keys[i]] === 0) c++; }
+          return c;
+        }
+        var infraNA = layerNACount(['q1', 'q2']);
+        var l2NA = layerNACount(['q3', 'q4', 'q5', 'q7', 'q8']);
+        var l4NA = layerNACount(['q6', 'q9', 'q10', 'q11', 'q12']);
+
+        function scoreLabel(score, naCount, total) {
+          if (naCount === total) return '対象外';
+          var label = score.toFixed(1) + ' / 3.0';
+          if (naCount > 0) label += '（' + naCount + '項目対象外）';
+          return label;
+        }
+
         var layerHTML = ''
           + '<div class="sim-rec">'
           + '  <span class="sim-rec__layer sim-rec__layer--infra">Infrastructure Layer</span>'
           + '  <div class="sim-rec__title">インフラストラクチャ層</div>'
-          + '  <div class="sim-rec__score">' + infraScore.toFixed(1) + ' / 3.0</div>'
+          + '  <div class="sim-rec__score">' + scoreLabel(infraScore, infraNA, 2) + '</div>'
           + '  <div class="sim-rec__desc">DC・MEの平均スコア。データ連携・統合管理基盤の成熟度を示します。</div>'
           + '</div>'
           + '<div class="sim-rec">'
           + '  <span class="sim-rec__layer sim-rec__layer--l2">L2 Visualization Layer</span>'
           + '  <div class="sim-rec__title">可視化・分析層</div>'
-          + '  <div class="sim-rec__score">' + l2Score.toFixed(1) + ' / 3.0</div>'
+          + '  <div class="sim-rec__score">' + scoreLabel(l2Score, l2NA, 5) + '</div>'
           + '  <div class="sim-rec__desc">WF・PA・WA・標準化・IAの平均スコア。予測・分析・業務標準化の能力を示します。</div>'
           + '</div>'
           + '<div class="sim-rec">'
           + '  <span class="sim-rec__layer sim-rec__layer--l4">L4 Optimization Layer</span>'
           + '  <div class="sim-rec__title">最適化層</div>'
-          + '  <div class="sim-rec__score">' + l4Score.toFixed(1) + ' / 3.0</div>'
+          + '  <div class="sim-rec__score">' + scoreLabel(l4Score, l4NA, 5) + '</div>'
           + '  <div class="sim-rec__desc">RA・SO・RO・LO・DOの平均スコア。要員配置・在庫配置・動線・梱包・配送の最適化成熟度を示します。</div>'
           + '</div>';
         document.getElementById('layerScores').innerHTML = layerHTML;
 
-        // Recommendations
+        // Recommendations — exclude N/A (score=0) modules from improvement list
         var lowModules = MODULES
           .map(function(m, i) { return { key: m.key, nameJa: m.nameJa, abbr: m.abbr, layer: m.layer, desc: m.desc, score: chartData[i] }; })
-          .filter(function(m) { return m.score < 3; })
+          .filter(function(m) { return m.score > 0 && m.score < 3; })
           .sort(function(a, b) { return a.score - b.score; })
           .slice(0, 6);
+
+        var naModules = MODULES
+          .filter(function(m) { return scores[m.key] === 0; });
 
         var recsHTML = lowModules.map(function(m) {
           var layerClass = m.layer === 'infra' ? 'infra' : m.layer;
@@ -1575,6 +1636,18 @@
             + '  <div class="sim-rec__desc">' + (comment || m.desc) + '</div>'
             + '</div>';
         }).join('');
+
+        // Show N/A modules separately
+        if (naModules.length > 0) {
+          recsHTML += '<div style="margin-top: 24px; padding: 16px 20px; background: rgba(107,114,128,0.1); border: 1px dashed rgba(107,114,128,0.3); border-radius: 10px;">';
+          recsHTML += '<div style="font-size: 0.82rem; color: var(--gw-text-3); margin-bottom: 8px;">対象外とされたモジュール</div>';
+          recsHTML += '<div style="font-size: 0.88rem; color: var(--gw-text-2);">';
+          recsHTML += naModules.map(function(m) { return m.nameJa + '（' + m.abbr + '）'; }).join('、');
+          recsHTML += '</div>';
+          recsHTML += '<div style="font-size: 0.78rem; color: var(--gw-text-3); margin-top: 8px;">これらの領域は現在自社で実施されていないため、診断スコアから除外されています。将来的に業務拡大される際にはGWESでの対応が可能です。</div>';
+          recsHTML += '</div>';
+        }
+
         document.getElementById('recommendations').innerHTML = recsHTML;
 
         // Re-observe new fade elements
@@ -1590,6 +1663,9 @@
         submitData.append('infra_score', infraScore.toFixed(2));
         submitData.append('l2_score', l2Score.toFixed(2));
         submitData.append('l4_score', l4Score.toFixed(2));
+        if (naModules.length > 0) {
+          submitData.append('na_modules', naModules.map(function(m) { return m.abbr; }).join(','));
+        }
         fetch('/', {
           method: 'POST',
           body: submitData
