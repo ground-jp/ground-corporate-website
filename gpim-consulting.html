@@ -160,6 +160,72 @@
       padding: 0 20px; font-size: 0.78rem; color: var(--ce-accent); white-space: nowrap; font-weight: 500;
     }
     .ce-gpim-card__arrow::after { content: ' →'; }
+
+    /* ── GPIM Detail Panel (drilldown) ── */
+    .ce-gpim-detail {
+      display: none; overflow: hidden;
+      background: var(--ce-surface); border: 1px solid var(--ce-border);
+      border-radius: 12px; margin-top: -4px;
+      animation: ce-detail-open 0.35s ease;
+    }
+    .ce-gpim-detail.is-open { display: block; }
+    @keyframes ce-detail-open {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .ce-gpim-detail__inner { padding: 32px 32px 28px; }
+    .ce-gpim-detail__head {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 24px; padding-bottom: 20px;
+      border-bottom: 1px solid var(--ce-border);
+    }
+    .ce-gpim-detail__badge {
+      display: flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; border-radius: 10px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+      font-weight: 600; letter-spacing: 0.08em; color: #fff;
+    }
+    .ce-gpim-detail__title-area {}
+    .ce-gpim-detail__title {
+      font-size: 1.15rem; font-weight: 700; color: var(--ce-text-1);
+      margin: 0 0 2px;
+    }
+    .ce-gpim-detail__en {
+      font-family: 'Inter', sans-serif; font-size: 0.7rem;
+      color: var(--ce-text-3); letter-spacing: 0.06em;
+    }
+    .ce-gpim-detail__close {
+      margin-left: auto; background: none; border: 1px solid var(--ce-border);
+      border-radius: 6px; padding: 6px 14px; color: var(--ce-text-3);
+      font-size: 0.72rem; cursor: pointer; transition: all 0.2s;
+    }
+    .ce-gpim-detail__close:hover { color: var(--ce-text-1); border-color: rgba(255,255,255,0.2); }
+    .ce-gpim-detail__body { font-size: 0.86rem; color: var(--ce-text-2); line-height: 2.0; }
+    .ce-gpim-detail__body p { margin: 0 0 16px; }
+    .ce-gpim-detail__body p:last-child { margin-bottom: 0; }
+    .ce-gpim-detail__sub {
+      font-size: 0.82rem; font-weight: 600; color: var(--ce-text-1);
+      margin: 24px 0 12px; padding-top: 20px;
+      border-top: 1px solid var(--ce-border);
+    }
+    .ce-gpim-detail__list {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .ce-gpim-detail__list li {
+      font-size: 0.82rem; color: var(--ce-text-3); line-height: 1.8;
+      padding-left: 16px; position: relative;
+    }
+    .ce-gpim-detail__list li::before {
+      content: ''; position: absolute; left: 0; top: 10px;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--ce-accent); opacity: 0.6;
+    }
+    .ce-gpim-card.is-expanded {
+      border-color: var(--ce-accent); background: rgba(108,156,255,0.04);
+      border-bottom-left-radius: 0; border-bottom-right-radius: 0;
+    }
+    .ce-gpim-detail.is-open { border-top: none; border-top-left-radius: 0; border-top-right-radius: 0; }
     .ce-gpim-card--l1 .ce-gpim-card__badge { background: linear-gradient(180deg, #636A78 0%, #3F4250 100%); }
     .ce-gpim-card--l2 .ce-gpim-card__badge { background: linear-gradient(180deg, #3B82F6 0%, #2563EB 100%); }
     .ce-gpim-card--l3 .ce-gpim-card__badge { background: linear-gradient(180deg, #34D399 0%, #059669 100%); }
@@ -668,7 +734,8 @@
 
           <!-- GPIM Level Cards (compact - drill down to detail) -->
           <div class="ce-gpim-levels">
-            <a class="ce-gpim-card ce-gpim-card--l1 ce-fade is-visible" href="/gpim-consulting?level=l1">
+            <!-- L1: 体系化 -->
+            <a class="ce-gpim-card ce-gpim-card--l1 ce-fade is-visible" data-level="l1" href="/gpim-consulting?level=l1">
               <div class="ce-gpim-card__badge"><span class="ce-gpim-card__num">L1</span><span class="ce-gpim-card__icon">△</span></div>
               <div class="ce-gpim-card__body">
                 <div class="ce-gpim-card__top"><span class="ce-gpim-card__name">体系化</span></div>
@@ -676,7 +743,37 @@
               </div>
               <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
             </a>
-            <a class="ce-gpim-card ce-gpim-card--l2 ce-fade is-visible" href="/gpim-consulting?level=l2">
+            <div class="ce-gpim-detail" data-detail="l1">
+              <div class="ce-gpim-detail__inner">
+                <div class="ce-gpim-detail__head">
+                  <div class="ce-gpim-detail__badge" style="background: linear-gradient(180deg, #636A78 0%, #3F4250 100%);">L1</div>
+                  <div class="ce-gpim-detail__title-area">
+                    <h3 class="ce-gpim-detail__title">体系化 ─ Systematize</h3>
+                    <span class="ce-gpim-detail__en">業務構造の整理・標準化</span>
+                  </div>
+                  <button class="ce-gpim-detail__close" data-close="l1">閉じる ×</button>
+                </div>
+                <div class="ce-gpim-detail__body">
+                  <p>物流施設の業務プロセスを体系的に構造化し、属人的なオペレーションを排除する段階です。作業手順・ルール・KPIを標準化し、再現性の高い業務設計を構築します。この「土台づくり」がなければ、後続のすべてのレベルは成立しません。</p>
+                  <p>業務の目的・範囲・工程・役割分担・判断基準・責任分界点を明確に定義し、業務全体を構造として整理します。これにより、可視化・自動化・最適化へと進化するための「構造と前提条件」が整います。</p>
+                  <div class="ce-gpim-detail__sub">GROUNDのコンサルティング支援</div>
+                  <ul class="ce-gpim-detail__list">
+                    <li>現場業務フローの可視化・ドキュメント化（As-Is分析）</li>
+                    <li>作業手順・判断基準・役割分担の標準化設計</li>
+                    <li>KPI体系の構築とベンチマーク設定</li>
+                    <li>施設レイアウトと動線の構造化</li>
+                  </ul>
+                  <div class="ce-gpim-detail__sub">対応GWESモジュール</div>
+                  <ul class="ce-gpim-detail__list">
+                    <li>BM（ベースモジュール）─ 施設の構造・業務定義をデジタル化</li>
+                    <li>ME（マップエディター）─ 施設レイアウトの可視化・管理</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- L2: 可視化 -->
+            <a class="ce-gpim-card ce-gpim-card--l2 ce-fade is-visible" data-level="l2" href="/gpim-consulting?level=l2">
               <div class="ce-gpim-card__badge"><span class="ce-gpim-card__num">L2</span><span class="ce-gpim-card__icon">◉</span></div>
               <div class="ce-gpim-card__body">
                 <div class="ce-gpim-card__top">
@@ -687,7 +784,40 @@
               </div>
               <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
             </a>
-            <a class="ce-gpim-card ce-gpim-card--l3 ce-fade is-visible" href="/gpim-consulting?level=l3">
+            <div class="ce-gpim-detail" data-detail="l2">
+              <div class="ce-gpim-detail__inner">
+                <div class="ce-gpim-detail__head">
+                  <div class="ce-gpim-detail__badge" style="background: linear-gradient(180deg, #3B82F6 0%, #2563EB 100%);">L2</div>
+                  <div class="ce-gpim-detail__title-area">
+                    <h3 class="ce-gpim-detail__title">可視化 ─ Visualize</h3>
+                    <span class="ce-gpim-detail__en">データによる定量的把握</span>
+                  </div>
+                  <button class="ce-gpim-detail__close" data-close="l2">閉じる ×</button>
+                </div>
+                <div class="ce-gpim-detail__body">
+                  <p>WMS・マテハン・センサー等から収集した実績データを一元的に整理し、複数拠点を横断して現場の状態を客観的に把握可能にする段階です。「経験と勘」から「データに基づく判断」への転換点であり、改善の方向性と優先度を定量的に見極めることができるようになります。</p>
+                  <p>作業量予測・進捗状況・実績データ・負荷状況を定量データとして一元化し、事実と数値に基づいて判断・改善を議論できる状態を構築します。</p>
+                  <div class="ce-gpim-detail__sub">GROUNDのコンサルティング支援</div>
+                  <ul class="ce-gpim-detail__list">
+                    <li>データ収集基盤の設計（WMS・マテハン・IoTデバイス連携）</li>
+                    <li>KPIダッシュボードの要件定義・構築支援</li>
+                    <li>複数拠点横断の統合分析フレームワーク策定</li>
+                    <li>データドリブンな改善サイクルの導入支援</li>
+                  </ul>
+                  <div class="ce-gpim-detail__sub">対応GWESモジュール</div>
+                  <ul class="ce-gpim-detail__list">
+                    <li>DC（データコネクター）─ WMS・マテハン等の外部データを収集・統合</li>
+                    <li>WF（ワークロードフォーキャスティング）─ 作業量予測</li>
+                    <li>PA（プログレスアナライザー）─ 進捗状況の可視化</li>
+                    <li>WA（ワークロードアナライザー）─ 作業負荷の分析</li>
+                    <li>IA（インベントリアナライザー）─ 在庫状況の分析</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- L3: 自動化 -->
+            <a class="ce-gpim-card ce-gpim-card--l3 ce-fade is-visible" data-level="l3" href="/gpim-consulting?level=l3">
               <div class="ce-gpim-card__badge"><span class="ce-gpim-card__num">L3</span><span class="ce-gpim-card__icon">⚙</span></div>
               <div class="ce-gpim-card__body">
                 <div class="ce-gpim-card__top"><span class="ce-gpim-card__name">自動化</span></div>
@@ -695,7 +825,38 @@
               </div>
               <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
             </a>
-            <a class="ce-gpim-card ce-gpim-card--l4 ce-fade is-visible" href="/gpim-consulting?level=l4">
+            <div class="ce-gpim-detail" data-detail="l3">
+              <div class="ce-gpim-detail__inner">
+                <div class="ce-gpim-detail__head">
+                  <div class="ce-gpim-detail__badge" style="background: linear-gradient(180deg, #34D399 0%, #059669 100%);">L3</div>
+                  <div class="ce-gpim-detail__title-area">
+                    <h3 class="ce-gpim-detail__title">自動化 ─ Automate</h3>
+                    <span class="ce-gpim-detail__en">マテハン・ロボット活用</span>
+                  </div>
+                  <button class="ce-gpim-detail__close" data-close="l3">閉じる ×</button>
+                </div>
+                <div class="ce-gpim-detail__body">
+                  <p>マテリアルハンドリング機器やロボットの導入により、作業の実行そのものを自動化する段階です。体系化され可視化された業務に対して自動化技術を適用することで、安定性・処理能力を飛躍的に向上させます。</p>
+                  <p>Lv.1〜2を経ずにロボットを導入するケースが失敗しやすいのは、業務構造とデータ基盤が未整備のまま自動化しようとするためです。設備の処理能力・稼働率・ROIを客観的に評価可能な状態を構築します。</p>
+                  <div class="ce-gpim-detail__sub">GROUNDのコンサルティング支援</div>
+                  <ul class="ce-gpim-detail__list">
+                    <li>自動化対象工程の選定・優先順位付け（ROI分析）</li>
+                    <li>マテハン・ロボットの要件定義・ベンダー選定支援</li>
+                    <li>自動化設備のレイアウト設計・シミュレーション</li>
+                    <li>導入後の運用設計・KPI評価体制の構築</li>
+                  </ul>
+                  <div class="ce-gpim-detail__sub">コンサルティングのポイント</div>
+                  <ul class="ce-gpim-detail__list">
+                    <li>設備投資の費用対効果を事前に定量評価</li>
+                    <li>既存業務フロー（Lv.1）とデータ基盤（Lv.2）との整合性を確保</li>
+                    <li>段階的な自動化ロードマップの策定</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- L4: 最適化 -->
+            <a class="ce-gpim-card ce-gpim-card--l4 ce-fade is-visible" data-level="l4" href="/gpim-consulting?level=l4">
               <div class="ce-gpim-card__badge"><span class="ce-gpim-card__num">L4</span><span class="ce-gpim-card__icon">◈</span></div>
               <div class="ce-gpim-card__body">
                 <div class="ce-gpim-card__top">
@@ -706,7 +867,40 @@
               </div>
               <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
             </a>
-            <a class="ce-gpim-card ce-gpim-card--l5 ce-fade is-visible" href="/gpim-consulting?level=l5">
+            <div class="ce-gpim-detail" data-detail="l4">
+              <div class="ce-gpim-detail__inner">
+                <div class="ce-gpim-detail__head">
+                  <div class="ce-gpim-detail__badge" style="background: linear-gradient(180deg, #60A5FA 0%, #3B82F6 100%);">L4</div>
+                  <div class="ce-gpim-detail__title-area">
+                    <h3 class="ce-gpim-detail__title">最適化 ─ Optimize</h3>
+                    <span class="ce-gpim-detail__en">AI・数理最適化</span>
+                  </div>
+                  <button class="ce-gpim-detail__close" data-close="l4">閉じる ×</button>
+                </div>
+                <div class="ce-gpim-detail__body">
+                  <p>AIと数理最適化技術を活用し、複数の工程・リソース・KPIを同時に考慮した全体最適を実現する段階です。個々の工程の改善ではなく、施設全体の運営を俯瞰し、人員配置・在庫配置・動線・配送計画を統合的に最適化します。</p>
+                  <p>拠点横断の全体最適を実現し、需要変動に応じて継続的に最適状態を更新します。</p>
+                  <div class="ce-gpim-detail__sub">GROUNDのコンサルティング支援</div>
+                  <ul class="ce-gpim-detail__list">
+                    <li>最適化対象領域の特定と数理モデルの設計</li>
+                    <li>在庫配置・ロケーション最適化（スロッティング）の導入支援</li>
+                    <li>配車・配送ルート最適化の要件定義</li>
+                    <li>人員配置（リソースアロケーション）の最適化支援</li>
+                  </ul>
+                  <div class="ce-gpim-detail__sub">対応GWESモジュール</div>
+                  <ul class="ce-gpim-detail__list">
+                    <li>SO（スロッティングオプティマイザー）─ 在庫配置の最適化</li>
+                    <li>RO（ルーティングオプティマイザー）─ 庫内動線の最適化</li>
+                    <li>RA（リソースアロケーター）─ 人員配置の最適化</li>
+                    <li>DO（デリバリーオプティマイザー）─ 配送計画の最適化</li>
+                    <li>LO（ローディングオプティマイザー）─ 積付けの最適化</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- L5: 自律化 -->
+            <a class="ce-gpim-card ce-gpim-card--l5 ce-fade is-visible" data-level="l5" href="/gpim-consulting?level=l5">
               <div class="ce-gpim-card__badge"><span class="ce-gpim-card__num">L5</span><span class="ce-gpim-card__icon">◎</span></div>
               <div class="ce-gpim-card__body">
                 <div class="ce-gpim-card__top">
@@ -717,6 +911,34 @@
               </div>
               <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳細を見る</span></span>
             </a>
+            <div class="ce-gpim-detail" data-detail="l5">
+              <div class="ce-gpim-detail__inner">
+                <div class="ce-gpim-detail__head">
+                  <div class="ce-gpim-detail__badge" style="background: linear-gradient(180deg, #93C5FD 0%, #60A5FA 100%);">L5</div>
+                  <div class="ce-gpim-detail__title-area">
+                    <h3 class="ce-gpim-detail__title">自律化 ─ Autonomize</h3>
+                    <span class="ce-gpim-detail__en">完全自律運用</span>
+                  </div>
+                  <button class="ce-gpim-detail__close" data-close="l5">閉じる ×</button>
+                </div>
+                <div class="ce-gpim-detail__body">
+                  <p>人の介在なく、施設自体が環境変化を感知し、自ら判断・実行・学習を繰り返す「完全自律型オペレーション」を実現する最終段階です。GROUNDのビジョンである「Autonomous Warehouse（完全自律型物流施設運営）」はこのレベルの到達を意味します。</p>
+                  <p>作業指示・人員配置・進捗管理がシステムで自動化され、人は例外対応・戦略見直し・改善テーマ創出に集中。「日常管理」から「進化と意思決定」への転換を実現します。体系化から最適化まで4つのレベルを確実に積み上げた先にのみ、この最終目標が存在します。</p>
+                  <div class="ce-gpim-detail__sub">GROUNDのコンサルティング支援</div>
+                  <ul class="ce-gpim-detail__list">
+                    <li>自律化ロードマップの策定・マイルストーン設計</li>
+                    <li>例外処理・エスカレーションフローの設計</li>
+                    <li>継続的学習・改善サイクルの仕組み構築</li>
+                    <li>組織変革（人の役割再定義）の支援</li>
+                  </ul>
+                  <div class="ce-gpim-detail__sub">対応GWESモジュール</div>
+                  <ul class="ce-gpim-detail__list">
+                    <li>WF（ワークロードフォーキャスティング）─ 需要予測に基づく自律的な計画立案</li>
+                    <li>RA（リソースアロケーター）─ 自律的なリソース最適配置</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -1173,6 +1395,56 @@
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
     document.querySelectorAll('.ce-fade').forEach(el => ceObs.observe(el));
+
+    /* ── GPIM Detail Drilldown ── */
+    (function() {
+      function openDetail(level, scroll) {
+        // close any open detail
+        document.querySelectorAll('.ce-gpim-detail.is-open').forEach(function(d) { d.classList.remove('is-open'); });
+        document.querySelectorAll('.ce-gpim-card.is-expanded').forEach(function(c) { c.classList.remove('is-expanded'); });
+        // open target
+        var card = document.querySelector('.ce-gpim-card[data-level="' + level + '"]');
+        var detail = document.querySelector('.ce-gpim-detail[data-detail="' + level + '"]');
+        if (card && detail) {
+          card.classList.add('is-expanded');
+          detail.classList.add('is-open');
+          if (scroll) {
+            setTimeout(function() { card.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
+          }
+        }
+      }
+      function closeDetail(level) {
+        var card = document.querySelector('.ce-gpim-card[data-level="' + level + '"]');
+        var detail = document.querySelector('.ce-gpim-detail[data-detail="' + level + '"]');
+        if (card) card.classList.remove('is-expanded');
+        if (detail) detail.classList.remove('is-open');
+        history.replaceState(null, '', location.pathname);
+      }
+      // Card click
+      document.querySelectorAll('.ce-gpim-card[data-level]').forEach(function(card) {
+        card.addEventListener('click', function(e) {
+          e.preventDefault();
+          var level = card.getAttribute('data-level');
+          var isOpen = card.classList.contains('is-expanded');
+          if (isOpen) {
+            closeDetail(level);
+          } else {
+            openDetail(level, true);
+            history.replaceState(null, '', '/gpim-consulting?level=' + level);
+          }
+        });
+      });
+      // Close buttons
+      document.querySelectorAll('.ce-gpim-detail__close').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          closeDetail(btn.getAttribute('data-close'));
+        });
+      });
+      // On page load: check URL param
+      var params = new URLSearchParams(location.search);
+      var level = params.get('level');
+      if (level) { openDetail(level, true); }
+    })();
   </script>
 <script defer="" src="js/design-settings.js"></script>
 
