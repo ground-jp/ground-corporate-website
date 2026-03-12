@@ -16,5 +16,7 @@
   <text x="4469" y="1580"
         font-family="'Liberation Sans',Arial,Helvetica,sans-serif"
         font-weight="700" font-size="1900" letter-spacing="-20"
-        fill="url(#dk)">GROUND</text>
+        fill="url(#dk)"
+        stroke="#1A1A1A" stroke-width="36" stroke-linejoin="round"
+        paint-order="stroke fill">GROUND</text>
 </svg>

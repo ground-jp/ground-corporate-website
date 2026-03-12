@@ -563,6 +563,8 @@
     }
     .sim-results__chart-wrap canvas {
       background: transparent !important;
+      display: block;
+      margin: 0 auto;
     }
     .sim-results__chart-title {
       font-size: 1rem;
@@ -1529,24 +1531,44 @@
           return scores[m.key] === 0 ? '#6B7280' : '#3B82F6';
         });
 
-        // Render chart: replace canvas to avoid stale Chart.js instances,
-        // then create chart after layout is fully settled
+        // Render chart: destroy any existing instance, replace canvas,
+        // force explicit dimensions, then create chart.
+        // This solves the display:none→block layout timing issue.
         var oldCanvas = document.getElementById('resultChart');
-        var newCanvas = document.createElement('canvas');
-        newCanvas.id = 'resultChart';
-        oldCanvas.parentNode.replaceChild(newCanvas, oldCanvas);
+        if (oldCanvas) {
+          // Destroy existing Chart.js instance if any
+          var existingChart = Chart.getChart(oldCanvas);
+          if (existingChart) existingChart.destroy();
+          // Replace canvas entirely to avoid stale state
+          var newCanvas = document.createElement('canvas');
+          newCanvas.id = 'resultChart';
+          oldCanvas.parentNode.replaceChild(newCanvas, oldCanvas);
+        }
 
-        function renderRadarChart() {
+        function renderRadarChart(retries) {
+          retries = retries || 0;
           try {
             var canvas = document.getElementById('resultChart');
-            if (!canvas) return;
-            // Verify parent is visible and has dimensions
-            var wrap = canvas.parentElement;
-            if (wrap.offsetWidth < 50) {
-              // Layout not ready yet, retry
-              setTimeout(renderRadarChart, 200);
+            if (!canvas) { console.error('resultChart canvas not found'); return; }
+            var wrap = canvas.closest('.sim-results__chart-wrap');
+            if (!wrap) { console.error('chart wrap not found'); return; }
+
+            // Force layout reflow
+            void wrap.offsetHeight;
+
+            var wrapWidth = wrap.clientWidth;
+            if (wrapWidth < 100 && retries < 15) {
+              setTimeout(function() { renderRadarChart(retries + 1); }, 100);
               return;
             }
+
+            // Set explicit canvas dimensions so Chart.js can calculate
+            var chartSize = Math.min(wrapWidth - 80, 480);
+            canvas.style.width = chartSize + 'px';
+            canvas.style.height = chartSize + 'px';
+            canvas.width = chartSize * (window.devicePixelRatio || 1);
+            canvas.height = chartSize * (window.devicePixelRatio || 1);
+
             new Chart(canvas, {
               type: 'radar',
               data: {
@@ -1563,8 +1585,9 @@
                 }]
               },
               options: {
-                responsive: true,
-                maintainAspectRatio: true,
+                responsive: false,
+                maintainAspectRatio: false,
+                animation: { duration: 600 },
                 plugins: {
                   legend: { display: false },
                   tooltip: {
@@ -1602,12 +1625,20 @@
                 }
               }
             });
+            console.log('Radar chart rendered successfully, size:', chartSize);
           } catch(chartErr) {
             console.error('Chart render error:', chartErr);
+            if (retries < 15) {
+              setTimeout(function() { renderRadarChart(retries + 1); }, 200);
+            }
           }
         }
-        // Wait for layout to fully settle after display:none→block
-        setTimeout(renderRadarChart, 500);
+        // Use requestAnimationFrame to ensure DOM is painted after display:block
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            renderRadarChart(0);
+          });
+        });
 
         // Layer scores (with N/A count)
         function layerNACount(keys) {
