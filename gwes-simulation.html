@@ -142,79 +142,85 @@
       line-height: 2.0;
     }
 
-    /* ── Phase 2: Challenge Cards ── */
-    .sim-challenges {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+    /* ── Phase 2: Module Layer Groups ── */
+    .sim-layer-group {
+      margin-bottom: 32px;
     }
-    .sim-challenge {
-      background: var(--gw-surface);
-      border: 1px solid var(--gw-border);
-      border-radius: 12px;
-      padding: 32px 24px;
-      transition: all 0.3s ease;
-      cursor: default;
-      position: relative;
-      overflow: hidden;
-    }
-    .sim-challenge::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 4px; height: 100%;
-      border-radius: 12px 0 0 12px;
-    }
-    .sim-challenge--infra::before { background: var(--gw-infra); }
-    .sim-challenge--l2::before { background: var(--gw-l2); }
-    .sim-challenge--l4::before { background: var(--gw-l4); }
-    .sim-challenge:hover {
-      border-color: var(--gw-border-hover);
-      transform: translateY(-2px);
-    }
-    .sim-challenge__icon {
-      width: 36px; height: 36px;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem; font-weight: 600;
-      letter-spacing: 0.04em;
-      border-radius: 8px;
+    .sim-layer-group:last-child { margin-bottom: 0; }
+    .sim-layer-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
       margin-bottom: 16px;
     }
-    .sim-challenge--infra .sim-challenge__icon {
+    .sim-layer-header__line {
+      flex: 1;
+      height: 1px;
+      background: var(--gw-border);
+    }
+    .sim-layer-header__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .sim-layer-header__label--infra { color: var(--gw-infra); }
+    .sim-layer-header__label--l2 { color: var(--gw-l2); }
+    .sim-layer-header__label--l4 { color: var(--gw-l4); }
+    .sim-module-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .sim-module-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      background: var(--gw-surface);
+      border: 1px solid var(--gw-border);
+      border-radius: 8px;
+      transition: border-color 0.2s;
+    }
+    .sim-module-item:hover {
+      border-color: var(--gw-border-hover);
+    }
+    .sim-module-item__abbr {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .sim-layer-group--infra .sim-module-item__abbr {
       background: rgba(107,114,128,0.08);
       color: var(--gw-infra);
       border: 1px solid rgba(107,114,128,0.18);
     }
-    .sim-challenge--l2 .sim-challenge__icon {
-      background: rgba(59,130,246,0.07);
+    .sim-layer-group--l2 .sim-module-item__abbr {
+      background: rgba(59,130,246,0.06);
       color: var(--gw-l2);
-      border: 1px solid rgba(59,130,246,0.18);
+      border: 1px solid rgba(59,130,246,0.16);
     }
-    .sim-challenge--l4 .sim-challenge__icon {
-      background: rgba(29,78,216,0.07);
+    .sim-layer-group--l4 .sim-module-item__abbr {
+      background: rgba(29,78,216,0.06);
       color: var(--gw-l4);
-      border: 1px solid rgba(29,78,216,0.18);
+      border: 1px solid rgba(29,78,216,0.16);
     }
-    .sim-challenge__title {
-      font-size: 0.92rem;
-      font-weight: 600;
+    .sim-module-item__text {
+      font-size: 0.82rem;
       color: var(--gw-text-1);
-      margin-bottom: 8px;
+      font-weight: 500;
+      line-height: 1.3;
     }
-    .sim-challenge__desc {
-      font-size: 0.8rem;
+    .sim-module-item__sub {
+      font-size: 0.7rem;
       color: var(--gw-text-3);
-      line-height: 1.7;
-    }
-    .sim-challenge__layer {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--gw-text-3);
-      margin-top: 16px;
-      opacity: 0.6;
+      margin-top: 1px;
     }
 
     /* ── Phase 3: Bridge / GPIM Levels ── */
@@ -631,7 +637,7 @@
     /* ── Responsive ── */
     @media (max-width: 768px) {
       .sim-stats { grid-template-columns: 1fr; }
-      .sim-challenges { grid-template-columns: 1fr; }
+      .sim-module-list { flex-direction: column; }
       .sim-levels { flex-direction: column; }
       .sim-level:first-child { border-radius: 12px 12px 0 0; }
       .sim-level:last-child { border-radius: 0 0 12px 12px; }
@@ -640,13 +646,6 @@
       .sim-section { padding: 64px 0; }
       .sim-form__nav { flex-direction: column; gap: 12px; }
       .sim-form__nav .sim-btn { width: 100%; justify-content: center; }
-    }
-    @media (max-width: 480px) {
-      .sim-challenges { grid-template-columns: 1fr; }
-    }
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .sim-challenges { grid-template-columns: repeat(2, 1fr); }
-      .sim-stats { grid-template-columns: repeat(3, 1fr); }
     }
   </style>
 </head>
@@ -779,90 +778,89 @@
        ========================================================= -->
   <section class="sim-section sim-section--alt">
     <div class="container">
-      <div class="sim-challenges">
-        <!-- Infrastructure Layer: DC / ME -->
-        <div class="sim-challenge sim-challenge--infra sim-fade">
-          <div class="sim-challenge__icon">DC</div>
-          <div class="sim-challenge__title">システム間のデータ分断</div>
-          <div class="sim-challenge__desc">WMS・TMS・ERPのデータが統合されず、意思決定が遅延</div>
-          <div class="sim-challenge__layer">Data Connector</div>
-        </div>
-        <div class="sim-challenge sim-challenge--infra sim-fade">
-          <div class="sim-challenge__icon">ME</div>
-          <div class="sim-challenge__title">拠点間の統一管理が困難</div>
-          <div class="sim-challenge__desc">複数拠点のKPIを横並びで比較できず、改善ポイントが不明</div>
-          <div class="sim-challenge__layer">Map Editor</div>
-        </div>
-
-        <!-- L2 Visualization Layer: WF / PA / WA / 標準化 / IA -->
-        <div class="sim-challenge sim-challenge--l2 sim-fade">
-          <div class="sim-challenge__icon">WF</div>
-          <div class="sim-challenge__title">作業量予測の精度不足</div>
-          <div class="sim-challenge__desc">工程別作業量の予測ができず、人員配置が後手に</div>
-          <div class="sim-challenge__layer">Workload Forecasting</div>
-        </div>
-        <div class="sim-challenge sim-challenge--l2 sim-fade">
-          <div class="sim-challenge__icon">PA</div>
-          <div class="sim-challenge__title">進捗・遅延の把握が遅い</div>
-          <div class="sim-challenge__desc">リアルタイムな可視化がなく、遅延・滞留の発見が遅れる</div>
-          <div class="sim-challenge__layer">Progress Analyzer</div>
-        </div>
-        <div class="sim-challenge sim-challenge--l2 sim-fade">
-          <div class="sim-challenge__icon">WA</div>
-          <div class="sim-challenge__title">生産性の定量把握が不十分</div>
-          <div class="sim-challenge__desc">作業者別の生産性が数値化されず、改善議論が進まない</div>
-          <div class="sim-challenge__layer">Workload Analyzer</div>
-        </div>
-        <div class="sim-challenge sim-challenge--l2 sim-fade">
-          <div class="sim-challenge__icon">STD</div>
-          <div class="sim-challenge__title">管理業務の属人化</div>
-          <div class="sim-challenge__desc">特定リーダーへの依存で、異動・退職時に品質が低下</div>
-          <div class="sim-challenge__layer">Standardization</div>
-        </div>
-        <div class="sim-challenge sim-challenge--l2 sim-fade">
-          <div class="sim-challenge__icon">IA</div>
-          <div class="sim-challenge__title">在庫構造の可視化不足</div>
-          <div class="sim-challenge__desc">滞留・偏在が把握できず、保管効率が改善されない</div>
-          <div class="sim-challenge__layer">Inventory Analyzer</div>
+      <div class="sim-fade">
+        <!-- Infrastructure Layer -->
+        <div class="sim-layer-group sim-layer-group--infra">
+          <div class="sim-layer-header">
+            <span class="sim-layer-header__label sim-layer-header__label--infra">Infrastructure</span>
+            <div class="sim-layer-header__line"></div>
+          </div>
+          <div class="sim-module-list">
+            <div class="sim-module-item">
+              <div class="sim-module-item__abbr">DC</div>
+              <div><div class="sim-module-item__text">データ連携</div><div class="sim-module-item__sub">Data Connector</div></div>
+            </div>
+            <div class="sim-module-item">
+              <div class="sim-module-item__abbr">ME</div>
+              <div><div class="sim-module-item__text">統合管理基盤</div><div class="sim-module-item__sub">Map Editor</div></div>
+            </div>
+          </div>
         </div>
 
-        <!-- L4 Optimization Layer: RA / SO / RO / LO / DO -->
-        <div class="sim-challenge sim-challenge--l4 sim-fade">
-          <div class="sim-challenge__icon">RA</div>
-          <div class="sim-challenge__title">要員配置の最適化が困難</div>
-          <div class="sim-challenge__desc">繁閑差に応じた計画ができず、人件費が高止まり</div>
-          <div class="sim-challenge__layer">Resource Allocator</div>
+        <!-- L2 Visualization Layer -->
+        <div class="sim-layer-group sim-layer-group--l2">
+          <div class="sim-layer-header">
+            <span class="sim-layer-header__label sim-layer-header__label--l2">L2 Visualization</span>
+            <div class="sim-layer-header__line"></div>
+          </div>
+          <div class="sim-module-list">
+            <div class="sim-module-item">
+              <div class="sim-module-item__abbr">WF</div>
+              <div><div class="sim-module-item__text">作業量予測</div><div class="sim-module-item__sub">Workload Forecasting</div></div>
+            </div>
+            <div class="sim-module-item">
+              <div class="sim-module-item__abbr">PA</div>
+              <div><div class="sim-module-item__text">進捗分析</div><div class="sim-module-item__sub">Progress Analyzer</div></div>
+            </div>
+            <div class="sim-module-item">
+              <div class="sim-module-item__abbr">WA</div>
+              <div><div class="sim-module-item__text">作業実績分析</div><div class="sim-module-item__sub">Workload Analyzer</div></div>
+            </div>
+            <div class="sim-module-item">
+              <div class="sim-module-item__abbr">STD</div>
+              <div><div class="sim-module-item__text">業務標準化</div><div class="sim-module-item__sub">Standardization</div></div>
+            </div>
+            <div class="sim-module-item">
+              <div class="sim-module-item__abbr">IA</div>
+              <div><div class="sim-module-item__text">在庫可視化</div><div class="sim-module-item__sub">Inventory Analyzer</div></div>
+            </div>
+          </div>
         </div>
-        <div class="sim-challenge sim-challenge--l4 sim-fade">
-          <div class="sim-challenge__icon">SO</div>
-          <div class="sim-challenge__title">保管配置の非効率</div>
-          <div class="sim-challenge__desc">出荷頻度を考慮した棚割がなく、動線が無駄に長い</div>
-          <div class="sim-challenge__layer">Slotting Optimizer</div>
-        </div>
-        <div class="sim-challenge sim-challenge--l4 sim-fade">
-          <div class="sim-challenge__icon">RO</div>
-          <div class="sim-challenge__title">ピッキング経路の非最適</div>
-          <div class="sim-challenge__desc">経路が標準化されず、歩行距離と作業時間が膨張</div>
-          <div class="sim-challenge__layer">Routing Optimizer</div>
-        </div>
-        <div class="sim-challenge sim-challenge--l4 sim-fade">
-          <div class="sim-challenge__icon">LO</div>
-          <div class="sim-challenge__title">梱包・積付の非効率</div>
-          <div class="sim-challenge__desc">固定パターンでの出荷により、資材・配送コストが増大</div>
-          <div class="sim-challenge__layer">Loading Optimizer</div>
-        </div>
-        <div class="sim-challenge sim-challenge--l4 sim-fade">
-          <div class="sim-challenge__icon">DO</div>
-          <div class="sim-challenge__title">配送計画の硬直化</div>
-          <div class="sim-challenge__desc">ルート・手段が固定で、需要変動への柔軟な対応が困難</div>
-          <div class="sim-challenge__layer">Delivery Optimizer</div>
+
+        <!-- L4 Optimization Layer -->
+        <div class="sim-layer-group sim-layer-group--l4">
+          <div class="sim-layer-header">
+            <span class="sim-layer-header__label sim-layer-header__label--l4">L4 Optimization</span>
+            <div class="sim-layer-header__line"></div>
+          </div>
+          <div class="sim-module-list">
+            <div class="sim-module-item">
+              <div class="sim-module-item__abbr">RA</div>
+              <div><div class="sim-module-item__text">要員配置</div><div class="sim-module-item__sub">Resource Allocator</div></div>
+            </div>
+            <div class="sim-module-item">
+              <div class="sim-module-item__abbr">SO</div>
+              <div><div class="sim-module-item__text">在庫配置最適化</div><div class="sim-module-item__sub">Slotting Optimizer</div></div>
+            </div>
+            <div class="sim-module-item">
+              <div class="sim-module-item__abbr">RO</div>
+              <div><div class="sim-module-item__text">動線最適化</div><div class="sim-module-item__sub">Routing Optimizer</div></div>
+            </div>
+            <div class="sim-module-item">
+              <div class="sim-module-item__abbr">LO</div>
+              <div><div class="sim-module-item__text">梱包・積付最適化</div><div class="sim-module-item__sub">Loading Optimizer</div></div>
+            </div>
+            <div class="sim-module-item">
+              <div class="sim-module-item__abbr">DO</div>
+              <div><div class="sim-module-item__text">配送計画最適化</div><div class="sim-module-item__sub">Delivery Optimizer</div></div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="sim-narrative sim-fade" style="padding-top: 64px;">
+      <div class="sim-narrative sim-fade" style="padding-top: 40px;">
         <p class="sim-narrative__text">
-          これら12の領域は相互に関連しています。<br>
-          診断では、各領域の成熟度を評価し、最適な導入戦略を導き出します。
+          診断では12領域それぞれの成熟度を評価し、最適な導入戦略を導き出します。
         </p>
       </div>
     </div>
