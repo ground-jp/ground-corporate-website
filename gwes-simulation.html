@@ -1293,38 +1293,40 @@
     document.querySelectorAll('.sim-fade').forEach(el => simObserver.observe(el));
 
     // ── Teaser Chart (blurred preview) ──
-    const teaserCtx = document.getElementById('teaserChart');
-    if (teaserCtx) {
-      new Chart(teaserCtx, {
-        type: 'radar',
-        data: {
-          labels: ['DC', 'ME', 'WF', 'PA', 'WA', 'RA', '標準化', 'IA', 'SO', 'RO', 'LO', 'DO'],
-          datasets: [{
-            data: [2.1, 1.8, 2.4, 1.9, 1.6, 2.2, 1.5, 2.0, 1.7, 1.3, 1.5, 1.8],
-            backgroundColor: 'rgba(59,130,246,0.15)',
-            borderColor: 'rgba(59,130,246,0.4)',
-            borderWidth: 2,
-            pointRadius: 0
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: { legend: { display: false } },
-          scales: {
-            r: {
-              beginAtZero: true, max: 3,
-              grid: { color: 'rgba(255,255,255,0.06)' },
-              angleLines: { color: 'rgba(255,255,255,0.06)' },
-              ticks: { display: false },
-              pointLabels: {
-                color: 'rgba(255,255,255,0.3)',
-                font: { family: 'JetBrains Mono', size: 10 }
+    try {
+      const teaserCtx = document.getElementById('teaserChart');
+      if (teaserCtx && typeof Chart !== 'undefined') {
+        new Chart(teaserCtx, {
+          type: 'radar',
+          data: {
+            labels: ['DC', 'ME', 'WF', 'PA', 'WA', 'RA', '標準化', 'IA', 'SO', 'RO', 'LO', 'DO'],
+            datasets: [{
+              data: [2.1, 1.8, 2.4, 1.9, 1.6, 2.2, 1.5, 2.0, 1.7, 1.3, 1.5, 1.8],
+              backgroundColor: 'rgba(59,130,246,0.15)',
+              borderColor: 'rgba(59,130,246,0.4)',
+              borderWidth: 2,
+              pointRadius: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+              r: {
+                beginAtZero: true, max: 3,
+                grid: { color: 'rgba(255,255,255,0.06)' },
+                angleLines: { color: 'rgba(255,255,255,0.06)' },
+                ticks: { display: false },
+                pointLabels: {
+                  color: 'rgba(255,255,255,0.3)',
+                  font: { family: 'JetBrains Mono', size: 10 }
+                }
               }
             }
           }
-        }
-      });
-    }
+        });
+      }
+    } catch(e) { console.warn('Teaser chart error:', e); }
 
     // ── Module metadata ──
     // Q1-Q2: インフラ層(DC/ME), Q3-Q5: 可視化層(WF/PA/WA), Q6-Q7: RA+標準化, Q8-Q9: IA/SO, Q10-Q12: RO/LO/DO
@@ -1356,45 +1358,58 @@
     const totalSteps = 7;
 
     function goToStep(step) {
-      // Validate current step
-      if (step > currentStep) {
-        const currentEl = document.querySelector(`[data-step="${currentStep}"]`);
-        if (currentStep === 0) {
-          const reqInputs = currentEl.querySelectorAll('[required]');
-          for (const inp of reqInputs) {
-            if (!inp.value.trim()) {
-              inp.focus();
-              inp.style.borderColor = '#EF4444';
-              setTimeout(() => inp.style.borderColor = '', 2000);
-              return;
+      try {
+        // Validate current step
+        if (step > currentStep) {
+          var currentEl = document.querySelector('[data-step="' + currentStep + '"]');
+          if (currentStep === 0) {
+            var reqInputs = currentEl.querySelectorAll('[required]');
+            for (var i = 0; i < reqInputs.length; i++) {
+              var inp = reqInputs[i];
+              if (!inp.value || !inp.value.trim()) {
+                inp.focus();
+                inp.style.borderColor = '#EF4444';
+                setTimeout(function() { inp.style.borderColor = ''; }, 2000);
+                return;
+              }
             }
-          }
-        } else {
-          const radios = currentEl.querySelectorAll('.sim-question');
-          for (const q of radios) {
-            const checked = q.querySelector('input[type="radio"]:checked');
-            if (!checked) {
-              q.querySelector('.sim-options').style.outline = '1px solid #EF4444';
-              q.querySelector('.sim-options').style.borderRadius = '10px';
-              setTimeout(() => q.querySelector('.sim-options').style.outline = '', 2000);
-              return;
+          } else {
+            var radios = currentEl.querySelectorAll('.sim-question');
+            for (var j = 0; j < radios.length; j++) {
+              var q = radios[j];
+              var checked = q.querySelector('input[type="radio"]:checked');
+              if (!checked) {
+                var opts = q.querySelector('.sim-options');
+                if (opts) {
+                  opts.style.outline = '1px solid #EF4444';
+                  opts.style.borderRadius = '10px';
+                  setTimeout(function() { opts.style.outline = ''; }, 2000);
+                }
+                return;
+              }
             }
           }
         }
+
+        // Switch steps
+        document.querySelectorAll('.sim-form__step').forEach(function(el) { el.classList.remove('is-active'); });
+        var targetStep = document.querySelector('[data-step="' + step + '"]');
+        if (targetStep) {
+          targetStep.classList.add('is-active');
+        }
+        currentStep = step;
+
+        // Update progress
+        var pct = (step / (totalSteps - 1)) * 100;
+        document.getElementById('progressFill').style.width = pct + '%';
+        document.getElementById('progressText').textContent = 'Step ' + (step + 1) + ' / ' + totalSteps;
+
+        // Scroll to form
+        document.getElementById('simulationSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch(e) {
+        console.error('goToStep error:', e);
+        alert('エラーが発生しました: ' + e.message);
       }
-
-      // Switch steps
-      document.querySelectorAll('.sim-form__step').forEach(el => el.classList.remove('is-active'));
-      document.querySelector(`[data-step="${step}"]`).classList.add('is-active');
-      currentStep = step;
-
-      // Update progress
-      const pct = (step / (totalSteps - 1)) * 100;
-      document.getElementById('progressFill').style.width = pct + '%';
-      document.getElementById('progressText').textContent = `Step ${step + 1} / ${totalSteps}`;
-
-      // Scroll to form
-      document.getElementById('simulationSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     // ── Show Results ──
