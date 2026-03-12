@@ -883,28 +883,28 @@
       <div class="sim-levels sim-fade">
         <div class="sim-level">
           <span class="sim-level__badge">Level 1</span>
-          <div class="sim-level__name">可視化</div>
-          <div class="sim-level__sub">Visualization</div>
+          <div class="sim-level__name">体系化</div>
+          <div class="sim-level__sub">Systematize</div>
         </div>
         <div class="sim-level">
           <span class="sim-level__badge">Level 2</span>
-          <div class="sim-level__name">分析</div>
-          <div class="sim-level__sub">Analysis</div>
+          <div class="sim-level__name">可視化</div>
+          <div class="sim-level__sub">Visualize</div>
         </div>
         <div class="sim-level">
           <span class="sim-level__badge">Level 3</span>
-          <div class="sim-level__name">最適化</div>
-          <div class="sim-level__sub">Optimization</div>
+          <div class="sim-level__name">自動化</div>
+          <div class="sim-level__sub">Automate</div>
         </div>
         <div class="sim-level">
           <span class="sim-level__badge">Level 4</span>
-          <div class="sim-level__name">自動化</div>
-          <div class="sim-level__sub">Automation</div>
+          <div class="sim-level__name">最適化</div>
+          <div class="sim-level__sub">Optimize</div>
         </div>
         <div class="sim-level">
           <span class="sim-level__badge">Level 5</span>
-          <div class="sim-level__name">自律運営</div>
-          <div class="sim-level__sub">Autonomous</div>
+          <div class="sim-level__name">自律化</div>
+          <div class="sim-level__sub">Autonomize</div>
         </div>
       </div>
 
@@ -1390,11 +1390,11 @@
     ];
 
     const GPIM_LEVELS = [
-      { level: 1, name: '可視化', nameEn: 'Visualization', desc: '施設の現状データを収集・可視化する段階です。まずはデータ基盤の整備とGWESの可視化モジュール導入から始めることを推奨します。' },
-      { level: 2, name: '分析', nameEn: 'Analysis', desc: '収集したデータを分析し、課題を数値で把握できる段階です。GWESのL2可視化層モジュールが効果を発揮するフェーズです。' },
-      { level: 3, name: '最適化', nameEn: 'Optimization', desc: '分析結果をもとに、オペレーションの最適化設計を行う段階です。GWESのL4最適化層モジュールの導入が推奨されます。' },
-      { level: 4, name: '自動化', nameEn: 'Automation', desc: '最適化されたオペレーションをシステムで自動実行する段階です。GWES全モジュールの統合運用が効果を最大化します。' },
-      { level: 5, name: '自律運営', nameEn: 'Autonomous', desc: '施設全体が自律的に最適化を継続する段階です。GWESを核とした完全自律型オペレーションの実現フェーズです。' }
+      { level: 1, name: '体系化', nameEn: 'Systematize', desc: '業務の目的・範囲・工程・役割分担・判断基準を明確に定義し、業務全体を構造として整理する段階です。GWESではBM（ベースモジュール）とME（マップエディター）がこの段階を支援します。' },
+      { level: 2, name: '可視化', nameEn: 'Visualize', desc: '作業量予測・進捗状況・実績データを定量化し、事実と数値に基づく判断・改善を実現する段階です。GWESのDC・WF・PA・WA・IAがこの段階の中核を担います。' },
+      { level: 3, name: '自動化', nameEn: 'Automate', desc: 'マテハンを活用し、ピッキング・搬送・仕分け等の実行工程を自動化する段階です。設備の処理能力・稼働率・ROIを客観的に評価可能な状態を構築します。' },
+      { level: 4, name: '最適化', nameEn: 'Optimize', desc: '複数の工程・リソース・KPIを同時に考慮し、物流運営全体として最も合理的な状態を維持する段階です。GWESのSO・RO・RA・DO・LOがこの段階を担います。' },
+      { level: 5, name: '自律化', nameEn: 'Autonomize', desc: '作業指示・人員配置・進捗管理がシステムで自動化され、人は例外対応・戦略見直し・改善テーマ創出に集中できる段階です。' }
     ];
 
     // ── Step Navigation ──
@@ -1529,19 +1529,24 @@
           return scores[m.key] === 0 ? '#6B7280' : '#3B82F6';
         });
 
-        // Use rAF + setTimeout for reliable rendering after display:none→block
-        requestAnimationFrame(function() { setTimeout(function() {
+        // Render chart: replace canvas to avoid stale Chart.js instances,
+        // then create chart after layout is fully settled
+        var oldCanvas = document.getElementById('resultChart');
+        var newCanvas = document.createElement('canvas');
+        newCanvas.id = 'resultChart';
+        oldCanvas.parentNode.replaceChild(newCanvas, oldCanvas);
+
+        function renderRadarChart() {
           try {
             var canvas = document.getElementById('resultChart');
+            if (!canvas) return;
+            // Verify parent is visible and has dimensions
             var wrap = canvas.parentElement;
-            // Force layout recalc
-            var wrapW = wrap.offsetWidth;
-            var cw = Math.min(wrapW - 80, 480);
-            canvas.style.width = cw + 'px';
-            canvas.style.height = cw + 'px';
-            canvas.width = cw * (window.devicePixelRatio || 1);
-            canvas.height = cw * (window.devicePixelRatio || 1);
-
+            if (wrap.offsetWidth < 50) {
+              // Layout not ready yet, retry
+              setTimeout(renderRadarChart, 200);
+              return;
+            }
             new Chart(canvas, {
               type: 'radar',
               data: {
@@ -1549,8 +1554,8 @@
                 datasets: [{
                   label: 'あなたの施設',
                   data: chartData,
-                  backgroundColor: 'rgba(59,130,246,0.2)',
-                  borderColor: '#3B82F6',
+                  backgroundColor: 'rgba(37,99,235,0.15)',
+                  borderColor: '#2563EB',
                   borderWidth: 2,
                   pointBackgroundColor: pointColors,
                   pointRadius: 4,
@@ -1600,7 +1605,9 @@
           } catch(chartErr) {
             console.error('Chart render error:', chartErr);
           }
-        }, 150); });
+        }
+        // Wait for layout to fully settle after display:none→block
+        setTimeout(renderRadarChart, 500);
 
         // Layer scores (with N/A count)
         function layerNACount(keys) {

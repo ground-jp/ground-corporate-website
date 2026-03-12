@@ -1,22 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13100 1938">
   <defs>
-    <linearGradient id="wt" x1="0" y1="0" x2="0" y2="1938" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="65%" stop-color="#FFFFFF"/>
-      <stop offset="80%" stop-color="#F9FAFA"/>
-      <stop offset="90%" stop-color="#EFF0F1"/>
-      <stop offset="95%" stop-color="#E8E9EB"/>
-      <stop offset="100%" stop-color="#E0E1E4"/>
+    <linearGradient id="dk" x1="0" y1="0" x2="0" y2="1938" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1A1A1A"/>
+      <stop offset="65%" stop-color="#1A1A1A"/>
+      <stop offset="80%" stop-color="#222224"/>
+      <stop offset="90%" stop-color="#2A2A2E"/>
+      <stop offset="95%" stop-color="#333338"/>
+      <stop offset="100%" stop-color="#3A3A40"/>
     </linearGradient>
   </defs>
   <!-- G Mark -->
-  <path fill="url(#wt)"
+  <path fill="url(#dk)"
         d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
   <!-- Wordmark -->
   <text x="4469" y="1580"
         font-family="'Liberation Sans',Arial,Helvetica,sans-serif"
         font-weight="700" font-size="1900" letter-spacing="-20"
-        fill="url(#wt)"
-        stroke="#0a0c14" stroke-width="36" stroke-linejoin="round"
-        paint-order="fill stroke">GROUND</text>
+        fill="url(#dk)">GROUND</text>
 </svg>
