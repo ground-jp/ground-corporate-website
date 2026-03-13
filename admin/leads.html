@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>リード管理 | GROUND Admin</title>
+<link rel="icon" href="../img/favicon.ico" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter','Noto Sans JP',sans-serif; background:#0f1117; color:#e2e8f0; min-height:100vh; }
+
+/* ── Login ── */
+.login-overlay { position:fixed; inset:0; background:#0f1117; display:flex; align-items:center; justify-content:center; z-index:9999; }
+.login-card { background:#1a1d2e; border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:40px; width:380px; max-width:90vw; }
+.login-card h1 { font-size:1.25rem; font-weight:600; margin-bottom:8px; color:#fff; }
+.login-card p { font-size:0.85rem; color:rgba(255,255,255,0.5); margin-bottom:24px; }
+.login-field { margin-bottom:16px; }
+.login-field label { display:block; font-size:0.8rem; color:rgba(255,255,255,0.6); margin-bottom:6px; }
+.login-field input { width:100%; padding:10px 14px; background:#0f1117; border:1px solid rgba(255,255,255,0.12); border-radius:8px; color:#fff; font-size:0.9rem; outline:none; }
+.login-field input:focus { border-color:#3b82f6; }
+.login-btn { width:100%; padding:12px; background:#3b82f6; color:#fff; border:none; border-radius:8px; font-size:0.9rem; font-weight:600; cursor:pointer; margin-top:8px; }
+.login-btn:hover { background:#2563eb; }
+.login-btn:disabled { opacity:0.5; cursor:not-allowed; }
+.login-error { color:#f87171; font-size:0.8rem; margin-top:12px; display:none; }
+
+/* ── Layout ── */
+.app { display:none; }
+.app.active { display:flex; min-height:100vh; }
+.sidebar { width:240px; background:#1a1d2e; border-right:1px solid rgba(255,255,255,0.06); padding:20px 0; flex-shrink:0; position:fixed; top:0; left:0; bottom:0; overflow-y:auto; }
+.sidebar-logo { padding:0 20px 20px; border-bottom:1px solid rgba(255,255,255,0.06); margin-bottom:16px; font-size:0.85rem; color:rgba(255,255,255,0.5); }
+.sidebar-logo strong { display:block; font-size:1rem; color:#fff; margin-bottom:2px; }
+.sidebar-nav a { display:flex; align-items:center; gap:10px; padding:10px 20px; color:rgba(255,255,255,0.6); text-decoration:none; font-size:0.85rem; transition:all 0.15s; }
+.sidebar-nav a:hover, .sidebar-nav a.active { background:rgba(59,130,246,0.1); color:#60a5fa; }
+.sidebar-nav a svg { width:18px; height:18px; flex-shrink:0; }
+.sidebar-bottom { position:absolute; bottom:0; left:0; right:0; padding:16px 20px; border-top:1px solid rgba(255,255,255,0.06); }
+.sidebar-bottom button { background:none; border:none; color:rgba(255,255,255,0.4); font-size:0.8rem; cursor:pointer; }
+.sidebar-bottom button:hover { color:#f87171; }
+.main { margin-left:240px; flex:1; padding:24px 32px; }
+
+/* ── Stats ── */
+.stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:28px; }
+.stat-card { background:#1a1d2e; border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:20px; }
+.stat-card .label { font-size:0.75rem; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:0.05em; }
+.stat-card .value { font-size:1.8rem; font-weight:700; color:#fff; margin-top:4px; }
+.stat-card .sub { font-size:0.75rem; color:rgba(255,255,255,0.35); margin-top:4px; }
+
+/* ── Toolbar ── */
+.toolbar { display:flex; align-items:center; gap:12px; margin-bottom:20px; flex-wrap:wrap; }
+.toolbar-search { flex:1; min-width:200px; position:relative; }
+.toolbar-search input { width:100%; padding:10px 14px 10px 38px; background:#1a1d2e; border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; font-size:0.85rem; outline:none; }
+.toolbar-search input:focus { border-color:#3b82f6; }
+.toolbar-search svg { position:absolute; left:12px; top:50%; transform:translateY(-50%); width:16px; height:16px; color:rgba(255,255,255,0.3); }
+.toolbar select { padding:10px 14px; background:#1a1d2e; border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; font-size:0.85rem; outline:none; cursor:pointer; }
+.toolbar .refresh-btn { padding:10px 14px; background:#1a1d2e; border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:rgba(255,255,255,0.6); font-size:0.85rem; cursor:pointer; display:flex; align-items:center; gap:6px; }
+.toolbar .refresh-btn:hover { border-color:#3b82f6; color:#60a5fa; }
+
+/* ── Table ── */
+.table-wrap { background:#1a1d2e; border:1px solid rgba(255,255,255,0.06); border-radius:12px; overflow:hidden; }
+table { width:100%; border-collapse:collapse; }
+thead th { padding:12px 16px; font-size:0.75rem; font-weight:600; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:0.05em; text-align:left; background:#151825; border-bottom:1px solid rgba(255,255,255,0.06); white-space:nowrap; }
+tbody td { padding:12px 16px; font-size:0.85rem; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:middle; }
+tbody tr { cursor:pointer; transition:background 0.1s; }
+tbody tr:hover { background:rgba(59,130,246,0.05); }
+.status-badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:0.72rem; font-weight:600; text-transform:uppercase; }
+.status-new { background:rgba(59,130,246,0.15); color:#60a5fa; }
+.status-contacted { background:rgba(250,204,21,0.15); color:#facc15; }
+.status-negotiating { background:rgba(168,85,247,0.15); color:#c084fc; }
+.status-converted { background:rgba(34,197,94,0.15); color:#4ade80; }
+.status-lost { background:rgba(239,68,68,0.15); color:#f87171; }
+.source-tag { display:inline-block; padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:500; }
+.source-contact { background:rgba(59,130,246,0.1); color:#93c5fd; }
+.source-dx_diagnosis { background:rgba(34,197,94,0.1); color:#86efac; }
+.source-dx_diagnosis_consult { background:rgba(168,85,247,0.1); color:#d8b4fe; }
+.source-dx_diagnosis_document { background:rgba(251,146,60,0.1); color:#fdba74; }
+.empty-state { padding:60px 20px; text-align:center; color:rgba(255,255,255,0.3); }
+.pagination { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-top:1px solid rgba(255,255,255,0.06); font-size:0.8rem; color:rgba(255,255,255,0.4); }
+.pagination button { padding:6px 14px; background:#0f1117; border:1px solid rgba(255,255,255,0.1); border-radius:6px; color:#fff; font-size:0.8rem; cursor:pointer; }
+.pagination button:disabled { opacity:0.3; cursor:not-allowed; }
+
+/* ── Detail Panel ── */
+.detail-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:100; display:none; }
+.detail-overlay.active { display:block; }
+.detail-panel { position:fixed; top:0; right:0; bottom:0; width:560px; max-width:90vw; background:#1a1d2e; z-index:101; overflow-y:auto; transform:translateX(100%); transition:transform 0.25s ease; border-left:1px solid rgba(255,255,255,0.08); }
+.detail-panel.active { transform:translateX(0); }
+.detail-header { padding:20px 24px; border-bottom:1px solid rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; background:#1a1d2e; z-index:1; }
+.detail-header h2 { font-size:1.1rem; font-weight:600; }
+.detail-close { background:none; border:none; color:rgba(255,255,255,0.4); font-size:1.4rem; cursor:pointer; padding:4px 8px; }
+.detail-close:hover { color:#fff; }
+.detail-body { padding:24px; }
+.detail-section { margin-bottom:28px; }
+.detail-section h3 { font-size:0.8rem; font-weight:600; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid rgba(255,255,255,0.06); }
+.detail-row { display:grid; grid-template-columns:120px 1fr; gap:8px; margin-bottom:10px; font-size:0.85rem; }
+.detail-row .label { color:rgba(255,255,255,0.45); }
+.detail-row .value { color:#e2e8f0; word-break:break-all; }
+.detail-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
+.detail-actions select, .detail-actions textarea, .detail-actions button { padding:8px 14px; background:#0f1117; border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; font-size:0.85rem; outline:none; }
+.detail-actions textarea { width:100%; min-height:80px; resize:vertical; font-family:inherit; }
+.detail-actions button { background:#3b82f6; border-color:#3b82f6; cursor:pointer; font-weight:600; }
+.detail-actions button:hover { background:#2563eb; }
+.dx-scores { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.dx-score-item { background:#0f1117; border-radius:8px; padding:10px 14px; }
+.dx-score-item .dim { font-size:0.75rem; color:rgba(255,255,255,0.45); }
+.dx-score-item .score { font-size:1.1rem; font-weight:700; color:#fff; }
+.gpim-badge { display:inline-block; padding:4px 12px; border-radius:6px; font-weight:700; font-size:0.9rem; }
+.gpim-1 { background:rgba(239,68,68,0.15); color:#f87171; }
+.gpim-2 { background:rgba(251,146,60,0.15); color:#fb923c; }
+.gpim-3 { background:rgba(250,204,21,0.15); color:#facc15; }
+.gpim-4 { background:rgba(34,197,94,0.15); color:#4ade80; }
+.gpim-5 { background:rgba(59,130,246,0.15); color:#60a5fa; }
+
+/* ── Responsive ── */
+@media(max-width:900px) {
+  .sidebar { display:none; }
+  .main { margin-left:0; padding:16px; }
+  .stats-row { grid-template-columns:repeat(2,1fr); }
+}
+@media(max-width:600px) {
+  .stats-row { grid-template-columns:1fr; }
+  .detail-panel { width:100vw; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Login Screen ── -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-card">
+    <h1>GROUND Admin</h1>
+    <p>リード管理システムにログインしてください。</p>
+    <div class="login-field">
+      <label>メールアドレス</label>
+      <input type="email" id="loginEmail" placeholder="admin@groundinc.co.jp" autocomplete="email">
+    </div>
+    <div class="login-field">
+      <label>パスワード</label>
+      <input type="password" id="loginPassword" placeholder="パスワード" autocomplete="current-password">
+    </div>
+    <button class="login-btn" id="loginBtn">ログイン</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<!-- ── App ── -->
+<div class="app" id="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <strong>GROUND Admin</strong>
+      リード管理
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="active">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        リード一覧
+      </a>
+      <a href="../index.html" target="_blank">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        サイトを開く
+      </a>
+    </nav>
+    <div class="sidebar-bottom">
+      <button id="logoutBtn">ログアウト</button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main">
+    <h1 style="font-size:1.5rem;font-weight:700;margin-bottom:24px;">リード管理</h1>
+
+    <!-- Stats -->
+    <div class="stats-row" id="statsRow">
+      <div class="stat-card"><div class="label">総リード数</div><div class="value" id="statTotal">-</div></div>
+      <div class="stat-card"><div class="label">新規（未対応）</div><div class="value" id="statNew">-</div><div class="sub">要対応</div></div>
+      <div class="stat-card"><div class="label">DX診断経由</div><div class="value" id="statDx">-</div></div>
+      <div class="stat-card"><div class="label">今月</div><div class="value" id="statMonth">-</div></div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="toolbar-search">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="searchInput" placeholder="会社名・名前・メールで検索...">
+      </div>
+      <select id="filterSource">
+        <option value="">全ソース</option>
+        <option value="contact">お問い合わせ</option>
+        <option value="dx_diagnosis">DX診断</option>
+        <option value="dx_diagnosis_consult">DX診断→相談</option>
+        <option value="dx_diagnosis_document">DX診断→資料請求</option>
+      </select>
+      <select id="filterStatus">
+        <option value="">全ステータス</option>
+        <option value="new">新規</option>
+        <option value="contacted">対応中</option>
+        <option value="negotiating">商談中</option>
+        <option value="converted">成約</option>
+        <option value="lost">失注</option>
+      </select>
+      <button class="refresh-btn" id="refreshBtn">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+        更新
+      </button>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>日時</th>
+            <th>会社名</th>
+            <th>担当者</th>
+            <th>ソース</th>
+            <th>ステータス</th>
+            <th>GPIM</th>
+          </tr>
+        </thead>
+        <tbody id="leadsBody">
+          <tr><td colspan="6" class="empty-state">読み込み中...</td></tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <span id="pageInfo">-</span>
+        <div style="display:flex;gap:8px;">
+          <button id="prevPage" disabled>← 前へ</button>
+          <button id="nextPage" disabled>次へ →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Detail Panel ── -->
+<div class="detail-overlay" id="detailOverlay"></div>
+<div class="detail-panel" id="detailPanel">
+  <div class="detail-header">
+    <h2 id="detailTitle">リード詳細</h2>
+    <button class="detail-close" id="detailClose">&times;</button>
+  </div>
+  <div class="detail-body" id="detailBody"></div>
+</div>
+
+<script>
+(function() {
+  // ── Config ──
+  var SB_URL = 'https://wmfxyimxqnjwdzumolua.supabase.co';
+  var SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtZnh5aW14cW5qd2R6dW1vbHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMjIyODgsImV4cCI6MjA4Nzg5ODI4OH0.EAn5MjGiGg9dpwN_y4QbjWJVCPxXIkWDuSswnG2YOvU';
+  var PAGE_SIZE = 25;
+
+  // ── State ──
+  var accessToken = null;
+  var refreshToken = null;
+  var currentPage = 0;
+  var totalCount = 0;
+  var leads = [];
+  var searchTimeout = null;
+
+  // ── DOM ──
+  var loginOverlay = document.getElementById('loginOverlay');
+  var app = document.getElementById('app');
+  var loginBtn = document.getElementById('loginBtn');
+  var loginError = document.getElementById('loginError');
+  var logoutBtn = document.getElementById('logoutBtn');
+  var leadsBody = document.getElementById('leadsBody');
+  var searchInput = document.getElementById('searchInput');
+  var filterSource = document.getElementById('filterSource');
+  var filterStatus = document.getElementById('filterStatus');
+  var refreshBtn = document.getElementById('refreshBtn');
+  var prevPage = document.getElementById('prevPage');
+  var nextPage = document.getElementById('nextPage');
+  var pageInfo = document.getElementById('pageInfo');
+  var detailOverlay = document.getElementById('detailOverlay');
+  var detailPanel = document.getElementById('detailPanel');
+  var detailClose = document.getElementById('detailClose');
+  var detailBody = document.getElementById('detailBody');
+
+  // ── Helpers ──
+  function sbFetch(path, opts) {
+    opts = opts || {};
+    var headers = {
+      'Content-Type': 'application/json',
+      'apikey': SB_ANON
+    };
+    if (accessToken) headers['Authorization'] = 'Bearer ' + accessToken;
+    else headers['Authorization'] = 'Bearer ' + SB_ANON;
+    if (opts.headers) {
+      for (var k in opts.headers) headers[k] = opts.headers[k];
+    }
+    opts.headers = headers;
+    return fetch(SB_URL + path, opts);
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '-';
+    var d = new Date(iso);
+    var m = (d.getMonth()+1);
+    var day = d.getDate();
+    var h = d.getHours();
+    var min = ('0'+d.getMinutes()).slice(-2);
+    return m + '/' + day + ' ' + h + ':' + min;
+  }
+
+  function sourceLabel(src) {
+    var map = { contact: 'お問い合わせ', dx_diagnosis: 'DX診断', dx_diagnosis_consult: 'DX→相談', dx_diagnosis_document: 'DX→資料' };
+    return map[src] || src || '-';
+  }
+
+  function statusLabel(s) {
+    var map = { new: '新規', contacted: '対応中', negotiating: '商談中', converted: '成約', lost: '失注' };
+    return map[s] || s || '-';
+  }
+
+  // ── Auth ──
+  function tryRestoreSession() {
+    try {
+      var saved = JSON.parse(sessionStorage.getItem('sb_session'));
+      if (saved && saved.access_token) {
+        accessToken = saved.access_token;
+        refreshToken = saved.refresh_token;
+        showApp();
+        return;
+      }
+    } catch(e) {}
+    loginOverlay.style.display = 'flex';
+  }
+
+  function doLogin() {
+    var email = document.getElementById('loginEmail').value.trim();
+    var pw = document.getElementById('loginPassword').value;
+    if (!email || !pw) { showLoginError('メールとパスワードを入力してください'); return; }
+
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'ログイン中...';
+    loginError.style.display = 'none';
+
+    fetch(SB_URL + '/auth/v1/token?grant_type=password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SB_ANON },
+      body: JSON.stringify({ email: email, password: pw })
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data.access_token) {
+        accessToken = data.access_token;
+        refreshToken = data.refresh_token;
+        try { sessionStorage.setItem('sb_session', JSON.stringify(data)); } catch(e) {}
+        showApp();
+      } else {
+        showLoginError(data.error_description || data.msg || 'ログインに失敗しました');
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'ログイン';
+      }
+    })
+    .catch(function() {
+      showLoginError('通信エラーが発生しました');
+      loginBtn.disabled = false;
+      loginBtn.textContent = 'ログイン';
+    });
+  }
+
+  function showLoginError(msg) {
+    loginError.textContent = msg;
+    loginError.style.display = 'block';
+  }
+
+  function showApp() {
+    loginOverlay.style.display = 'none';
+    app.classList.add('active');
+    loadStats();
+    loadLeads();
+  }
+
+  function doLogout() {
+    accessToken = null;
+    refreshToken = null;
+    try { sessionStorage.removeItem('sb_session'); } catch(e) {}
+    app.classList.remove('active');
+    loginOverlay.style.display = 'flex';
+    loginBtn.disabled = false;
+    loginBtn.textContent = 'ログイン';
+    document.getElementById('loginPassword').value = '';
+  }
+
+  // ── Stats ──
+  function loadStats() {
+    sbFetch('/rest/v1/leads?select=id,source,status,created_at', { headers: { 'Prefer': 'count=exact' } })
+    .then(function(res) { return res.json(); })
+    .then(function(rows) {
+      var total = rows.length;
+      var newCount = rows.filter(function(r) { return r.status === 'new'; }).length;
+      var dxCount = rows.filter(function(r) { return r.source && r.source.indexOf('dx_') !== -1; }).length;
+      var now = new Date();
+      var monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+      var monthCount = rows.filter(function(r) { return r.created_at >= monthStart; }).length;
+
+      document.getElementById('statTotal').textContent = total;
+      document.getElementById('statNew').textContent = newCount;
+      document.getElementById('statDx').textContent = dxCount;
+      document.getElementById('statMonth').textContent = monthCount;
+    })
+    .catch(function() {});
+  }
+
+  // ── Load Leads ──
+  function loadLeads() {
+    var search = searchInput.value.trim();
+    var source = filterSource.value;
+    var status = filterStatus.value;
+    var offset = currentPage * PAGE_SIZE;
+
+    var q = '/rest/v1/leads?select=*,dx_assessments(*)&order=created_at.desc&limit=' + PAGE_SIZE + '&offset=' + offset;
+    if (source) q += '&source=eq.' + source;
+    if (status) q += '&status=eq.' + status;
+    if (search) q += '&or=(company_name.ilike.*' + encodeURIComponent(search) + '*,contact_name.ilike.*' + encodeURIComponent(search) + '*,email.ilike.*' + encodeURIComponent(search) + '*)';
+
+    sbFetch(q, { headers: { 'Prefer': 'count=exact' } })
+    .then(function(res) {
+      var ct = res.headers.get('content-range');
+      if (ct) {
+        var parts = ct.split('/');
+        totalCount = parseInt(parts[1]) || 0;
+      }
+      return res.json();
+    })
+    .then(function(rows) {
+      leads = rows;
+      renderTable();
+      renderPagination();
+    })
+    .catch(function(err) {
+      leadsBody.innerHTML = '<tr><td colspan="6" class="empty-state">データの取得に失敗しました</td></tr>';
+    });
+  }
+
+  function renderTable() {
+    if (!leads.length) {
+      leadsBody.innerHTML = '<tr><td colspan="6" class="empty-state">リードがありません</td></tr>';
+      return;
+    }
+    var html = '';
+    leads.forEach(function(lead) {
+      var dx = lead.dx_assessments && lead.dx_assessments[0];
+      var gpim = dx && dx.gpim_level ? dx.gpim_level : '-';
+      html += '<tr data-id="' + lead.id + '">';
+      html += '<td>' + formatDate(lead.created_at) + '</td>';
+      html += '<td style="font-weight:500;color:#fff;">' + escHtml(lead.company_name) + '</td>';
+      html += '<td>' + escHtml(lead.contact_name || '-') + '</td>';
+      html += '<td><span class="source-tag source-' + (lead.source||'contact') + '">' + sourceLabel(lead.source) + '</span></td>';
+      html += '<td><span class="status-badge status-' + lead.status + '">' + statusLabel(lead.status) + '</span></td>';
+      html += '<td>' + (gpim !== '-' ? '<span class="gpim-badge gpim-' + gpim + '">Lv.' + gpim + '</span>' : '-') + '</td>';
+      html += '</tr>';
+    });
+    leadsBody.innerHTML = html;
+
+    // Row click
+    leadsBody.querySelectorAll('tr[data-id]').forEach(function(tr) {
+      tr.addEventListener('click', function() { openDetail(tr.dataset.id); });
+    });
+  }
+
+  function renderPagination() {
+    var totalPages = Math.ceil(totalCount / PAGE_SIZE);
+    var showing = Math.min((currentPage + 1) * PAGE_SIZE, totalCount);
+    pageInfo.textContent = totalCount + '件中 ' + (currentPage * PAGE_SIZE + 1) + '-' + showing + '件';
+    prevPage.disabled = currentPage === 0;
+    nextPage.disabled = (currentPage + 1) >= totalPages;
+  }
+
+  function escHtml(s) {
+    if (!s) return '';
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── Detail Panel ──
+  function openDetail(id) {
+    var lead = leads.find(function(l) { return l.id === id; });
+    if (!lead) return;
+
+    var dx = lead.dx_assessments && lead.dx_assessments[0];
+    document.getElementById('detailTitle').textContent = lead.company_name || 'リード詳細';
+
+    var html = '';
+
+    // Contact Info
+    html += '<div class="detail-section"><h3>連絡先情報</h3>';
+    html += row('会社名', lead.company_name);
+    html += row('担当者', lead.contact_name);
+    html += row('メール', lead.email ? '<a href="mailto:' + escHtml(lead.email) + '" style="color:#60a5fa;">' + escHtml(lead.email) + '</a>' : '-');
+    html += row('電話', lead.phone || '-');
+    html += row('ソース', '<span class="source-tag source-' + (lead.source||'contact') + '">' + sourceLabel(lead.source) + '</span>');
+    html += row('流入日時', new Date(lead.created_at).toLocaleString('ja-JP'));
+    if (lead.utm_source || lead.utm_medium || lead.utm_campaign) {
+      html += row('UTM', [lead.utm_source, lead.utm_medium, lead.utm_campaign].filter(Boolean).join(' / '));
+    }
+    if (lead.message) {
+      html += '<div style="margin-top:12px;"><div class="label" style="font-size:0.75rem;color:rgba(255,255,255,0.45);margin-bottom:6px;">メッセージ</div>';
+      html += '<div style="background:#0f1117;padding:12px;border-radius:8px;font-size:0.85rem;white-space:pre-wrap;line-height:1.6;">' + escHtml(lead.message) + '</div></div>';
+    }
+    html += '</div>';
+
+    // DX Assessment
+    if (dx) {
+      html += '<div class="detail-section"><h3>DX診断結果</h3>';
+      html += row('業種', dx.industry || '-');
+      html += row('施設規模', dx.facility_scale || '-');
+      if (dx.gpim_level) {
+        html += row('GPIMレベル', '<span class="gpim-badge gpim-' + dx.gpim_level + '">Level ' + dx.gpim_level + '</span> (スコア: ' + dx.gpim_score + ')');
+      }
+      html += row('PDF DL', dx.pdf_downloaded ? '✓ ダウンロード済' : '未DL');
+      html += row('CTA', dx.cta_clicked || '-');
+
+      if (dx.dimension_scores && Object.keys(dx.dimension_scores).length > 0) {
+        html += '<div style="margin-top:16px;"><div class="label" style="font-size:0.75rem;color:rgba(255,255,255,0.45);margin-bottom:8px;">次元別スコア</div>';
+        html += '<div class="dx-scores">';
+        var dimNames = { automation: '自動化', data_analytics: 'データ', smart_facility: 'スマート施設', operational_excellence: 'オペレーション', integration: '統合', sustainability: 'サステナビリティ' };
+        for (var key in dx.dimension_scores) {
+          var label = dimNames[key] || key;
+          html += '<div class="dx-score-item"><div class="dim">' + escHtml(label) + '</div><div class="score">' + dx.dimension_scores[key].toFixed(1) + '</div></div>';
+        }
+        html += '</div></div>';
+      }
+      html += '</div>';
+    }
+
+    // Status & Notes
+    html += '<div class="detail-section"><h3>ステータス管理</h3>';
+    html += '<div class="detail-actions">';
+    html += '<select id="detailStatus">';
+    ['new','contacted','negotiating','converted','lost'].forEach(function(s) {
+      html += '<option value="' + s + '"' + (lead.status === s ? ' selected' : '') + '>' + statusLabel(s) + '</option>';
+    });
+    html += '</select>';
+    html += '<textarea id="detailNotes" placeholder="内部メモ...">' + escHtml(lead.internal_notes || '') + '</textarea>';
+    html += '<button id="detailSave" data-id="' + lead.id + '">保存</button>';
+    html += '</div></div>';
+
+    detailBody.innerHTML = html;
+    detailOverlay.classList.add('active');
+    detailPanel.classList.add('active');
+
+    document.getElementById('detailSave').addEventListener('click', function() {
+      saveLead(this.dataset.id);
+    });
+  }
+
+  function row(label, value) {
+    return '<div class="detail-row"><div class="label">' + label + '</div><div class="value">' + (value || '-') + '</div></div>';
+  }
+
+  function closeDetail() {
+    detailOverlay.classList.remove('active');
+    detailPanel.classList.remove('active');
+  }
+
+  function saveLead(id) {
+    var status = document.getElementById('detailStatus').value;
+    var notes = document.getElementById('detailNotes').value;
+    var btn = document.getElementById('detailSave');
+    btn.textContent = '保存中...';
+    btn.disabled = true;
+
+    sbFetch('/rest/v1/leads?id=eq.' + id, {
+      method: 'PATCH',
+      body: JSON.stringify({ status: status, internal_notes: notes }),
+      headers: { 'Prefer': 'return=representation' }
+    })
+    .then(function(res) { return res.json(); })
+    .then(function() {
+      btn.textContent = '保存完了 ✓';
+      setTimeout(function() { btn.textContent = '保存'; btn.disabled = false; }, 1500);
+      loadLeads();
+      loadStats();
+    })
+    .catch(function() {
+      btn.textContent = '保存';
+      btn.disabled = false;
+    });
+  }
+
+  // ── Events ──
+  loginBtn.addEventListener('click', doLogin);
+  document.getElementById('loginPassword').addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
+  logoutBtn.addEventListener('click', doLogout);
+  refreshBtn.addEventListener('click', function() { loadStats(); loadLeads(); });
+  detailClose.addEventListener('click', closeDetail);
+  detailOverlay.addEventListener('click', closeDetail);
+
+  searchInput.addEventListener('input', function() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(function() { currentPage = 0; loadLeads(); }, 300);
+  });
+  filterSource.addEventListener('change', function() { currentPage = 0; loadLeads(); });
+  filterStatus.addEventListener('change', function() { currentPage = 0; loadLeads(); });
+  prevPage.addEventListener('click', function() { if (currentPage > 0) { currentPage--; loadLeads(); } });
+  nextPage.addEventListener('click', function() { currentPage++; loadLeads(); });
+
+  // ── Init ──
+  tryRestoreSession();
+})();
+</script>
+
+</body>
+</html>

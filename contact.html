@@ -359,23 +359,23 @@
         <div class="contact-form">
           <div class="contact-form-group">
             <label class="contact-form-label">会社名</label>
-            <input type="text" class="contact-form-input" placeholder="例：GROUND株式会社">
+            <input type="text" name="company" class="contact-form-input" placeholder="例：GROUND株式会社">
           </div>
           <div class="contact-form-group">
             <label class="contact-form-label">お名前 <span class="contact-form-required">*</span></label>
-            <input type="text" class="contact-form-input" placeholder="例：山田 太郎" required>
+            <input type="text" name="name" class="contact-form-input" placeholder="例：山田 太郎" required>
           </div>
           <div class="contact-form-group">
             <label class="contact-form-label">メールアドレス <span class="contact-form-required">*</span></label>
-            <input type="email" class="contact-form-input" placeholder="例：yamada@example.com" required>
+            <input type="email" name="email" class="contact-form-input" placeholder="例：yamada@example.com" required>
           </div>
           <div class="contact-form-group">
             <label class="contact-form-label">電話番号</label>
-            <input type="tel" class="contact-form-input" placeholder="例：03-1234-5678">
+            <input type="tel" name="phone" class="contact-form-input" placeholder="例：03-1234-5678">
           </div>
           <div class="contact-form-group">
             <label class="contact-form-label">お問い合わせ種別</label>
-            <select class="contact-form-select">
+            <select name="inquiry_type" class="contact-form-select">
               <option value="">選択してください</option>
               <option value="solution">ソリューション導入のご相談</option>
               <option value="consulting">コンサルティングのご依頼</option>
@@ -386,9 +386,10 @@
           </div>
           <div class="contact-form-group">
             <label class="contact-form-label">お問い合わせ内容 <span class="contact-form-required">*</span></label>
-            <textarea class="contact-form-textarea" placeholder="お問い合わせ内容をご記入ください" required></textarea>
+            <textarea name="message" class="contact-form-textarea" placeholder="お問い合わせ内容をご記入ください" required></textarea>
           </div>
-          <button type="submit" class="contact-submit-btn">送信する</button>
+          <button type="submit" class="contact-submit-btn" id="contactSubmitBtn">送信する</button>
+          <div id="contactFormStatus" style="margin-top:16px;display:none;padding:12px 16px;border-radius:8px;font-size:0.9rem;"></div>
         </div>
 
         <!-- Right: Sidebar -->
@@ -611,6 +612,96 @@
     }
   }
 </style>
+
+<script>
+(function() {
+  var SUPABASE_URL = 'https://wmfxyimxqnjwdzumolua.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtZnh5aW14cW5qd2R6dW1vbHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMjIyODgsImV4cCI6MjA4Nzg5ODI4OH0.EAn5MjGiGg9dpwN_y4QbjWJVCPxXIkWDuSswnG2YOvU';
+
+  var submitBtn = document.getElementById('contactSubmitBtn');
+  var statusEl = document.getElementById('contactFormStatus');
+  var form = document.querySelector('.contact-form');
+
+  if (!submitBtn || !form) return;
+
+  submitBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    // Validate required fields
+    var name = form.querySelector('[name="name"]').value.trim();
+    var email = form.querySelector('[name="email"]').value.trim();
+    var message = form.querySelector('[name="message"]').value.trim();
+
+    if (!name || !email || !message) {
+      statusEl.style.display = 'block';
+      statusEl.style.background = 'rgba(239,68,68,0.15)';
+      statusEl.style.color = '#f87171';
+      statusEl.textContent = '必須項目をご入力ください。';
+      return;
+    }
+
+    // Disable button
+    submitBtn.disabled = true;
+    submitBtn.textContent = '送信中...';
+    statusEl.style.display = 'none';
+
+    // Detect source from URL ref parameter
+    var urlParams = new URLSearchParams(window.location.search);
+    var ref = urlParams.get('ref') || '';
+    var source = 'contact';
+    if (ref.indexOf('dx-diagnosis') !== -1) source = 'dx_diagnosis';
+    if (ref.indexOf('consult') !== -1) source = 'dx_diagnosis_consult';
+    if (ref.indexOf('document') !== -1) source = 'dx_diagnosis_document';
+
+    var payload = {
+      source: source,
+      company_name: form.querySelector('[name="company"]').value.trim() || '未入力',
+      contact_name: name,
+      email: email,
+      phone: form.querySelector('[name="phone"]').value.trim() || null,
+      message: (form.querySelector('[name="inquiry_type"]').value ? '[' + form.querySelector('[name="inquiry_type"]').selectedOptions[0].textContent + '] ' : '') + message,
+      utm_source: urlParams.get('utm_source') || null,
+      utm_medium: urlParams.get('utm_medium') || null,
+      utm_campaign: urlParams.get('utm_campaign') || null
+    };
+
+    fetch(SUPABASE_URL + '/rest/v1/leads', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Prefer': 'return=representation'
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(function(res) {
+      if (!res.ok) throw new Error('送信エラー');
+      return res.json();
+    })
+    .then(function() {
+      statusEl.style.display = 'block';
+      statusEl.style.background = 'rgba(34,197,94,0.15)';
+      statusEl.style.color = '#4ade80';
+      statusEl.textContent = 'お問い合わせを受け付けました。担当者より折り返しご連絡いたします。';
+      // Reset form
+      form.querySelectorAll('input, textarea, select').forEach(function(el) {
+        if (el.type !== 'submit') el.value = '';
+      });
+      submitBtn.textContent = '送信完了';
+    })
+    .catch(function(err) {
+      console.warn('Supabase error:', err);
+      statusEl.style.display = 'block';
+      statusEl.style.background = 'rgba(239,68,68,0.15)';
+      statusEl.style.color = '#f87171';
+      statusEl.textContent = '送信に失敗しました。お手数ですがお電話にてお問い合わせください。';
+      submitBtn.disabled = false;
+      submitBtn.textContent = '送信する';
+    });
+  });
+})();
+</script>
 
 <script>
   (function() {

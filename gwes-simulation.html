@@ -1648,7 +1648,7 @@
           <div class="rpt-cta__heading-sub">目的に応じて、最適な窓口をお選びください</div>
           <div class="rpt-cta__cards">
             <!-- Card 1: コンサルタント相談 -->
-            <a href="contact.html?ref=dx-diagnosis-consult" class="rpt-cta__card">
+            <a href="contact.html?ref=dx-diagnosis-consult" class="rpt-cta__card" onclick="trackCTAClick('consult')">
               <div class="rpt-cta__card-icon rpt-cta__card-icon--consult">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               </div>
@@ -1657,7 +1657,7 @@
               <span class="rpt-cta__card-action rpt-cta__card-action--consult">無料相談を申し込む →</span>
             </a>
             <!-- Card 2: GWES詳細 -->
-            <a href="gwes.html" class="rpt-cta__card">
+            <a href="gwes.html" class="rpt-cta__card" onclick="trackCTAClick('gwes_detail')">
               <div class="rpt-cta__card-icon rpt-cta__card-icon--gwes">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
               </div>
@@ -1666,7 +1666,7 @@
               <span class="rpt-cta__card-action rpt-cta__card-action--gwes">GWES詳細を見る →</span>
             </a>
             <!-- Card 3: 資料請求 -->
-            <a href="contact.html?ref=dx-diagnosis-document" class="rpt-cta__card">
+            <a href="contact.html?ref=dx-diagnosis-document" class="rpt-cta__card" onclick="trackCTAClick('document_request')">
               <div class="rpt-cta__card-icon rpt-cta__card-icon--doc">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
               </div>
@@ -1733,6 +1733,28 @@
   <!-- ===== JAVASCRIPT ===== -->
   <script src="js/main.js"></script>
   <script>
+    // ── Supabase Config ──
+    var SUPABASE_URL = 'https://wmfxyimxqnjwdzumolua.supabase.co';
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtZnh5aW14cW5qd2R6dW1vbHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMjIyODgsImV4cCI6MjA4Nzg5ODI4OH0.EAn5MjGiGg9dpwN_y4QbjWJVCPxXIkWDuSswnG2YOvU';
+
+    // ── Supabase Lead Tracking Helpers ──
+    function trackCTAClick(ctaType) {
+      if (!window.__supabaseLeadId) return;
+      fetch(SUPABASE_URL + '/rest/v1/dx_assessments?lead_id=eq.' + window.__supabaseLeadId, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY },
+        body: JSON.stringify({ cta_clicked: ctaType })
+      }).catch(function() {});
+    }
+    function trackPDFDownload() {
+      if (!window.__supabaseLeadId) return;
+      fetch(SUPABASE_URL + '/rest/v1/dx_assessments?lead_id=eq.' + window.__supabaseLeadId, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY },
+        body: JSON.stringify({ pdf_downloaded: true })
+      }).catch(function() {});
+    }
+
     // ── Scroll Reveal ──
     const simObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -2188,7 +2210,7 @@
           simObserver.observe(el);
         });
 
-        // Submit form data to Netlify (async)
+        // Submit form data to Netlify (async, legacy)
         var submitData = new FormData(form);
         submitData.append('gpim_level', gpimLevel);
         submitData.append('total_score', totalAvg.toFixed(2));
@@ -2200,6 +2222,55 @@
           submitData.append('na_modules', naModules.map(function(m) { return m.abbr; }).join(','));
         }
         fetch('/', { method: 'POST', body: submitData }).catch(function() {});
+
+        // ── Save to Supabase ──
+        var dimScoreObj = {};
+        dimScores.forEach(function(d) {
+          dimScoreObj[d.dim.key || d.dim.nameEn.toLowerCase().replace(/[^a-z]/g, '_')] = parseFloat(d.score.toFixed(2));
+        });
+        var answersObj = {};
+        MODULES.forEach(function(m) { answersObj[m.key] = scores[m.key]; });
+
+        var urlParams = new URLSearchParams(window.location.search);
+        var leadPayload = {
+          source: 'dx_diagnosis',
+          company_name: companyName || '未入力',
+          contact_name: data.get('name') || null,
+          email: data.get('email') || null,
+          phone: data.get('phone') || null,
+          utm_source: urlParams.get('utm_source') || null,
+          utm_medium: urlParams.get('utm_medium') || null,
+          utm_campaign: urlParams.get('utm_campaign') || null
+        };
+
+        window.__supabaseLeadId = null;
+        fetch(SUPABASE_URL + '/rest/v1/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Prefer': 'return=representation' },
+          body: JSON.stringify(leadPayload)
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(rows) {
+          if (rows && rows[0] && rows[0].id) {
+            window.__supabaseLeadId = rows[0].id;
+            // Insert assessment detail
+            return fetch(SUPABASE_URL + '/rest/v1/dx_assessments', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY },
+              body: JSON.stringify({
+                lead_id: rows[0].id,
+                industry: data.get('industry') || null,
+                facility_scale: data.get('scale') || null,
+                answers: answersObj,
+                dimension_scores: dimScoreObj,
+                gpim_level: gpimLevel,
+                gpim_score: parseFloat(totalAvg.toFixed(2))
+              })
+            });
+          }
+        })
+        .catch(function(err) { console.warn('Supabase save error:', err); });
+
       } catch(e) {
         console.error('showResults error:', e);
         alert('結果表示中にエラーが発生しました: ' + e.message);
@@ -2208,6 +2279,7 @@
 
     // ── PDF Download (Professional Report) ──
     function downloadPDF() {
+      trackPDFDownload();
       var btn = document.querySelector('.rpt-download__btn');
       if (!btn) return;
       var origHTML = btn.innerHTML;
