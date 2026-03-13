@@ -18,10 +18,11 @@
   <!-- G Mark -->
   <path fill="url(#gm-light)"
         d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
-  <!-- Wordmark -->
+  <!-- Wordmark: stroke for weight definition, same as dark BG version pattern -->
   <text x="4469" y="1580"
         font-family="'Liberation Sans',Arial,Helvetica,sans-serif"
         font-weight="700" font-size="1900" letter-spacing="-20"
         fill="url(#wm-light)"
+        stroke="#3F4250" stroke-width="36" stroke-linejoin="round"
         paint-order="stroke fill">GROUND</text>
 </svg>
