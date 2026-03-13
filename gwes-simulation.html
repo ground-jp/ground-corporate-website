@@ -955,9 +955,15 @@
 
     /* Print styles for PDF */
     @media print {
-      .header, .breadcrumb-nav, .rpt-download, .rpt-cta, footer { display: none !important; }
-      .rpt { max-width: 100%; }
-      .rpt-analysis { break-inside: avoid; }
+      .header, .breadcrumb-nav, .rpt-download, .rpt-cta, .rpt-footer-note, footer, .overlay-menu { display: none !important; }
+      body { background: #fff !important; }
+      .rpt { max-width: 100%; padding: 0; }
+      .rpt-header { padding-top: 40px; }
+      .rpt-level, .rpt-scores, .rpt-roadmap__step, .rpt-analysis { break-inside: avoid; }
+      .rpt-section { break-before: auto; break-inside: avoid; }
+      .rpt-chart { break-inside: avoid; }
+      .rpt-chart__canvas-wrap { box-shadow: none !important; }
+      .sim-fade { opacity: 1 !important; transform: none !important; }
     }
   </style>
 </head>
@@ -2152,64 +2158,226 @@
       }
     }
 
-    // ── PDF Download ──
+    // ── PDF Download (Professional Report) ──
     function downloadPDF() {
       var btn = document.querySelector('.rpt-download__btn');
+      if (!btn) return;
+      var origHTML = btn.innerHTML;
       btn.textContent = 'PDF生成中...';
       btn.disabled = true;
 
-      // Try html2canvas + jsPDF
-      if (typeof html2canvas !== 'undefined' && typeof jspdf !== 'undefined') {
-        var el = document.getElementById('reportContent');
-        // Hide download button and CTA for PDF
-        var dlBtn = document.querySelector('.rpt-download');
-        var ctaBlock = document.querySelector('.rpt-cta');
-        if (dlBtn) dlBtn.style.display = 'none';
-        if (ctaBlock) ctaBlock.style.display = 'none';
+      function resetBtn() { btn.innerHTML = origHTML; btn.disabled = false; }
 
-        html2canvas(el, { scale: 2, useCORS: true, backgroundColor: '#FFFFFF', logging: false }).then(function(canvas) {
-          var imgData = canvas.toDataURL('image/jpeg', 0.95);
+      if (typeof html2canvas === 'undefined' || typeof jspdf === 'undefined') {
+        window.print(); resetBtn(); return;
+      }
+
+      var companyName = (document.getElementById('rptCompany').textContent || '').replace(' 様', '').trim();
+      var dateStr = (document.getElementById('rptDate').textContent || '').trim();
+      var lvlNumEl = document.querySelector('.rpt-level__num');
+      var lvlNum = lvlNumEl ? lvlNumEl.textContent.trim() : '-';
+      var lvlNameEl = document.querySelector('.rpt-level__name');
+      var lvlName = lvlNameEl ? lvlNameEl.textContent.trim() : '';
+
+      // A4 mm dimensions
+      var PW = 210, PH = 297, ML = 14, MR = 14, MT = 20, MB = 16;
+      var CW = PW - ML - MR;
+      var maxContentH = PH - MT - MB;
+
+      var levelClr = {'1':'#6B7280','2':'#3B82F6','3':'#1D4ED8','4':'#059669','5':'#047857'};
+      var lc = levelClr[lvlNum] || '#3B82F6';
+
+      // ── Helpers ──
+      function capEl(el, sc) {
+        return html2canvas(el, { scale: sc || 2.5, useCORS: true, backgroundColor: '#FFFFFF', logging: false });
+      }
+      function cropCanvas(src, sx, sy, sw, sh) {
+        var c = document.createElement('canvas'); c.width = sw; c.height = sh;
+        c.getContext('2d').drawImage(src, sx, sy, sw, sh, 0, 0, sw, sh);
+        return c;
+      }
+
+      // ── Build Cover Page ──
+      function buildCover() {
+        var d = document.createElement('div');
+        d.style.cssText = 'position:fixed;left:-9999px;top:0;width:794px;height:1123px;background:#fff;font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN",sans-serif;box-sizing:border-box;overflow:hidden;';
+        d.innerHTML = ''
+          // Top accent bar
+          + '<div style="position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#2563EB 0%,#1E40AF 50%,#0F172A 100%);"></div>'
+          // Content wrapper
+          + '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:80px 80px 60px;">'
+          // Logo text
+          + '<div style="font-family:\'Inter\',sans-serif;font-size:18px;font-weight:700;letter-spacing:0.12em;color:#94A3B8;margin-bottom:64px;">GROUND</div>'
+          // Subtitle
+          + '<div style="font-family:\'JetBrains Mono\',monospace;font-size:10px;letter-spacing:0.3em;color:#2563EB;text-transform:uppercase;margin-bottom:20px;">Warehouse Execution System</div>'
+          // Main title
+          + '<div style="font-size:34px;font-weight:800;color:#0F172A;letter-spacing:-0.02em;line-height:1.4;text-align:center;margin-bottom:10px;">GWES 適合性診断レポート</div>'
+          // English sub
+          + '<div style="font-family:\'JetBrains Mono\',monospace;font-size:10px;letter-spacing:0.15em;color:#94A3B8;text-transform:uppercase;margin-bottom:56px;">Compatibility Assessment Report</div>'
+          // Divider
+          + '<div style="width:48px;height:2px;background:#2563EB;margin-bottom:56px;"></div>'
+          // Company + Date
+          + '<div style="font-size:22px;font-weight:700;color:#1E293B;margin-bottom:8px;text-align:center;">' + companyName + ' 様</div>'
+          + '<div style="font-family:\'JetBrains Mono\',monospace;font-size:12px;color:#94A3B8;letter-spacing:0.1em;margin-bottom:48px;">' + dateStr + '</div>'
+          // GPIM Level badge
+          + '<div style="display:inline-flex;align-items:center;gap:20px;padding:20px 36px;border:1px solid #E2E8F0;border-radius:12px;background:#F8FAFC;">'
+          + '<div style="width:56px;height:56px;border-radius:50%;background:' + lc + ';display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;">'
+          + '<div style="font-size:8px;color:rgba(255,255,255,0.85);font-family:\'JetBrains Mono\',monospace;letter-spacing:0.12em;text-transform:uppercase;">Level</div>'
+          + '<div style="font-size:22px;font-weight:800;color:#fff;line-height:1;">' + lvlNum + '</div>'
+          + '</div>'
+          + '<div style="text-align:left;">'
+          + '<div style="font-size:15px;font-weight:700;color:#1E293B;margin-bottom:2px;">' + lvlName + '</div>'
+          + '<div style="font-size:11px;color:#64748B;">GPIM (GROUND Process Integration Model)</div>'
+          + '</div>'
+          + '</div>'
+          + '</div>'
+          // Confidential
+          + '<div style="position:absolute;bottom:56px;left:0;right:0;text-align:center;">'
+          + '<div style="font-family:\'JetBrains Mono\',monospace;font-size:9px;letter-spacing:0.25em;color:#CBD5E1;text-transform:uppercase;margin-bottom:14px;">Confidential</div>'
+          + '<div style="font-size:10px;color:#94A3B8;">GROUND Inc. — groundinc.co.jp</div>'
+          + '</div>'
+          // Bottom accent
+          + '<div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#2563EB 0%,#1E40AF 50%,#0F172A 100%);"></div>';
+        return d;
+      }
+
+      // ── Main Generation ──
+      var reportEl = document.getElementById('reportContent');
+
+      // Hide elements not needed in PDF
+      var hideSelectors = ['.rpt-download', '.rpt-cta', '.rpt-footer-note', '.rpt-header', '.rpt-level'];
+      hideSelectors.forEach(function(s) {
+        var e = reportEl.querySelector(s);
+        if (e) e.setAttribute('data-pdf-hidden', e.style.display || '');
+        if (e) e.style.display = 'none';
+      });
+
+      function restoreHidden() {
+        hideSelectors.forEach(function(s) {
+          var e = reportEl.querySelector(s);
+          if (e) { e.style.display = e.getAttribute('data-pdf-hidden') || ''; e.removeAttribute('data-pdf-hidden'); }
+        });
+      }
+
+      // Collect page-break candidate positions (CSS pixel offsets from reportEl top)
+      var rptRect = reportEl.getBoundingClientRect();
+      var rptScrollTop = rptRect.top + window.scrollY;
+      var breakCandidates = [];
+
+      // Section-level breaks
+      reportEl.querySelectorAll('.rpt-summary, .rpt-scores, .rpt-section').forEach(function(el) {
+        breakCandidates.push(el.getBoundingClientRect().top + window.scrollY - rptScrollTop);
+      });
+      // Analysis card breaks (finer granularity)
+      reportEl.querySelectorAll('.rpt-analysis').forEach(function(el) {
+        breakCandidates.push(el.getBoundingClientRect().top + window.scrollY - rptScrollTop);
+      });
+      // Roadmap step breaks
+      reportEl.querySelectorAll('.rpt-roadmap').forEach(function(el) {
+        breakCandidates.push(el.getBoundingClientRect().top + window.scrollY - rptScrollTop);
+      });
+      breakCandidates.sort(function(a, b) { return a - b; });
+      // Remove duplicates
+      breakCandidates = breakCandidates.filter(function(v, i, arr) { return i === 0 || v !== arr[i - 1]; });
+
+      // Build cover page
+      var coverDiv = buildCover();
+      document.body.appendChild(coverDiv);
+
+      capEl(coverDiv, 2).then(function(coverCanvas) {
+        document.body.removeChild(coverDiv);
+
+        // Capture report content (without hidden elements)
+        return capEl(reportEl, 2.5).then(function(rptCanvas) {
+          restoreHidden();
+
           var pdf = new jspdf.jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
-          var pdfWidth = pdf.internal.pageSize.getWidth();
-          var pdfHeight = pdf.internal.pageSize.getHeight();
-          var imgWidth = pdfWidth - 20;
-          var imgHeight = (canvas.height * imgWidth) / canvas.width;
-          var heightLeft = imgHeight;
-          var position = 10;
+          var capScale = 2.5;
 
-          pdf.addImage(imgData, 'JPEG', 10, position, imgWidth, imgHeight);
-          heightLeft -= (pdfHeight - 20);
+          // ── Page 1: Cover ──
+          pdf.addImage(coverCanvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, PW, PH);
 
-          while (heightLeft > 0) {
-            position = -(pdfHeight - 20) + 10 + (imgHeight - heightLeft - (pdfHeight - 20));
-            position = heightLeft - imgHeight + 10;
-            pdf.addPage();
-            pdf.addImage(imgData, 'JPEG', 10, position, imgWidth, imgHeight);
-            heightLeft -= (pdfHeight - 20);
+          // ── Calculate page slices with smart breaks ──
+          var canvasW = rptCanvas.width;
+          var canvasH = rptCanvas.height;
+          var mmPerPx = CW / canvasW;
+          var pageHPx = maxContentH / mmPerPx; // page height in canvas pixels
+
+          var slices = [];
+          var sliceStart = 0;
+
+          while (sliceStart < canvasH) {
+            var idealEnd = sliceStart + pageHPx;
+            if (idealEnd >= canvasH - 10) {
+              slices.push({ s: Math.round(sliceStart), e: canvasH });
+              break;
+            }
+            // Find best break point near idealEnd
+            var bestBreak = idealEnd;
+            var bestDist = Infinity;
+            for (var bi = 0; bi < breakCandidates.length; bi++) {
+              var bpPx = breakCandidates[bi] * capScale;
+              // Look for break points in the last 30% of the page (avoid breaking too early)
+              if (bpPx > sliceStart + pageHPx * 0.4 && bpPx <= idealEnd + pageHPx * 0.08) {
+                var dist = Math.abs(bpPx - idealEnd);
+                if (dist < bestDist) { bestDist = dist; bestBreak = bpPx; }
+              }
+            }
+            slices.push({ s: Math.round(sliceStart), e: Math.round(bestBreak) });
+            sliceStart = Math.round(bestBreak);
           }
 
-          var company = document.getElementById('rptCompany').textContent.replace(' 様', '');
-          pdf.save('GWES診断レポート_' + company + '.pdf');
+          var totalPgs = slices.length + 1;
 
-          if (dlBtn) dlBtn.style.display = '';
-          if (ctaBlock) ctaBlock.style.display = '';
-          btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>PDFレポートをダウンロード';
-          btn.disabled = false;
-        }).catch(function(err) {
-          console.error('PDF error:', err);
-          // Fallback to print
-          window.print();
-          if (dlBtn) dlBtn.style.display = '';
-          if (ctaBlock) ctaBlock.style.display = '';
-          btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>PDFレポートをダウンロード';
-          btn.disabled = false;
+          // ── Render content pages ──
+          slices.forEach(function(slice, i) {
+            pdf.addPage();
+
+            // ── Page Header ──
+            // Accent line
+            pdf.setDrawColor(37, 99, 235);
+            pdf.setLineWidth(0.5);
+            pdf.line(ML, MT - 6, ML + 24, MT - 6);
+            // Thin gray line
+            pdf.setDrawColor(230, 230, 230);
+            pdf.setLineWidth(0.15);
+            pdf.line(ML + 24, MT - 6, PW - MR, MT - 6);
+            // Header text
+            pdf.setFontSize(6.5);
+            pdf.setTextColor(160, 160, 160);
+            pdf.text('GWES Compatibility Assessment Report', ML, MT - 9);
+            pdf.setFontSize(6);
+            pdf.setTextColor(190, 190, 190);
+            pdf.text('GROUND Inc.', PW - MR, MT - 9, { align: 'right' });
+
+            // ── Page Footer ──
+            var fy = PH - MB + 5;
+            pdf.setDrawColor(235, 235, 235);
+            pdf.setLineWidth(0.15);
+            pdf.line(ML, fy, PW - MR, fy);
+            pdf.setFontSize(6);
+            pdf.setTextColor(180, 180, 180);
+            pdf.text('Confidential  |  ' + companyName, ML, fy + 4);
+            pdf.text(dateStr, (PW / 2), fy + 4, { align: 'center' });
+            pdf.text((i + 2) + ' / ' + totalPgs, PW - MR, fy + 4, { align: 'right' });
+
+            // ── Content ──
+            var sliceH = slice.e - slice.s;
+            if (sliceH <= 0) return;
+            var cropped = cropCanvas(rptCanvas, 0, slice.s, canvasW, sliceH);
+            var imgH_mm = sliceH * mmPerPx;
+            pdf.addImage(cropped.toDataURL('image/jpeg', 0.92), 'JPEG', ML, MT, CW, imgH_mm);
+          });
+
+          pdf.save('GWES診断レポート_' + companyName + '.pdf');
+          resetBtn();
         });
-      } else {
-        // Fallback: use browser print dialog
+      }).catch(function(err) {
+        console.error('PDF generation error:', err);
+        restoreHidden();
         window.print();
-        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>PDFレポートをダウンロード';
-        btn.disabled = false;
-      }
+        resetBtn();
+      });
     }
   </script>
 
