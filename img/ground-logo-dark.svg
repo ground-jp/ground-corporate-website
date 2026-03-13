@@ -1,13 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13100 1938">
-  <!-- Light BG logo — #0A0C14 (Brand Dark) for maximum contrast on white -->
+  <defs>
+    <!-- P2: Light BG — Titanium gradient for G Mark: #3F4250 → #636A78 -->
+    <linearGradient id="tm" x1="0" y1="0" x2="0" y2="1938" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#3F4250"/>
+      <stop offset="60%"  stop-color="#3F4250"/>
+      <stop offset="75%"  stop-color="#474C5A"/>
+      <stop offset="85%"  stop-color="#515866"/>
+      <stop offset="92%"  stop-color="#5B6270"/>
+      <stop offset="100%" stop-color="#636A78"/>
+    </linearGradient>
+    <!-- P2: Wordmark gradient reversed: #636A78 → #3F4250 -->
+    <linearGradient id="tw" x1="0" y1="0" x2="0" y2="1938" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#636A78"/>
+      <stop offset="60%"  stop-color="#636A78"/>
+      <stop offset="75%"  stop-color="#5B6270"/>
+      <stop offset="85%"  stop-color="#515866"/>
+      <stop offset="92%"  stop-color="#474C5A"/>
+      <stop offset="100%" stop-color="#3F4250"/>
+    </linearGradient>
+  </defs>
   <!-- G Mark -->
-  <path fill="#0A0C14"
+  <path fill="url(#tm)"
         d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
   <!-- Wordmark -->
   <text x="4469" y="1580"
         font-family="'Liberation Sans',Arial,Helvetica,sans-serif"
         font-weight="700" font-size="1900" letter-spacing="-20"
-        fill="#0A0C14"
-        stroke="#0A0C14" stroke-width="36" stroke-linejoin="round"
+        fill="url(#tw)"
+        stroke="url(#tw)" stroke-width="36" stroke-linejoin="round"
         paint-order="stroke fill">GROUND</text>
 </svg>

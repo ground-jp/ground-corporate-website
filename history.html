@@ -912,7 +912,7 @@
   <!-- Hamburger Menu -->
   <header class="header" id="header">
     <div class="header__inner">
-      <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; filter: invert(1) brightness(0.2);"></a>
+      <a class="header__logo" href="/"><img src="img/ground-logo-dark.svg?v=3" alt="GROUND Inc." class="header__logo-img"></a>
       <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
         <span class="hamburger__line"></span>
         <span class="hamburger__line"></span>
@@ -1437,11 +1437,7 @@
   <script defer src="js/design-settings.js"></script>
 
   <script>
-    // Hamburger menu toggle
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const overlayMenu = document.getElementById('overlayMenu');
-    hamburgerBtn?.addEventListener('click', () => { hamburgerBtn.classList.toggle('active'); overlayMenu.classList.toggle('active'); });
-    document.querySelectorAll('.overlay-menu__nav-item, .overlay-menu__cta-btn').forEach(link => { link.addEventListener('click', () => { hamburgerBtn.classList.remove('active'); overlayMenu.classList.remove('active'); }); });
+    // Hamburger menu: handled by main.js initOverlayMenu() — no duplicate handler needed
 
     // Cookie banner
     const cookieBanner = document.getElementById('cookieBanner');
