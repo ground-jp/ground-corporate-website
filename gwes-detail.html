@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" style="--accent: #3B82F6; --frost-ice-blue: #60A5FA; --black: #1A1A1A;"><head>
+<html lang="ja"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:image" content="https://groundinc.co.jp/img/ogp-default.svg">
@@ -265,12 +265,16 @@
   <link rel="alternate" hreflang="x-default" href="https://groundinc.co.jp/gwes-detail.html">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.svg">
+<script>
+    // design-settings instant apply
+    (function(){try{var c=localStorage.getItem('ds-cache');if(c){var s=JSON.parse(c),r=document.documentElement.style;if(s.logo_height)r.setProperty('--ds-logo-height',s.logo_height+'px');if(s.header_height)r.setProperty('--ds-header-height',s.header_height+'px');if(s.header_bg_color)r.setProperty('--ds-header-bg',s.header_bg_color);}}catch(e){}})();
+  </script>
 </head>
-<body style="font-size: 15px;">
+<body>
   <!-- Header (same as main site) -->
-  <header class="header header--scrolled" id="header" style="background: rgb(10, 12, 20); height: 64px;">
+  <header class="header header--scrolled" id="header">
     <div class="header__inner" style="">
-      <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg?v=2" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; position: relative; top: 0px; left: 0px;"></a>
+      <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg?v=2" alt="GROUND Inc." class="header__logo-img"></a>
       <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
         <span class="hamburger__line"></span>
         <span class="hamburger__line"></span>
@@ -414,7 +418,7 @@
           <div class="gd-effect" style=""><span class="gd-effect__label">間接効果</span><div class="gd-effect__text" style="width: 448px !important; max-width: none !important; min-width: 0px !important; box-sizing: border-box !important; height: 46px !important; max-height: none !important; min-height: 0px !important;">データ駆動型意思決定文化の醸成。分析業務の高度化。投資判断の精度向上。</div></div>
         </div>
       </div>
-      <a class="gd-back" href="/gwes#modules" contenteditable="true" style="outline: rgb(91, 192, 235) solid 2px !important; outline-offset: 4px !important; cursor: text !important; min-height: 1em !important;">モジュール一覧に戻る</a>
+      <a class="gd-back" href="/gwes#modules">モジュール一覧に戻る</a>
     </div>
 
     <!-- ===== ME ===== -->

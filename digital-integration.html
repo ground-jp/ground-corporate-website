@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" style="--accent: #3B82F6; --frost-ice-blue: #60A5FA; --black: #1A1A1A;"><head>
+<html lang="ja"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="img/favicon.ico" type="image/x-icon">
@@ -643,13 +643,17 @@
 [data-de-id="de-1"] { color: #ffffff !important; } /* de-1-color */
 [data-de-id="de-2"] { color: #ffffff !important; } /* de-2-color */</style>    <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.svg">
+<script>
+    // design-settings instant apply: localStorageキャッシュからCSS変数を即座適用（フラッシュ防止）
+    (function(){try{var c=localStorage.getItem('ds-cache');if(c){var s=JSON.parse(c),r=document.documentElement.style;if(s.logo_height)r.setProperty('--ds-logo-height',s.logo_height+'px');if(s.header_height)r.setProperty('--ds-header-height',s.header_height+'px');if(s.header_bg_color)r.setProperty('--ds-header-bg',s.header_bg_color);}}catch(e){}})();
+  </script>
 </head>
-<body style="font-size: 15px;">
+<body>
 
   <!-- ── Header (shared) ── -->
-  <header class="header is-scrolled header--scrolled" id="header" style="background: rgb(10, 12, 20); height: 64px;">
+  <header class="header is-scrolled header--scrolled" id="header">
     <div class="header__inner">
-      <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg?v=2" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; position: relative; top: 0px; left: 0px;"></a>
+      <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg?v=2" alt="GROUND Inc." class="header__logo-img"></a>
       <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
         <span class="hamburger__line"></span>
         <span class="hamburger__line"></span>
@@ -744,7 +748,7 @@
           <span class="di-hero__badge">Digital Integration</span>
           <h1 class="di-hero__title" style="">テクノロジーで刷新する<br>物流システムインテグレーション</h1>
           <p class="di-hero__subtitle" style="">Next-Generation Logistics SI</p>
-          <p class="di-hero__desc" data-de-id="de-1" style="color: rgb(255, 255, 255) !important;">
+          <p class="di-hero__desc" data-de-id="de-1">
             デジタルインテグレーションとは、従来のシステムインテグレーションの枠を超え、AIや数理最適化といった先端テクノロジーを駆使して物流ITプラットフォームを刷新するサービスです。WMS・WCS・RCSとの接続にとどまらず、GWESを中心とした新しい技術で物流現場のオペレーションを根本から変革します。既存のSIerでは対応が難しい、物流×先端テクノロジーの融合領域を開拓します。
           </p>
         </div>
@@ -1287,10 +1291,10 @@
          CTA
     ══════════════════════════════════════════ -->
     <section class="di-cta di-fade is-visible" style="">
-      <div class="container" style="outline: rgb(91, 192, 235) solid 3px; outline-offset: 3px;">
+      <div class="container" >
         <p class="di-cta__label" style="">Get Started</p>
         <h2 class="di-cta__heading" style="font-size: 28px;">物流DXのご相談</h2>
-        <p class="di-cta__desc" data-de-id="de-2" style="color: rgb(255, 255, 255) !important;">
+        <p class="di-cta__desc" data-de-id="de-2">
           現状のシステム課題のヒアリングから、AIやアルゴリズムを活用した最適化戦略の策定まで。GROUNDのデジタルインテグレーションチームがサポートします。
         </p>
         <a class="di-cta__btn" href="/contact" style="background-color: rgb(37, 99, 235);">

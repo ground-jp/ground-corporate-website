@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" style="--accent: #3B82F6; --frost-ice-blue: #60A5FA; --black: #1A1A1A;"><head>
+<html lang="ja"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="img/favicon.ico" type="image/x-icon">
@@ -524,13 +524,17 @@
 [data-de-id="de-7"] { color: #ffffff !important; } /* de-7-color */
 [data-de-id="de-8"] { color: #ffffff !important; } /* de-8-color */</style>    <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.svg">
+    <script>
+    // design-settings instant apply
+    (function(){try{var c=localStorage.getItem('ds-cache');if(c){var s=JSON.parse(c),r=document.documentElement.style;if(s.logo_height)r.setProperty('--ds-logo-height',s.logo_height+'px');if(s.header_height)r.setProperty('--ds-header-height',s.header_height+'px');if(s.header_bg_color)r.setProperty('--ds-header-bg',s.header_bg_color);}}catch(e){}})();
+  </script>
 </head>
-<body style="font-size: 15px;">
+<body>
 
   <!-- ==================== HEADER (shared) ==================== -->
-  <header class="header header--scrolled" id="header" style="background: rgb(10, 12, 20); height: 64px;">
-    <div class="header__inner" style="">
-      <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg?v=2" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; position: relative; top: 0px; left: 0px;"></a>
+  <header class="header header--scrolled" id="header">
+    <div class="header__inner">
+      <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg?v=2" alt="GROUND Inc." class="header__logo-img"></a>
       <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
         <span class="hamburger__line"></span>
         <span class="hamburger__line"></span>
@@ -588,7 +592,7 @@
       </div>
       <!-- Col 3: CTA + Contact -->
       <div class="overlay-menu__col-info">
-        <a class="overlay-menu__cta-btn" href="/contact" style="background-color: rgb(37, 99, 235);">お問い合わせ</a>
+        <a class="overlay-menu__cta-btn" href="/contact">お問い合わせ</a>
         <div class="overlay-menu__contact-info">
           <span>info@groundinc.co.jp</span>
           <span>03-6441-2975</span>
@@ -612,7 +616,7 @@
   <!-- ==================== HERO BANNER ==================== -->
   <div class="pr-hero-banner">
     <img src="https://www.groundinc.co.jp/dcms_media/image/services-robot-peer_speedmaplus_mv.jpg" alt="PEER シリーズ" class="pr-hero-banner__img">
-    <div class="pr-hero-banner__overlay" style=""></div>
+    <div class="pr-hero-banner__overlay"></div>
     <div class="pr-hero-banner__content">
       <div class="container">
         <span class="pr-hero__badge">Autonomous Mobile Robot</span>
@@ -712,16 +716,16 @@
 
   <!-- ==================== PEER 100 PRODUCT ==================== -->
   <section class="pr-section" id="peer100">
-    <div class="container" style="">
+    <div class="container">
       <span class="pr-section__label pr-fade is-visible">Product</span>
       <h2 class="pr-section__heading pr-fade is-visible" style="font-size: 28px;">PEER 100</h2>
-      <p class="pr-section__text pr-fade is-visible" style="">
+      <p class="pr-section__text pr-fade is-visible">
         GROUNDが提供する自律型協働ロボット。SLAM技術とカメラ・LiDARセンサーにより自律走行し、ピッキング作業や工程間搬送を人と協働しながら支援します。WMSとの連携により、作業指示の受信からタブレット表示、搬送先への自律移動までをシームレスに実行します。
       </p>
 
       <div class="pr-product pr-fade is-visible">
         <div class="pr-product__visual">
-          <img src="https://www.groundinc.co.jp/dcms_media/image/service_robot_peer100.jpg" alt="PEER 100" class="pr-product__img" style="">
+          <img src="https://www.groundinc.co.jp/dcms_media/image/service_robot_peer100.jpg" alt="PEER 100" class="pr-product__img">
         </div>
         <div>
           <table class="pr-spec-table">
@@ -809,8 +813,8 @@
   </section>
 
   <!-- ==================== HOW IT WORKS ==================== -->
-  <section class="pr-section" id="workflow" style="">
-    <div class="container" style="">
+  <section class="pr-section" id="workflow">
+    <div class="container">
       <span class="pr-section__label pr-fade is-visible">How It Works</span>
       <h2 class="pr-section__heading pr-fade is-visible" style="font-size: 28px;">ピッキング協働ワークフロー</h2>
       <p class="pr-section__text pr-fade is-visible" data-de-id="de-1" style="width: 704px !important; max-width: none !important; min-width: 0px !important; box-sizing: border-box !important; height: 52px !important; max-height: none !important; min-height: 0px !important; color: rgb(255, 255, 255) !important;">
@@ -818,28 +822,28 @@
       </p>
 
       <div class="pr-workflow pr-fade is-visible">
-        <div class="pr-workflow__step" style="">
-          <span class="pr-workflow__num" style="">STEP 01</span>
+        <div class="pr-workflow__step">
+          <span class="pr-workflow__num">STEP 01</span>
           <div class="pr-workflow__title">指示受信</div>
-          <div class="pr-workflow__desc" data-de-id="de-2" style="color: rgb(255, 255, 255) !important;">WMSからの出荷指示をPEERが受信し、搭載タブレットにピッキングリストを表示</div>
+          <div class="pr-workflow__desc" data-de-id="de-2">WMSからの出荷指示をPEERが受信し、搭載タブレットにピッキングリストを表示</div>
           <span class="pr-workflow__arrow">→</span>
         </div>
-        <div class="pr-workflow__step" style="">
+        <div class="pr-workflow__step">
           <span class="pr-workflow__num">STEP 02</span>
           <div class="pr-workflow__title">棚前へ走行</div>
-          <div class="pr-workflow__desc" data-de-id="de-3" style="color: rgb(255, 255, 255) !important;">PEERが対象ロケーションまで自律走行し、作業者を先導して最適な巡回ルートで案内</div>
+          <div class="pr-workflow__desc" data-de-id="de-3">PEERが対象ロケーションまで自律走行し、作業者を先導して最適な巡回ルートで案内</div>
           <span class="pr-workflow__arrow">→</span>
         </div>
-        <div class="pr-workflow__step" style="">
+        <div class="pr-workflow__step">
           <span class="pr-workflow__num">STEP 03</span>
-          <div class="pr-workflow__title" style="">ピック＆積載</div>
-          <div class="pr-workflow__desc" data-de-id="de-4" style="color: rgb(255, 255, 255) !important;">作業者が棚から商品をピックし、PEERのバスケットに投入。タブレットで品目と数量を確認</div>
+          <div class="pr-workflow__title">ピック＆積載</div>
+          <div class="pr-workflow__desc" data-de-id="de-4">作業者が棚から商品をピックし、PEERのバスケットに投入。タブレットで品目と数量を確認</div>
           <span class="pr-workflow__arrow">→</span>
         </div>
-        <div class="pr-workflow__step" style="">
+        <div class="pr-workflow__step">
           <span class="pr-workflow__num">STEP 04</span>
           <div class="pr-workflow__title">搬送・仕分</div>
-          <div class="pr-workflow__desc" data-de-id="de-5" style="color: rgb(255, 255, 255) !important;">全ピック完了後、PEERが梱包エリアまで自律搬送。作業者は次のPEERと合流し、連続してピッキングを継続</div>
+          <div class="pr-workflow__desc" data-de-id="de-5">全ピック完了後、PEERが梱包エリアまで自律搬送。作業者は次のPEERと合流し、連続してピッキングを継続</div>
         </div>
       </div>
     </div>
@@ -847,15 +851,15 @@
 
   <!-- ==================== CASE STUDIES ==================== -->
   <section class="pr-section" id="cases">
-    <div class="container" style="">
+    <div class="container">
       <span class="pr-section__label pr-fade is-visible">Case Studies</span>
       <h2 class="pr-section__heading pr-fade is-visible" style="font-size: 28px;">導入事例</h2>
 
-      <div class="pr-cases" style="">
-        <div class="pr-case pr-fade is-visible" style="">
+      <div class="pr-cases">
+        <div class="pr-case pr-fade is-visible">
           <span class="pr-case__client">Autobacs Seven</span>
-          <div class="pr-case__title" style="">オートバックスセブン様</div>
-          <div class="pr-case__desc" data-de-id="de-6" style="color: rgb(255, 255, 255) !important;">
+          <div class="pr-case__title">オートバックスセブン様</div>
+          <div class="pr-case__desc" data-de-id="de-6">
             EC物流部門の物量波動と人員確保の課題に対し、東日本ロジスティクスセンターにPEER 100を7台導入。1台あたり6オーダーのマルチピッキングにより、稼働後わずか1ヶ月でピッキング生産性が約2倍に向上。全台稼働により作業人員を導入前の半数に削減。
           </div>
           <div class="pr-case__metrics">
@@ -873,10 +877,10 @@
             </div>
           </div>
         </div>
-        <div class="pr-case pr-fade is-visible" style="">
-          <span class="pr-case__client" style="">NX / Nippon Express</span>
-          <div class="pr-case__title" style="">日本通運様</div>
-          <div class="pr-case__desc" data-de-id="de-7" style="color: rgb(255, 255, 255) !important;">
+        <div class="pr-case pr-fade is-visible">
+          <span class="pr-case__client">NX / Nippon Express</span>
+          <div class="pr-case__title">日本通運様</div>
+          <div class="pr-case__desc" data-de-id="de-7">
             「誰にもやさしい倉庫」プロジェクトにPEER 100を3台導入。身体的な制約のある作業者も含め、誰もが物流施設内で活躍できるユニバーサルな作業環境を実現。AMRが搬送を担うことで、歩行困難な方も施設内作業に従事できる環境を構築。
           </div>
           <div class="pr-case__metrics">
@@ -895,15 +899,15 @@
   </section>
 
   <!-- ==================== CTA ==================== -->
-  <section class="pr-cta" style="">
-    <div class="container" style="">
+  <section class="pr-cta">
+    <div class="container">
       <h2 class="pr-cta__title pr-fade is-visible" style="font-size: 28px;">PEERの導入をご検討ですか？</h2>
-      <p class="pr-cta__desc pr-fade is-visible" data-de-id="de-8" style="outline: rgb(91, 192, 235) solid 3px; outline-offset: 3px; color: rgb(255, 255, 255) !important;">
+      <p class="pr-cta__desc pr-fade is-visible" data-de-id="de-8">
         RaaS（Robot as a Service）モデルにより、初期投資を抑えた導入が可能です。現場の課題とご要件に合わせた最適なプランをご提案します。
       </p>
-      <div class="pr-cta__buttons pr-fade is-visible" style="">
-        <a class="pr-cta__btn pr-cta__btn--primary" href="/contact" style="background-color: rgb(37, 99, 235);">お問い合わせ</a>
-        <a class="pr-cta__btn pr-cta__btn--outline" href="/service" style="background-color: rgb(37, 99, 235);">製品・サービス一覧 →</a>
+      <div class="pr-cta__buttons pr-fade is-visible">
+        <a class="pr-cta__btn pr-cta__btn--primary" href="/contact">お問い合わせ</a>
+        <a class="pr-cta__btn pr-cta__btn--outline" href="/service">製品・サービス一覧 →</a>
       </div>
     </div>
   </section>

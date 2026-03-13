@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" style="--accent: #3B82F6; --frost-ice-blue: #60A5FA; --black: #1A1A1A;"><head>
+<html lang="ja"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="img/favicon.ico" type="image/x-icon">
@@ -284,11 +284,15 @@
   <link rel="alternate" hreflang="x-default" href="https://groundinc.co.jp/gpim.html">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.svg">
-</head>
-<body style="font-size: 15px;">
-  <header class="header header--scrolled" id="header" style="background: rgb(10, 12, 20); height: 64px;">
+    <script>
+    // design-settings instant apply
+    (function(){try{var c=localStorage.getItem('ds-cache');if(c){var s=JSON.parse(c),r=document.documentElement.style;if(s.logo_height)r.setProperty('--ds-logo-height',s.logo_height+'px');if(s.header_height)r.setProperty('--ds-header-height',s.header_height+'px');if(s.header_bg_color)r.setProperty('--ds-header-bg',s.header_bg_color);}}catch(e){}})();
+  </script>
+  </head>
+<body>
+  <header class="header header--scrolled" id="header">
     <div class="header__inner" style="">
-      <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg?v=2" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto; position: relative; top: 0px; left: 0px;"></a>
+      <a class="header__logo" href="/"><img src="img/ground-logo-v2.svg?v=2" alt="GROUND Inc." class="header__logo-img" ></a>
       <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
         <span class="hamburger__line"></span>
         <span class="hamburger__line"></span>
