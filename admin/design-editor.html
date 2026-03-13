@@ -1860,6 +1860,19 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     setTimeout(function() {
       applyToPreview();
       setupClickEditing();
+      // 既存の data-de-id から styleOverrideCounter を同期（ID衝突防止）
+      try {
+        var doc = frame.contentDocument || frame.contentWindow.document;
+        if (doc) {
+          var maxId = 0;
+          var deEls = doc.querySelectorAll('[data-de-id]');
+          deEls.forEach(function(el) {
+            var m = el.getAttribute('data-de-id').match(/^de-(\d+)$/);
+            if (m) { var n = parseInt(m[1], 10); if (n > maxId) maxId = n; }
+          });
+          styleOverrideCounter = maxId;
+        }
+      } catch(e) {}
       // デザインエディタ内ではフェードアニメーションを無効化して全要素を表示
       try {
         var doc = frame.contentDocument || frame.contentWindow.document;
@@ -1878,26 +1891,49 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     }, 300);
   });
 
-  // ── HTML取得（保存・ダウンロード共通）──
+  // ── HTML取得（保存・ダウンロード共通）── ※非破壊的にHTMLを生成
   function getEditedHtml() {
     var doc = frame.contentDocument || frame.contentWindow.document;
     if (!doc) return null;
-    // エディタ専用の表示スタイルを削除（保存時に含めない）
+
+    // 1. エディタ専用の表示スタイルを一時的に非表示（DOMから削除しない）
     var visStyle = doc.getElementById('design-editor-visibility');
-    if (visStyle) visStyle.remove();
-    // design-editor-overrides を editor-saved-styles に統合
-    var overrideStyle = doc.getElementById('design-editor-overrides');
-    if (overrideStyle) {
-      var savedStyle = doc.getElementById('editor-saved-styles');
-      if (!savedStyle) {
-        savedStyle = doc.createElement('style');
-        savedStyle.id = 'editor-saved-styles';
-        doc.head.appendChild(savedStyle);
-      }
-      savedStyle.textContent += '\n' + overrideStyle.textContent;
-      overrideStyle.remove();
+    var visContent = '';
+    if (visStyle) {
+      visContent = visStyle.textContent;
+      visStyle.textContent = '';
     }
-    return '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+
+    // 2. design-editor-overrides の内容を editor-saved-styles にマージ（コピーで）
+    var overrideStyle = doc.getElementById('design-editor-overrides');
+    var overrideContent = overrideStyle ? overrideStyle.textContent : '';
+    var savedStyle = doc.getElementById('editor-saved-styles');
+    var savedOriginal = '';
+    if (!savedStyle) {
+      savedStyle = doc.createElement('style');
+      savedStyle.id = 'editor-saved-styles';
+      doc.head.appendChild(savedStyle);
+    }
+    savedOriginal = savedStyle.textContent;
+    if (overrideContent) {
+      savedStyle.textContent = savedOriginal + '\n' + overrideContent;
+    }
+
+    // 3. overridesタグを一時的に非表示にしてHTML取得
+    var overrideHidden = false;
+    if (overrideStyle) {
+      overrideStyle.textContent = '';
+      overrideHidden = true;
+    }
+
+    var html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+
+    // 4. iframe DOMを元に戻す（非破壊）
+    if (visStyle) visStyle.textContent = visContent;
+    if (overrideHidden && overrideStyle) overrideStyle.textContent = overrideContent;
+    savedStyle.textContent = savedOriginal;
+
+    return html;
   }
 
   function getFilePath() {
