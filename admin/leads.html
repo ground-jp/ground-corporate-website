@@ -129,12 +129,8 @@ tbody tr:hover { background:rgba(59,130,246,0.05); }
     <h1>GROUND Admin</h1>
     <p>リード管理システムにログインしてください。</p>
     <div class="login-field">
-      <label>メールアドレス</label>
-      <input type="email" id="loginEmail" placeholder="admin@groundinc.co.jp" autocomplete="email">
-    </div>
-    <div class="login-field">
-      <label>パスワード</label>
-      <input type="password" id="loginPassword" placeholder="パスワード" autocomplete="current-password">
+      <label>管理パスワード</label>
+      <input type="password" id="loginPassword" placeholder="パスワードを入力" autocomplete="current-password">
     </div>
     <button class="login-btn" id="loginBtn">ログイン</button>
     <div class="login-error" id="loginError"></div>
@@ -249,8 +245,7 @@ tbody tr:hover { background:rgba(59,130,246,0.05); }
   var PAGE_SIZE = 25;
 
   // ── State ──
-  var accessToken = null;
-  var refreshToken = null;
+  var sessionToken = null;
   var currentPage = 0;
   var totalCount = 0;
   var leads = [];
@@ -275,30 +270,19 @@ tbody tr:hover { background:rgba(59,130,246,0.05); }
   var detailClose = document.getElementById('detailClose');
   var detailBody = document.getElementById('detailBody');
 
-  // ── Helpers ──
-  function sbFetch(path, opts) {
-    opts = opts || {};
-    var headers = {
-      'Content-Type': 'application/json',
-      'apikey': SB_ANON
-    };
-    if (accessToken) headers['Authorization'] = 'Bearer ' + accessToken;
-    else headers['Authorization'] = 'Bearer ' + SB_ANON;
-    if (opts.headers) {
-      for (var k in opts.headers) headers[k] = opts.headers[k];
-    }
-    opts.headers = headers;
-    return fetch(SB_URL + path, opts);
+  // ── RPC Helper ──
+  function rpc(fnName, params) {
+    return fetch(SB_URL + '/rest/v1/rpc/' + fnName, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SB_ANON, 'Authorization': 'Bearer ' + SB_ANON },
+      body: JSON.stringify(params)
+    }).then(function(res) { return res.json(); });
   }
 
   function formatDate(iso) {
     if (!iso) return '-';
     var d = new Date(iso);
-    var m = (d.getMonth()+1);
-    var day = d.getDate();
-    var h = d.getHours();
-    var min = ('0'+d.getMinutes()).slice(-2);
-    return m + '/' + day + ' ' + h + ':' + min;
+    return (d.getMonth()+1) + '/' + d.getDate() + ' ' + d.getHours() + ':' + ('0'+d.getMinutes()).slice(-2);
   }
 
   function sourceLabel(src) {
@@ -311,14 +295,21 @@ tbody tr:hover { background:rgba(59,130,246,0.05); }
     return map[s] || s || '-';
   }
 
-  // ── Auth ──
+  // ── Auth (RPC-based) ──
   function tryRestoreSession() {
     try {
-      var saved = JSON.parse(sessionStorage.getItem('sb_session'));
-      if (saved && saved.access_token) {
-        accessToken = saved.access_token;
-        refreshToken = saved.refresh_token;
-        showApp();
+      var saved = sessionStorage.getItem('ground_admin_token');
+      if (saved) {
+        // Verify token is still valid
+        rpc('admin_verify', { token: saved }).then(function(valid) {
+          if (valid === true) {
+            sessionToken = saved;
+            showApp();
+          } else {
+            sessionStorage.removeItem('ground_admin_token');
+            loginOverlay.style.display = 'flex';
+          }
+        }).catch(function() { loginOverlay.style.display = 'flex'; });
         return;
       }
     } catch(e) {}
@@ -326,28 +317,21 @@ tbody tr:hover { background:rgba(59,130,246,0.05); }
   }
 
   function doLogin() {
-    var email = document.getElementById('loginEmail').value.trim();
     var pw = document.getElementById('loginPassword').value;
-    if (!email || !pw) { showLoginError('メールとパスワードを入力してください'); return; }
+    if (!pw) { showLoginError('パスワードを入力してください'); return; }
 
     loginBtn.disabled = true;
     loginBtn.textContent = 'ログイン中...';
     loginError.style.display = 'none';
 
-    fetch(SB_URL + '/auth/v1/token?grant_type=password', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'apikey': SB_ANON },
-      body: JSON.stringify({ email: email, password: pw })
-    })
-    .then(function(res) { return res.json(); })
+    rpc('admin_login', { pw: pw })
     .then(function(data) {
-      if (data.access_token) {
-        accessToken = data.access_token;
-        refreshToken = data.refresh_token;
-        try { sessionStorage.setItem('sb_session', JSON.stringify(data)); } catch(e) {}
+      if (data && data.ok) {
+        sessionToken = data.token;
+        try { sessionStorage.setItem('ground_admin_token', sessionToken); } catch(e) {}
         showApp();
       } else {
-        showLoginError(data.error_description || data.msg || 'ログインに失敗しました');
+        showLoginError(data && data.error ? data.error : 'ログインに失敗しました');
         loginBtn.disabled = false;
         loginBtn.textContent = 'ログイン';
       }
@@ -372,9 +356,8 @@ tbody tr:hover { background:rgba(59,130,246,0.05); }
   }
 
   function doLogout() {
-    accessToken = null;
-    refreshToken = null;
-    try { sessionStorage.removeItem('sb_session'); } catch(e) {}
+    sessionToken = null;
+    try { sessionStorage.removeItem('ground_admin_token'); } catch(e) {}
     app.classList.remove('active');
     loginOverlay.style.display = 'flex';
     loginBtn.disabled = false;
@@ -384,20 +367,13 @@ tbody tr:hover { background:rgba(59,130,246,0.05); }
 
   // ── Stats ──
   function loadStats() {
-    sbFetch('/rest/v1/leads?select=id,source,status,created_at', { headers: { 'Prefer': 'count=exact' } })
-    .then(function(res) { return res.json(); })
-    .then(function(rows) {
-      var total = rows.length;
-      var newCount = rows.filter(function(r) { return r.status === 'new'; }).length;
-      var dxCount = rows.filter(function(r) { return r.source && r.source.indexOf('dx_') !== -1; }).length;
-      var now = new Date();
-      var monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
-      var monthCount = rows.filter(function(r) { return r.created_at >= monthStart; }).length;
-
-      document.getElementById('statTotal').textContent = total;
-      document.getElementById('statNew').textContent = newCount;
-      document.getElementById('statDx').textContent = dxCount;
-      document.getElementById('statMonth').textContent = monthCount;
+    rpc('admin_get_stats', { token: sessionToken })
+    .then(function(data) {
+      if (!data || !data.ok) return;
+      document.getElementById('statTotal').textContent = data.total;
+      document.getElementById('statNew').textContent = data['new'];
+      document.getElementById('statDx').textContent = data.dx;
+      document.getElementById('statMonth').textContent = data.month;
     })
     .catch(function() {});
   }
@@ -407,28 +383,27 @@ tbody tr:hover { background:rgba(59,130,246,0.05); }
     var search = searchInput.value.trim();
     var source = filterSource.value;
     var status = filterStatus.value;
-    var offset = currentPage * PAGE_SIZE;
 
-    var q = '/rest/v1/leads?select=*,dx_assessments(*)&order=created_at.desc&limit=' + PAGE_SIZE + '&offset=' + offset;
-    if (source) q += '&source=eq.' + source;
-    if (status) q += '&status=eq.' + status;
-    if (search) q += '&or=(company_name.ilike.*' + encodeURIComponent(search) + '*,contact_name.ilike.*' + encodeURIComponent(search) + '*,email.ilike.*' + encodeURIComponent(search) + '*)';
-
-    sbFetch(q, { headers: { 'Prefer': 'count=exact' } })
-    .then(function(res) {
-      var ct = res.headers.get('content-range');
-      if (ct) {
-        var parts = ct.split('/');
-        totalCount = parseInt(parts[1]) || 0;
-      }
-      return res.json();
+    rpc('admin_get_leads', {
+      token: sessionToken,
+      search: search,
+      source_filter: source,
+      status_filter: status,
+      page_num: currentPage,
+      page_size: PAGE_SIZE
     })
-    .then(function(rows) {
-      leads = rows;
+    .then(function(data) {
+      if (!data || !data.ok) {
+        if (data && data.error === 'Unauthorized') { doLogout(); return; }
+        leadsBody.innerHTML = '<tr><td colspan="6" class="empty-state">データの取得に失敗しました</td></tr>';
+        return;
+      }
+      leads = data.leads || [];
+      totalCount = data.total || 0;
       renderTable();
       renderPagination();
     })
-    .catch(function(err) {
+    .catch(function() {
       leadsBody.innerHTML = '<tr><td colspan="6" class="empty-state">データの取得に失敗しました</td></tr>';
     });
   }
@@ -560,17 +535,17 @@ tbody tr:hover { background:rgba(59,130,246,0.05); }
     btn.textContent = '保存中...';
     btn.disabled = true;
 
-    sbFetch('/rest/v1/leads?id=eq.' + id, {
-      method: 'PATCH',
-      body: JSON.stringify({ status: status, internal_notes: notes }),
-      headers: { 'Prefer': 'return=representation' }
-    })
-    .then(function(res) { return res.json(); })
-    .then(function() {
-      btn.textContent = '保存完了 ✓';
-      setTimeout(function() { btn.textContent = '保存'; btn.disabled = false; }, 1500);
-      loadLeads();
-      loadStats();
+    rpc('admin_update_lead', { token: sessionToken, lead_id: id, new_status: status, new_notes: notes })
+    .then(function(data) {
+      if (data && data.ok) {
+        btn.textContent = '保存完了 ✓';
+        setTimeout(function() { btn.textContent = '保存'; btn.disabled = false; }, 1500);
+        loadLeads();
+        loadStats();
+      } else {
+        btn.textContent = '保存';
+        btn.disabled = false;
+      }
     })
     .catch(function() {
       btn.textContent = '保存';
