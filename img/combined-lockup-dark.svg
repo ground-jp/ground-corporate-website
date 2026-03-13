@@ -4,7 +4,7 @@
       <stop offset="0%" stop-color="#FFFFFF"/>
       <stop offset="70%" stop-color="#FFFFFF"/>
       <stop offset="85%" stop-color="#F5F5F6"/>
-      <stop offset="100%" stop-color="#E8E9EB"/>
+      <stop offset="100%" stop-color="#E7E8EA"/>
     </linearGradient>
   </defs>
 
@@ -23,7 +23,8 @@
   </g>
 
   <!-- === Divider === -->
-  <line x1="200" y1="6" x2="200" y2="38" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="0.5"/>
+  <!-- P7: Divider 0.5pt #C8CDD8 at 20% opacity -->
+  <line x1="200" y1="6" x2="200" y2="38" stroke="#C8CDD8" stroke-opacity="0.20" stroke-width="0.5"/>
 
   <!-- === GWES Lockup (right) === -->
   <g transform="translate(218, 2)">
@@ -68,10 +69,11 @@
       <circle cx="100" cy="160" r="3.5" fill="#6ac6ec" opacity="0.17"/>
     </g>
     <!-- GWES text -->
+    <!-- P9: GWES Logotype — Helvetica Neue Light 300, letter-spacing 0.12em -->
     <text x="46" y="19"
-          font-family="'Liberation Sans',Arial,Helvetica,sans-serif"
-          font-weight="700" font-size="19" letter-spacing="4"
-          fill="#FFFFFF">GWES</text>
+          font-family="'Helvetica Neue','Liberation Sans',Arial,Helvetica,sans-serif"
+          font-weight="300" font-size="19" letter-spacing="2.28"
+          fill="#C8CDD8">GWES</text>
     <!-- Tagline -->
     <text x="46" y="32"
           font-family="Inter,Arial,sans-serif"

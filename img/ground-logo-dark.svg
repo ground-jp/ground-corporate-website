@@ -1,22 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13100 1938">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13100 2200">
   <defs>
-    <linearGradient id="dk" x1="0" y1="0" x2="0" y2="1938" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#1A1A1A"/>
-      <stop offset="65%" stop-color="#1A1A1A"/>
-      <stop offset="80%" stop-color="#222224"/>
-      <stop offset="90%" stop-color="#2A2A2E"/>
-      <stop offset="95%" stop-color="#333338"/>
-      <stop offset="100%" stop-color="#3A3A40"/>
+    <!-- P2: Light BG G Mark gradient — top-to-bottom #3F4250 → #636A78 -->
+    <linearGradient id="gm-light" x1="0" y1="0" x2="0" y2="1938" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#3F4250"/>
+      <stop offset="33%"  stop-color="#484C5A"/>
+      <stop offset="66%"  stop-color="#545867"/>
+      <stop offset="100%" stop-color="#636A78"/>
+    </linearGradient>
+    <!-- P2: Light BG Wordmark gradient — reversed #636A78 → #3F4250 -->
+    <linearGradient id="wm-light" x1="0" y1="0" x2="0" y2="1938" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#636A78"/>
+      <stop offset="33%"  stop-color="#545867"/>
+      <stop offset="66%"  stop-color="#484C5A"/>
+      <stop offset="100%" stop-color="#3F4250"/>
     </linearGradient>
   </defs>
   <!-- G Mark -->
-  <path fill="url(#dk)"
+  <path fill="url(#gm-light)"
         d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
   <!-- Wordmark -->
   <text x="4469" y="1580"
         font-family="'Liberation Sans',Arial,Helvetica,sans-serif"
         font-weight="700" font-size="1900" letter-spacing="-20"
-        fill="url(#dk)"
-        stroke="#1A1A1A" stroke-width="36" stroke-linejoin="round"
+        fill="url(#wm-light)"
         paint-order="stroke fill">GROUND</text>
+  <!-- Tagline: Building Autonomous Warehouse (P2: Inter Regular 400, #7A7C8A) -->
+  <text x="4469" y="2080"
+        font-family="'Inter',Arial,sans-serif"
+        font-weight="400" font-size="380"
+        fill="#7A7C8A"
+        letter-spacing="8">Building Autonomous Warehouse</text>
 </svg>

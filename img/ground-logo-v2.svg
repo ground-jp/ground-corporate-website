@@ -1,12 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13100 1938">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13100 2200">
   <defs>
+    <!-- P3: Dark BG — White to 20% Titanium (#E7E8EA), quadratic ease-in -->
     <linearGradient id="wt" x1="0" y1="0" x2="0" y2="1938" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="65%" stop-color="#FFFFFF"/>
-      <stop offset="80%" stop-color="#F9FAFA"/>
-      <stop offset="90%" stop-color="#EFF0F1"/>
-      <stop offset="95%" stop-color="#E8E9EB"/>
-      <stop offset="100%" stop-color="#E0E1E4"/>
+      <stop offset="0%"   stop-color="#FFFFFF"/>
+      <stop offset="60%"  stop-color="#FFFFFF"/>
+      <stop offset="75%"  stop-color="#FAFAFB"/>
+      <stop offset="85%"  stop-color="#F3F3F5"/>
+      <stop offset="92%"  stop-color="#EDEEEF"/>
+      <stop offset="100%" stop-color="#E7E8EA"/>
     </linearGradient>
   </defs>
   <!-- G Mark -->
@@ -19,4 +20,10 @@
         fill="url(#wt)"
         stroke="#0a0c14" stroke-width="36" stroke-linejoin="round"
         paint-order="fill stroke">GROUND</text>
+  <!-- Tagline: Building Autonomous Warehouse (P3: Inter Regular 400, #5A6070) -->
+  <text x="4469" y="2080"
+        font-family="'Inter',Arial,sans-serif"
+        font-weight="400" font-size="380"
+        fill="#5A6070"
+        letter-spacing="8">Building Autonomous Warehouse</text>
 </svg>

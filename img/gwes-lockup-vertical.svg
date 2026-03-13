@@ -48,7 +48,8 @@
   </g>
 
   <!-- GWES Wordmark — tight with grid bottom -->
-  <text x="300" y="300" text-anchor="middle" font-family="'Liberation Sans', 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="42" letter-spacing="8" fill="#C8CDD8">GWES</text>
+  <!-- P9: GWES Logotype — Helvetica Neue Light 300, letter-spacing 0.12em (≈5.04px at 42px) -->
+  <text x="300" y="300" text-anchor="middle" font-family="'Helvetica Neue', 'Liberation Sans', Arial, sans-serif" font-weight="300" font-size="42" letter-spacing="5" fill="#C8CDD8">GWES</text>
 
   <!-- Tagline -->
   <text x="300" y="330" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-weight="400" font-size="13" fill="#FFFFFF" opacity="0.85">The OS for Autonomous Warehouse</text>
