@@ -74,102 +74,6 @@
     }
     #heroVideo::-moz-media-controls { display: none !important; }
 
-    /* Stats Section (st-) */
-    .st-stats {
-      position: relative;
-      background: #FFFFFF;
-      padding: 80px 0;
-      overflow: hidden;
-    }
-    .st-stats::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(0deg, rgba(59, 130, 246, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59, 130, 246, 0.02) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .st-stats__inner {
-      position: relative;
-      z-index: 1;
-    }
-    .st-stats__grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 48px;
-      padding: 0;
-    }
-    .st-stats__item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-    .st-stats__number-wrap {
-      display: flex;
-      align-items: baseline;
-      justify-content: center;
-      gap: 4px;
-      margin-bottom: 24px;
-    }
-    .st-stats__number {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 56px;
-      font-weight: 600;
-      color: #3B82F6;
-      line-height: 1;
-      letter-spacing: -0.02em;
-    }
-    .st-stats__unit {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 28px;
-      font-weight: 500;
-      color: #3B82F6;
-      line-height: 1;
-    }
-    .st-stats__label {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 16px;
-      font-weight: 500;
-      color: #1A1A1A;
-      letter-spacing: 0.01em;
-      margin: 0;
-      line-height: 1.4;
-    }
-
-    /* Responsive: tablet */
-    @media (max-width: 1024px) {
-      .st-stats__grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
-      }
-      .st-stats {
-        padding: 60px 0;
-      }
-    }
-
-    /* Responsive: mobile */
-    @media (max-width: 640px) {
-      .st-stats__grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
-      .st-stats {
-        padding: 48px 0;
-      }
-      .st-stats__number {
-        font-size: 44px;
-      }
-      .st-stats__unit {
-        font-size: 22px;
-      }
-      .st-stats__label {
-        font-size: 14px;
-      }
-    }
 
   
     /* Language Switcher — inside overlay menu */
@@ -356,39 +260,6 @@
     </div>
   </section>
 
-  <!-- Stats / Impact Section -->
-  <section class="st-stats" id="stats">
-    <div class="container">
-      <div class="st-stats__inner">
-        <div class="st-stats__grid">
-          <div class="st-stats__item fade-in visible">
-            <div class="st-stats__number-wrap">
-              <span class="st-stats__number" data-target="100">0</span><span class="st-stats__unit">+</span>
-            </div>
-            <p class="st-stats__label">導入拠点数</p>
-          </div>
-          <div class="st-stats__item fade-in visible">
-            <div class="st-stats__number-wrap">
-              <span class="st-stats__number" data-target="30">0</span><span class="st-stats__unit">%</span>
-            </div>
-            <p class="st-stats__label">平均生産性向上</p>
-          </div>
-          <div class="st-stats__item fade-in visible">
-            <div class="st-stats__number-wrap">
-              <span class="st-stats__number" data-target="50">0</span><span class="st-stats__unit">+</span>
-            </div>
-            <p class="st-stats__label">導入企業数</p>
-          </div>
-          <div class="st-stats__item fade-in visible">
-            <div class="st-stats__number-wrap">
-              <span class="st-stats__number" data-target="15">0</span><span class="st-stats__unit">年+</span>
-            </div>
-            <p class="st-stats__label">物流AI実績</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section class="section section--spacious" id="news">
     <div class="container">
@@ -504,57 +375,6 @@
   </footer>
 
   <script defer="" src="js/main.js?v=31"></script>
-  <script>
-    // Stats count-up animation with IntersectionObserver
-    (function() {
-      const statsNumbers = document.querySelectorAll('.st-stats__number');
-      if (!statsNumbers.length) return;
-
-      const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.5
-      };
-
-      let animationTriggered = false;
-
-      const animateCountUp = function(element, target, duration = 1800) {
-        const start = 0;
-        const increment = target / (duration / 16);
-        let current = start;
-
-        const timer = setInterval(function() {
-          current += increment;
-          if (current >= target) {
-            element.textContent = Math.floor(target);
-            clearInterval(timer);
-          } else {
-            element.textContent = Math.floor(current);
-          }
-        }, 16);
-      };
-
-      const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting && !animationTriggered) {
-            animationTriggered = true;
-            statsNumbers.forEach(function(numberEl) {
-              const target = parseInt(numberEl.getAttribute('data-target'), 10);
-              if (!isNaN(target)) {
-                animateCountUp(numberEl, target);
-              }
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
-
-      const statsSection = document.getElementById('stats');
-      if (statsSection) {
-        observer.observe(statsSection);
-      }
-    })();
-  </script>
   <script>
     // Video autoplay fallback — ensure muted playback starts
     (function() {
