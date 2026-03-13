@@ -20,6 +20,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
   <script>
     // Fallback: if jsPDF failed to load from cdnjs, try unpkg
     if (typeof jspdf === 'undefined') {
@@ -2348,12 +2349,20 @@
 
       function resetBtn() { btn.innerHTML = origHTML; btn.disabled = false; btn.style.pointerEvents = ''; }
 
-      if (typeof html2canvas === 'undefined' || typeof jspdf === 'undefined') {
-        alert('PDF生成ライブラリの読み込みに失敗しました。ページを再読み込みしてお試しください。');
-        resetBtn();
-        return;
+      // Wait for libs with retry (fallback scripts may still be loading)
+      function waitForLibs(cb, retries) {
+        if (typeof html2canvas !== 'undefined' && typeof jspdf !== 'undefined') return cb();
+        if (retries <= 0) {
+          alert('PDF生成ライブラリの読み込みに失敗しました。ページを再読み込みしてお試しください。');
+          resetBtn();
+          return;
+        }
+        setTimeout(function() { waitForLibs(cb, retries - 1); }, 500);
       }
+      waitForLibs(function() { _generatePDF(btn, origHTML, resetBtn); }, 10);
+    }
 
+    function _generatePDF(btn, origHTML, resetBtn) {
       var companyName = (document.getElementById('rptCompany').textContent || '').replace(' 様', '').trim() || '企業';
       var dateStr = (document.getElementById('rptDate').textContent || '').trim();
       var lvlNumEl = document.querySelector('.rpt-level__num');
