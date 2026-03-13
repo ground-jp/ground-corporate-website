@@ -2116,12 +2116,37 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       });
     })
     .then(function(r) {
-      if (r.ok) {
-        showStatus('✓ 設定を保存しました！');
-        originalSettings = JSON.parse(JSON.stringify(settings));
-      } else {
+      if (!r.ok) {
         showStatus('⚠️ 設定の保存に失敗しました。Tokenを確認してください。', true);
+        return;
       }
+      originalSettings = JSON.parse(JSON.stringify(settings));
+      showStatus('💾 設定を保存しました。ページHTMLも保存中...');
+      // ── design.yml 保存後、ページ HTML も自動保存 ──
+      var html = getEditedHtml();
+      if (!html) { showStatus('✓ 設定のみ保存しました（ページ未読み込み）'); return; }
+      var filePath = getFilePath();
+      var pagePath = document.getElementById('pageSelect').value;
+      return fetch(GH_API + filePath, {
+        headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
+      })
+      .then(function(r2) { return r2.json(); })
+      .then(function(data2) {
+        return fetch(GH_API + filePath, {
+          method: 'PUT',
+          headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: 'Update ' + filePath + ' via GDE (with design settings)', content: btoa(unescape(encodeURIComponent(html))), sha: data2.sha })
+        });
+      })
+      .then(function(r3) {
+        if (r3.ok) {
+          delete pendingChanges[pagePath];
+          updateSaveButton();
+          showStatus('✓ 設定 + ページを保存しました！（自動デプロイ中…）');
+        } else {
+          showStatus('⚠️ 設定は保存しましたが、ページ保存に失敗しました', true);
+        }
+      });
     })
     .catch(function(err) { showStatus('⚠️ 保存に失敗: ' + (err.message || err), true); });
   });
