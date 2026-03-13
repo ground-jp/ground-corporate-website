@@ -129,12 +129,16 @@ button {
   display: flex;
   align-items: center;
   text-decoration: none;
+  outline: none;
 }
 
 .header__logo-img {
   height: var(--ds-logo-height, 40px);
   width: auto;
   display: block;
+  outline: none !important;
+  outline-offset: 0 !important;
+  border: none;
 }
 /* Header tagline removed */
 /* Footer combined lockup */
