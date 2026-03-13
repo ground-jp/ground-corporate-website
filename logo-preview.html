@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>G Mark Logo Preview</title>
+<style>
+body { margin: 0; font-family: -apple-system, sans-serif; }
+.header-dark {
+  height: 64px; background: #0A0C14; display: flex; align-items: center;
+  padding: 0 40px; justify-content: space-between;
+}
+.header-light {
+  height: 64px; background: #FFFFFF; display: flex; align-items: center;
+  padding: 0 40px; justify-content: space-between; border-bottom: 1px solid #eee;
+}
+.logo { height: 26px; width: auto; display: block; }
+.ham { display: flex; flex-direction: column; gap: 6px; }
+.ham span { display: block; width: 22px; height: 1.5px; }
+.label { text-align: center; padding: 16px; font-size: 12px; color: #888; background: #1a1a1a; }
+.label2 { text-align: center; padding: 16px; font-size: 12px; color: #888; background: #f5f5f5; }
+</style>
+</head>
+<body>
+<div class="label">Dark BG Header — G Mark 26px</div>
+<div class="header-dark">
+  <img src="img/ground-logo-v2.svg" alt="GROUND" class="logo">
+  <div class="ham"><span style="background:rgba(255,255,255,0.5)"></span><span style="background:rgba(255,255,255,0.5)"></span><span style="background:rgba(255,255,255,0.5)"></span></div>
+</div>
+
+<div class="label2">Light BG Header — G Mark 26px</div>
+<div class="header-light">
+  <img src="img/ground-logo-dark.svg" alt="GROUND" class="logo">
+  <div class="ham"><span style="background:#3F4250"></span><span style="background:#3F4250"></span><span style="background:#3F4250"></span></div>
+</div>
+
+<div class="label">Dark BG Header — G Mark 30px</div>
+<div class="header-dark">
+  <img src="img/ground-logo-v2.svg" alt="GROUND" class="logo" style="height:30px">
+  <div class="ham"><span style="background:rgba(255,255,255,0.5)"></span><span style="background:rgba(255,255,255,0.5)"></span><span style="background:rgba(255,255,255,0.5)"></span></div>
+</div>
+
+<div class="label2">Light BG Header — G Mark 30px</div>
+<div class="header-light">
+  <img src="img/ground-logo-dark.svg" alt="GROUND" class="logo" style="height:30px">
+  <div class="ham"><span style="background:#3F4250"></span><span style="background:#3F4250"></span><span style="background:#3F4250"></span></div>
+</div>
+</body>
+</html>

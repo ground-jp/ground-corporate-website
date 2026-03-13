@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13100 1938">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3877 1938">
   <defs>
     <!-- P3: Dark BG — White to 20% Titanium (#E7E8EA), quadratic ease-in -->
     <linearGradient id="wt" x1="0" y1="0" x2="0" y2="1938" gradientUnits="userSpaceOnUse">
@@ -13,11 +13,4 @@
   <!-- G Mark -->
   <path fill="url(#wt)"
         d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
-  <!-- Wordmark -->
-  <text x="4469" y="1580"
-        font-family="'Liberation Sans',Arial,Helvetica,sans-serif"
-        font-weight="700" font-size="1900" letter-spacing="-20"
-        fill="url(#wt)"
-        stroke="#0a0c14" stroke-width="36" stroke-linejoin="round"
-        paint-order="fill stroke">GROUND</text>
 </svg>
