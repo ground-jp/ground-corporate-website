@@ -1805,23 +1805,27 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       var doc = frame.contentDocument || frame.contentWindow.document;
       if (!doc) return;
 
-      // GDEで個別編集済みの要素（data-de-id あり）はスキップ
-      function canApplyGlobal(el) { return el && !el.hasAttribute('data-de-id'); }
+      // ヘルパー: インラインスタイル適用 + injectStyleOverride で永続化
+      function applyAndPersist(el, prop, value) {
+        if (!el) return;
+        el.style.setProperty(prop, value, 'important');
+        injectStyleOverride(el, prop, value);
+      }
 
       // ロゴ
       var logo = doc.querySelector('.header__logo-img');
-      if (canApplyGlobal(logo)) {
-        logo.style.height = settings.logo_height + 'px';
-        logo.style.width = 'auto';
-        logo.style.position = 'relative';
-        logo.style.top = (settings.logo_margin_top || 0) + 'px';
-        logo.style.left = (settings.logo_margin_left || 0) + 'px';
+      if (logo) {
+        applyAndPersist(logo, 'height', settings.logo_height + 'px');
+        applyAndPersist(logo, 'width', 'auto');
+        if (settings.logo_margin_top) applyAndPersist(logo, 'top', settings.logo_margin_top + 'px');
+        if (settings.logo_margin_left) applyAndPersist(logo, 'left', settings.logo_margin_left + 'px');
+        if (settings.logo_margin_top || settings.logo_margin_left) applyAndPersist(logo, 'position', 'relative');
       }
       // ヘッダー
       var header = doc.querySelector('.header');
-      if (canApplyGlobal(header)) {
-        header.style.background = settings.header_bg_color;
-        header.style.height = settings.header_height + 'px';
+      if (header) {
+        applyAndPersist(header, 'background', settings.header_bg_color);
+        applyAndPersist(header, 'height', settings.header_height + 'px');
       }
       // セクション表示/非表示
       var sectionMap = { show_news: '#news', show_clients: '#clients', show_solution: '#solution', show_casestudy: '#casestudy', show_recruit: '.recruit-banner' };
@@ -1838,22 +1842,30 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       }
       // CTA
       doc.querySelectorAll('.hero__cta, .cta-btn, [class*="cta"]').forEach(function(el) {
-        if (el.tagName === 'A' || el.tagName === 'BUTTON') el.style.backgroundColor = settings.cta_color;
+        if (el.tagName === 'A' || el.tagName === 'BUTTON') {
+          applyAndPersist(el, 'background-color', settings.cta_color);
+        }
       });
       // フォントサイズ
-      doc.querySelectorAll('.section__title, h2').forEach(function(el) { el.style.fontSize = settings.heading_font_size + 'px'; });
+      doc.querySelectorAll('.section__title, h2').forEach(function(el) {
+        applyAndPersist(el, 'font-size', settings.heading_font_size + 'px');
+      });
       if (doc.body) doc.body.style.fontSize = settings.body_font_size + 'px';
-      doc.querySelectorAll('.nav__link, .nav__trigger').forEach(function(el) { el.style.fontSize = settings.nav_font_size + 'px'; });
+      doc.querySelectorAll('.nav__link, .nav__trigger').forEach(function(el) {
+        applyAndPersist(el, 'font-size', settings.nav_font_size + 'px');
+      });
       // ヒーロー
       var heroTitle = doc.querySelector('.hero__title');
-      if (heroTitle) heroTitle.style.fontSize = settings.hero_title_size + 'px';
+      if (heroTitle) applyAndPersist(heroTitle, 'font-size', settings.hero_title_size + 'px');
       var heroVignette = doc.querySelector('.hero__vignette');
-      if (heroVignette && settings.hero_overlay_opacity !== undefined) heroVignette.style.opacity = settings.hero_overlay_opacity / 100;
+      if (heroVignette && settings.hero_overlay_opacity !== undefined) {
+        applyAndPersist(heroVignette, 'opacity', String(settings.hero_overlay_opacity / 100));
+      }
       // フッター
       var footer = doc.querySelector('.footer') || doc.querySelector('footer');
       if (footer) {
-        if (settings.footer_bg_color) footer.style.backgroundColor = settings.footer_bg_color;
-        if (settings.footer_text_color) footer.style.color = settings.footer_text_color;
+        if (settings.footer_bg_color) applyAndPersist(footer, 'background-color', settings.footer_bg_color);
+        if (settings.footer_text_color) applyAndPersist(footer, 'color', settings.footer_text_color);
       }
     } catch(e) {}
   }
