@@ -132,7 +132,7 @@ button {
 }
 
 .header__logo-img {
-  height: 50px;
+  height: var(--ds-logo-height, 40px);
   width: auto;
   display: block;
 }

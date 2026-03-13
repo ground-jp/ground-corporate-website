@@ -1,7 +1,10 @@
 /**
  * デザイン設定を _data/design.yml から読み込み、サイト全体に適用
- * GDE（デザインエディタ）の「保存する」で design.yml が更新され、
- * このスクリプトが全ページにスタイルを反映する。
+ *
+ * 仕組み:
+ * 1. <head>内のインラインスクリプトがlocalStorageキャッシュからCSS変数を即座に適用（フラッシュ防止）
+ * 2. このスクリプト（defer）がdesign.ymlを非同期fetchして最新値を上書き
+ * 3. fetchした値をlocalStorageにキャッシュ（次回訪問時の即座適用用）
  */
 (function() {
   fetch('/_data/design.yml')
@@ -22,10 +25,15 @@
         s[key] = val;
       });
 
-      // ── ロゴ ──
+      // localStorageにキャッシュ（次回訪問時にインラインスクリプトが即座適用）
+      try { localStorage.setItem('ds-cache', JSON.stringify(s)); } catch(e) {}
+
+      var root = document.documentElement.style;
+
+      // ── ロゴ（CSS変数方式）──
+      if (s.logo_height) root.setProperty('--ds-logo-height', s.logo_height + 'px');
       var logo = document.querySelector('.header__logo-img');
       if (logo) {
-        if (s.logo_height) { logo.style.height = s.logo_height + 'px'; logo.style.width = 'auto'; }
         if (s.logo_margin_top) { logo.style.position = 'relative'; logo.style.top = s.logo_margin_top + 'px'; }
         if (s.logo_margin_left) { logo.style.position = 'relative'; logo.style.left = s.logo_margin_left + 'px'; }
       }
@@ -38,10 +46,9 @@
       }
 
       // ── カラー (CSSカスタムプロパティ) ──
-      var root = document.documentElement;
-      if (s.primary_color) root.style.setProperty('--accent', s.primary_color);
-      if (s.accent_color) root.style.setProperty('--frost-ice-blue', s.accent_color);
-      if (s.text_color) root.style.setProperty('--black', s.text_color);
+      if (s.primary_color) root.setProperty('--accent', s.primary_color);
+      if (s.accent_color) root.setProperty('--frost-ice-blue', s.accent_color);
+      if (s.text_color) root.setProperty('--black', s.text_color);
 
       // ── CTAボタン ──
       if (s.cta_color) {
