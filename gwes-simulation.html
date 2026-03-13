@@ -934,6 +934,7 @@
     .rpt-download__btn svg {
       width: 16px; height: 16px;
     }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
     .rpt-footer-note {
       text-align: center;
@@ -1737,6 +1738,35 @@
     var SUPABASE_URL = 'https://wmfxyimxqnjwdzumolua.supabase.co';
     var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtZnh5aW14cW5qd2R6dW1vbHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMjIyODgsImV4cCI6MjA4Nzg5ODI4OH0.EAn5MjGiGg9dpwN_y4QbjWJVCPxXIkWDuSswnG2YOvU';
 
+    // ── Load Scoring Weights from Supabase ──
+    var MODULE_WEIGHTS = {};
+    var GPIM_THRESHOLDS = null;
+    (function loadWeights() {
+      try {
+        fetch(SUPABASE_URL + '/rest/v1/scoring_params?select=module_key,weight', {
+          headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY }
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(rows) {
+          if (Array.isArray(rows)) {
+            rows.forEach(function(r) { MODULE_WEIGHTS[r.module_key] = parseFloat(r.weight); });
+          }
+        })
+        .catch(function() {});
+
+        fetch(SUPABASE_URL + '/rest/v1/gpim_thresholds?select=level,min_score&order=level', {
+          headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY }
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(rows) {
+          if (Array.isArray(rows) && rows.length > 0) {
+            GPIM_THRESHOLDS = rows;
+          }
+        })
+        .catch(function() {});
+      } catch(e) {}
+    })();
+
     // ── Supabase Lead Tracking Helpers ──
     function trackCTAClick(ctaType) {
       if (!window.__supabaseLeadId) return;
@@ -1981,16 +2011,21 @@
           return;
         }
 
-        // Helper: calculate average excluding N/A (value=0)
+        // Helper: calculate weighted average excluding N/A (value=0)
+        // Applies MODULE_WEIGHTS from admin settings (defaults to 1.0)
         function avgExcludeNA(keys) {
           var sum = 0, count = 0;
           for (var i = 0; i < keys.length; i++) {
-            if (scores[keys[i]] > 0) { sum += scores[keys[i]]; count++; }
+            if (scores[keys[i]] > 0) {
+              var w = (MODULE_WEIGHTS[keys[i]] !== undefined) ? MODULE_WEIGHTS[keys[i]] : 1.0;
+              sum += scores[keys[i]] * w;
+              count++;
+            }
           }
           return count > 0 ? sum / count : 0;
         }
 
-        // Calculate 6 dimension scores
+        // Calculate 6 dimension scores (with admin-set weights applied)
         var dimScores = DIMENSIONS.map(function(d) {
           return { dim: d, score: avgExcludeNA(d.moduleKeys), naCount: d.moduleKeys.filter(function(k) { return scores[k] === 0; }).length };
         });
@@ -1998,13 +2033,24 @@
         var allKeys = MODULES.map(function(m) { return m.key; });
         var totalAvg = avgExcludeNA(allKeys);
 
-        // GPIM Level
+        // GPIM Level (uses admin-set thresholds if available)
         var gpimLevel;
-        if (totalAvg < 1.4) gpimLevel = 1;
-        else if (totalAvg < 1.8) gpimLevel = 2;
-        else if (totalAvg < 2.3) gpimLevel = 3;
-        else if (totalAvg < 2.7) gpimLevel = 4;
-        else gpimLevel = 5;
+        if (GPIM_THRESHOLDS && GPIM_THRESHOLDS.length >= 5) {
+          gpimLevel = 1;
+          for (var ti = GPIM_THRESHOLDS.length - 1; ti >= 0; ti--) {
+            if (totalAvg >= parseFloat(GPIM_THRESHOLDS[ti].min_score)) {
+              gpimLevel = GPIM_THRESHOLDS[ti].level;
+              break;
+            }
+          }
+        } else {
+          // Fallback defaults
+          if (totalAvg < 1.4) gpimLevel = 1;
+          else if (totalAvg < 1.8) gpimLevel = 2;
+          else if (totalAvg < 2.3) gpimLevel = 3;
+          else if (totalAvg < 2.7) gpimLevel = 4;
+          else gpimLevel = 5;
+        }
         var levelInfo = GPIM_LEVELS[gpimLevel - 1];
 
         // Hide form, show results
@@ -2283,66 +2329,75 @@
       var btn = document.querySelector('.rpt-download__btn');
       if (!btn) return;
       var origHTML = btn.innerHTML;
-      btn.textContent = 'PDF生成中...';
+      btn.innerHTML = '<svg style="width:16px;height:16px;animation:spin 1s linear infinite" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> PDF生成中...';
       btn.disabled = true;
+      btn.style.pointerEvents = 'none';
 
-      function resetBtn() { btn.innerHTML = origHTML; btn.disabled = false; }
+      function resetBtn() { btn.innerHTML = origHTML; btn.disabled = false; btn.style.pointerEvents = ''; }
 
       if (typeof html2canvas === 'undefined' || typeof jspdf === 'undefined') {
-        window.print(); resetBtn(); return;
+        alert('PDF生成ライブラリの読み込みに失敗しました。ページを再読み込みしてお試しください。');
+        resetBtn();
+        return;
       }
 
-      var companyName = (document.getElementById('rptCompany').textContent || '').replace(' 様', '').trim();
+      var companyName = (document.getElementById('rptCompany').textContent || '').replace(' 様', '').trim() || '企業';
       var dateStr = (document.getElementById('rptDate').textContent || '').trim();
       var lvlNumEl = document.querySelector('.rpt-level__num');
       var lvlNum = lvlNumEl ? lvlNumEl.textContent.trim() : '-';
       var lvlNameEl = document.querySelector('.rpt-level__name');
       var lvlName = lvlNameEl ? lvlNameEl.textContent.trim() : '';
+      var lvlDescEl = document.querySelector('.rpt-level__desc');
+      var lvlDesc = lvlDescEl ? lvlDescEl.textContent.trim() : '';
 
       // A4 mm dimensions
-      var PW = 210, PH = 297, ML = 14, MR = 14, MT = 20, MB = 16;
+      var PW = 210, PH = 297, ML = 15, MR = 15, MT = 22, MB = 18;
       var CW = PW - ML - MR;
       var maxContentH = PH - MT - MB;
 
       var levelClr = {'1':'#6B7280','2':'#3B82F6','3':'#1D4ED8','4':'#059669','5':'#047857'};
       var lc = levelClr[lvlNum] || '#3B82F6';
 
+      var CAP_SCALE = 2;
+
       // ── Helpers ──
       function capEl(el, sc) {
-        return html2canvas(el, { scale: sc || 2.5, useCORS: true, backgroundColor: '#FFFFFF', logging: false });
+        return html2canvas(el, {
+          scale: sc || CAP_SCALE,
+          useCORS: true,
+          backgroundColor: '#FFFFFF',
+          logging: false,
+          allowTaint: true,
+          removeContainer: true
+        });
       }
       function cropCanvas(src, sx, sy, sw, sh) {
-        var c = document.createElement('canvas'); c.width = sw; c.height = sh;
-        c.getContext('2d').drawImage(src, sx, sy, sw, sh, 0, 0, sw, sh);
+        var c = document.createElement('canvas');
+        c.width = sw; c.height = sh;
+        var ctx = c.getContext('2d');
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, sw, sh);
+        ctx.drawImage(src, sx, sy, sw, sh, 0, 0, sw, sh);
         return c;
       }
 
-      // ── Build Cover Page ──
+      // ── Build Cover Page (offscreen) ──
       function buildCover() {
         var d = document.createElement('div');
-        d.style.cssText = 'position:fixed;left:-9999px;top:0;width:794px;height:1123px;background:#fff;font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN",sans-serif;box-sizing:border-box;overflow:hidden;';
+        d.style.cssText = 'position:absolute;left:-9999px;top:0;width:794px;height:1123px;background:#fff;font-family:Inter,"Noto Sans JP","Hiragino Kaku Gothic ProN",sans-serif;box-sizing:border-box;overflow:hidden;';
         d.innerHTML = ''
-          // Top accent bar
           + '<div style="position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#2563EB 0%,#1E40AF 50%,#0F172A 100%);"></div>'
-          // Content wrapper
           + '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:80px 80px 60px;">'
-          // Logo text
-          + '<div style="font-family:\'Inter\',sans-serif;font-size:18px;font-weight:700;letter-spacing:0.12em;color:#94A3B8;margin-bottom:64px;">GROUND</div>'
-          // Subtitle
-          + '<div style="font-family:\'JetBrains Mono\',monospace;font-size:10px;letter-spacing:0.3em;color:#2563EB;text-transform:uppercase;margin-bottom:20px;">Powered by GWES</div>'
-          // Main title
+          + '<div style="font-size:18px;font-weight:700;letter-spacing:0.12em;color:#94A3B8;margin-bottom:64px;">GROUND</div>'
+          + '<div style="font-size:10px;letter-spacing:0.3em;color:#2563EB;text-transform:uppercase;margin-bottom:20px;">Powered by GWES</div>'
           + '<div style="font-size:34px;font-weight:800;color:#0F172A;letter-spacing:-0.02em;line-height:1.4;text-align:center;margin-bottom:10px;">物流施設DX診断レポート</div>'
-          // English sub
-          + '<div style="font-family:\'JetBrains Mono\',monospace;font-size:10px;letter-spacing:0.15em;color:#94A3B8;text-transform:uppercase;margin-bottom:56px;">Logistics Facility DX Assessment Report</div>'
-          // Divider
+          + '<div style="font-size:10px;letter-spacing:0.15em;color:#94A3B8;text-transform:uppercase;margin-bottom:56px;">Logistics Facility DX Assessment Report</div>'
           + '<div style="width:48px;height:2px;background:#2563EB;margin-bottom:56px;"></div>'
-          // Company + Date
           + '<div style="font-size:22px;font-weight:700;color:#1E293B;margin-bottom:8px;text-align:center;">' + companyName + ' 様</div>'
-          + '<div style="font-family:\'JetBrains Mono\',monospace;font-size:12px;color:#94A3B8;letter-spacing:0.1em;margin-bottom:48px;">' + dateStr + '</div>'
-          // GPIM Level badge
+          + '<div style="font-size:12px;color:#94A3B8;letter-spacing:0.1em;margin-bottom:48px;">' + dateStr + '</div>'
           + '<div style="display:inline-flex;align-items:center;gap:20px;padding:20px 36px;border:1px solid #E2E8F0;border-radius:12px;background:#F8FAFC;">'
           + '<div style="width:56px;height:56px;border-radius:50%;background:' + lc + ';display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;">'
-          + '<div style="font-size:8px;color:rgba(255,255,255,0.85);font-family:\'JetBrains Mono\',monospace;letter-spacing:0.12em;text-transform:uppercase;">Level</div>'
+          + '<div style="font-size:8px;color:rgba(255,255,255,0.85);letter-spacing:0.12em;text-transform:uppercase;">Level</div>'
           + '<div style="font-size:22px;font-weight:800;color:#fff;line-height:1;">' + lvlNum + '</div>'
           + '</div>'
           + '<div style="text-align:left;">'
@@ -2351,153 +2406,199 @@
           + '</div>'
           + '</div>'
           + '</div>'
-          // Confidential
           + '<div style="position:absolute;bottom:56px;left:0;right:0;text-align:center;">'
-          + '<div style="font-family:\'JetBrains Mono\',monospace;font-size:9px;letter-spacing:0.25em;color:#CBD5E1;text-transform:uppercase;margin-bottom:14px;">Confidential</div>'
+          + '<div style="font-size:9px;letter-spacing:0.25em;color:#CBD5E1;text-transform:uppercase;margin-bottom:14px;">Confidential</div>'
           + '<div style="font-size:10px;color:#94A3B8;">GROUND Inc. — groundinc.co.jp</div>'
           + '</div>'
-          // Bottom accent
           + '<div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#2563EB 0%,#1E40AF 50%,#0F172A 100%);"></div>';
         return d;
       }
 
-      // ── Main Generation ──
+      // ── Prepare report for capture ──
       var reportEl = document.getElementById('reportContent');
 
-      // Hide elements not needed in PDF
-      var hideSelectors = ['.rpt-download', '.rpt-cta', '.rpt-footer-note', '.rpt-header', '.rpt-level'];
-      hideSelectors.forEach(function(s) {
-        var e = reportEl.querySelector(s);
-        if (e) e.setAttribute('data-pdf-hidden', e.style.display || '');
-        if (e) e.style.display = 'none';
-      });
+      // 1) Force ALL sim-fade elements to be visible (IntersectionObserver may not have triggered)
+      var fadeEls = reportEl.querySelectorAll('.sim-fade');
+      fadeEls.forEach(function(el) { el.classList.add('is-visible'); });
 
-      function restoreHidden() {
-        hideSelectors.forEach(function(s) {
-          var e = reportEl.querySelector(s);
-          if (e) { e.style.display = e.getAttribute('data-pdf-hidden') || ''; e.removeAttribute('data-pdf-hidden'); }
-        });
+      // 2) Convert Chart.js canvas to static image for reliable capture
+      var chartCanvas = document.getElementById('resultChart');
+      var chartImg = null;
+      var chartParent = null;
+      if (chartCanvas && chartCanvas.width > 0) {
+        try {
+          chartImg = document.createElement('img');
+          chartImg.src = chartCanvas.toDataURL('image/png');
+          chartImg.style.cssText = chartCanvas.style.cssText;
+          chartImg.style.display = 'block';
+          chartImg.style.margin = '0 auto';
+          chartImg.width = chartCanvas.width / (window.devicePixelRatio || 1);
+          chartImg.height = chartCanvas.height / (window.devicePixelRatio || 1);
+          chartParent = chartCanvas.parentNode;
+          chartParent.replaceChild(chartImg, chartCanvas);
+        } catch(e) { chartImg = null; }
       }
 
-      // Collect page-break candidate positions (CSS pixel offsets from reportEl top)
+      // 3) Hide elements not needed in PDF (CTA, footer notes, download btn)
+      //    Keep rpt-header and rpt-level visible — they're part of the report content
+      var hideSelectors = ['.rpt-download', '.rpt-cta', '.rpt-footer-note'];
+      hideSelectors.forEach(function(s) {
+        var e = reportEl.querySelector(s);
+        if (e) {
+          e.setAttribute('data-pdf-hidden', e.style.display || '');
+          e.style.display = 'none';
+        }
+      });
+
+      function restoreAll() {
+        // Restore hidden elements
+        hideSelectors.forEach(function(s) {
+          var e = reportEl.querySelector(s);
+          if (e) {
+            e.style.display = e.getAttribute('data-pdf-hidden') || '';
+            e.removeAttribute('data-pdf-hidden');
+          }
+        });
+        // Restore Chart.js canvas
+        if (chartImg && chartParent && chartCanvas) {
+          try { chartParent.replaceChild(chartCanvas, chartImg); } catch(e) {}
+        }
+      }
+
+      // 4) Collect break candidate positions (CSS px offsets from reportEl top)
       var rptRect = reportEl.getBoundingClientRect();
       var rptScrollTop = rptRect.top + window.scrollY;
       var breakCandidates = [];
 
-      // Section-level breaks
-      reportEl.querySelectorAll('.rpt-summary, .rpt-scores, .rpt-section').forEach(function(el) {
-        breakCandidates.push(el.getBoundingClientRect().top + window.scrollY - rptScrollTop);
-      });
-      // Analysis card breaks (finer granularity)
-      reportEl.querySelectorAll('.rpt-analysis').forEach(function(el) {
-        breakCandidates.push(el.getBoundingClientRect().top + window.scrollY - rptScrollTop);
-      });
-      // Roadmap step breaks
-      reportEl.querySelectorAll('.rpt-roadmap').forEach(function(el) {
-        breakCandidates.push(el.getBoundingClientRect().top + window.scrollY - rptScrollTop);
+      reportEl.querySelectorAll('.rpt-header, .rpt-level, .rpt-summary, .rpt-scores, .rpt-section, .rpt-analysis, .rpt-roadmap, .rpt-roadmap__step').forEach(function(el) {
+        var pos = el.getBoundingClientRect().top + window.scrollY - rptScrollTop;
+        if (pos > 0) breakCandidates.push(pos);
       });
       breakCandidates.sort(function(a, b) { return a - b; });
-      // Remove duplicates
-      breakCandidates = breakCandidates.filter(function(v, i, arr) { return i === 0 || v !== arr[i - 1]; });
+      breakCandidates = breakCandidates.filter(function(v, i, arr) { return i === 0 || Math.abs(v - arr[i - 1]) > 5; });
 
-      // Build cover page
+      // 5) Build cover page
       var coverDiv = buildCover();
       document.body.appendChild(coverDiv);
 
-      capEl(coverDiv, 2).then(function(coverCanvas) {
-        document.body.removeChild(coverDiv);
+      // Small delay to let fonts render in the offscreen cover
+      setTimeout(function() {
+        capEl(coverDiv, 2).then(function(coverCanvas) {
+          document.body.removeChild(coverDiv);
 
-        // Capture report content (without hidden elements)
-        return capEl(reportEl, 2.5).then(function(rptCanvas) {
-          restoreHidden();
+          // Capture main report content
+          return capEl(reportEl, CAP_SCALE).then(function(rptCanvas) {
+            restoreAll();
 
-          var pdf = new jspdf.jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
-          var capScale = 2.5;
+            try {
+              var pdf = new jspdf.jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
 
-          // ── Page 1: Cover ──
-          pdf.addImage(coverCanvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, PW, PH);
+              // ── Page 1: Cover ──
+              var coverImg = coverCanvas.toDataURL('image/jpeg', 0.95);
+              pdf.addImage(coverImg, 'JPEG', 0, 0, PW, PH);
 
-          // ── Calculate page slices with smart breaks ──
-          var canvasW = rptCanvas.width;
-          var canvasH = rptCanvas.height;
-          var mmPerPx = CW / canvasW;
-          var pageHPx = maxContentH / mmPerPx; // page height in canvas pixels
-
-          var slices = [];
-          var sliceStart = 0;
-
-          while (sliceStart < canvasH) {
-            var idealEnd = sliceStart + pageHPx;
-            if (idealEnd >= canvasH - 10) {
-              slices.push({ s: Math.round(sliceStart), e: canvasH });
-              break;
-            }
-            // Find best break point near idealEnd
-            var bestBreak = idealEnd;
-            var bestDist = Infinity;
-            for (var bi = 0; bi < breakCandidates.length; bi++) {
-              var bpPx = breakCandidates[bi] * capScale;
-              // Look for break points in the last 30% of the page (avoid breaking too early)
-              if (bpPx > sliceStart + pageHPx * 0.4 && bpPx <= idealEnd + pageHPx * 0.08) {
-                var dist = Math.abs(bpPx - idealEnd);
-                if (dist < bestDist) { bestDist = dist; bestBreak = bpPx; }
+              // ── Calculate page slices with smart breaks ──
+              var canvasW = rptCanvas.width;
+              var canvasH = rptCanvas.height;
+              if (canvasW <= 0 || canvasH <= 0) {
+                throw new Error('Report canvas is empty');
               }
+              var mmPerPx = CW / canvasW;
+              var pageHPx = maxContentH / mmPerPx;
+
+              var slices = [];
+              var sliceStart = 0;
+              var maxPages = 20; // safety limit
+
+              while (sliceStart < canvasH && slices.length < maxPages) {
+                var idealEnd = sliceStart + pageHPx;
+
+                // If remaining content fits, take it all
+                if (idealEnd >= canvasH - 20) {
+                  slices.push({ s: Math.round(sliceStart), e: canvasH });
+                  break;
+                }
+
+                // Find best break point near idealEnd
+                var bestBreak = idealEnd;
+                var bestDist = Infinity;
+                var searchStart = sliceStart + pageHPx * 0.55;
+                var searchEnd = idealEnd + pageHPx * 0.1;
+
+                for (var bi = 0; bi < breakCandidates.length; bi++) {
+                  var bpPx = breakCandidates[bi] * CAP_SCALE;
+                  if (bpPx > searchStart && bpPx <= searchEnd) {
+                    var dist = Math.abs(bpPx - idealEnd);
+                    if (dist < bestDist) {
+                      bestDist = dist;
+                      bestBreak = bpPx;
+                    }
+                  }
+                }
+
+                slices.push({ s: Math.round(sliceStart), e: Math.round(bestBreak) });
+                sliceStart = Math.round(bestBreak);
+              }
+
+              var totalPgs = slices.length + 1;
+
+              // ── Render content pages ──
+              slices.forEach(function(slice, i) {
+                pdf.addPage();
+
+                // ── Page Header ──
+                pdf.setDrawColor(37, 99, 235);
+                pdf.setLineWidth(0.6);
+                pdf.line(ML, MT - 7, ML + 28, MT - 7);
+                pdf.setDrawColor(228, 228, 228);
+                pdf.setLineWidth(0.15);
+                pdf.line(ML + 28, MT - 7, PW - MR, MT - 7);
+                pdf.setFontSize(6.5);
+                pdf.setTextColor(155, 155, 155);
+                pdf.text('Logistics Facility DX Assessment Report', ML, MT - 10);
+                pdf.setFontSize(6);
+                pdf.setTextColor(185, 185, 185);
+                pdf.text('GROUND Inc.', PW - MR, MT - 10, { align: 'right' });
+
+                // ── Page Footer ──
+                var fy = PH - MB + 6;
+                pdf.setDrawColor(232, 232, 232);
+                pdf.setLineWidth(0.15);
+                pdf.line(ML, fy, PW - MR, fy);
+                pdf.setFontSize(6);
+                pdf.setTextColor(175, 175, 175);
+                pdf.text('Confidential  |  ' + companyName, ML, fy + 4);
+                pdf.text(dateStr, (PW / 2), fy + 4, { align: 'center' });
+                pdf.text((i + 2) + ' / ' + totalPgs, PW - MR, fy + 4, { align: 'right' });
+
+                // ── Content ──
+                var sliceH = slice.e - slice.s;
+                if (sliceH <= 0) return;
+                var cropped = cropCanvas(rptCanvas, 0, slice.s, canvasW, sliceH);
+                var imgH_mm = sliceH * mmPerPx;
+                pdf.addImage(cropped.toDataURL('image/jpeg', 0.92), 'JPEG', ML, MT, CW, imgH_mm);
+              });
+
+              var fileName = '物流施設DX診断レポート_' + companyName + '.pdf';
+              pdf.save(fileName);
+              resetBtn();
+            } catch(pdfErr) {
+              console.error('PDF build error:', pdfErr);
+              restoreAll();
+              alert('PDF生成中にエラーが発生しました。ブラウザの印刷機能をご利用ください。');
+              window.print();
+              resetBtn();
             }
-            slices.push({ s: Math.round(sliceStart), e: Math.round(bestBreak) });
-            sliceStart = Math.round(bestBreak);
-          }
-
-          var totalPgs = slices.length + 1;
-
-          // ── Render content pages ──
-          slices.forEach(function(slice, i) {
-            pdf.addPage();
-
-            // ── Page Header ──
-            // Accent line
-            pdf.setDrawColor(37, 99, 235);
-            pdf.setLineWidth(0.5);
-            pdf.line(ML, MT - 6, ML + 24, MT - 6);
-            // Thin gray line
-            pdf.setDrawColor(230, 230, 230);
-            pdf.setLineWidth(0.15);
-            pdf.line(ML + 24, MT - 6, PW - MR, MT - 6);
-            // Header text
-            pdf.setFontSize(6.5);
-            pdf.setTextColor(160, 160, 160);
-            pdf.text('Logistics Facility DX Assessment Report', ML, MT - 9);
-            pdf.setFontSize(6);
-            pdf.setTextColor(190, 190, 190);
-            pdf.text('GROUND Inc.', PW - MR, MT - 9, { align: 'right' });
-
-            // ── Page Footer ──
-            var fy = PH - MB + 5;
-            pdf.setDrawColor(235, 235, 235);
-            pdf.setLineWidth(0.15);
-            pdf.line(ML, fy, PW - MR, fy);
-            pdf.setFontSize(6);
-            pdf.setTextColor(180, 180, 180);
-            pdf.text('Confidential  |  ' + companyName, ML, fy + 4);
-            pdf.text(dateStr, (PW / 2), fy + 4, { align: 'center' });
-            pdf.text((i + 2) + ' / ' + totalPgs, PW - MR, fy + 4, { align: 'right' });
-
-            // ── Content ──
-            var sliceH = slice.e - slice.s;
-            if (sliceH <= 0) return;
-            var cropped = cropCanvas(rptCanvas, 0, slice.s, canvasW, sliceH);
-            var imgH_mm = sliceH * mmPerPx;
-            pdf.addImage(cropped.toDataURL('image/jpeg', 0.92), 'JPEG', ML, MT, CW, imgH_mm);
           });
-
-          pdf.save('物流施設DX診断レポート_' + companyName + '.pdf');
+        }).catch(function(err) {
+          console.error('PDF capture error:', err);
+          document.body.contains(coverDiv) && document.body.removeChild(coverDiv);
+          restoreAll();
+          alert('PDF生成中にエラーが発生しました。ブラウザの印刷機能をご利用ください。');
+          window.print();
           resetBtn();
         });
-      }).catch(function(err) {
-        console.error('PDF generation error:', err);
-        restoreHidden();
-        window.print();
-        resetBtn();
-      });
+      }, 200);
     }
   </script>
 

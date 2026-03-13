@@ -37,6 +37,49 @@ body { font-family:'Inter','Noto Sans JP',sans-serif; background:#0f1117; color:
 .sidebar-bottom button { background:none; border:none; color:rgba(255,255,255,0.4); font-size:0.8rem; cursor:pointer; }
 .sidebar-bottom button:hover { color:#f87171; }
 .main { margin-left:240px; flex:1; padding:24px 32px; }
+.page-section { display:none; }
+.page-section.active { display:block; }
+
+/* ── Scoring Params ── */
+.params-section { max-width:960px; }
+.params-card { background:#1a1d2e; border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:24px; margin-bottom:20px; }
+.params-card h3 { font-size:0.95rem; font-weight:600; color:#fff; margin-bottom:4px; }
+.params-card .card-desc { font-size:0.8rem; color:rgba(255,255,255,0.45); margin-bottom:16px; }
+.params-table { width:100%; border-collapse:collapse; }
+.params-table th { text-align:left; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; color:rgba(255,255,255,0.4); padding:8px 12px; border-bottom:1px solid rgba(255,255,255,0.06); }
+.params-table td { padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.04); font-size:0.85rem; vertical-align:middle; }
+.params-table tr:hover td { background:rgba(255,255,255,0.02); }
+.params-table .mod-key { font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#60a5fa; background:rgba(59,130,246,0.1); padding:2px 8px; border-radius:4px; }
+.params-table .mod-name { color:#fff; font-weight:500; }
+.params-table .mod-desc { font-size:0.75rem; color:rgba(255,255,255,0.4); margin-top:2px; }
+.weight-input { width:72px; padding:6px 10px; background:#0f1117; border:1px solid rgba(255,255,255,0.12); border-radius:6px; color:#fff; font-size:0.85rem; text-align:center; font-family:'JetBrains Mono',monospace; }
+.weight-input:focus { border-color:#3b82f6; outline:none; }
+.weight-slider { width:100px; height:4px; accent-color:#3b82f6; vertical-align:middle; margin-right:8px; }
+.weight-low { color:#f87171; }
+.weight-normal { color:#22c55e; }
+.weight-high { color:#60a5fa; }
+.threshold-row { display:flex; align-items:center; gap:12px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.04); }
+.threshold-row:last-child { border-bottom:none; }
+.threshold-level { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9rem; color:#fff; flex-shrink:0; }
+.threshold-level--1 { background:#6B7280; }
+.threshold-level--2 { background:#3B82F6; }
+.threshold-level--3 { background:#1D4ED8; }
+.threshold-level--4 { background:#059669; }
+.threshold-level--5 { background:#047857; }
+.threshold-name { color:#fff; font-weight:500; font-size:0.85rem; min-width:80px; }
+.threshold-input { width:64px; padding:5px 8px; background:#0f1117; border:1px solid rgba(255,255,255,0.12); border-radius:6px; color:#fff; font-size:0.85rem; text-align:center; font-family:'JetBrains Mono',monospace; }
+.threshold-input:focus { border-color:#3b82f6; outline:none; }
+.params-save-bar { display:flex; align-items:center; gap:12px; padding:16px 0; }
+.params-save-btn { padding:10px 28px; background:#3b82f6; color:#fff; border:none; border-radius:8px; font-size:0.85rem; font-weight:600; cursor:pointer; transition:background 0.2s; }
+.params-save-btn:hover { background:#2563eb; }
+.params-save-btn:disabled { opacity:0.5; cursor:not-allowed; }
+.params-save-msg { font-size:0.8rem; color:#22c55e; }
+.params-reset-btn { padding:8px 16px; background:transparent; border:1px solid rgba(255,255,255,0.12); border-radius:8px; color:rgba(255,255,255,0.6); font-size:0.8rem; cursor:pointer; }
+.params-reset-btn:hover { border-color:#f87171; color:#f87171; }
+.layer-tag { font-size:0.65rem; padding:2px 6px; border-radius:3px; display:inline-block; margin-left:6px; }
+.layer-tag--infra { background:rgba(107,114,128,0.15); color:#9CA3AF; }
+.layer-tag--l2 { background:rgba(59,130,246,0.1); color:#60A5FA; }
+.layer-tag--l4 { background:rgba(29,78,216,0.1); color:#818CF8; }
 
 /* ── Stats ── */
 .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:28px; }
@@ -146,9 +189,13 @@ tbody tr:hover { background:rgba(59,130,246,0.05); }
       リード管理
     </div>
     <nav class="sidebar-nav">
-      <a href="#" class="active">
+      <a href="#" class="active" data-page="leads">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
         リード一覧
+      </a>
+      <a href="#" data-page="scoring">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+        スコア設定
       </a>
       <a href="../index.html" target="_blank">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -162,68 +209,116 @@ tbody tr:hover { background:rgba(59,130,246,0.05); }
 
   <!-- Main Content -->
   <div class="main">
-    <h1 style="font-size:1.5rem;font-weight:700;margin-bottom:24px;">リード管理</h1>
 
-    <!-- Stats -->
-    <div class="stats-row" id="statsRow">
-      <div class="stat-card"><div class="label">総リード数</div><div class="value" id="statTotal">-</div></div>
-      <div class="stat-card"><div class="label">新規（未対応）</div><div class="value" id="statNew">-</div><div class="sub">要対応</div></div>
-      <div class="stat-card"><div class="label">DX診断経由</div><div class="value" id="statDx">-</div></div>
-      <div class="stat-card"><div class="label">今月</div><div class="value" id="statMonth">-</div></div>
-    </div>
+    <!-- ── Page: Leads ── -->
+    <div class="page-section active" id="pageLeads">
+      <h1 style="font-size:1.5rem;font-weight:700;margin-bottom:24px;">リード管理</h1>
 
-    <!-- Toolbar -->
-    <div class="toolbar">
-      <div class="toolbar-search">
-        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        <input type="text" id="searchInput" placeholder="会社名・名前・メールで検索...">
+      <!-- Stats -->
+      <div class="stats-row" id="statsRow">
+        <div class="stat-card"><div class="label">総リード数</div><div class="value" id="statTotal">-</div></div>
+        <div class="stat-card"><div class="label">新規（未対応）</div><div class="value" id="statNew">-</div><div class="sub">要対応</div></div>
+        <div class="stat-card"><div class="label">DX診断経由</div><div class="value" id="statDx">-</div></div>
+        <div class="stat-card"><div class="label">今月</div><div class="value" id="statMonth">-</div></div>
       </div>
-      <select id="filterSource">
-        <option value="">全ソース</option>
-        <option value="contact">お問い合わせ</option>
-        <option value="dx_diagnosis">DX診断</option>
-        <option value="dx_diagnosis_consult">DX診断→相談</option>
-        <option value="dx_diagnosis_document">DX診断→資料請求</option>
-      </select>
-      <select id="filterStatus">
-        <option value="">全ステータス</option>
-        <option value="new">新規</option>
-        <option value="contacted">対応中</option>
-        <option value="negotiating">商談中</option>
-        <option value="converted">成約</option>
-        <option value="lost">失注</option>
-      </select>
-      <button class="refresh-btn" id="refreshBtn">
-        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
-        更新
-      </button>
-    </div>
 
-    <!-- Table -->
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>日時</th>
-            <th>会社名</th>
-            <th>担当者</th>
-            <th>ソース</th>
-            <th>ステータス</th>
-            <th>GPIM</th>
-          </tr>
-        </thead>
-        <tbody id="leadsBody">
-          <tr><td colspan="6" class="empty-state">読み込み中...</td></tr>
-        </tbody>
-      </table>
-      <div class="pagination">
-        <span id="pageInfo">-</span>
-        <div style="display:flex;gap:8px;">
-          <button id="prevPage" disabled>← 前へ</button>
-          <button id="nextPage" disabled>次へ →</button>
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <div class="toolbar-search">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input type="text" id="searchInput" placeholder="会社名・名前・メールで検索...">
+        </div>
+        <select id="filterSource">
+          <option value="">全ソース</option>
+          <option value="contact">お問い合わせ</option>
+          <option value="dx_diagnosis">DX診断</option>
+          <option value="dx_diagnosis_consult">DX診断→相談</option>
+          <option value="dx_diagnosis_document">DX診断→資料請求</option>
+        </select>
+        <select id="filterStatus">
+          <option value="">全ステータス</option>
+          <option value="new">新規</option>
+          <option value="contacted">対応中</option>
+          <option value="negotiating">商談中</option>
+          <option value="converted">成約</option>
+          <option value="lost">失注</option>
+        </select>
+        <button class="refresh-btn" id="refreshBtn">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+          更新
+        </button>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>日時</th>
+              <th>会社名</th>
+              <th>担当者</th>
+              <th>ソース</th>
+              <th>ステータス</th>
+              <th>GPIM</th>
+            </tr>
+          </thead>
+          <tbody id="leadsBody">
+            <tr><td colspan="6" class="empty-state">読み込み中...</td></tr>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <span id="pageInfo">-</span>
+          <div style="display:flex;gap:8px;">
+            <button id="prevPage" disabled>← 前へ</button>
+            <button id="nextPage" disabled>次へ →</button>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- ── Page: Scoring Params ── -->
+    <div class="page-section" id="pageScoring">
+      <h1 style="font-size:1.5rem;font-weight:700;margin-bottom:8px;">スコアリング設定</h1>
+      <p style="font-size:0.85rem;color:rgba(255,255,255,0.45);margin-bottom:28px;">DX診断の各モジュールの重み係数とGPIMレベル閾値を調整できます。重みを下げると、そのモジュールのスコアが相対的に低く表示され、導入提案の根拠となります。</p>
+
+      <div class="params-section">
+        <!-- Module Weights -->
+        <div class="params-card">
+          <h3>モジュール別 重み係数</h3>
+          <div class="card-desc">重み 1.00 = 標準 / 0.75以下 = スコアが低く出る（改善提案につなげやすい）/ 1.25以上 = スコアが高く出る</div>
+          <table class="params-table">
+            <thead>
+              <tr>
+                <th style="width:60px;">Key</th>
+                <th>モジュール名</th>
+                <th style="width:60px;">レイヤー</th>
+                <th style="width:220px;">重み</th>
+              </tr>
+            </thead>
+            <tbody id="moduleWeightsBody">
+              <tr><td colspan="4" style="text-align:center;color:rgba(255,255,255,0.3);padding:32px;">読み込み中...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- GPIM Thresholds -->
+        <div class="params-card">
+          <h3>GPIMレベル閾値</h3>
+          <div class="card-desc">総合スコアがこの値以上のとき、そのレベルに分類されます。Level 1 の最小値は常に 0 です。</div>
+          <div id="thresholdsBody">
+            <div style="text-align:center;color:rgba(255,255,255,0.3);padding:24px;">読み込み中...</div>
+          </div>
+        </div>
+
+        <!-- Save Bar -->
+        <div class="params-save-bar">
+          <button class="params-save-btn" id="paramsSaveBtn">変更を保存</button>
+          <button class="params-reset-btn" id="paramsResetBtn">デフォルトに戻す</button>
+          <span class="params-save-msg" id="paramsSaveMsg"></span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -569,6 +664,189 @@ tbody tr:hover { background:rgba(59,130,246,0.05); }
   filterStatus.addEventListener('change', function() { currentPage = 0; loadLeads(); });
   prevPage.addEventListener('click', function() { if (currentPage > 0) { currentPage--; loadLeads(); } });
   nextPage.addEventListener('click', function() { currentPage++; loadLeads(); });
+
+  // ── Page Navigation ──
+  var sidebarLinks = document.querySelectorAll('.sidebar-nav a[data-page]');
+  sidebarLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var page = this.dataset.page;
+      sidebarLinks.forEach(function(l) { l.classList.remove('active'); });
+      this.classList.add('active');
+      document.querySelectorAll('.page-section').forEach(function(s) { s.classList.remove('active'); });
+      if (page === 'leads') {
+        document.getElementById('pageLeads').classList.add('active');
+      } else if (page === 'scoring') {
+        document.getElementById('pageScoring').classList.add('active');
+        loadScoringParams();
+      }
+    });
+  });
+
+  // ── Scoring Params ──
+  var scoringModules = [];
+  var scoringThresholds = [];
+  var scoringLoaded = false;
+
+  function loadScoringParams() {
+    if (scoringLoaded) return;
+    rpc('admin_get_scoring_params', { token: sessionToken })
+    .then(function(data) {
+      if (!data || !data.ok) {
+        document.getElementById('moduleWeightsBody').innerHTML = '<tr><td colspan="4" style="text-align:center;color:#f87171;padding:24px;">データ取得に失敗: ' + (data && data.error || '') + '</td></tr>';
+        return;
+      }
+      scoringModules = data.modules || [];
+      scoringThresholds = data.thresholds || [];
+      scoringLoaded = true;
+      renderModuleWeights();
+      renderThresholds();
+    })
+    .catch(function(err) {
+      document.getElementById('moduleWeightsBody').innerHTML = '<tr><td colspan="4" style="text-align:center;color:#f87171;padding:24px;">通信エラー</td></tr>';
+    });
+  }
+
+  function getLayerTag(modKey) {
+    var layers = { q1:'infra', q2:'infra', q3:'l2', q4:'l2', q5:'l2', q6:'l4', q7:'l2', q8:'l2', q9:'l4', q10:'l4', q11:'l4', q12:'l4' };
+    var names = { infra:'インフラ', l2:'可視化', l4:'最適化' };
+    var layer = layers[modKey] || 'l2';
+    return '<span class="layer-tag layer-tag--' + layer + '">' + (names[layer] || layer) + '</span>';
+  }
+
+  function weightClass(w) {
+    if (w < 0.9) return 'weight-low';
+    if (w > 1.1) return 'weight-high';
+    return 'weight-normal';
+  }
+
+  function renderModuleWeights() {
+    var html = '';
+    scoringModules.forEach(function(m) {
+      var w = parseFloat(m.weight);
+      html += '<tr>';
+      html += '<td><span class="mod-key">' + escHtml(m.module_key) + '</span></td>';
+      html += '<td><div class="mod-name">' + escHtml(m.module_name) + '</div>';
+      if (m.description) html += '<div class="mod-desc">' + escHtml(m.description) + '</div>';
+      html += '</td>';
+      html += '<td>' + getLayerTag(m.module_key) + '</td>';
+      html += '<td><input type="range" class="weight-slider" min="0.25" max="1.50" step="0.05" value="' + w + '" data-key="' + m.module_key + '"> ';
+      html += '<input type="number" class="weight-input ' + weightClass(w) + '" min="0.25" max="1.50" step="0.05" value="' + w.toFixed(2) + '" data-key="' + m.module_key + '"></td>';
+      html += '</tr>';
+    });
+    document.getElementById('moduleWeightsBody').innerHTML = html;
+
+    // Sync slider ↔ input
+    document.querySelectorAll('.weight-slider').forEach(function(slider) {
+      var key = slider.dataset.key;
+      var input = document.querySelector('.weight-input[data-key="' + key + '"]');
+      slider.addEventListener('input', function() {
+        var v = parseFloat(this.value);
+        input.value = v.toFixed(2);
+        input.className = 'weight-input ' + weightClass(v);
+        scoringLoaded = false; // mark dirty
+      });
+      input.addEventListener('change', function() {
+        var v = parseFloat(this.value);
+        if (isNaN(v) || v < 0.25) v = 0.25;
+        if (v > 1.50) v = 1.50;
+        this.value = v.toFixed(2);
+        slider.value = v;
+        this.className = 'weight-input ' + weightClass(v);
+        scoringLoaded = false;
+      });
+    });
+  }
+
+  function renderThresholds() {
+    var html = '';
+    scoringThresholds.forEach(function(t) {
+      html += '<div class="threshold-row">';
+      html += '<div class="threshold-level threshold-level--' + t.level + '">' + t.level + '</div>';
+      html += '<div class="threshold-name">' + escHtml(t.level_name) + '</div>';
+      html += '<div style="font-size:0.8rem;color:rgba(255,255,255,0.4);flex:1;">最小スコア ≥</div>';
+      if (t.level === 1) {
+        html += '<input type="number" class="threshold-input" value="0.00" disabled style="opacity:0.4;">';
+      } else {
+        html += '<input type="number" class="threshold-input" min="0" max="3" step="0.1" value="' + parseFloat(t.min_score).toFixed(2) + '" data-level="' + t.level + '">';
+      }
+      html += '</div>';
+    });
+    document.getElementById('thresholdsBody').innerHTML = html;
+  }
+
+  // Save all params
+  document.getElementById('paramsSaveBtn').addEventListener('click', function() {
+    var btn = this;
+    var msg = document.getElementById('paramsSaveMsg');
+    btn.disabled = true;
+    btn.textContent = '保存中...';
+    msg.textContent = '';
+
+    var promises = [];
+
+    // Save module weights
+    document.querySelectorAll('.weight-input[data-key]').forEach(function(input) {
+      var key = input.dataset.key;
+      var w = parseFloat(input.value);
+      if (!isNaN(w)) {
+        promises.push(rpc('admin_update_module_weight', { token: sessionToken, mod_key: key, new_weight: w }));
+      }
+    });
+
+    // Save thresholds
+    document.querySelectorAll('.threshold-input[data-level]').forEach(function(input) {
+      var lvl = parseInt(input.dataset.level);
+      var val = parseFloat(input.value);
+      if (!isNaN(lvl) && !isNaN(val)) {
+        promises.push(rpc('admin_update_gpim_threshold', { token: sessionToken, lvl: lvl, new_min: val }));
+      }
+    });
+
+    Promise.all(promises).then(function(results) {
+      var allOk = results.every(function(r) { return r && r.ok; });
+      if (allOk) {
+        msg.textContent = '保存しました ✓';
+        msg.style.color = '#22c55e';
+      } else {
+        msg.textContent = '一部のパラメーターの保存に失敗しました';
+        msg.style.color = '#f87171';
+      }
+      btn.disabled = false;
+      btn.textContent = '変更を保存';
+      scoringLoaded = false;
+      setTimeout(function() { msg.textContent = ''; }, 3000);
+    }).catch(function() {
+      msg.textContent = '通信エラー';
+      msg.style.color = '#f87171';
+      btn.disabled = false;
+      btn.textContent = '変更を保存';
+    });
+  });
+
+  // Reset to defaults
+  document.getElementById('paramsResetBtn').addEventListener('click', function() {
+    if (!confirm('すべてのパラメーターをデフォルト値に戻しますか？\n\n可視化系モジュール (WF, PA, WA, IA) = 0.75\nその他 = 1.00\nGPIM閾値 = 1.40, 1.80, 2.30, 2.70')) return;
+
+    var defaults = {
+      q1:1.00, q2:1.00, q3:0.75, q4:0.75, q5:0.75, q6:1.00,
+      q7:1.00, q8:0.75, q9:1.00, q10:1.00, q11:1.00, q12:1.00
+    };
+    var thresholdDefaults = { 2:1.40, 3:1.80, 4:2.30, 5:2.70 };
+
+    document.querySelectorAll('.weight-input[data-key]').forEach(function(input) {
+      var d = defaults[input.dataset.key] || 1.00;
+      input.value = d.toFixed(2);
+      input.className = 'weight-input ' + weightClass(d);
+      var slider = document.querySelector('.weight-slider[data-key="' + input.dataset.key + '"]');
+      if (slider) slider.value = d;
+    });
+
+    document.querySelectorAll('.threshold-input[data-level]').forEach(function(input) {
+      var d = thresholdDefaults[parseInt(input.dataset.level)];
+      if (d !== undefined) input.value = d.toFixed(2);
+    });
+  });
 
   // ── Init ──
   tryRestoreSession();
