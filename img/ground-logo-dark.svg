@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13100 2200">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13100 1938">
   <defs>
     <!-- P2: Light BG G Mark gradient — top-to-bottom #3F4250 → #636A78 -->
     <linearGradient id="gm-light" x1="0" y1="0" x2="0" y2="1938" gradientUnits="userSpaceOnUse">
@@ -24,10 +24,4 @@
         font-weight="700" font-size="1900" letter-spacing="-20"
         fill="url(#wm-light)"
         paint-order="stroke fill">GROUND</text>
-  <!-- Tagline: Building Autonomous Warehouse (P2: Inter Regular 400, #7A7C8A) -->
-  <text x="4469" y="2080"
-        font-family="'Inter',Arial,sans-serif"
-        font-weight="400" font-size="380"
-        fill="#7A7C8A"
-        letter-spacing="8">Building Autonomous Warehouse</text>
 </svg>
