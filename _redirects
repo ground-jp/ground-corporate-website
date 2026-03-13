@@ -21,5 +21,8 @@
 /en/gwes    /en/gwes.html      200
 /en/contact /en/contact.html   200
 
+# Admin pages
+/admin/leads  /admin/leads.html  200
+
 # SPA-style catch-all for 404
 /*          /404.html          404
