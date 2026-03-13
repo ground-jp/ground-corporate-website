@@ -1903,7 +1903,30 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       visStyle.textContent = '';
     }
 
-    // 2. design-editor-overrides の内容を editor-saved-styles にマージ（コピーで）
+    // 1.5. 選択ハイライト（outline）をクリーンアップ
+    //      ホバー/選択ハイライトが焼き込まれないようにする
+    var outlineBackups = [];
+    doc.querySelectorAll('[data-de-id]').forEach(function(el) {
+      var st = el.getAttribute('style') || '';
+      if (st.indexOf('outline') !== -1) {
+        outlineBackups.push({ el: el, style: st });
+        // outline と outline-offset を除去
+        el.style.removeProperty('outline');
+        el.style.removeProperty('outline-offset');
+      }
+    });
+    // hoverHighlightElのoutlineも確実にクリア
+    if (hoverHighlightEl) {
+      var hst = hoverHighlightEl.getAttribute('style') || '';
+      if (hst.indexOf('outline') !== -1 && outlineBackups.every(function(b) { return b.el !== hoverHighlightEl; })) {
+        outlineBackups.push({ el: hoverHighlightEl, style: hst });
+        hoverHighlightEl.style.removeProperty('outline');
+        hoverHighlightEl.style.removeProperty('outline-offset');
+      }
+    }
+
+    // 2. design-editor-overrides の内容を editor-saved-styles にマージ
+    //    重複ルールを排除して最新値のみ保持
     var overrideStyle = doc.getElementById('design-editor-overrides');
     var overrideContent = overrideStyle ? overrideStyle.textContent : '';
     var savedStyle = doc.getElementById('editor-saved-styles');
@@ -1914,9 +1937,26 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       doc.head.appendChild(savedStyle);
     }
     savedOriginal = savedStyle.textContent;
-    if (overrideContent) {
-      savedStyle.textContent = savedOriginal + '\n' + overrideContent;
-    }
+
+    // 2.5. 全ルールをマージして重複排除（同じruleIdの場合は後勝ち）
+    var allRulesText = (savedOriginal || '') + '\n' + (overrideContent || '');
+    var ruleMap = {}; // ruleId → full line
+    var ruleOrder = []; // 挿入順序を保持
+    allRulesText.split('\n').forEach(function(line) {
+      line = line.trim();
+      if (!line) return;
+      // コメント /* ruleId */ からIDを抽出
+      var commentMatch = line.match(/\/\*\s*([\w-]+)\s*\*\/\s*$/);
+      if (commentMatch) {
+        var ruleId = commentMatch[1];
+        // 空値のtransformルール（transform:  !important;）は除外
+        if (line.indexOf('transform:  !important') !== -1) return;
+        if (!ruleMap[ruleId]) ruleOrder.push(ruleId);
+        ruleMap[ruleId] = line; // 後勝ち
+      }
+    });
+    var deduped = ruleOrder.map(function(id) { return ruleMap[id]; }).join('\n');
+    savedStyle.textContent = deduped;
 
     // 3. overridesタグを一時的に非表示にしてHTML取得
     var overrideHidden = false;
@@ -1925,10 +1965,21 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       overrideHidden = true;
     }
 
-    // 3.5. applyToPreview/design-settings.js が付けたインラインstyleを一時退避
-    //      data-de-id を持たない要素に付いたインラインスタイルは
-    //      グローバル設定由来なのでHTMLに焼き込まない
+    // 3.5. インラインスタイルの一時退避
     var inlineBackups = [];
+
+    // (A) data-de-id 要素のインラインスタイルを退避・除去
+    //     editor-saved-styles がスタイルの正とし、インラインは焼き込まない
+    //     （インライン !important は stylesheet !important より優先されてしまうため）
+    doc.querySelectorAll('[data-de-id]').forEach(function(el) {
+      if (el.getAttribute('style')) {
+        inlineBackups.push({ el: el, style: el.getAttribute('style') });
+        el.removeAttribute('style');
+      }
+    });
+
+    // (B) グローバル設定由来のインラインスタイルを退避・除去
+    //     design-settings.js / applyToPreview が付けたスタイルはHTMLに焼き込まない
     var globalTargets = doc.querySelectorAll('.header__logo-img, .header, .hero__title, .hero__subtitle, .hero__vignette, .section__title, h2, .nav__link, .nav__trigger, .hero__cta, .cta-btn, .recruit-banner__btn, .footer, footer');
     globalTargets.forEach(function(el) {
       if (!el.hasAttribute('data-de-id') && el.getAttribute('style')) {
@@ -1936,10 +1987,18 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
         el.removeAttribute('style');
       }
     });
-    // body の fontSize も退避
-    if (doc.body && doc.body.style.fontSize) {
+
+    // (C) body の fontSize も退避（bodyにはdata-de-idが付かないので常に退避）
+    if (doc.body && doc.body.getAttribute('style')) {
       inlineBackups.push({ el: doc.body, style: doc.body.getAttribute('style') });
       doc.body.removeAttribute('style');
+    }
+
+    // (D) html 要素の style 属性も退避（CSS変数の焼き込み防止）
+    var htmlEl = doc.documentElement;
+    var htmlStyleBackup = htmlEl.getAttribute('style') || '';
+    if (htmlStyleBackup) {
+      htmlEl.removeAttribute('style');
     }
 
     var html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
@@ -1948,8 +2007,12 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     if (visStyle) visStyle.textContent = visContent;
     if (overrideHidden && overrideStyle) overrideStyle.textContent = overrideContent;
     savedStyle.textContent = savedOriginal;
+    // html要素のstyleを復元
+    if (htmlStyleBackup) htmlEl.setAttribute('style', htmlStyleBackup);
     // インラインスタイルを復元
     inlineBackups.forEach(function(b) { b.el.setAttribute('style', b.style); });
+    // アウトラインを復元
+    outlineBackups.forEach(function(b) { b.el.setAttribute('style', b.style); });
 
     return html;
   }
@@ -2117,7 +2180,12 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
         return;
       }
       originalSettings = JSON.parse(JSON.stringify(settings));
-      showStatus('✓ 設定を保存しました！（自動デプロイ後に反映されます）');
+      var hasPageChanges = Object.keys(pendingChanges).length > 0;
+      if (hasPageChanges) {
+        showStatus('✓ 設定保存完了！⚠️ 要素の変更は「💾 ページ保存」ボタンも押してください');
+      } else {
+        showStatus('✓ 設定を保存しました！（自動デプロイ後に反映されます）');
+      }
     })
     .catch(function(err) { showStatus('⚠️ 保存に失敗: ' + (err.message || err), true); });
   });
