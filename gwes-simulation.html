@@ -5,14 +5,14 @@
   <link rel="icon" href="img/favicon.ico" type="image/x-icon">
   <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="GWES適合性シミュレーション | GROUND Inc.">
-  <meta property="og:description" content="あなたの物流施設にGWESはどこまでフィットするか。2分の診断で適合性をレーダーチャートで可視化します。">
+  <meta property="og:title" content="物流施設DX診断 | GROUND Inc.">
+  <meta property="og:description" content="あなたの物流施設のDX成熟度を2分で診断。6つの視点からレーダーチャートで可視化し、最適なDX戦略をご提案します。">
   <meta property="og:url" content="https://groundinc.co.jp/gwes-simulation.html">
   <meta property="og:site_name" content="GROUND Inc.">
   <meta property="og:locale" content="ja_JP">
   <meta name="twitter:card" content="summary_large_image">
-  <title>GWES適合性シミュレーション | GROUND Inc.</title>
-  <meta name="description" content="物流施設の運営課題を診断し、GWES 12モジュールの適合性をレーダーチャートで可視化。2分の無料診断で最適な導入戦略が見えてきます。">
+  <title>物流施設DX診断 | GROUND Inc.</title>
+  <meta name="description" content="物流施設のDX成熟度を6つの視点で診断し、レーダーチャートで可視化。2分の無料診断で最適なDX戦略と導入ロードマップが見えてきます。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -822,60 +822,89 @@
 
     /* CTA Block */
     .rpt-cta {
-      background: linear-gradient(135deg, #1E3A5F 0%, #0F172A 100%);
-      border-radius: 16px;
-      padding: 48px;
-      text-align: center;
       margin: 48px 0 32px;
     }
-    .rpt-cta__title {
+    .rpt-cta__heading {
       font-size: 1.3rem;
       font-weight: 700;
-      color: #fff;
-      margin-bottom: 12px;
+      color: var(--gw-text-1, #0F172A);
+      text-align: center;
+      margin-bottom: 8px;
     }
-    .rpt-cta__sub {
-      font-size: 0.88rem;
-      color: rgba(255,255,255,0.65);
+    .rpt-cta__heading-sub {
+      font-size: 0.85rem;
+      color: var(--gw-text-3, #94A3B8);
+      text-align: center;
       margin-bottom: 28px;
-      line-height: 1.7;
     }
-    .rpt-cta__buttons {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
+    .rpt-cta__cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
     }
-    .rpt-cta__btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 36px;
-      border-radius: 8px;
-      font-size: 0.92rem;
-      font-weight: 600;
+    .rpt-cta__card {
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 32px 24px 28px;
+      text-align: center;
       text-decoration: none;
       transition: all 0.3s;
-      border: none;
-      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .rpt-cta__btn--primary {
-      background: #2563EB;
-      color: #fff;
+    .rpt-cta__card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      border-color: #2563EB;
     }
-    .rpt-cta__btn--primary:hover {
-      background: #1D4ED8;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(37,99,235,0.3);
+    .rpt-cta__card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      flex-shrink: 0;
     }
-    .rpt-cta__btn--ghost {
-      background: transparent;
-      color: rgba(255,255,255,0.8);
-      border: 1px solid rgba(255,255,255,0.25);
+    .rpt-cta__card-icon svg {
+      width: 26px;
+      height: 26px;
     }
-    .rpt-cta__btn--ghost:hover {
-      border-color: rgba(255,255,255,0.5);
-      color: #fff;
+    .rpt-cta__card-icon--consult { background: #EFF6FF; color: #2563EB; }
+    .rpt-cta__card-icon--gwes { background: #F0FDF4; color: #16A34A; }
+    .rpt-cta__card-icon--doc { background: #FFF7ED; color: #EA580C; }
+    .rpt-cta__card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--gw-text-1, #0F172A);
+      margin-bottom: 8px;
+    }
+    .rpt-cta__card-desc {
+      font-size: 0.8rem;
+      color: var(--gw-text-3, #94A3B8);
+      line-height: 1.6;
+      margin-bottom: 18px;
+      flex-grow: 1;
+    }
+    .rpt-cta__card-action {
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 10px 24px;
+      border-radius: 8px;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+    .rpt-cta__card-action--consult { background: #2563EB; color: #fff; }
+    .rpt-cta__card-action--consult:hover { background: #1D4ED8; }
+    .rpt-cta__card-action--gwes { background: #F0FDF4; color: #16A34A; border: 1px solid #BBF7D0; }
+    .rpt-cta__card-action--gwes:hover { background: #DCFCE7; }
+    .rpt-cta__card-action--doc { background: #FFF7ED; color: #EA580C; border: 1px solid #FED7AA; }
+    .rpt-cta__card-action--doc:hover { background: #FFEDD5; }
+    @media (max-width: 768px) {
+      .rpt-cta__cards { grid-template-columns: 1fr; gap: 16px; }
     }
 
     /* PDF download button */
@@ -950,7 +979,7 @@
       .rpt-chart__canvas-wrap { flex: none; width: 100%; }
       .rpt-scores { grid-template-columns: 1fr; }
       .rpt-roadmap { grid-template-columns: 1fr; }
-      .rpt-cta { padding: 32px 24px; }
+      .rpt-cta__cards { grid-template-columns: 1fr; }
     }
 
     /* Print styles for PDF */
@@ -1009,7 +1038,7 @@
           <a href="gwes-technology.html" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
           <a href="gwes-modules.html" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
           <a href="gwes-implementation.html" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
-          <a href="gwes-simulation.html" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: var(--gw-accent);">― 適合性シミュレーション</a>
+          <a href="gwes-simulation.html" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: var(--gw-accent);">― 物流施設DX診断</a>
           <a class="overlay-menu__sub-item" href="/digital-integration">デジタルインテグレーション</a>
           <a class="overlay-menu__sub-item" href="/consulting">コンサルティング＆エンジニアリング</a>
           <a class="overlay-menu__sub-item" href="/peer">PEER</a>
@@ -1042,7 +1071,7 @@
     <ol class="breadcrumb-nav__list">
       <li class="breadcrumb-nav__item"><a class="breadcrumb-nav__link breadcrumb-nav__link--home" href="/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a></li>
       <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><a class="breadcrumb-nav__link" href="/gwes">GWES</a></li>
-      <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current">適合性シミュレーション</span></li>
+      <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current">物流施設DX診断</span></li>
     </ol>
   </nav>
 
@@ -1052,7 +1081,7 @@
        ========================================================= -->
   <section class="sim-hero">
     <div class="container">
-      <span class="sim-hero__label sim-fade">GWES Compatibility Simulation</span>
+      <span class="sim-hero__label sim-fade">Logistics Facility DX Assessment</span>
       <h1 class="sim-hero__title sim-fade">物流施設の最適化は、<br>もう選択肢ではない。</h1>
       <p class="sim-hero__subtitle sim-fade">人手不足、コスト上昇、需要拡大 —— 構造的な課題が加速する今、<br>あなたの施設はどこまで対応できていますか。</p>
 
@@ -1238,9 +1267,9 @@
 
       <div class="sim-cta sim-fade">
         <h2 class="sim-cta__heading">2分の診断で、最適な導入戦略が見える。</h2>
-        <p class="sim-cta__sub">12の質問に答えるだけで、あなたの施設のGWES適合性をレーダーチャートで可視化します。</p>
+        <p class="sim-cta__sub">12の質問に答えるだけで、あなたの施設のDX成熟度をレーダーチャートで可視化します。</p>
         <button class="sim-btn sim-btn--primary sim-btn--lg" onclick="document.getElementById('simulationSection').scrollIntoView({behavior:'smooth'})">
-          シミュレーションを開始する →
+          診断を開始する →
         </button>
       </div>
     </div>
@@ -1256,8 +1285,8 @@
     <div class="container">
       <div class="sim-form-container">
         <div class="sim-form__header sim-fade">
-          <span class="sim-hero__label">Simulation</span>
-          <h2 class="sim-narrative__heading">GWES 適合性診断</h2>
+          <span class="sim-hero__label">DX Assessment</span>
+          <h2 class="sim-narrative__heading">物流施設DX診断</h2>
           <p style="color: var(--gw-text-3); font-size: 0.88rem;">基本情報をご入力いただき、12の質問にお答えください。</p>
         </div>
 
@@ -1522,7 +1551,7 @@
             <div style="text-align: center; padding: 24px 0;">
               <p style="color: var(--gw-text-2); font-size: 0.92rem; line-height: 1.8; margin-bottom: 32px;">
                 すべての質問にお答えいただきました。<br>
-                「結果を見る」をクリックすると、あなたの施設のGWES適合性が<br>
+                「結果を見る」をクリックすると、あなたの施設のDX成熟度が<br>
                 レーダーチャートで可視化されます。
               </p>
               <button type="button" class="sim-btn sim-btn--primary sim-btn--lg" onclick="showResults()">
@@ -1560,7 +1589,7 @@
         <div class="rpt-header sim-fade">
           <img src="img/ground-logo-dark.svg" alt="GROUND" class="rpt-header__logo">
           <div class="rpt-header__company" id="rptCompany"></div>
-          <h2 class="rpt-header__title">GWES 適合性診断レポート</h2>
+          <h2 class="rpt-header__title">物流施設DX診断レポート</h2>
           <div class="rpt-header__date" id="rptDate"></div>
         </div>
 
@@ -1613,26 +1642,45 @@
           </div>
         </div>
 
-        <!-- CTA -->
+        <!-- CTA 3-Card -->
         <div class="rpt-cta sim-fade">
-          <div class="rpt-cta__title">GWESで物流施設の次のレベルへ</div>
-          <div class="rpt-cta__sub">
-            この診断結果を踏まえた個別コンサルティングで、<br>貴社に最適なGWES導入戦略をご提案いたします。
-          </div>
-          <div class="rpt-cta__buttons">
-            <a href="contact.html" class="rpt-cta__btn rpt-cta__btn--primary">
-              無料コンサルティング相談を申し込む →
+          <div class="rpt-cta__heading">診断結果を活かす、次のアクション</div>
+          <div class="rpt-cta__heading-sub">目的に応じて、最適な窓口をお選びください</div>
+          <div class="rpt-cta__cards">
+            <!-- Card 1: コンサルタント相談 -->
+            <a href="contact.html?ref=dx-diagnosis-consult" class="rpt-cta__card">
+              <div class="rpt-cta__card-icon rpt-cta__card-icon--consult">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div class="rpt-cta__card-title">コンサルタントに相談する</div>
+              <div class="rpt-cta__card-desc">診断結果をもとに、貴社の物流課題を専門コンサルタントが個別にヒアリング。最適なDX戦略をご提案します。</div>
+              <span class="rpt-cta__card-action rpt-cta__card-action--consult">無料相談を申し込む →</span>
             </a>
-            <a href="gpim-consulting.html" class="rpt-cta__btn rpt-cta__btn--ghost">
-              GPIMコンサルティング詳細
+            <!-- Card 2: GWES詳細 -->
+            <a href="gwes.html" class="rpt-cta__card">
+              <div class="rpt-cta__card-icon rpt-cta__card-icon--gwes">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <div class="rpt-cta__card-title">GWESについて詳しく聞く</div>
+              <div class="rpt-cta__card-desc">GWES 12モジュールの詳細や導入事例、技術仕様について、製品担当から直接ご説明いたします。</div>
+              <span class="rpt-cta__card-action rpt-cta__card-action--gwes">GWES詳細を見る →</span>
+            </a>
+            <!-- Card 3: 資料請求 -->
+            <a href="contact.html?ref=dx-diagnosis-document" class="rpt-cta__card">
+              <div class="rpt-cta__card-icon rpt-cta__card-icon--doc">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              </div>
+              <div class="rpt-cta__card-title">資料請求</div>
+              <div class="rpt-cta__card-desc">GWESの製品カタログ、導入事例集、GPIMフレームワーク解説資料をお送りします。</div>
+              <span class="rpt-cta__card-action rpt-cta__card-action--doc">資料を請求する →</span>
             </a>
           </div>
         </div>
 
         <div class="rpt-footer-note">
-          この診断結果は、ご入力いただいた情報に基づく簡易的な適合性評価です。<br>
+          この診断結果は、ご入力いただいた情報に基づく簡易的なDX成熟度評価です。<br>
           より詳細な分析は、GROUNDのコンサルタントが個別にご対応いたします。<br>
-          © GROUND Inc. — GWES Compatibility Simulation
+          © GROUND Inc. — Logistics Facility DX Assessment
         </div>
       </div>
     </div>
@@ -1658,7 +1706,7 @@
         <div class="footer__col">
           <span class="footer__heading">Solutions</span>
           <a href="/gwes" class="footer__link">GWES</a>
-          <a href="/gwes-simulation" class="footer__link" style="color: var(--gw-accent);">GWES適合診断</a>
+          <a href="/gwes-simulation" class="footer__link" style="color: var(--gw-accent);">物流施設DX診断</a>
           <a href="/digital-integration" class="footer__link">デジタルインテグレーション</a>
           <a href="/consulting" class="footer__link">コンサルティング</a>
           <a href="/peer" class="footer__link">PEER</a>
@@ -2209,11 +2257,11 @@
           // Logo text
           + '<div style="font-family:\'Inter\',sans-serif;font-size:18px;font-weight:700;letter-spacing:0.12em;color:#94A3B8;margin-bottom:64px;">GROUND</div>'
           // Subtitle
-          + '<div style="font-family:\'JetBrains Mono\',monospace;font-size:10px;letter-spacing:0.3em;color:#2563EB;text-transform:uppercase;margin-bottom:20px;">Warehouse Execution System</div>'
+          + '<div style="font-family:\'JetBrains Mono\',monospace;font-size:10px;letter-spacing:0.3em;color:#2563EB;text-transform:uppercase;margin-bottom:20px;">Powered by GWES</div>'
           // Main title
-          + '<div style="font-size:34px;font-weight:800;color:#0F172A;letter-spacing:-0.02em;line-height:1.4;text-align:center;margin-bottom:10px;">GWES 適合性診断レポート</div>'
+          + '<div style="font-size:34px;font-weight:800;color:#0F172A;letter-spacing:-0.02em;line-height:1.4;text-align:center;margin-bottom:10px;">物流施設DX診断レポート</div>'
           // English sub
-          + '<div style="font-family:\'JetBrains Mono\',monospace;font-size:10px;letter-spacing:0.15em;color:#94A3B8;text-transform:uppercase;margin-bottom:56px;">Compatibility Assessment Report</div>'
+          + '<div style="font-family:\'JetBrains Mono\',monospace;font-size:10px;letter-spacing:0.15em;color:#94A3B8;text-transform:uppercase;margin-bottom:56px;">Logistics Facility DX Assessment Report</div>'
           // Divider
           + '<div style="width:48px;height:2px;background:#2563EB;margin-bottom:56px;"></div>'
           // Company + Date
@@ -2345,7 +2393,7 @@
             // Header text
             pdf.setFontSize(6.5);
             pdf.setTextColor(160, 160, 160);
-            pdf.text('GWES Compatibility Assessment Report', ML, MT - 9);
+            pdf.text('Logistics Facility DX Assessment Report', ML, MT - 9);
             pdf.setFontSize(6);
             pdf.setTextColor(190, 190, 190);
             pdf.text('GROUND Inc.', PW - MR, MT - 9, { align: 'right' });
@@ -2369,7 +2417,7 @@
             pdf.addImage(cropped.toDataURL('image/jpeg', 0.92), 'JPEG', ML, MT, CW, imgH_mm);
           });
 
-          pdf.save('GWES診断レポート_' + companyName + '.pdf');
+          pdf.save('物流施設DX診断レポート_' + companyName + '.pdf');
           resetBtn();
         });
       }).catch(function(err) {
