@@ -37,7 +37,7 @@
     /* =====================================================
        HEADER & NAVIGATION (same as before)
        ===================================================== */
-    .header { z-index: 350 !important; }
+    .header { z-index: 350 !important; background: #FFFFFF !important; }
     .hamburger { display: flex !important; flex-direction: column; justify-content: center; align-items: center; gap: 6px; width: 52px; height: 52px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 400; position: relative; margin-right: -8px; }
     .hamburger__line { display: block; width: 26px; height: 2px; background: #000; border-radius: 1px; transition: all 0.3s ease; }
     .hamburger.active .hamburger__line:nth-child(1) { transform: rotate(45deg) translateY(10px); }
@@ -910,12 +910,15 @@
 
 <body>
   <!-- Hamburger Menu -->
-  <header class="header">
-    <button class="hamburger" id="hamburgerBtn">
-      <span class="hamburger__line"></span>
-      <span class="hamburger__line"></span>
-      <span class="hamburger__line"></span>
-    </button>
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a class="header__logo" href="/"><img src="img/ground-logo-dark.svg" alt="GROUND Inc." class="header__logo-img" style="height: 26px; width: auto;"></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+    </div>
   </header>
 
   <!-- Overlay Menu -->
