@@ -21,9 +21,12 @@
         s[key] = val;
       });
 
+      // GDE（デザインエディタ）で個別編集された要素はスキップするヘルパー
+      function canApply(el) { return el && !el.hasAttribute('data-de-id'); }
+
       // ── ロゴ ──
       var logo = document.querySelector('.header__logo-img');
-      if (logo) {
+      if (canApply(logo)) {
         if (s.logo_height) { logo.style.height = s.logo_height + 'px'; logo.style.width = 'auto'; }
         if (s.logo_margin_top !== undefined) { logo.style.position = 'relative'; logo.style.top = s.logo_margin_top + 'px'; }
         if (s.logo_margin_left !== undefined) { logo.style.position = 'relative'; logo.style.left = s.logo_margin_left + 'px'; }
@@ -31,7 +34,7 @@
 
       // ── ヘッダー ──
       var header = document.querySelector('.header');
-      if (header) {
+      if (canApply(header)) {
         if (s.header_bg_color) header.style.background = s.header_bg_color;
         if (s.header_height) header.style.height = s.header_height + 'px';
       }

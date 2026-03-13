@@ -1805,9 +1805,12 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       var doc = frame.contentDocument || frame.contentWindow.document;
       if (!doc) return;
 
+      // GDEで個別編集済みの要素（data-de-id あり）はスキップ
+      function canApplyGlobal(el) { return el && !el.hasAttribute('data-de-id'); }
+
       // ロゴ
       var logo = doc.querySelector('.header__logo-img');
-      if (logo) {
+      if (canApplyGlobal(logo)) {
         logo.style.height = settings.logo_height + 'px';
         logo.style.width = 'auto';
         logo.style.position = 'relative';
@@ -1816,7 +1819,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       }
       // ヘッダー
       var header = doc.querySelector('.header');
-      if (header) {
+      if (canApplyGlobal(header)) {
         header.style.background = settings.header_bg_color;
         header.style.height = settings.header_height + 'px';
       }
@@ -1926,12 +1929,31 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       overrideHidden = true;
     }
 
+    // 3.5. applyToPreview/design-settings.js が付けたインラインstyleを一時退避
+    //      data-de-id を持たない要素に付いたインラインスタイルは
+    //      グローバル設定由来なのでHTMLに焼き込まない
+    var inlineBackups = [];
+    var globalTargets = doc.querySelectorAll('.header__logo-img, .header, .hero__title, .hero__subtitle, .hero__vignette, .section__title, h2, .nav__link, .nav__trigger, .hero__cta, .cta-btn, .recruit-banner__btn, .footer, footer');
+    globalTargets.forEach(function(el) {
+      if (!el.hasAttribute('data-de-id') && el.getAttribute('style')) {
+        inlineBackups.push({ el: el, style: el.getAttribute('style') });
+        el.removeAttribute('style');
+      }
+    });
+    // body の fontSize も退避
+    if (doc.body && doc.body.style.fontSize) {
+      inlineBackups.push({ el: doc.body, style: doc.body.getAttribute('style') });
+      doc.body.removeAttribute('style');
+    }
+
     var html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
 
     // 4. iframe DOMを元に戻す（非破壊）
     if (visStyle) visStyle.textContent = visContent;
     if (overrideHidden && overrideStyle) overrideStyle.textContent = overrideContent;
     savedStyle.textContent = savedOriginal;
+    // インラインスタイルを復元
+    inlineBackups.forEach(function(b) { b.el.setAttribute('style', b.style); });
 
     return html;
   }
