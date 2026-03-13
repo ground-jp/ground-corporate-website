@@ -40,6 +40,16 @@
         logo.style.position = 'relative';
         logo.style.top = (s.logo_margin_top || 0) + 'px';
         logo.style.left = (s.logo_margin_left || 0) + 'px';
+        // GDE焼き込みoutline/borderを強制除去
+        logo.style.setProperty('outline', 'none', 'important');
+        logo.style.setProperty('outline-offset', '0', 'important');
+        logo.style.border = 'none';
+      }
+      // ロゴ親リンクのoutlineも除去
+      var logoLink = document.querySelector('.header__logo');
+      if (logoLink) {
+        logoLink.style.setProperty('outline', 'none', 'important');
+        logoLink.style.setProperty('outline-offset', '0', 'important');
       }
 
       // ── ヘッダー ──
