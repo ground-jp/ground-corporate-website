@@ -1804,28 +1804,20 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     try {
       var doc = frame.contentDocument || frame.contentWindow.document;
       if (!doc) return;
-
-      // ヘルパー: インラインスタイル適用 + injectStyleOverride で永続化
-      function applyAndPersist(el, prop, value) {
-        if (!el) return;
-        el.style.setProperty(prop, value, 'important');
-        injectStyleOverride(el, prop, value);
-      }
-
       // ロゴ
       var logo = doc.querySelector('.header__logo-img');
       if (logo) {
-        applyAndPersist(logo, 'height', settings.logo_height + 'px');
-        applyAndPersist(logo, 'width', 'auto');
-        if (settings.logo_margin_top) applyAndPersist(logo, 'top', settings.logo_margin_top + 'px');
-        if (settings.logo_margin_left) applyAndPersist(logo, 'left', settings.logo_margin_left + 'px');
-        if (settings.logo_margin_top || settings.logo_margin_left) applyAndPersist(logo, 'position', 'relative');
+        logo.style.height = settings.logo_height + 'px';
+        logo.style.width = 'auto';
+        logo.style.position = 'relative';
+        logo.style.top = (settings.logo_margin_top || 0) + 'px';
+        logo.style.left = (settings.logo_margin_left || 0) + 'px';
       }
       // ヘッダー
       var header = doc.querySelector('.header');
       if (header) {
-        applyAndPersist(header, 'background', settings.header_bg_color);
-        applyAndPersist(header, 'height', settings.header_height + 'px');
+        header.style.background = settings.header_bg_color;
+        header.style.height = settings.header_height + 'px';
       }
       // セクション表示/非表示
       var sectionMap = { show_news: '#news', show_clients: '#clients', show_solution: '#solution', show_casestudy: '#casestudy', show_recruit: '.recruit-banner' };
@@ -1842,30 +1834,22 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
       }
       // CTA
       doc.querySelectorAll('.hero__cta, .cta-btn, [class*="cta"]').forEach(function(el) {
-        if (el.tagName === 'A' || el.tagName === 'BUTTON') {
-          applyAndPersist(el, 'background-color', settings.cta_color);
-        }
+        if (el.tagName === 'A' || el.tagName === 'BUTTON') el.style.backgroundColor = settings.cta_color;
       });
       // フォントサイズ
-      doc.querySelectorAll('.section__title, h2').forEach(function(el) {
-        applyAndPersist(el, 'font-size', settings.heading_font_size + 'px');
-      });
+      doc.querySelectorAll('.section__title, h2').forEach(function(el) { el.style.fontSize = settings.heading_font_size + 'px'; });
       if (doc.body) doc.body.style.fontSize = settings.body_font_size + 'px';
-      doc.querySelectorAll('.nav__link, .nav__trigger').forEach(function(el) {
-        applyAndPersist(el, 'font-size', settings.nav_font_size + 'px');
-      });
+      doc.querySelectorAll('.nav__link, .nav__trigger').forEach(function(el) { el.style.fontSize = settings.nav_font_size + 'px'; });
       // ヒーロー
       var heroTitle = doc.querySelector('.hero__title');
-      if (heroTitle) applyAndPersist(heroTitle, 'font-size', settings.hero_title_size + 'px');
+      if (heroTitle) heroTitle.style.fontSize = settings.hero_title_size + 'px';
       var heroVignette = doc.querySelector('.hero__vignette');
-      if (heroVignette && settings.hero_overlay_opacity !== undefined) {
-        applyAndPersist(heroVignette, 'opacity', String(settings.hero_overlay_opacity / 100));
-      }
+      if (heroVignette && settings.hero_overlay_opacity !== undefined) heroVignette.style.opacity = settings.hero_overlay_opacity / 100;
       // フッター
       var footer = doc.querySelector('.footer') || doc.querySelector('footer');
       if (footer) {
-        if (settings.footer_bg_color) applyAndPersist(footer, 'background-color', settings.footer_bg_color);
-        if (settings.footer_text_color) applyAndPersist(footer, 'color', settings.footer_text_color);
+        if (settings.footer_bg_color) footer.style.backgroundColor = settings.footer_bg_color;
+        if (settings.footer_text_color) footer.style.color = settings.footer_text_color;
       }
     } catch(e) {}
   }
@@ -2133,32 +2117,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
         return;
       }
       originalSettings = JSON.parse(JSON.stringify(settings));
-      showStatus('💾 設定を保存しました。ページHTMLも保存中...');
-      // ── design.yml 保存後、ページ HTML も自動保存 ──
-      var html = getEditedHtml();
-      if (!html) { showStatus('✓ 設定のみ保存しました（ページ未読み込み）'); return; }
-      var filePath = getFilePath();
-      var pagePath = document.getElementById('pageSelect').value;
-      return fetch(GH_API + filePath, {
-        headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
-      })
-      .then(function(r2) { return r2.json(); })
-      .then(function(data2) {
-        return fetch(GH_API + filePath, {
-          method: 'PUT',
-          headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: 'Update ' + filePath + ' via GDE (with design settings)', content: btoa(unescape(encodeURIComponent(html))), sha: data2.sha })
-        });
-      })
-      .then(function(r3) {
-        if (r3.ok) {
-          delete pendingChanges[pagePath];
-          updateSaveButton();
-          showStatus('✓ 設定 + ページを保存しました！（自動デプロイ中…）');
-        } else {
-          showStatus('⚠️ 設定は保存しましたが、ページ保存に失敗しました', true);
-        }
-      });
+      showStatus('✓ 設定を保存しました！（自動デプロイ後に反映されます）');
     })
     .catch(function(err) { showStatus('⚠️ 保存に失敗: ' + (err.message || err), true); });
   });

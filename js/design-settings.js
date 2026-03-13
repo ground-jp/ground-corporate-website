@@ -1,15 +1,9 @@
 /**
  * デザイン設定を _data/design.yml から読み込み、サイト全体に適用
- *
- * ただし、GDE（デザインエディタ）で保存済みのページには適用しない。
- * GDE保存済みのページには <style id="editor-saved-styles"> が存在し、
- * そちらが正としてスタイルを管理するため。
+ * GDE（デザインエディタ）の「保存する」で design.yml が更新され、
+ * このスクリプトが全ページにスタイルを反映する。
  */
 (function() {
-  // GDEで保存されたページならスキップ（editor-saved-stylesが優先）
-  var saved = document.getElementById('editor-saved-styles');
-  if (saved && saved.textContent.trim()) return;
-
   fetch('/_data/design.yml')
     .then(function(res) { return res.text(); })
     .then(function(text) {
@@ -32,8 +26,8 @@
       var logo = document.querySelector('.header__logo-img');
       if (logo) {
         if (s.logo_height) { logo.style.height = s.logo_height + 'px'; logo.style.width = 'auto'; }
-        if (s.logo_margin_top !== undefined) { logo.style.position = 'relative'; logo.style.top = s.logo_margin_top + 'px'; }
-        if (s.logo_margin_left !== undefined) { logo.style.position = 'relative'; logo.style.left = s.logo_margin_left + 'px'; }
+        if (s.logo_margin_top) { logo.style.position = 'relative'; logo.style.top = s.logo_margin_top + 'px'; }
+        if (s.logo_margin_left) { logo.style.position = 'relative'; logo.style.left = s.logo_margin_left + 'px'; }
       }
 
       // ── ヘッダー ──
@@ -73,15 +67,15 @@
       var heroTitle = document.querySelector('.hero__title');
       if (heroTitle) {
         if (s.hero_title_size) heroTitle.style.fontSize = s.hero_title_size + 'px';
-        if (s.hero_title_top !== undefined) { heroTitle.style.position = 'relative'; heroTitle.style.top = s.hero_title_top + 'px'; }
-        if (s.hero_title_left !== undefined) { heroTitle.style.position = 'relative'; heroTitle.style.left = s.hero_title_left + 'px'; }
+        if (s.hero_title_top) { heroTitle.style.position = 'relative'; heroTitle.style.top = s.hero_title_top + 'px'; }
+        if (s.hero_title_left) { heroTitle.style.position = 'relative'; heroTitle.style.left = s.hero_title_left + 'px'; }
       }
       var heroSubtitle = document.querySelector('.hero__subtitle');
       if (heroSubtitle && s.hero_subtitle_size) heroSubtitle.style.fontSize = s.hero_subtitle_size + 'px';
       var heroVignette = document.querySelector('.hero__vignette');
       if (heroVignette && s.hero_overlay_opacity !== undefined) heroVignette.style.opacity = s.hero_overlay_opacity / 100;
 
-      // ── セクション表示/非表示 ──
+      // ── セクション表示/非表示 (ホームページのみ) ──
       var map = { show_news: '#news', show_clients: '#clients', show_solution: '#solution', show_casestudy: '#casestudy', show_recruit: '.recruit-banner' };
       Object.keys(map).forEach(function(key) {
         if (s[key] === false) {
