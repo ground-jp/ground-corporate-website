@@ -1895,6 +1895,10 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     var doc = frame.contentDocument || frame.contentWindow.document;
     if (!doc) return null;
 
+    // 0. 選択ハイライトをまずクリア（DOM上のoutlineを確実に消す）
+    var prevHighlightEl = currentHighlightEl;
+    clearIframeHighlight();
+
     // 1. エディタ専用の表示スタイルを一時的に非表示（DOMから削除しない）
     var visStyle = doc.getElementById('design-editor-visibility');
     var visContent = '';
@@ -1904,26 +1908,16 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     }
 
     // 1.5. 選択ハイライト（outline）をクリーンアップ
-    //      ホバー/選択ハイライトが焼き込まれないようにする
+    //      ALL要素を対象にする（data-de-id の有無を問わない）
     var outlineBackups = [];
-    doc.querySelectorAll('[data-de-id]').forEach(function(el) {
+    doc.querySelectorAll('*').forEach(function(el) {
       var st = el.getAttribute('style') || '';
       if (st.indexOf('outline') !== -1) {
         outlineBackups.push({ el: el, style: st });
-        // outline と outline-offset を除去
         el.style.removeProperty('outline');
         el.style.removeProperty('outline-offset');
       }
     });
-    // hoverHighlightElのoutlineも確実にクリア
-    if (hoverHighlightEl) {
-      var hst = hoverHighlightEl.getAttribute('style') || '';
-      if (hst.indexOf('outline') !== -1 && outlineBackups.every(function(b) { return b.el !== hoverHighlightEl; })) {
-        outlineBackups.push({ el: hoverHighlightEl, style: hst });
-        hoverHighlightEl.style.removeProperty('outline');
-        hoverHighlightEl.style.removeProperty('outline-offset');
-      }
-    }
 
     // 2. design-editor-overrides の内容を editor-saved-styles にマージ
     //    重複ルールを排除して最新値のみ保持
@@ -1980,7 +1974,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 
     // (B) グローバル設定由来のインラインスタイルを退避・除去
     //     design-settings.js / applyToPreview が付けたスタイルはHTMLに焼き込まない
-    var globalTargets = doc.querySelectorAll('.header__logo-img, .header, .hero__title, .hero__subtitle, .hero__vignette, .section__title, h2, .nav__link, .nav__trigger, .hero__cta, .cta-btn, .recruit-banner__btn, .footer, footer');
+    var globalTargets = doc.querySelectorAll('.header__logo, .header__logo-img, .header, .hero__title, .hero__subtitle, .hero__vignette, .section__title, h2, .nav__link, .nav__trigger, .hero__cta, .cta-btn, .recruit-banner__btn, .footer, footer');
     globalTargets.forEach(function(el) {
       if (!el.hasAttribute('data-de-id') && el.getAttribute('style')) {
         inlineBackups.push({ el: el, style: el.getAttribute('style') });
@@ -2003,6 +1997,24 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
 
     var html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
 
+    // 4.5. 安全ネット: HTML文字列レベルでエディタ残留物を除去
+    //      DOM操作で取り切れなかったoutline等を最終クリーンアップ
+    html = html.replace(/\s*style="[^"]*"/g, function(match) {
+      var inner = match.match(/style="([^"]*)"/);
+      if (!inner) return match;
+      var val = inner[1];
+      // outline関連プロパティを除去
+      val = val.replace(/outline(?:-offset)?:\s*[^;]*(?:;\s*|$)/gi, '');
+      // contenteditable を除去（テキスト編集モードの残り）
+      val = val.trim();
+      if (!val || val === ';') return '';
+      return ' style="' + val + '"';
+    });
+    // contenteditable 属性を除去
+    html = html.replace(/\s+contenteditable="[^"]*"/gi, '');
+    // 空の style="" 属性を除去
+    html = html.replace(/\s+style=""/g, '');
+
     // 4. iframe DOMを元に戻す（非破壊）
     if (visStyle) visStyle.textContent = visContent;
     if (overrideHidden && overrideStyle) overrideStyle.textContent = overrideContent;
@@ -2013,6 +2025,10 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14p
     inlineBackups.forEach(function(b) { b.el.setAttribute('style', b.style); });
     // アウトラインを復元
     outlineBackups.forEach(function(b) { b.el.setAttribute('style', b.style); });
+    // 選択ハイライトを再適用（保存前に選択中だった要素）
+    if (prevHighlightEl) {
+      try { highlightIframeElement(prevHighlightEl); } catch(e) {}
+    }
 
     return html;
   }
