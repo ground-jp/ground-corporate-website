@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N5 Logo Preview - GROUND Inc.</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #f5f5f5; }
+
+.header {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 64px; background: #0A0C14;
+  display: flex; align-items: center;
+  padding: 0 40px;
+  z-index: 100;
+}
+.header__inner {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  width: 100%; max-width: 1200px; margin: 0 auto;
+}
+.header__logo {
+  display: flex; align-items: center;
+  text-decoration: none; gap: 10px;
+}
+.header__logo-img {
+  height: 26px; width: auto; display: block;
+}
+.header__logo-text {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700; font-size: 22px;
+  letter-spacing: 0.03em; color: #fff;
+  line-height: 1; white-space: nowrap;
+}
+.nav {
+  display: flex; gap: 32px;
+}
+.nav span {
+  color: rgba(255,255,255,0.7); font-size: 14px; font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.hamburger {
+  display: flex; flex-direction: column; gap: 6px;
+  width: 44px; height: 44px; align-items: center; justify-content: center;
+  background: none; border: none; cursor: pointer;
+}
+.hamburger__line {
+  width: 24px; height: 1.5px; background: #fff; border-radius: 1px;
+}
+
+/* Hero */
+.hero {
+  margin-top: 64px; height: 500px;
+  background: linear-gradient(135deg, #0A0C14 0%, #1a1f36 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.hero h1 {
+  color: #fff; font-size: 48px; font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.hero p {
+  color: rgba(255,255,255,0.6); font-size: 18px; margin-top: 16px;
+}
+
+/* Berkshire Grey comparison */
+.comparison {
+  max-width: 1000px; margin: 60px auto; padding: 0 40px;
+}
+.comparison h2 {
+  font-size: 24px; color: #333; margin-bottom: 32px;
+}
+.comp-row {
+  display: flex; gap: 40px; margin-bottom: 40px;
+}
+.comp-item {
+  flex: 1; background: #0A0C14; border-radius: 12px;
+  padding: 32px 40px; display: flex; align-items: center;
+}
+.comp-item.light {
+  background: #fff; border: 1px solid #e0e0e0;
+}
+.comp-label {
+  text-align: center; margin-top: 12px; font-size: 14px; color: #666;
+}
+
+/* Light header variant */
+.header-light {
+  height: 64px; background: #fff;
+  display: flex; align-items: center;
+  padding: 0 40px; border-bottom: 1px solid #e8e8e8;
+}
+.header-light .header__logo-text {
+  color: #0A0C14;
+}
+.header-light .header__logo-img path {
+  fill: #0A0C14;
+}
+.header-light .nav span {
+  color: rgba(0,0,0,0.6);
+}
+.header-light .hamburger__line {
+  background: #0A0C14;
+}
+
+/* Section */
+.section { padding: 60px 40px; max-width: 1000px; margin: 0 auto; }
+.section h2 { font-size: 20px; color: #333; margin-bottom: 24px; }
+</style>
+</head>
+<body>
+
+<!-- Dark Header -->
+<header class="header">
+  <div class="header__inner">
+    <a class="header__logo" href="#">
+      <svg class="header__logo-img" viewBox="0 0 3877 1938" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
+      </svg>
+      <span class="header__logo-text">GROUND</span>
+    </a>
+    <div class="nav">
+      <span>Solutions</span>
+      <span>Technology</span>
+      <span>About</span>
+      <span>News</span>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <div style="text-align:center;">
+    <h1>Intelligent Logistics</h1>
+    <p>AI・数理最適化・ロボティクスで物流の未来を変革する</p>
+  </div>
+</div>
+
+<!-- Comparison section -->
+<div class="comparison">
+  <h2>N5 Logo — Final Implementation</h2>
+
+  <div style="margin-bottom:16px; font-size:14px; color:#666;">
+    Archivo Bold 700 / 22px / letter-spacing: 0.03em / G-mark: 26px / Gap: 10px
+  </div>
+
+  <!-- Dark background -->
+  <div style="margin-bottom:12px;">
+    <div class="comp-item">
+      <a class="header__logo" href="#" style="gap:10px;">
+        <svg style="height:26px;width:auto;" viewBox="0 0 3877 1938" fill="none">
+          <path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
+        </svg>
+        <span class="header__logo-text">GROUND</span>
+      </a>
+    </div>
+    <div class="comp-label">Dark Background</div>
+  </div>
+
+  <!-- Light background -->
+  <div style="margin-bottom:12px;">
+    <div class="comp-item light">
+      <a class="header__logo" href="#" style="gap:10px;">
+        <svg style="height:26px;width:auto;" viewBox="0 0 3877 1938" fill="none">
+          <path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
+        </svg>
+        <span class="header__logo-text" style="color:#0A0C14;">GROUND</span>
+      </a>
+    </div>
+    <div class="comp-label">Light Background</div>
+  </div>
+
+  <!-- Light Header Mock -->
+  <h2 style="margin-top:48px;">Light Header Variant</h2>
+  <div style="border-radius:12px; overflow:hidden; border:1px solid #e0e0e0;">
+    <div class="header-light">
+      <div class="header__inner" style="display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1200px;margin:0 auto;">
+        <a class="header__logo" href="#" style="gap:10px;">
+          <svg class="header__logo-img" viewBox="0 0 3877 1938" fill="none">
+            <path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
+          </svg>
+          <span class="header__logo-text" style="color:#0A0C14;">GROUND</span>
+        </a>
+        <div class="nav">
+          <span style="color:rgba(0,0,0,0.6);">Solutions</span>
+          <span style="color:rgba(0,0,0,0.6);">Technology</span>
+          <span style="color:rgba(0,0,0,0.6);">About</span>
+          <span style="color:rgba(0,0,0,0.6);">News</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

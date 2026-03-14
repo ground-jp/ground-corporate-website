@@ -130,16 +130,27 @@ button {
   align-items: center;
   text-decoration: none;
   outline: none;
+  gap: 10px;
 }
 
 .header__logo-img {
-  height: 30px;
-  height: var(--ds-logo-height, 30px);
+  height: 26px;
   width: auto;
   display: block;
   outline: none !important;
   outline-offset: 0 !important;
   border: none;
+}
+
+.header__logo-text {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 0.03em;
+  color: #fff;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
 }
 /* Header tagline removed */
 /* Footer combined lockup */
