@@ -1066,9 +1066,7 @@
 .gw-hero__title[data-de-id="de-1"] { color: #ffffff !important; }
 /* Hero desc — scoped to avoid affecting logo mark img */
 .gw-hero__desc[data-de-id="de-2"] { color: #ffffff !important; }
-[data-de-id="de-4"] { transform: translate(-49px, -5px) !important; } /* de-4-transform */
-[data-de-id="de-5"] { transform: translate(-22px, 0px) !important; } /* de-5-transform */
-[data-de-id="de-6"] { transform: translate(0px, 0px) !important; } /* de-6-transform */
+/* transform rules removed — were causing layout shifts */
 </style>    <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.svg">
 </head>
@@ -1189,9 +1187,9 @@
           <!-- Screen glow (behind laptop) -->
           <div class="gw-laptop__screen-glow"></div>
           <!-- Screen / Lid -->
-          <div class="gw-laptop__screen" data-de-id="de-5" style="transform: translate(-25px, -16px) !important;">
+          <div class="gw-laptop__screen" data-de-id="de-5">
             <div class="gw-laptop__display">
-              <picture style=""><source srcset="../img/gwes-login.webp" type="image/webp"><img src="../img/gwes-login.png" alt="GWES Login Screen" loading="lazy" data-de-id="de-4" style="margin-left: 143.255132px !important; width: 685.580683px !important; max-width: none !important; min-width: 0px !important; box-sizing: border-box !important; height: 416.178972px !important; max-height: none !important; min-height: 0px !important; transform: translate(-49px, -5px) !important;"></picture>
+              <picture><source srcset="../img/gwes-login.webp" type="image/webp"><img src="../img/gwes-login.png" alt="GWES Login Screen" loading="lazy" data-de-id="de-4"></picture>
             </div>
           </div>
           <!-- Keyboard base -->
@@ -1214,7 +1212,7 @@
 
 <!-- ==================== CONCEPT: What is Logistics OS ==================== -->
   <section class="gw-section">
-    <div class="container" data-de-id="de-6" style="transform: translate(0px, 0px) !important;">
+    <div class="container" data-de-id="de-6">
       <!-- ① Challenge -->
       <div class="gw-concept gw-fade is-visible" style="">
         <div style="">
@@ -1325,7 +1323,7 @@
           <span class="gw-section__label">Technology Platform</span>
           <h2 class="gw-section__heading" style="font-size: 28px;">Technology & Platform Architecture</h2>
         </div>
-        <div class="gw-concept__text" data-de-id="de-5" style="transform: translate(-22px, 0px) !important;">
+        <div class="gw-concept__text" data-de-id="de-5">
           <p data-de-id="de-4" style="">Smartphone OSs (iOS/Android) position themselves above hardware components and sensors, providing integrated AI frameworks. Similarly, automotive operating systems (QNX/Automotive Grade Linux) coordinate sensor fusion and autonomous driving algorithms.</p>
           <p style="">GWES adopts this same architectural approach—positioning itself above warehouse WMS, material handling equipment, and IoT sensors to enable facility intelligence through four core algorithms.</p>
         </div>
@@ -1504,7 +1502,7 @@
           <span class="gw-layer__badge gw-layer__badge--l2">LEVEL 2 VISUALIZATION</span>
           <span class="gw-layer__name">Visualization Layer</span>
         </div>
-        <p class="gw-layer__desc" style="width: 701px !important; max-width: none !important; min-width: 0px !important; box-sizing: border-box !important; height: 48px !important; max-height: none !important; min-height: 0px !important;">Modules delivering primary functions at the Visualization level. Workload Forecasting particularly spans L2, L4, and L5 as a core capability.</p>
+        <p class="gw-layer__desc">Modules delivering primary functions at the Visualization level. Workload Forecasting particularly spans L2, L4, and L5 as a core capability.</p>
         <div class="gw-modules gw-modules--l2" style="">
           <div class="gw-mod" onclick="location.href='../gwes-detail.html?mod=wf'">
             <div class="gw-mod__icon gw-mod__icon--l2"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 26V6"></path><path d="M4 26h24"></path><path d="M7 20l5-6 4 3 5-7 4-2"></path><circle cx="25" cy="8" r="1.5" fill="currentColor" stroke="none"></circle></svg></div>
