@@ -1,20 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <!-- GWES Vertical Lockup — No background (for dark surfaces #0A0C14) -->
+  <!-- GWES Vertical Lockup — No background (for dark surfaces) -->
   <!-- Spec v2: Float Shadow #5BC0EB, Mark 200×200 viewBox -->
   <defs>
     <radialGradient id="glow" cx="50%" cy="50%" r="55%">
       <stop offset="0%" stop-color="#5BC0EB" stop-opacity="0.12"/>
       <stop offset="100%" stop-color="#5BC0EB" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="shadow" cx="50%" cy="50%" r="80%">
+    <!-- Float Shadow: #5BC0EB radialGradient, rx=52, opacity 18% -->
+    <radialGradient id="shadow" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#5BC0EB" stop-opacity="0.18"/>
+      <stop offset="60%" stop-color="#5BC0EB" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#5BC0EB" stop-opacity="0"/>
     </radialGradient>
   </defs>
 
-  <!-- Grid centered at (100, 72), scale 0.56 for ~112px mark fitting 200px viewBox -->
-  <g transform="translate(44, 16) scale(0.56)">
-    <!-- Background ambient glow -->
+  <!-- Grid: scale 0.56 for ~112px mark within 200px viewBox -->
+  <g transform="translate(44, 12) scale(0.56)">
+    <!-- Ambient glow -->
     <circle cx="100" cy="100" r="110" fill="url(#glow)"/>
 
     <!-- GLOW LAYER -->
@@ -88,19 +90,19 @@
   </g>
 
   <!-- Float Shadow -->
-  <ellipse cx="100" cy="130" rx="30" ry="6" fill="url(#shadow)"/>
+  <ellipse cx="100" cy="112" rx="30" ry="8" fill="url(#shadow)"/>
 
-  <!-- Divider line: #6AC6EC -->
-  <line x1="82" y1="138" x2="118" y2="138" stroke="#6ac6ec" stroke-width="0.8" opacity="0.4"/>
+  <!-- Divider: #6AC6EC (Divider Cyan) — NO opacity attr -->
+  <line x1="82" y1="122" x2="118" y2="122" stroke="#6AC6EC" stroke-width="1"/>
 
-  <!-- GWES text: Archivo Regular 400 -->
-  <text x="100" y="158" text-anchor="middle"
+  <!-- GWES: Archivo Regular 400 -->
+  <text x="100" y="142" text-anchor="middle"
         font-family="'Archivo','Helvetica Neue',Arial,sans-serif"
         font-weight="400" font-size="18" letter-spacing="5"
         fill="#FFFFFF">GWES</text>
 
   <!-- Tagline: Inter Regular 400 -->
-  <text x="100" y="172" text-anchor="middle"
+  <text x="100" y="156" text-anchor="middle"
         font-family="'Inter',sans-serif"
         font-weight="400" font-size="7" letter-spacing="0.84"
         fill="#FFFFFF" opacity="0.7">The OS for Autonomous Warehouse</text>

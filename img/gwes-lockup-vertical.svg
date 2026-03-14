@@ -1,25 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
-  <!-- GWES Full Vertical Lockup — Brand Identity Guidelines v1.0 / Spec v2 -->
+  <!-- GWES Full Vertical Lockup — Brand Identity Spec v2 -->
   <!-- Background: #0A0C14, Mark: 140×140px, ViewBox: 0 0 200 200 -->
-  <!-- Float Shadow: #5BC0EB radialGradient, rx=52, opacity 18% -->
   <rect width="600" height="400" fill="#0A0C14"/>
 
   <defs>
-    <!-- Background glow: #5BC0EB (GWES Cyan), 12% opacity, r=55% -->
+    <!-- Background ambient glow: #5BC0EB, 12% opacity, r=55% -->
     <radialGradient id="glow" cx="50%" cy="50%" r="55%">
       <stop offset="0%" stop-color="#5BC0EB" stop-opacity="0.12"/>
       <stop offset="100%" stop-color="#5BC0EB" stop-opacity="0"/>
     </radialGradient>
     <!-- Float Shadow: #5BC0EB radialGradient, rx=52, opacity 18% -->
-    <radialGradient id="shadow" cx="50%" cy="50%" r="80%">
+    <radialGradient id="shadow" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#5BC0EB" stop-opacity="0.18"/>
+      <stop offset="60%" stop-color="#5BC0EB" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#5BC0EB" stop-opacity="0"/>
     </radialGradient>
   </defs>
 
-  <!-- Grid centered at (300, 165), scale from 200×200 viewBox to 140×140px = scale 0.7 -->
-  <!-- translate(300 - 100*0.7, 165 - 100*0.7) = translate(230, 95) -->
-  <g transform="translate(230, 95) scale(0.7)">
+  <!-- Grid: 140×140px mark, centered at x=300 -->
+  <!-- scale 0.7 from 200×200 viewBox → 140px -->
+  <!-- translate(300 - 100*0.7, 90) = translate(230, 90) -->
+  <g transform="translate(230, 90) scale(0.7)">
 
     <!-- Background ambient glow -->
     <circle cx="100" cy="100" r="110" fill="url(#glow)"/>
@@ -62,17 +63,17 @@
     <circle cx="100" cy="100" r="13" fill="#ffffff" opacity="0.08"/>
 
     <!-- === DOT LAYER === -->
-    <!-- Row 1 (y=40): 3 dots — Edge #80D0F0 r=3.9 op=0.28 -->
+    <!-- Row 1 (y=40): 3 dots -->
     <circle cx="80"  cy="40"  r="3.9" fill="#80d0f0" opacity="0.28"/>
     <circle cx="100" cy="40"  r="4.1" fill="#8ad4f1" opacity="0.36"/>
     <circle cx="120" cy="40"  r="3.9" fill="#80d0f0" opacity="0.28"/>
-    <!-- Row 2 (y=60): 5 dots — Near-edge -->
+    <!-- Row 2 (y=60): 5 dots -->
     <circle cx="60"  cy="60"  r="4.1" fill="#8ad4f1" opacity="0.36"/>
     <circle cx="80"  cy="60"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
     <circle cx="100" cy="60"  r="5.0" fill="#b4e2f5" opacity="0.74"/>
     <circle cx="120" cy="60"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
     <circle cx="140" cy="60"  r="4.1" fill="#8ad4f1" opacity="0.36"/>
-    <!-- Row 3 (y=80): 7 dots — Mid-zone -->
+    <!-- Row 3 (y=80): 7 dots -->
     <circle cx="40"  cy="80"  r="3.9" fill="#80d0f0" opacity="0.28"/>
     <circle cx="60"  cy="80"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
     <circle cx="80"  cy="80"  r="5.5" fill="#ceeaf8" opacity="0.86"/>
@@ -88,7 +89,7 @@
     <circle cx="120" cy="100" r="5.9" fill="#dff0fb" opacity="0.92"/>
     <circle cx="140" cy="100" r="5.0" fill="#b4e2f5" opacity="0.74"/>
     <circle cx="160" cy="100" r="4.1" fill="#8ad4f1" opacity="0.36"/>
-    <!-- Row 5 (y=120): 7 dots — Mirror of Row 3 -->
+    <!-- Row 5 (y=120): 7 dots -->
     <circle cx="40"  cy="120" r="3.9" fill="#80d0f0" opacity="0.28"/>
     <circle cx="60"  cy="120" r="4.8" fill="#a8ddf4" opacity="0.66"/>
     <circle cx="80"  cy="120" r="5.5" fill="#ceeaf8" opacity="0.86"/>
@@ -96,32 +97,33 @@
     <circle cx="120" cy="120" r="5.5" fill="#ceeaf8" opacity="0.86"/>
     <circle cx="140" cy="120" r="4.8" fill="#a8ddf4" opacity="0.66"/>
     <circle cx="160" cy="120" r="3.9" fill="#80d0f0" opacity="0.28"/>
-    <!-- Row 6 (y=140): 5 dots — Mirror of Row 2 -->
+    <!-- Row 6 (y=140): 5 dots -->
     <circle cx="60"  cy="140" r="4.1" fill="#8ad4f1" opacity="0.36"/>
     <circle cx="80"  cy="140" r="4.8" fill="#a8ddf4" opacity="0.66"/>
     <circle cx="100" cy="140" r="5.0" fill="#b4e2f5" opacity="0.74"/>
     <circle cx="120" cy="140" r="4.8" fill="#a8ddf4" opacity="0.66"/>
     <circle cx="140" cy="140" r="4.1" fill="#8ad4f1" opacity="0.36"/>
-    <!-- Row 7 (y=160): 3 dots — Mirror of Row 1 -->
+    <!-- Row 7 (y=160): 3 dots -->
     <circle cx="80"  cy="160" r="3.9" fill="#80d0f0" opacity="0.28"/>
     <circle cx="100" cy="160" r="4.1" fill="#8ad4f1" opacity="0.36"/>
     <circle cx="120" cy="160" r="3.9" fill="#80d0f0" opacity="0.28"/>
   </g>
 
   <!-- Float Shadow: #5BC0EB radialGradient, rx=52, opacity 18% -->
-  <ellipse cx="300" cy="280" rx="52" ry="10" fill="url(#shadow)"/>
+  <!-- Positioned just below grid bottom (grid bottom ≈ y=202) -->
+  <ellipse cx="300" cy="214" rx="52" ry="14" fill="url(#shadow)"/>
 
-  <!-- Divider line: #6AC6EC (Divider Cyan), opacity 0.4 -->
-  <line x1="272" y1="290" x2="328" y2="290" stroke="#6ac6ec" stroke-width="1" opacity="0.4"/>
+  <!-- Divider: #6AC6EC (Divider Cyan), centered 56px wide -->
+  <line x1="272" y1="228" x2="328" y2="228" stroke="#6AC6EC" stroke-width="1"/>
 
-  <!-- GWES text: Archivo Regular 400, 24px, letter-spacing 0.28em (6.72px), #FFFFFF -->
-  <text x="300" y="318" text-anchor="middle"
+  <!-- GWES: Archivo Regular 400, 24px, letter-spacing: 0.28em (6.72px) -->
+  <text x="300" y="256" text-anchor="middle"
         font-family="'Archivo','Helvetica Neue',Arial,sans-serif"
         font-weight="400" font-size="24" letter-spacing="6.72"
         fill="#FFFFFF">GWES</text>
 
-  <!-- Tagline: Inter Regular 400, 9.6px, letter-spacing 0.12em (1.152px), rgba(255,255,255,0.7) -->
-  <text x="300" y="336" text-anchor="middle"
+  <!-- Tagline: Inter Regular 400, 9.6px, letter-spacing: 0.12em (1.152px), 70% opacity -->
+  <text x="300" y="274" text-anchor="middle"
         font-family="'Inter',sans-serif"
         font-weight="400" font-size="9.6" letter-spacing="1.15"
         fill="#FFFFFF" opacity="0.7">The OS for Autonomous Warehouse</text>
