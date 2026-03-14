@@ -15,6 +15,27 @@
 /team       /team.html         200
 /digital-integration /digital-integration.html 200
 
+# Case Studies
+/case-kao       /case-kao.html       200
+/case-nittsu    /case-nittsu.html    200
+/case-cxcargo   /case-cxcargo.html   200
+/case-autobacs  /case-autobacs.html  200
+
+# GWES subpages
+/gwes-detail         /gwes-detail.html         200
+/gwes-modules        /gwes-modules.html        200
+/gwes-technology     /gwes-technology.html      200
+/gwes-implementation /gwes-implementation.html  200
+/gwes-simulation     /gwes-simulation.html      200
+
+# GPIM subpages
+/gpim-detail      /gpim-detail.html      200
+/gpim-consulting  /gpim-consulting.html  200
+
+# Blog articles
+/blog-weekly-050  /blog-weekly-050.html  200
+/blog-weekly-051  /blog-weekly-051.html  200
+
 # English pages
 /en         /en/index.html     200
 /en/about   /en/about.html     200
