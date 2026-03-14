@@ -378,7 +378,9 @@
     <div class="container">
       <div class="contact-form-wrapper">
         <!-- Left: Form -->
-        <div class="contact-form">
+        <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact">
+          <p style="display:none"><label>Don't fill this out: <input name="bot-field"></label></p>
           <div class="contact-form-group">
             <label class="contact-form-label">会社名</label>
             <input type="text" name="company" class="contact-form-input" placeholder="例：GROUND株式会社">
@@ -412,7 +414,7 @@
           </div>
           <button type="submit" class="contact-submit-btn" id="contactSubmitBtn">送信する</button>
           <div id="contactFormStatus" style="margin-top:16px;display:none;padding:12px 16px;border-radius:8px;font-size:0.9rem;"></div>
-        </div>
+        </form>
 
         <!-- Right: Sidebar -->
         <div class="contact-sidebar">
@@ -639,16 +641,13 @@
 
 <script>
 (function() {
-  var SUPABASE_URL = 'https://wmfxyimxqnjwdzumolua.supabase.co';
-  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtZnh5aW14cW5qd2R6dW1vbHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMjIyODgsImV4cCI6MjA4Nzg5ODI4OH0.EAn5MjGiGg9dpwN_y4QbjWJVCPxXIkWDuSswnG2YOvU';
-
+  var form = document.querySelector('.contact-form');
   var submitBtn = document.getElementById('contactSubmitBtn');
   var statusEl = document.getElementById('contactFormStatus');
-  var form = document.querySelector('.contact-form');
 
-  if (!submitBtn || !form) return;
+  if (!form || !submitBtn) return;
 
-  submitBtn.addEventListener('click', function(e) {
+  form.addEventListener('submit', function(e) {
     e.preventDefault();
 
     // Validate required fields
@@ -669,53 +668,25 @@
     submitBtn.textContent = '送信中...';
     statusEl.style.display = 'none';
 
-    // Detect source from URL ref parameter
-    var urlParams = new URLSearchParams(window.location.search);
-    var ref = urlParams.get('ref') || '';
-    var source = 'contact';
-    if (ref.indexOf('dx-diagnosis') !== -1) source = 'dx_diagnosis';
-    if (ref.indexOf('consult') !== -1) source = 'dx_diagnosis_consult';
-    if (ref.indexOf('document') !== -1) source = 'dx_diagnosis_document';
+    // Submit to Netlify Forms
+    var formData = new FormData(form);
 
-    var payload = {
-      source: source,
-      company_name: form.querySelector('[name="company"]').value.trim() || '未入力',
-      contact_name: name,
-      email: email,
-      phone: form.querySelector('[name="phone"]').value.trim() || null,
-      message: (form.querySelector('[name="inquiry_type"]').value ? '[' + form.querySelector('[name="inquiry_type"]').selectedOptions[0].textContent + '] ' : '') + message,
-      utm_source: urlParams.get('utm_source') || null,
-      utm_medium: urlParams.get('utm_medium') || null,
-      utm_campaign: urlParams.get('utm_campaign') || null
-    };
-
-    fetch(SUPABASE_URL + '/rest/v1/leads', {
+    fetch('/', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-        'Prefer': 'return=representation'
-      },
-      body: JSON.stringify(payload)
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData).toString()
     })
     .then(function(res) {
       if (!res.ok) throw new Error('送信エラー');
-      return res.json();
-    })
-    .then(function() {
       statusEl.style.display = 'block';
       statusEl.style.background = 'rgba(34,197,94,0.15)';
       statusEl.style.color = '#4ade80';
       statusEl.textContent = 'お問い合わせを受け付けました。担当者より折り返しご連絡いたします。';
-      // Reset form
-      form.querySelectorAll('input, textarea, select').forEach(function(el) {
-        if (el.type !== 'submit') el.value = '';
-      });
+      form.reset();
       submitBtn.textContent = '送信完了';
     })
     .catch(function(err) {
-      console.warn('Supabase error:', err);
+      console.warn('Form error:', err);
       statusEl.style.display = 'block';
       statusEl.style.background = 'rgba(239,68,68,0.15)';
       statusEl.style.color = '#f87171';

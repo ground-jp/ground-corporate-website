@@ -41,9 +41,53 @@
 /en/about   /en/about.html     200
 /en/gwes    /en/gwes.html      200
 /en/contact /en/contact.html   200
+/en/history /en/history.html   200
 
 # Admin pages
 /admin/leads  /admin/leads.html  200
+
+# ===== Old Wix site URL redirects (301) =====
+# Wix uses _functions-based dynamic routing and specific page slugs
+
+# Top-level pages from old Wix site
+/home                   /              301
+/about-us               /about.html    301
+/company                /about.html    301
+/services               /service.html  301
+/solutions              /service.html  301
+/products               /service.html  301
+/recruit                /careers.html  301
+/recruitment            /careers.html  301
+/採用                    /careers.html  301
+
+# Old service/product pages
+/gwes-1                 /gwes.html     301
+/g-pim                  /gpim.html     301
+/g-pim-1                /gpim.html     301
+
+# Old case study / works URLs
+/case-studies           /works.html    301
+/casestudy              /works.html    301
+/case-study             /works.html    301
+/achievements           /works.html    301
+
+# Old news/blog
+/news-1                 /news.html     301
+/ニュース                /news.html     301
+/お知らせ                /news.html     301
+
+# Old contact
+/contact-1              /contact.html  301
+/お問い合わせ             /contact.html  301
+/inquiry                /contact.html  301
+
+# Old privacy
+/privacy-policy         /privacy.html  301
+/privacypolicy          /privacy.html  301
+
+# Wix internal paths (common patterns)
+/_functions/*            /              301
+/_api/*                  /              301
 
 # SPA-style catch-all for 404
 /*          /404.html          404
