@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
   <rect width="600" height="400" fill="#0A0C14"/>
 
-  <!-- Particle Grid Icon — centered -->
-  <g transform="translate(142, 10) scale(0.95)">
+  <!-- Particle Grid Icon — V4 Grid Dominant (large) -->
+  <g transform="translate(120, -10) scale(1.1)">
     <circle cx="133.3" cy="66.7" r="5.2" fill="#6ac6ec" opacity="0.17"/>
     <circle cx="166.7" cy="66.7" r="5.5" fill="#72c9ed" opacity="0.24"/>
     <circle cx="200.0" cy="66.7" r="5.2" fill="#6ac6ec" opacity="0.17"/>
@@ -47,6 +47,6 @@
     <circle cx="200.0" cy="266.7" r="5.2" fill="#6ac6ec" opacity="0.17"/>
   </g>
 
-  <!-- V3 Minimal: Inter Medium 500, no tagline -->
-  <text x="300" y="320" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-weight="500" font-size="38" letter-spacing="8" fill="#E0E4EC">GWES</text>
+  <!-- V4 Grid Dominant: Inter Medium 500, white, smaller text -->
+  <text x="300" y="340" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-weight="500" font-size="26" letter-spacing="8" fill="#FFFFFF">GWES</text>
 </svg>

@@ -41,13 +41,13 @@
     .gw-bc a { color: var(--gw-text-3); text-decoration: none; transition: color 0.2s; }
     .gw-bc a:hover { color: var(--gw-text-2); }
 
-    /* ── GWES Logo (centered hero) — V3 Minimal ── */
+    /* ── GWES Logo (centered hero) — V4 Grid Dominant ── */
     .gw-logo {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 20px;
+      gap: 10px;
     }
     .gw-logo__mark {
-      width: 100px; height: 100px;
+      width: 140px; height: 140px;
       flex-shrink: 0;
     }
     .gw-logo__mark img {
@@ -58,10 +58,10 @@
       display: flex; flex-direction: column; align-items: center; gap: 6px;
     }
     .gw-logo__name {
-      /* V3 Minimal: Inter Medium 500 */
+      /* V4 Grid Dominant: Inter Medium 500, white */
       font-family: 'Inter', sans-serif;
-      font-size: 2.4rem; font-weight: 500;
-      color: #E0E4EC; letter-spacing: 0.2em;
+      font-size: 1.6rem; font-weight: 500;
+      color: #FFFFFF; letter-spacing: 0.25em;
       line-height: 1;
     }
     .gw-logo__full {
@@ -768,9 +768,9 @@
       }
     }
     @media (max-width: 768px) {
-      .gw-logo { gap: 14px; }
-      .gw-logo__mark { width: 72px; height: 72px; }
-      .gw-logo__name { font-size: 1.6rem; }
+      .gw-logo { gap: 8px; }
+      .gw-logo__mark { width: 100px; height: 100px; }
+      .gw-logo__name { font-size: 1.3rem; }
       .gw-laptop__screen { padding: 10px 10px 0; border-radius: 8px 8px 0 0; }
       .gw-laptop__base { height: 6px; }
       .gw-laptop__screen-glow { inset: -30px -40px -10px -40px; }
