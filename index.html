@@ -265,16 +265,25 @@
   </a>
 
   <section class="hero" id="hero">
-    <video id="heroVideo" autoplay="" muted="" loop="" playsinline="" preload="auto" aria-hidden="true">
+    <video id="heroVideo" autoplay="" muted="" playsinline="" preload="auto" aria-hidden="true">
       <source id="heroVideoSrc" src="img/hero-video-2026.mp4" type="video/mp4">
     </video>
     <script>
-      // Random video switch per visit
+      // Sequential video rotation — cycles through all 3 videos
       (function(){
         var videos = ['img/hero-video-2026.mp4','img/hero-video-neural-v2.mp4','img/hero-preview.mp4'];
-        var src = videos[Math.floor(Math.random() * videos.length)];
-        var el = document.getElementById('heroVideoSrc');
-        if (el) { el.src = src; document.getElementById('heroVideo').load(); }
+        var idx = Math.floor(Math.random() * videos.length);
+        var vid = document.getElementById('heroVideo');
+        var src = document.getElementById('heroVideoSrc');
+        if (!vid || !src) return;
+        src.src = videos[idx];
+        vid.load();
+        vid.addEventListener('ended', function(){
+          idx = (idx + 1) % videos.length;
+          src.src = videos[idx];
+          vid.load();
+          vid.play();
+        });
       })();
     </script>
     <div class="hero__gradient"></div>
