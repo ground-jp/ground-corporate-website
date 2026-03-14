@@ -3,541 +3,418 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GWES Logo Proposals</title>
+<title>GWES Particle Grid Logo Proposals</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-    background: #08090F;
-    color: #E0E3EB;
-    padding: 40px 20px;
-  }
-  h1 {
-    text-align: center;
-    font-size: 1.1rem;
-    font-weight: 400;
-    letter-spacing: 0.15em;
-    color: #6B7280;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-  }
-  .subtitle {
-    text-align: center;
-    font-size: 0.85rem;
-    color: #4B5563;
-    margin-bottom: 60px;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(540px, 1fr));
-    gap: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  .card {
-    background: #0F1119;
-    border: 1px solid #1E2130;
-    border-radius: 16px;
-    overflow: hidden;
-    transition: border-color 0.3s;
-  }
-  .card:hover { border-color: #3B82F6; }
-  .card__preview {
-    height: 240px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #0A0C14;
-    position: relative;
-  }
-  .card__preview--light {
-    background: #F8F9FB;
-  }
-  .card__info {
-    padding: 24px 28px;
-    border-top: 1px solid #1E2130;
-  }
-  .card__label {
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
-    color: #5BC0EB;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .card__title {
-    font-size: 1.15rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #E0E3EB;
-  }
-  .card__desc {
-    font-size: 0.82rem;
-    color: #8891A5;
-    line-height: 1.7;
-  }
-  .tag {
-    display: inline-block;
-    font-size: 0.65rem;
-    padding: 3px 8px;
-    border-radius: 4px;
-    background: #1A1D2E;
-    color: #7B8499;
-    margin-right: 6px;
-    margin-top: 10px;
-  }
-  .tag--current { background: #1A2E1A; color: #6EE76E; }
-
-  /* Logo styles within cards */
-  .logo-row {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-  }
-  .logo-text {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  .logo-name {
-    font-family: 'Helvetica Neue', 'Liberation Sans', Arial, sans-serif;
-    font-weight: 300;
-    font-size: 3rem;
-    color: #C8CDD8;
-    letter-spacing: 0.12em;
-    line-height: 1;
-  }
-  .logo-name--white { color: #FFFFFF; }
-  .logo-name--dark { color: #1A1D2E; }
-  .logo-tagline {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.65rem;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    color: rgba(255,255,255,0.4);
-    line-height: 1.3;
-  }
-  .logo-tagline--dark { color: rgba(0,0,0,0.35); }
-
-  /* Section divider */
-  .section-label {
-    text-align: center;
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    color: #374151;
-    margin: 60px 0 30px;
-    text-transform: uppercase;
-  }
-  .section-label span {
-    background: #08090F;
-    padding: 0 20px;
-    position: relative;
-  }
-  .section-label::before {
-    content: '';
-    display: block;
-    height: 1px;
-    background: #1E2130;
-    position: relative;
-    top: 10px;
-  }
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&family=Inter:wght@400;500;600&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#111; color:#ccc; font-family:'Inter',sans-serif; padding:40px 20px; }
+  h1 { text-align:center; font-size:28px; color:#fff; margin-bottom:8px; font-weight:600; }
+  .subtitle { text-align:center; color:#888; font-size:14px; margin-bottom:48px; }
+  .section-title { font-size:20px; color:#6ac6ec; margin:48px 0 24px; padding-left:12px; border-left:3px solid #6ac6ec; font-weight:600; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(420px, 1fr)); gap:24px; max-width:1400px; margin:0 auto; }
+  .card { background:#1a1a1a; border-radius:12px; overflow:hidden; border:1px solid #333; transition:border-color .2s; }
+  .card:hover { border-color:#6ac6ec; }
+  .preview { display:flex; align-items:center; justify-content:center; min-height:260px; padding:32px; }
+  .preview.h { min-height:180px; }
+  .preview.dark { background:#0A0C14; }
+  .preview.light { background:#F5F7FA; }
+  .info { padding:16px 20px; border-top:1px solid #333; }
+  .info h3 { font-size:15px; color:#fff; margin-bottom:4px; }
+  .info .desc { font-size:12px; color:#888; margin-bottom:8px; }
+  .info .specs { font-size:11px; color:#666; font-family:monospace; }
+  .new-badge { display:inline-block; background:#6ac6ec; color:#0A0C14; font-size:10px; font-weight:700; padding:2px 6px; border-radius:3px; margin-left:8px; vertical-align:middle; }
 </style>
 </head>
 <body>
 
-<h1>GWES Logo Proposals</h1>
-<p class="subtitle">グローバル展開を見据えたGWESロゴの方向性 — 6案</p>
+<h1>GWES Particle Grid Logo Proposals</h1>
+<p class="subtitle">Vertical & Horizontal layout variations — Particle Grid identity (v2)</p>
+
+<!-- ===== PARTICLE GRID TEMPLATE (reusable via defs) ===== -->
 
 <!-- ============================================================ -->
-<div class="section-label"><span>Dark Background (Primary)</span></div>
-<!-- ============================================================ -->
-
+<div class="section-title">Vertical Layouts (縦組)</div>
 <div class="grid">
 
-  <!-- ===== A: CURRENT ===== -->
-  <div class="card">
-    <div class="card__preview">
-      <div class="logo-row">
-        <svg width="72" height="72" viewBox="0 0 200 200">
-          <circle cx="80" cy="40" r="3.9" fill="#6ac6ec" opacity="0.17"/>
-          <circle cx="100" cy="40" r="4.1" fill="#72c9ed" opacity="0.24"/>
-          <circle cx="120" cy="40" r="3.9" fill="#6ac6ec" opacity="0.17"/>
-          <circle cx="60" cy="60" r="4.2" fill="#7accee" opacity="0.32"/>
-          <circle cx="80" cy="60" r="4.8" fill="#96d6f2" opacity="0.54"/>
-          <circle cx="100" cy="60" r="5.0" fill="#a1dbf3" opacity="0.62"/>
-          <circle cx="120" cy="60" r="4.8" fill="#96d6f2" opacity="0.54"/>
-          <circle cx="140" cy="60" r="4.2" fill="#7accee" opacity="0.32"/>
-          <circle cx="40" cy="80" r="3.9" fill="#6ac6ec" opacity="0.17"/>
-          <circle cx="60" cy="80" r="4.8" fill="#96d6f2" opacity="0.54"/>
-          <circle cx="80" cy="80" r="5.5" fill="#bce5f6" opacity="0.77"/>
-          <circle cx="100" cy="80" r="5.9" fill="#d0edf9" opacity="0.84"/>
-          <circle cx="120" cy="80" r="5.5" fill="#bce5f6" opacity="0.77"/>
-          <circle cx="140" cy="80" r="4.8" fill="#96d6f2" opacity="0.54"/>
-          <circle cx="160" cy="80" r="3.9" fill="#6ac6ec" opacity="0.17"/>
-          <circle cx="40" cy="100" r="4.1" fill="#72c9ed" opacity="0.24"/>
-          <circle cx="60" cy="100" r="5.0" fill="#a1dbf3" opacity="0.62"/>
-          <circle cx="80" cy="100" r="5.9" fill="#d0edf9" opacity="0.84"/>
-          <circle cx="100" cy="100" r="6.8" fill="#ffffff" opacity="0.92"/>
-          <circle cx="120" cy="100" r="5.9" fill="#d0edf9" opacity="0.84"/>
-          <circle cx="140" cy="100" r="5.0" fill="#a1dbf3" opacity="0.62"/>
-          <circle cx="160" cy="100" r="4.1" fill="#72c9ed" opacity="0.24"/>
-          <circle cx="40" cy="120" r="3.9" fill="#6ac6ec" opacity="0.17"/>
-          <circle cx="60" cy="120" r="4.8" fill="#96d6f2" opacity="0.54"/>
-          <circle cx="80" cy="120" r="5.5" fill="#bce5f6" opacity="0.77"/>
-          <circle cx="100" cy="120" r="5.9" fill="#d0edf9" opacity="0.84"/>
-          <circle cx="120" cy="120" r="5.5" fill="#bce5f6" opacity="0.77"/>
-          <circle cx="140" cy="120" r="4.8" fill="#96d6f2" opacity="0.54"/>
-          <circle cx="160" cy="120" r="3.9" fill="#6ac6ec" opacity="0.17"/>
-          <circle cx="60" cy="140" r="4.2" fill="#7accee" opacity="0.32"/>
-          <circle cx="80" cy="140" r="4.8" fill="#96d6f2" opacity="0.54"/>
-          <circle cx="100" cy="140" r="5.0" fill="#a1dbf3" opacity="0.62"/>
-          <circle cx="120" cy="140" r="4.8" fill="#96d6f2" opacity="0.54"/>
-          <circle cx="140" cy="140" r="4.2" fill="#7accee" opacity="0.32"/>
-          <circle cx="80" cy="160" r="3.9" fill="#6ac6ec" opacity="0.17"/>
-          <circle cx="100" cy="160" r="4.1" fill="#72c9ed" opacity="0.24"/>
-          <circle cx="120" cy="160" r="3.9" fill="#6ac6ec" opacity="0.17"/>
-        </svg>
-        <div class="logo-text">
-          <span class="logo-name">GWES</span>
-          <span class="logo-tagline">The OS for Autonomous Warehouse</span>
-        </div>
-      </div>
-    </div>
-    <div class="card__info">
-      <div class="card__label">Proposal A — Current</div>
-      <div class="card__title">Particle Grid（現行デザイン）</div>
-      <div class="card__desc">
-        中心に向かって輝度が増すドットグリッド。データの集約・最適化を表現。
-        抽象的でテクノロジー寄りの印象。現在のサイトで使用中。
-      </div>
-      <span class="tag tag--current">現行</span>
-      <span class="tag">抽象的</span>
-      <span class="tag">テック感</span>
-    </div>
+<!-- V1: Classic -->
+<div class="card">
+  <div class="preview dark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" width="340">
+      <g transform="translate(100,10) scale(1)">
+        <circle cx="80" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="100" cy="40" r="4.1" fill="#72c9ed" opacity=".24"/>
+        <circle cx="120" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="60" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="80" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/>
+        <circle cx="100" cy="60" r="5.0" fill="#a1dbf3" opacity=".62"/>
+        <circle cx="120" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/>
+        <circle cx="140" cy="60" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="40" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/>
+        <circle cx="80" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/>
+        <circle cx="100" cy="80" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="80" r="5.9" fill="#d0edf9" opacity=".84"/>
+        <circle cx="120" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/>
+        <circle cx="140" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/>
+        <circle cx="160" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="40" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/>
+        <circle cx="60" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/>
+        <circle cx="80" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="80" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/>
+        <circle cx="100" cy="100" r="12.3" fill="#fff" opacity=".048"/><circle cx="100" cy="100" r="6.8" fill="#fff" opacity=".92"/>
+        <circle cx="120" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="120" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/>
+        <circle cx="140" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/>
+        <circle cx="160" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/>
+        <circle cx="40" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/>
+        <circle cx="80" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/>
+        <circle cx="100" cy="120" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="120" r="5.9" fill="#d0edf9" opacity=".84"/>
+        <circle cx="120" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/>
+        <circle cx="140" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/>
+        <circle cx="160" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="140" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="80" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/>
+        <circle cx="100" cy="140" r="5.0" fill="#a1dbf3" opacity=".62"/>
+        <circle cx="120" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/>
+        <circle cx="140" cy="140" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="80" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="100" cy="160" r="4.1" fill="#72c9ed" opacity=".24"/>
+        <circle cx="120" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/>
+      </g>
+      <text x="200" y="228" text-anchor="middle" font-family="'Helvetica Neue','Liberation Sans',Arial,sans-serif" font-weight="300" font-size="42" letter-spacing="5" fill="#C8CDD8">GWES</text>
+      <text x="200" y="258" text-anchor="middle" font-family="'Inter','Helvetica Neue',Arial,sans-serif" font-weight="400" font-size="13" fill="#fff" opacity=".85">The OS for Autonomous Warehouse</text>
+    </svg>
   </div>
-
-  <!-- ===== B: Hexagonal Network ===== -->
-  <div class="card">
-    <div class="card__preview">
-      <div class="logo-row">
-        <svg width="72" height="72" viewBox="0 0 200 200">
-          <!-- Hexagonal network: nodes + connections -->
-          <g stroke="#5BC0EB" stroke-width="1.2" fill="none" opacity="0.25">
-            <line x1="100" y1="40" x2="60" y2="65"/>
-            <line x1="100" y1="40" x2="140" y2="65"/>
-            <line x1="60" y1="65" x2="60" y2="115"/>
-            <line x1="140" y1="65" x2="140" y2="115"/>
-            <line x1="60" y1="115" x2="100" y2="140"/>
-            <line x1="140" y1="115" x2="100" y2="140"/>
-            <line x1="100" y1="40" x2="100" y2="90"/>
-            <line x1="60" y1="65" x2="100" y2="90"/>
-            <line x1="140" y1="65" x2="100" y2="90"/>
-            <line x1="60" y1="115" x2="100" y2="90"/>
-            <line x1="140" y1="115" x2="100" y2="90"/>
-            <line x1="100" y1="140" x2="100" y2="90"/>
-          </g>
-          <!-- Outer nodes -->
-          <circle cx="100" cy="40" r="5" fill="#5BC0EB" opacity="0.5"/>
-          <circle cx="60" cy="65" r="5" fill="#5BC0EB" opacity="0.5"/>
-          <circle cx="140" cy="65" r="5" fill="#5BC0EB" opacity="0.5"/>
-          <circle cx="60" cy="115" r="5" fill="#5BC0EB" opacity="0.5"/>
-          <circle cx="140" cy="115" r="5" fill="#5BC0EB" opacity="0.5"/>
-          <circle cx="100" cy="140" r="5" fill="#5BC0EB" opacity="0.5"/>
-          <!-- Center node (bright) -->
-          <circle cx="100" cy="90" r="12" fill="#5BC0EB" opacity="0.08"/>
-          <circle cx="100" cy="90" r="7" fill="#FFFFFF" opacity="0.9"/>
-          <!-- Subtle glow -->
-          <circle cx="100" cy="90" r="20" fill="#5BC0EB" opacity="0.04"/>
-
-          <!-- Tagline below hex -->
-          <text x="100" y="175" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5BC0EB" opacity="0.4" letter-spacing="3">NETWORK</text>
-        </svg>
-        <div class="logo-text">
-          <span class="logo-name">GWES</span>
-          <span class="logo-tagline">The OS for Autonomous Warehouse</span>
-        </div>
-      </div>
-    </div>
-    <div class="card__info">
-      <div class="card__label">Proposal B</div>
-      <div class="card__title">Hexagonal Network</div>
-      <div class="card__desc">
-        六角形のネットワーク構造。中央のハブから各ノードへの接続が、
-        GWESの「倉庫オペレーション統合管理」というコンセプトを直感的に表現。
-        物流・サプライチェーン業界で馴染みのあるネットワーク図に近い形態。
-      </div>
-      <span class="tag">ネットワーク</span>
-      <span class="tag">統合</span>
-      <span class="tag">物流</span>
-    </div>
+  <div class="info">
+    <h3>V1 — Classic (現行デザイン)</h3>
+    <div class="desc">Helvetica Neue Light 300 — 現在のGWESロゴ。繊細でテクノロジー感あり</div>
+    <div class="specs">font: Helvetica Neue 300 / 42px / ls:5px / fill:#C8CDD8</div>
   </div>
+</div>
 
-  <!-- ===== C: Concentric Rings ===== -->
-  <div class="card">
-    <div class="card__preview">
-      <div class="logo-row">
-        <svg width="72" height="72" viewBox="0 0 200 200">
-          <!-- Concentric rings with break = "OS" concept -->
-          <circle cx="100" cy="100" r="60" fill="none" stroke="#5BC0EB" stroke-width="1" opacity="0.15"
-                  stroke-dasharray="320 60" transform="rotate(-30 100 100)"/>
-          <circle cx="100" cy="100" r="45" fill="none" stroke="#5BC0EB" stroke-width="1.5" opacity="0.3"
-                  stroke-dasharray="220 60" transform="rotate(15 100 100)"/>
-          <circle cx="100" cy="100" r="30" fill="none" stroke="#5BC0EB" stroke-width="2" opacity="0.5"
-                  stroke-dasharray="140 50" transform="rotate(-60 100 100)"/>
-          <!-- Center core -->
-          <circle cx="100" cy="100" r="14" fill="#5BC0EB" opacity="0.06"/>
-          <circle cx="100" cy="100" r="8" fill="#FFFFFF" opacity="0.88"/>
-          <!-- Orbital dots -->
-          <circle cx="100" cy="40" r="3" fill="#5BC0EB" opacity="0.6"/>
-          <circle cx="145" cy="74" r="2.5" fill="#5BC0EB" opacity="0.45"/>
-          <circle cx="55" cy="126" r="2.5" fill="#5BC0EB" opacity="0.45"/>
-          <circle cx="130" cy="140" r="3" fill="#5BC0EB" opacity="0.35"/>
-        </svg>
-        <div class="logo-text">
-          <span class="logo-name">GWES</span>
-          <span class="logo-tagline">The OS for Autonomous Warehouse</span>
-        </div>
-      </div>
-    </div>
-    <div class="card__info">
-      <div class="card__label">Proposal C</div>
-      <div class="card__title">Concentric Orbits</div>
-      <div class="card__desc">
-        同心円の軌道と衛星ノード。「OS（オペレーティングシステム）」としてすべてを
-        統括するコアと、その周囲で動作するモジュール群を表現。
-        テック企業のグローバルブランドに多く見られる洗練された図形言語。
-      </div>
-      <span class="tag">OS</span>
-      <span class="tag">モジュール</span>
-      <span class="tag">洗練</span>
-    </div>
+<!-- V2: Archivo Bold -->
+<div class="card">
+  <div class="preview dark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" width="340">
+      <g transform="translate(100,10) scale(1)">
+        <circle cx="80" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="40" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="60" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="60" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="60" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="40" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="80" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="80" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="40" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="60" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="80" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="80" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="100" cy="100" r="12.3" fill="#fff" opacity=".048"/><circle cx="100" cy="100" r="6.8" fill="#fff" opacity=".92"/><circle cx="120" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="120" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="140" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="160" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/>
+        <circle cx="40" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="120" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="120" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="140" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="140" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="140" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="80" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="160" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/>
+      </g>
+      <text x="200" y="232" text-anchor="middle" font-family="'Archivo',Arial,sans-serif" font-weight="700" font-size="44" letter-spacing="6" fill="#FFFFFF">GWES</text>
+      <text x="200" y="262" text-anchor="middle" font-family="'Inter',sans-serif" font-weight="400" font-size="13" fill="#fff" opacity=".85">The OS for Autonomous Warehouse</text>
+    </svg>
   </div>
-
-  <!-- ===== D: Warehouse Grid / Floor Plan ===== -->
-  <div class="card">
-    <div class="card__preview">
-      <div class="logo-row">
-        <svg width="72" height="72" viewBox="0 0 200 200">
-          <!-- Abstracted warehouse floor plan grid -->
-          <g opacity="0.2">
-            <rect x="30" y="30" width="40" height="40" rx="3" fill="none" stroke="#5BC0EB" stroke-width="1.5"/>
-            <rect x="80" y="30" width="40" height="40" rx="3" fill="none" stroke="#5BC0EB" stroke-width="1.5"/>
-            <rect x="130" y="30" width="40" height="40" rx="3" fill="none" stroke="#5BC0EB" stroke-width="1.5"/>
-            <rect x="30" y="80" width="40" height="40" rx="3" fill="none" stroke="#5BC0EB" stroke-width="1.5"/>
-            <rect x="130" y="80" width="40" height="40" rx="3" fill="none" stroke="#5BC0EB" stroke-width="1.5"/>
-            <rect x="30" y="130" width="40" height="40" rx="3" fill="none" stroke="#5BC0EB" stroke-width="1.5"/>
-            <rect x="80" y="130" width="40" height="40" rx="3" fill="none" stroke="#5BC0EB" stroke-width="1.5"/>
-            <rect x="130" y="130" width="40" height="40" rx="3" fill="none" stroke="#5BC0EB" stroke-width="1.5"/>
-          </g>
-          <!-- Center zone: bright, active -->
-          <rect x="80" y="80" width="40" height="40" rx="3" fill="#5BC0EB" opacity="0.08" stroke="#5BC0EB" stroke-width="2" stroke-opacity="0.6"/>
-          <circle cx="100" cy="100" r="8" fill="#FFFFFF" opacity="0.88"/>
-          <!-- Flow arrows (subtle) -->
-          <g stroke="#5BC0EB" stroke-width="1" opacity="0.35" fill="none">
-            <path d="M70 50 L80 50" marker-end="none"/>
-            <path d="M50 70 L50 80"/>
-            <path d="M120 50 L130 50"/>
-            <path d="M150 70 L150 80"/>
-            <path d="M50 120 L50 130"/>
-            <path d="M70 150 L80 150"/>
-            <path d="M120 150 L130 150"/>
-            <path d="M150 120 L150 130"/>
-          </g>
-          <!-- Activity pulses in some cells -->
-          <circle cx="50" cy="50" r="4" fill="#5BC0EB" opacity="0.3"/>
-          <circle cx="150" cy="50" r="3" fill="#5BC0EB" opacity="0.2"/>
-          <circle cx="50" cy="150" r="3" fill="#5BC0EB" opacity="0.25"/>
-          <circle cx="150" cy="150" r="4" fill="#5BC0EB" opacity="0.35"/>
-        </svg>
-        <div class="logo-text">
-          <span class="logo-name">GWES</span>
-          <span class="logo-tagline">The OS for Autonomous Warehouse</span>
-        </div>
-      </div>
-    </div>
-    <div class="card__info">
-      <div class="card__label">Proposal D</div>
-      <div class="card__title">Warehouse Grid</div>
-      <div class="card__desc">
-        倉庫フロアのゾーン配置を抽象化したグリッド。中央のアクティブゾーンが
-        GWESの管制塔としての役割を表現。物流業界の人にとって
-        「倉庫のレイアウト」と直感的に結びつきやすいモチーフ。
-      </div>
-      <span class="tag">倉庫</span>
-      <span class="tag">フロア</span>
-      <span class="tag">直感的</span>
-    </div>
+  <div class="info">
+    <h3>V2 — Archivo Bold</h3>
+    <div class="desc">GROUNDロゴと同じArchivo Bold 700。ブランド統一感、力強い印象</div>
+    <div class="specs">font: Archivo 700 / 44px / ls:6px / fill:#FFFFFF</div>
   </div>
+</div>
 
-  <!-- ===== E: Abstract "G" Mark ===== -->
-  <div class="card">
-    <div class="card__preview">
-      <div class="logo-row">
-        <svg width="72" height="72" viewBox="0 0 200 200">
-          <!-- Abstract "G" formed by arc + data flow -->
-          <path d="M 130 55 A 55 55 0 1 0 130 145" fill="none" stroke="#5BC0EB" stroke-width="3" opacity="0.5" stroke-linecap="round"/>
-          <!-- Horizontal bar of G -->
-          <line x1="100" y1="100" x2="140" y2="100" stroke="#5BC0EB" stroke-width="3" opacity="0.5" stroke-linecap="round"/>
-          <!-- Data flow dots along the arc -->
-          <circle cx="130" cy="55" r="4" fill="#FFFFFF" opacity="0.9"/>
-          <circle cx="55" cy="72" r="3" fill="#5BC0EB" opacity="0.6"/>
-          <circle cx="42" cy="110" r="3" fill="#5BC0EB" opacity="0.5"/>
-          <circle cx="65" cy="148" r="3" fill="#5BC0EB" opacity="0.4"/>
-          <circle cx="130" cy="145" r="4" fill="#5BC0EB" opacity="0.7"/>
-          <!-- Center pulse -->
-          <circle cx="140" cy="100" r="6" fill="#FFFFFF" opacity="0.85"/>
-          <circle cx="140" cy="100" r="12" fill="#5BC0EB" opacity="0.06"/>
-        </svg>
-        <div class="logo-text">
-          <span class="logo-name">GWES</span>
-          <span class="logo-tagline">The OS for Autonomous Warehouse</span>
-        </div>
-      </div>
-    </div>
-    <div class="card__info">
-      <div class="card__label">Proposal E</div>
-      <div class="card__title">Abstract "G" + Data Flow</div>
-      <div class="card__desc">
-        GROUNDの「G」を抽象化した弧に、データフローのノードを配置。
-        ブランドの親会社との繋がりを保ちながら、データドリブンな
-        プロダクトであることを表現。グローバルで認識しやすい文字ベースのマーク。
-      </div>
-      <span class="tag">ブランド統一</span>
-      <span class="tag">データ</span>
-      <span class="tag">認識性</span>
-    </div>
+<!-- V2b: Archivo Regular (NEW) -->
+<div class="card">
+  <div class="preview dark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" width="340">
+      <g transform="translate(100,10) scale(1)">
+        <circle cx="80" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="40" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="60" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="60" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="60" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="40" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="80" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="80" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="40" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="60" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="80" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="80" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="100" cy="100" r="12.3" fill="#fff" opacity=".048"/><circle cx="100" cy="100" r="6.8" fill="#fff" opacity=".92"/><circle cx="120" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="120" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="140" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="160" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/>
+        <circle cx="40" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="120" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="120" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="140" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="140" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="140" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="80" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="160" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/>
+      </g>
+      <text x="200" y="232" text-anchor="middle" font-family="'Archivo',Arial,sans-serif" font-weight="400" font-size="44" letter-spacing="7" fill="#E0E4EC">GWES</text>
+      <text x="200" y="262" text-anchor="middle" font-family="'Inter',sans-serif" font-weight="400" font-size="13" fill="#fff" opacity=".85">The OS for Autonomous Warehouse</text>
+    </svg>
   </div>
-
-  <!-- ===== F: Pulse / Signal ===== -->
-  <div class="card">
-    <div class="card__preview">
-      <div class="logo-row">
-        <svg width="72" height="72" viewBox="0 0 200 200">
-          <!-- Signal/pulse wave emanating from center -->
-          <circle cx="100" cy="100" r="70" fill="none" stroke="#5BC0EB" stroke-width="0.8" opacity="0.1"/>
-          <circle cx="100" cy="100" r="55" fill="none" stroke="#5BC0EB" stroke-width="1" opacity="0.18"/>
-          <circle cx="100" cy="100" r="40" fill="none" stroke="#5BC0EB" stroke-width="1.2" opacity="0.28"/>
-          <circle cx="100" cy="100" r="25" fill="none" stroke="#5BC0EB" stroke-width="1.5" opacity="0.4"/>
-          <!-- Center core -->
-          <circle cx="100" cy="100" r="10" fill="#5BC0EB" opacity="0.08"/>
-          <circle cx="100" cy="100" r="6" fill="#FFFFFF" opacity="0.92"/>
-          <!-- Directional accent: top-right quadrant emphasized -->
-          <path d="M 100 30 A 70 70 0 0 1 170 100" fill="none" stroke="#5BC0EB" stroke-width="2" opacity="0.4" stroke-linecap="round"/>
-          <path d="M 100 45 A 55 55 0 0 1 155 100" fill="none" stroke="#5BC0EB" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
-          <!-- Signal endpoints -->
-          <circle cx="170" cy="100" r="3" fill="#5BC0EB" opacity="0.5"/>
-          <circle cx="100" cy="30" r="3" fill="#5BC0EB" opacity="0.5"/>
-        </svg>
-        <div class="logo-text">
-          <span class="logo-name">GWES</span>
-          <span class="logo-tagline">The OS for Autonomous Warehouse</span>
-        </div>
-      </div>
-    </div>
-    <div class="card__info">
-      <div class="card__label">Proposal F</div>
-      <div class="card__title">Signal Pulse</div>
-      <div class="card__desc">
-        中心から広がるパルス波。GWESがリアルタイムに施設全体を
-        センシング・制御する「自律化」のコンセプトを表現。
-        シンプルで縮小表示（favicon等）にも強い形状。
-      </div>
-      <span class="tag">リアルタイム</span>
-      <span class="tag">自律</span>
-      <span class="tag">スケーラブル</span>
-    </div>
+  <div class="info">
+    <h3>V2b — Archivo Regular <span class="new-badge">NEW</span></h3>
+    <div class="desc">Archivo Regular 400。Boldより繊細でモダン。Particle Gridとの調和が良い</div>
+    <div class="specs">font: Archivo 400 / 44px / ls:7px / fill:#E0E4EC</div>
   </div>
+</div>
 
+<!-- V3: Minimal Inter -->
+<div class="card">
+  <div class="preview dark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="340">
+      <g transform="translate(100,10) scale(1)">
+        <circle cx="80" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="40" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="60" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="60" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="60" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="40" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="80" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="80" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="40" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="60" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="80" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="80" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="100" cy="100" r="12.3" fill="#fff" opacity=".048"/><circle cx="100" cy="100" r="6.8" fill="#fff" opacity=".92"/><circle cx="120" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="120" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="140" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="160" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/>
+        <circle cx="40" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="120" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="120" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="140" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="140" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="140" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="80" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="160" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/>
+      </g>
+      <text x="200" y="228" text-anchor="middle" font-family="'Inter',sans-serif" font-weight="500" font-size="38" letter-spacing="8" fill="#E0E4EC">GWES</text>
+    </svg>
+  </div>
+  <div class="info">
+    <h3>V3 — Minimal (タグラインなし)</h3>
+    <div class="desc">Inter Medium 500。タグラインを省略したシンプル構成。アイコン的な使用に最適</div>
+    <div class="specs">font: Inter 500 / 38px / ls:8px / fill:#E0E4EC / no tagline</div>
+  </div>
+</div>
+
+<!-- V4: Grid Dominant -->
+<div class="card">
+  <div class="preview dark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 380" width="340">
+      <g transform="translate(60,0) scale(1.4)">
+        <circle cx="80" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="40" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="60" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="60" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="60" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="40" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="80" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="80" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="40" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="60" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="80" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="80" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="100" cy="100" r="12.3" fill="#fff" opacity=".048"/><circle cx="100" cy="100" r="6.8" fill="#fff" opacity=".92"/><circle cx="120" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="120" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="140" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="160" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/>
+        <circle cx="40" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="120" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="120" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="140" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="140" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="140" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="80" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="160" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/>
+      </g>
+      <line x1="160" y1="295" x2="240" y2="295" stroke="#6ac6ec" stroke-width="1" opacity=".4"/>
+      <text x="200" y="325" text-anchor="middle" font-family="'Archivo',Arial,sans-serif" font-weight="400" font-size="28" letter-spacing="10" fill="#C8CDD8">GWES</text>
+      <text x="200" y="352" text-anchor="middle" font-family="'Inter',sans-serif" font-weight="400" font-size="11" fill="#fff" opacity=".7">The OS for Autonomous Warehouse</text>
+    </svg>
+  </div>
+  <div class="info">
+    <h3>V4 — Grid Dominant (アイコン主体)</h3>
+    <div class="desc">大きなパーティクルグリッド + セパレーター + 小テキスト。ビジュアル重視</div>
+    <div class="specs">grid: scale 1.4 / separator: #6ac6ec / font: Archivo 400/28px ls:10px</div>
+  </div>
+</div>
+
+<!-- V5: Archivo + Full Name -->
+<div class="card">
+  <div class="preview dark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" width="340">
+      <g transform="translate(100,10) scale(1)">
+        <circle cx="80" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="40" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="60" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="60" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="60" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="40" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="80" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="80" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="40" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="60" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="80" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="80" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="100" cy="100" r="12.3" fill="#fff" opacity=".048"/><circle cx="100" cy="100" r="6.8" fill="#fff" opacity=".92"/><circle cx="120" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="120" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="140" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="160" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/>
+        <circle cx="40" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="120" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="120" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="140" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="140" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="140" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="80" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="160" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/>
+      </g>
+      <text x="200" y="230" text-anchor="middle" font-family="'Archivo',Arial,sans-serif" font-weight="700" font-size="44" letter-spacing="6" fill="#FFFFFF">GWES</text>
+      <text x="200" y="254" text-anchor="middle" font-family="'Inter',sans-serif" font-weight="400" font-size="11.5" letter-spacing="3" fill="#6ac6ec" opacity=".9">GROUND WAREHOUSE EXECUTION SYSTEM</text>
+    </svg>
+  </div>
+  <div class="info">
+    <h3>V5 — Archivo + Full Name</h3>
+    <div class="desc">Archivo Bold + サブタイトルにフル名称（シアン色）。正式感のあるロゴ</div>
+    <div class="specs">font: Archivo 700/44px + Inter 400/11.5px #6ac6ec / ls:3px</div>
+  </div>
+</div>
+
+<!-- V6: Light Mode -->
+<div class="card">
+  <div class="preview light">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" width="340">
+      <g transform="translate(100,10) scale(1)">
+        <circle cx="80" cy="40" r="3.9" fill="#2a8ab8" opacity=".17"/><circle cx="100" cy="40" r="4.1" fill="#2a8ab8" opacity=".24"/><circle cx="120" cy="40" r="3.9" fill="#2a8ab8" opacity=".17"/>
+        <circle cx="60" cy="60" r="4.2" fill="#2a8ab8" opacity=".32"/><circle cx="80" cy="60" r="4.8" fill="#2a8ab8" opacity=".54"/><circle cx="100" cy="60" r="5.0" fill="#2a8ab8" opacity=".62"/><circle cx="120" cy="60" r="4.8" fill="#2a8ab8" opacity=".54"/><circle cx="140" cy="60" r="4.2" fill="#2a8ab8" opacity=".32"/>
+        <circle cx="40" cy="80" r="3.9" fill="#2a8ab8" opacity=".17"/><circle cx="60" cy="80" r="4.8" fill="#2a8ab8" opacity=".54"/><circle cx="80" cy="80" r="5.5" fill="#1a6a96" opacity=".77"/><circle cx="100" cy="80" r="10.6" fill="#1a6a96" opacity=".03"/><circle cx="100" cy="80" r="5.9" fill="#1a6a96" opacity=".84"/><circle cx="120" cy="80" r="5.5" fill="#1a6a96" opacity=".77"/><circle cx="140" cy="80" r="4.8" fill="#2a8ab8" opacity=".54"/><circle cx="160" cy="80" r="3.9" fill="#2a8ab8" opacity=".17"/>
+        <circle cx="40" cy="100" r="4.1" fill="#2a8ab8" opacity=".24"/><circle cx="60" cy="100" r="5.0" fill="#2a8ab8" opacity=".62"/><circle cx="80" cy="100" r="10.6" fill="#1a6a96" opacity=".03"/><circle cx="80" cy="100" r="5.9" fill="#1a6a96" opacity=".84"/><circle cx="100" cy="100" r="12.3" fill="#0A4D6E" opacity=".06"/><circle cx="100" cy="100" r="6.8" fill="#0A4D6E" opacity=".92"/><circle cx="120" cy="100" r="10.6" fill="#1a6a96" opacity=".03"/><circle cx="120" cy="100" r="5.9" fill="#1a6a96" opacity=".84"/><circle cx="140" cy="100" r="5.0" fill="#2a8ab8" opacity=".62"/><circle cx="160" cy="100" r="4.1" fill="#2a8ab8" opacity=".24"/>
+        <circle cx="40" cy="120" r="3.9" fill="#2a8ab8" opacity=".17"/><circle cx="60" cy="120" r="4.8" fill="#2a8ab8" opacity=".54"/><circle cx="80" cy="120" r="5.5" fill="#1a6a96" opacity=".77"/><circle cx="100" cy="120" r="10.6" fill="#1a6a96" opacity=".03"/><circle cx="100" cy="120" r="5.9" fill="#1a6a96" opacity=".84"/><circle cx="120" cy="120" r="5.5" fill="#1a6a96" opacity=".77"/><circle cx="140" cy="120" r="4.8" fill="#2a8ab8" opacity=".54"/><circle cx="160" cy="120" r="3.9" fill="#2a8ab8" opacity=".17"/>
+        <circle cx="60" cy="140" r="4.2" fill="#2a8ab8" opacity=".32"/><circle cx="80" cy="140" r="4.8" fill="#2a8ab8" opacity=".54"/><circle cx="100" cy="140" r="5.0" fill="#2a8ab8" opacity=".62"/><circle cx="120" cy="140" r="4.8" fill="#2a8ab8" opacity=".54"/><circle cx="140" cy="140" r="4.2" fill="#2a8ab8" opacity=".32"/>
+        <circle cx="80" cy="160" r="3.9" fill="#2a8ab8" opacity=".17"/><circle cx="100" cy="160" r="4.1" fill="#2a8ab8" opacity=".24"/><circle cx="120" cy="160" r="3.9" fill="#2a8ab8" opacity=".17"/>
+      </g>
+      <text x="200" y="230" text-anchor="middle" font-family="'Archivo',Arial,sans-serif" font-weight="700" font-size="42" letter-spacing="5" fill="#0A0C14">GWES</text>
+      <text x="200" y="260" text-anchor="middle" font-family="'Inter',sans-serif" font-weight="400" font-size="13" fill="#0A0C14" opacity=".6">The OS for Autonomous Warehouse</text>
+    </svg>
+  </div>
+  <div class="info">
+    <h3>V6 — Light Mode</h3>
+    <div class="desc">ライトモード対応。ブルーグリッド + ダーク文字。白背景の資料・スライド用</div>
+    <div class="specs">grid: #2a8ab8→#0A4D6E / font: Archivo 700/42px / fill:#0A0C14</div>
+  </div>
+</div>
 </div>
 
 <!-- ============================================================ -->
-<div class="section-label"><span>Light Background Variant</span></div>
-<!-- ============================================================ -->
-
+<div class="section-title">Horizontal Layouts (横組) — バランス最適化版</div>
 <div class="grid">
-  <!-- Show top 3 in light mode -->
-  <div class="card">
-    <div class="card__preview card__preview--light">
-      <div class="logo-row">
-        <svg width="72" height="72" viewBox="0 0 200 200">
-          <circle cx="80" cy="40" r="3.9" fill="#2A7AB5" opacity="0.17"/>
-          <circle cx="100" cy="40" r="4.1" fill="#2A7AB5" opacity="0.24"/>
-          <circle cx="120" cy="40" r="3.9" fill="#2A7AB5" opacity="0.17"/>
-          <circle cx="60" cy="60" r="4.2" fill="#2A7AB5" opacity="0.32"/>
-          <circle cx="80" cy="60" r="4.8" fill="#2A7AB5" opacity="0.54"/>
-          <circle cx="100" cy="60" r="5.0" fill="#2A7AB5" opacity="0.62"/>
-          <circle cx="120" cy="60" r="4.8" fill="#2A7AB5" opacity="0.54"/>
-          <circle cx="140" cy="60" r="4.2" fill="#2A7AB5" opacity="0.32"/>
-          <circle cx="40" cy="80" r="3.9" fill="#2A7AB5" opacity="0.17"/>
-          <circle cx="60" cy="80" r="4.8" fill="#2A7AB5" opacity="0.54"/>
-          <circle cx="80" cy="80" r="5.5" fill="#2A7AB5" opacity="0.77"/>
-          <circle cx="100" cy="80" r="5.9" fill="#1B5E8C" opacity="0.84"/>
-          <circle cx="120" cy="80" r="5.5" fill="#2A7AB5" opacity="0.77"/>
-          <circle cx="140" cy="80" r="4.8" fill="#2A7AB5" opacity="0.54"/>
-          <circle cx="160" cy="80" r="3.9" fill="#2A7AB5" opacity="0.17"/>
-          <circle cx="40" cy="100" r="4.1" fill="#2A7AB5" opacity="0.24"/>
-          <circle cx="60" cy="100" r="5.0" fill="#2A7AB5" opacity="0.62"/>
-          <circle cx="80" cy="100" r="5.9" fill="#1B5E8C" opacity="0.84"/>
-          <circle cx="100" cy="100" r="6.8" fill="#0D3B5C" opacity="0.92"/>
-          <circle cx="120" cy="100" r="5.9" fill="#1B5E8C" opacity="0.84"/>
-          <circle cx="140" cy="100" r="5.0" fill="#2A7AB5" opacity="0.62"/>
-          <circle cx="160" cy="100" r="4.1" fill="#2A7AB5" opacity="0.24"/>
-          <circle cx="40" cy="120" r="3.9" fill="#2A7AB5" opacity="0.17"/>
-          <circle cx="60" cy="120" r="4.8" fill="#2A7AB5" opacity="0.54"/>
-          <circle cx="80" cy="120" r="5.5" fill="#2A7AB5" opacity="0.77"/>
-          <circle cx="100" cy="120" r="5.9" fill="#1B5E8C" opacity="0.84"/>
-          <circle cx="120" cy="120" r="5.5" fill="#2A7AB5" opacity="0.77"/>
-          <circle cx="140" cy="120" r="4.8" fill="#2A7AB5" opacity="0.54"/>
-          <circle cx="160" cy="120" r="3.9" fill="#2A7AB5" opacity="0.17"/>
-          <circle cx="60" cy="140" r="4.2" fill="#2A7AB5" opacity="0.32"/>
-          <circle cx="80" cy="140" r="4.8" fill="#2A7AB5" opacity="0.54"/>
-          <circle cx="100" cy="140" r="5.0" fill="#2A7AB5" opacity="0.62"/>
-          <circle cx="120" cy="140" r="4.8" fill="#2A7AB5" opacity="0.54"/>
-          <circle cx="140" cy="140" r="4.2" fill="#2A7AB5" opacity="0.32"/>
-          <circle cx="80" cy="160" r="3.9" fill="#2A7AB5" opacity="0.17"/>
-          <circle cx="100" cy="160" r="4.1" fill="#2A7AB5" opacity="0.24"/>
-          <circle cx="120" cy="160" r="3.9" fill="#2A7AB5" opacity="0.17"/>
-        </svg>
-        <div class="logo-text">
-          <span class="logo-name logo-name--dark">GWES</span>
-          <span class="logo-tagline logo-tagline--dark">The OS for Autonomous Warehouse</span>
-        </div>
-      </div>
-    </div>
-    <div class="card__info">
-      <div class="card__label">Light Variant — A</div>
-      <div class="card__title">Particle Grid（ライト版）</div>
-      <div class="card__desc">白背景でも使えるダークブルー系の反転バリエーション。</div>
-    </div>
-  </div>
 
-  <div class="card">
-    <div class="card__preview card__preview--light">
-      <div class="logo-row">
-        <svg width="72" height="72" viewBox="0 0 200 200">
-          <circle cx="100" cy="100" r="70" fill="none" stroke="#1B6FA8" stroke-width="0.8" opacity="0.12"/>
-          <circle cx="100" cy="100" r="55" fill="none" stroke="#1B6FA8" stroke-width="1" opacity="0.2"/>
-          <circle cx="100" cy="100" r="40" fill="none" stroke="#1B6FA8" stroke-width="1.2" opacity="0.3"/>
-          <circle cx="100" cy="100" r="25" fill="none" stroke="#1B6FA8" stroke-width="1.5" opacity="0.45"/>
-          <circle cx="100" cy="100" r="10" fill="#1B6FA8" opacity="0.08"/>
-          <circle cx="100" cy="100" r="6" fill="#0D3B5C" opacity="0.9"/>
-          <path d="M 100 30 A 70 70 0 0 1 170 100" fill="none" stroke="#1B6FA8" stroke-width="2" opacity="0.4" stroke-linecap="round"/>
-          <path d="M 100 45 A 55 55 0 0 1 155 100" fill="none" stroke="#1B6FA8" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
-          <circle cx="170" cy="100" r="3" fill="#1B6FA8" opacity="0.5"/>
-          <circle cx="100" cy="30" r="3" fill="#1B6FA8" opacity="0.5"/>
-        </svg>
-        <div class="logo-text">
-          <span class="logo-name logo-name--dark">GWES</span>
-          <span class="logo-tagline logo-tagline--dark">The OS for Autonomous Warehouse</span>
-        </div>
-      </div>
-    </div>
-    <div class="card__info">
-      <div class="card__label">Light Variant — F</div>
-      <div class="card__title">Signal Pulse（ライト版）</div>
-      <div class="card__desc">白背景に映えるダークブルートーン。印刷物やプレゼン資料にも対応。</div>
-    </div>
+<!-- H1: Classic Horizontal — grid height = text height, vertically centered -->
+<div class="card">
+  <div class="preview h dark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 90" width="460">
+      <!-- Grid: scale to ~56px tall to match text cap height -->
+      <g transform="translate(12,3) scale(0.46)">
+        <circle cx="80" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="40" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="60" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="60" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="60" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="40" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="80" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="80" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="40" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="60" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="80" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="80" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="100" cy="100" r="12.3" fill="#fff" opacity=".048"/><circle cx="100" cy="100" r="6.8" fill="#fff" opacity=".92"/><circle cx="120" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="120" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="140" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="160" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/>
+        <circle cx="40" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="120" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="120" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="140" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="140" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="140" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="80" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="160" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/>
+      </g>
+      <!-- Text block: vertically centered with grid -->
+      <text x="108" y="42" font-family="'Helvetica Neue','Liberation Sans',Arial,sans-serif" font-weight="300" font-size="36" letter-spacing="4" fill="#C8CDD8">GWES</text>
+      <text x="108" y="64" font-family="'Inter',sans-serif" font-weight="400" font-size="11" fill="#fff" opacity=".75">The OS for Autonomous Warehouse</text>
+    </svg>
   </div>
+  <div class="info">
+    <h3>H1 — Classic Horizontal</h3>
+    <div class="desc">Helvetica Neue Light 300。グリッド高 ≈ テキストブロック高で視覚バランス統一</div>
+    <div class="specs">grid: 56px tall (s:0.46) / gap:16px / font: 36px / tagline: 11px</div>
+  </div>
+</div>
 
+<!-- H2: Archivo Bold Horizontal -->
+<div class="card">
+  <div class="preview h dark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 90" width="460">
+      <g transform="translate(12,3) scale(0.46)">
+        <circle cx="80" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="40" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="60" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="60" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="60" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="40" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="80" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="80" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="40" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="60" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="80" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="80" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="100" cy="100" r="12.3" fill="#fff" opacity=".048"/><circle cx="100" cy="100" r="6.8" fill="#fff" opacity=".92"/><circle cx="120" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="120" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="140" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="160" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/>
+        <circle cx="40" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="120" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="120" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="140" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="140" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="140" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="80" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="160" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/>
+      </g>
+      <text x="108" y="42" font-family="'Archivo',Arial,sans-serif" font-weight="700" font-size="38" letter-spacing="5" fill="#FFFFFF">GWES</text>
+      <text x="108" y="64" font-family="'Inter',sans-serif" font-weight="400" font-size="11" fill="#fff" opacity=".75">The OS for Autonomous Warehouse</text>
+    </svg>
+  </div>
+  <div class="info">
+    <h3>H2 — Archivo Bold Horizontal</h3>
+    <div class="desc">GROUNDロゴ統一のArchivo Bold。グリッドとテキストの垂直中央揃え</div>
+    <div class="specs">grid: 56px (s:0.46) / font: Archivo 700/38px / ls:5px</div>
+  </div>
+</div>
+
+<!-- H2b: Archivo Regular Horizontal (NEW) -->
+<div class="card">
+  <div class="preview h dark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 90" width="460">
+      <g transform="translate(12,3) scale(0.46)">
+        <circle cx="80" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="40" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="60" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="60" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="60" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="40" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="80" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="80" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="40" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="60" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="80" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="80" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="100" cy="100" r="12.3" fill="#fff" opacity=".048"/><circle cx="100" cy="100" r="6.8" fill="#fff" opacity=".92"/><circle cx="120" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="120" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="140" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="160" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/>
+        <circle cx="40" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="120" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="120" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="140" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="140" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="140" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="80" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="160" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/>
+      </g>
+      <text x="108" y="42" font-family="'Archivo',Arial,sans-serif" font-weight="400" font-size="38" letter-spacing="6" fill="#E0E4EC">GWES</text>
+      <text x="108" y="64" font-family="'Inter',sans-serif" font-weight="400" font-size="11" fill="#fff" opacity=".75">The OS for Autonomous Warehouse</text>
+    </svg>
+  </div>
+  <div class="info">
+    <h3>H2b — Archivo Regular Horizontal <span class="new-badge">NEW</span></h3>
+    <div class="desc">Archivo Regular 400の横組。繊細な線幅がParticle Gridのドットと呼応</div>
+    <div class="specs">grid: 56px (s:0.46) / font: Archivo 400/38px / ls:6px / fill:#E0E4EC</div>
+  </div>
+</div>
+
+<!-- H3: Compact + Divider -->
+<div class="card">
+  <div class="preview h dark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 80" width="460">
+      <g transform="translate(10,2) scale(0.40)">
+        <circle cx="80" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="40" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="60" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="60" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="60" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="40" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="80" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="80" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="40" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="60" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="80" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="80" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="100" cy="100" r="12.3" fill="#fff" opacity=".048"/><circle cx="100" cy="100" r="6.8" fill="#fff" opacity=".92"/><circle cx="120" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="120" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="140" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="160" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/>
+        <circle cx="40" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="120" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="120" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="140" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="140" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="140" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="80" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="160" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/>
+      </g>
+      <line x1="88" y1="12" x2="88" y2="68" stroke="#6ac6ec" stroke-width="1" opacity=".35"/>
+      <text x="102" y="38" font-family="'Archivo',Arial,sans-serif" font-weight="700" font-size="30" letter-spacing="4" fill="#FFFFFF">GWES</text>
+      <text x="102" y="58" font-family="'Inter',sans-serif" font-weight="400" font-size="10" fill="#fff" opacity=".7">The OS for Autonomous Warehouse</text>
+    </svg>
+  </div>
+  <div class="info">
+    <h3>H3 — Compact + Divider</h3>
+    <div class="desc">小グリッド + シアンディバイダー + テキスト。ヘッダーナビやフッター向き</div>
+    <div class="specs">grid: 50px (s:0.40) / divider: #6ac6ec / font: Archivo 700/30px</div>
+  </div>
+</div>
+
+<!-- H4: Inline Flush (N5 style) -->
+<div class="card">
+  <div class="preview h dark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 64" width="460">
+      <g transform="translate(12,5) scale(0.28)">
+        <circle cx="80" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="40" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="60" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="60" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="60" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="40" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="80" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="80" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="40" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="60" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="80" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="80" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="100" cy="100" r="12.3" fill="#fff" opacity=".048"/><circle cx="100" cy="100" r="6.8" fill="#fff" opacity=".92"/><circle cx="120" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="120" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="140" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="160" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/>
+        <circle cx="40" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="120" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="120" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="140" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="140" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="140" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="80" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="160" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/>
+      </g>
+      <text x="62" y="42" font-family="'Archivo',Arial,sans-serif" font-weight="700" font-size="34" letter-spacing="4" fill="#FFFFFF">GWES</text>
+    </svg>
+  </div>
+  <div class="info">
+    <h3>H4 — Inline Flush (N5スタイル)</h3>
+    <div class="desc">GROUNDのN5ロゴと同じ構成。マーク高=キャップハイト。タグラインなし</div>
+    <div class="specs">grid: 34px (s:0.28) / font: Archivo 700/34px / flush baseline</div>
+  </div>
+</div>
+
+<!-- H5: Descriptive Lockup -->
+<div class="card">
+  <div class="preview h dark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 80" width="460">
+      <g transform="translate(10,2) scale(0.40)">
+        <circle cx="80" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="40" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="40" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="60" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="60" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="60" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="60" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="40" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="80" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="80" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="80" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="80" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="80" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="40" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="60" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="80" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="80" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="100" cy="100" r="12.3" fill="#fff" opacity=".048"/><circle cx="100" cy="100" r="6.8" fill="#fff" opacity=".92"/><circle cx="120" cy="100" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="120" cy="100" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="140" cy="100" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="160" cy="100" r="4.1" fill="#72c9ed" opacity=".24"/>
+        <circle cx="40" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="60" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="80" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="100" cy="120" r="10.6" fill="#d0edf9" opacity=".014"/><circle cx="100" cy="120" r="5.9" fill="#d0edf9" opacity=".84"/><circle cx="120" cy="120" r="5.5" fill="#bce5f6" opacity=".77"/><circle cx="140" cy="120" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="160" cy="120" r="3.9" fill="#6ac6ec" opacity=".17"/>
+        <circle cx="60" cy="140" r="4.2" fill="#7accee" opacity=".32"/><circle cx="80" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="100" cy="140" r="5.0" fill="#a1dbf3" opacity=".62"/><circle cx="120" cy="140" r="4.8" fill="#96d6f2" opacity=".54"/><circle cx="140" cy="140" r="4.2" fill="#7accee" opacity=".32"/>
+        <circle cx="80" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/><circle cx="100" cy="160" r="4.1" fill="#72c9ed" opacity=".24"/><circle cx="120" cy="160" r="3.9" fill="#6ac6ec" opacity=".17"/>
+      </g>
+      <line x1="88" y1="10" x2="88" y2="70" stroke="#6ac6ec" stroke-width="1.5" opacity=".45"/>
+      <text x="102" y="30" font-family="'Archivo',Arial,sans-serif" font-weight="700" font-size="26" letter-spacing="3" fill="#FFFFFF">GWES</text>
+      <text x="102" y="48" font-family="'Inter',sans-serif" font-weight="400" font-size="9.5" letter-spacing="0.8" fill="#C8CDD8" opacity=".8">Ground Warehouse</text>
+      <text x="102" y="62" font-family="'Inter',sans-serif" font-weight="400" font-size="9.5" letter-spacing="0.8" fill="#C8CDD8" opacity=".8">Execution System</text>
+    </svg>
+  </div>
+  <div class="info">
+    <h3>H5 — Descriptive Lockup</h3>
+    <div class="desc">ディバイダー + GWES + 2行フルネーム。正式文書やプレスリリースに</div>
+    <div class="specs">divider: #6ac6ec 1.5px / GWES: 26px / sub: Inter 400/9.5px 2-line</div>
+  </div>
+</div>
+
+<!-- H6: Light Horizontal -->
+<div class="card">
+  <div class="preview h light">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 90" width="460">
+      <g transform="translate(12,3) scale(0.46)">
+        <circle cx="80" cy="40" r="3.9" fill="#2a8ab8" opacity=".17"/><circle cx="100" cy="40" r="4.1" fill="#2a8ab8" opacity=".24"/><circle cx="120" cy="40" r="3.9" fill="#2a8ab8" opacity=".17"/>
+        <circle cx="60" cy="60" r="4.2" fill="#2a8ab8" opacity=".32"/><circle cx="80" cy="60" r="4.8" fill="#2a8ab8" opacity=".54"/><circle cx="100" cy="60" r="5.0" fill="#2a8ab8" opacity=".62"/><circle cx="120" cy="60" r="4.8" fill="#2a8ab8" opacity=".54"/><circle cx="140" cy="60" r="4.2" fill="#2a8ab8" opacity=".32"/>
+        <circle cx="40" cy="80" r="3.9" fill="#2a8ab8" opacity=".17"/><circle cx="60" cy="80" r="4.8" fill="#2a8ab8" opacity=".54"/><circle cx="80" cy="80" r="5.5" fill="#1a6a96" opacity=".77"/><circle cx="100" cy="80" r="10.6" fill="#1a6a96" opacity=".03"/><circle cx="100" cy="80" r="5.9" fill="#1a6a96" opacity=".84"/><circle cx="120" cy="80" r="5.5" fill="#1a6a96" opacity=".77"/><circle cx="140" cy="80" r="4.8" fill="#2a8ab8" opacity=".54"/><circle cx="160" cy="80" r="3.9" fill="#2a8ab8" opacity=".17"/>
+        <circle cx="40" cy="100" r="4.1" fill="#2a8ab8" opacity=".24"/><circle cx="60" cy="100" r="5.0" fill="#2a8ab8" opacity=".62"/><circle cx="80" cy="100" r="10.6" fill="#1a6a96" opacity=".03"/><circle cx="80" cy="100" r="5.9" fill="#1a6a96" opacity=".84"/><circle cx="100" cy="100" r="12.3" fill="#0A4D6E" opacity=".06"/><circle cx="100" cy="100" r="6.8" fill="#0A4D6E" opacity=".92"/><circle cx="120" cy="100" r="10.6" fill="#1a6a96" opacity=".03"/><circle cx="120" cy="100" r="5.9" fill="#1a6a96" opacity=".84"/><circle cx="140" cy="100" r="5.0" fill="#2a8ab8" opacity=".62"/><circle cx="160" cy="100" r="4.1" fill="#2a8ab8" opacity=".24"/>
+        <circle cx="40" cy="120" r="3.9" fill="#2a8ab8" opacity=".17"/><circle cx="60" cy="120" r="4.8" fill="#2a8ab8" opacity=".54"/><circle cx="80" cy="120" r="5.5" fill="#1a6a96" opacity=".77"/><circle cx="100" cy="120" r="10.6" fill="#1a6a96" opacity=".03"/><circle cx="100" cy="120" r="5.9" fill="#1a6a96" opacity=".84"/><circle cx="120" cy="120" r="5.5" fill="#1a6a96" opacity=".77"/><circle cx="140" cy="120" r="4.8" fill="#2a8ab8" opacity=".54"/><circle cx="160" cy="120" r="3.9" fill="#2a8ab8" opacity=".17"/>
+        <circle cx="60" cy="140" r="4.2" fill="#2a8ab8" opacity=".32"/><circle cx="80" cy="140" r="4.8" fill="#2a8ab8" opacity=".54"/><circle cx="100" cy="140" r="5.0" fill="#2a8ab8" opacity=".62"/><circle cx="120" cy="140" r="4.8" fill="#2a8ab8" opacity=".54"/><circle cx="140" cy="140" r="4.2" fill="#2a8ab8" opacity=".32"/>
+        <circle cx="80" cy="160" r="3.9" fill="#2a8ab8" opacity=".17"/><circle cx="100" cy="160" r="4.1" fill="#2a8ab8" opacity=".24"/><circle cx="120" cy="160" r="3.9" fill="#2a8ab8" opacity=".17"/>
+      </g>
+      <text x="108" y="42" font-family="'Archivo',Arial,sans-serif" font-weight="700" font-size="38" letter-spacing="5" fill="#0A0C14">GWES</text>
+      <text x="108" y="64" font-family="'Inter',sans-serif" font-weight="400" font-size="11" fill="#0A0C14" opacity=".5">The OS for Autonomous Warehouse</text>
+    </svg>
+  </div>
+  <div class="info">
+    <h3>H6 — Light Horizontal</h3>
+    <div class="desc">ライトモード横組。白背景用。プレゼン資料やホワイトペーパーに</div>
+    <div class="specs">grid: #2a8ab8→#0A4D6E / font: Archivo 700/38px #0A0C14</div>
+  </div>
+</div>
+
+</div>
+
+<div style="text-align:center;margin:60px 0 40px;color:#555;font-size:12px;">
+  GROUND Inc. — GWES Particle Grid Logo Proposals v2 — 2026.03
 </div>
 
 </body>
