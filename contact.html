@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="css/style.css?v=61">
   <style>
     .contact-header {
-      background-color: #0A0C14;
+      background-color: #ffffff;
     }
 
     .contact-form-wrapper {
@@ -44,7 +44,7 @@
 
     .contact-form-label {
       display: block;
-      color: #8A8C9A;
+      color: #6B7280;
       font-size: 0.85rem;
       font-weight: 500;
       margin-bottom: 8px;
@@ -52,7 +52,7 @@
     }
 
     .contact-form-required {
-      color: #C8CDD8;
+      color: #EF4444;
       margin-left: 4px;
     }
 
@@ -60,9 +60,9 @@
     .contact-form-select,
     .contact-form-textarea {
       width: 100%;
-      background-color: #161822;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #C8CDD8;
+      background-color: #F9FAFB;
+      border: 1px solid #D1D5DB;
+      color: #1F2937;
       border-radius: 8px;
       padding: 12px 16px;
       font-family: 'Noto Sans JP', sans-serif;
@@ -71,12 +71,17 @@
       box-sizing: border-box;
     }
 
+    .contact-form-input::placeholder,
+    .contact-form-textarea::placeholder {
+      color: #9CA3AF;
+    }
+
     .contact-form-input:focus,
     .contact-form-select:focus,
     .contact-form-textarea:focus {
       outline: none;
-      border-color: #636A78;
-      background-color: #161822;
+      border-color: #3B82F6;
+      background-color: #ffffff;
     }
 
     .contact-form-textarea {
@@ -87,19 +92,19 @@
 
     .contact-form-select {
       cursor: pointer;
-      background-color: #161822;
+      background-color: #F9FAFB;
     }
 
     .contact-form-select option {
-      background-color: #161822;
-      color: #C8CDD8;
+      background-color: #ffffff;
+      color: #1F2937;
     }
 
     .contact-submit-btn {
       width: 100%;
       padding: 16px;
-      background-color: #3F4250;
-      color: #C8CDD8;
+      background-color: #0A0C14;
+      color: #ffffff;
       border: none;
       border-radius: 8px;
       font-size: 0.95rem;
@@ -111,11 +116,11 @@
     }
 
     .contact-submit-btn:hover {
-      background-color: #545867;
+      background-color: #1F2937;
     }
 
     .contact-submit-btn:active {
-      background-color: #3F4250;
+      background-color: #0A0C14;
     }
 
     .contact-sidebar {
@@ -124,8 +129,8 @@
     }
 
     .contact-info-card {
-      background-color: #161822;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      background-color: #F3F4F6;
+      border: 1px solid #E5E7EB;
       border-radius: 12px;
       padding: 40px;
     }
@@ -133,7 +138,7 @@
     .contact-info-title {
       font-size: 1.2rem;
       font-weight: 600;
-      color: #F5F5F8;
+      color: #111827;
       margin-bottom: 32px;
       font-family: 'Noto Sans JP', sans-serif;
     }
@@ -148,34 +153,34 @@
 
     .contact-info-block-heading {
       font-size: 0.85rem;
-      color: #8A8C9A;
+      color: #6B7280;
       font-weight: 600;
       margin-bottom: 12px;
       font-family: 'Noto Sans JP', sans-serif;
     }
 
     .contact-info-block-content {
-      color: #C8CDD8;
+      color: #374151;
       font-size: 0.95rem;
       line-height: 1.6;
       font-family: 'Noto Sans JP', sans-serif;
     }
 
     .contact-info-block-content a {
-      color: #C8CDD8;
+      color: #374151;
       text-decoration: none;
       transition: color 0.2s;
     }
 
     .contact-info-block-content a:hover {
-      color: #8A8C9A;
+      color: #111827;
     }
 
     .contact-map {
       margin-top: 24px;
       border-radius: 8px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid #E5E7EB;
     }
 
     .contact-map iframe {
@@ -200,6 +205,16 @@
       }
     }
   
+    /* Contact page: light header override */
+    body { background-color: #ffffff; }
+    .header { background-color: #ffffff !important; }
+    .header__logo-text { color: #111827 !important; }
+    .header__logo-img path { fill: #111827; }
+    .hamburger__line { background: #111827 !important; }
+    .breadcrumb-nav { background: #ffffff; }
+    .breadcrumb-nav__link--home svg { fill: #6B7280; }
+    .breadcrumb-nav__current, .breadcrumb-nav__separator { color: #6B7280; }
+
     /* Language Switcher — inside overlay menu */
     .lang-switch-bar { display: flex; align-items: center; gap: 16px; padding: 20px 0 0; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
     .lang-switch { display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono',monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,0.35); padding: 8px 12px; border: 1px solid rgba(255,255,255,0.1); border-radius: 2px; transition: all 0.25s ease; background: none; }
@@ -345,18 +360,18 @@
         <li class="breadcrumb-nav__item"><span class="breadcrumb-nav__separator">/</span><span class="breadcrumb-nav__current">お問い合わせ</span></li>
       </ol>
     </nav>
-  <section class="page-header contact-header">
+  <section class="page-header contact-header" style="background:#ffffff;">
     <div class="container">
-      <nav style="font-size:0.75rem;color:rgba(255,255,255,0.4);margin-bottom:32px;font-family:'Inter',sans-serif;letter-spacing:0.06em;">
-        <a href="index.html" style="color:rgba(255,255,255,0.4);text-decoration:none;">Home</a> / お問い合わせ
+      <nav style="font-size:0.75rem;color:rgba(0,0,0,0.4);margin-bottom:32px;font-family:'Inter',sans-serif;letter-spacing:0.06em;">
+        <a href="index.html" style="color:rgba(0,0,0,0.4);text-decoration:none;">Home</a> / お問い合わせ
       </nav>
-      <h1 style="font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#fff;font-family:'Inter','Noto Sans JP',sans-serif;letter-spacing:-0.03em;margin-bottom:16px;">Contact Us</h1>
-      <p style="font-size:0.92rem;color:rgba(255,255,255,0.5);max-width:520px;line-height:1.8;">製品のご相談、導入に関するご質問など、お気軽にご連絡ください。</p>
+      <h1 style="font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#111827;font-family:'Inter','Noto Sans JP',sans-serif;letter-spacing:-0.03em;margin-bottom:16px;">Contact Us</h1>
+      <p style="font-size:0.92rem;color:#6B7280;max-width:520px;line-height:1.8;">製品のご相談、導入に関するご質問など、お気軽にご連絡ください。</p>
     </div>
   </section>
 
   <!-- Contact Form Section -->
-  <section style="padding:80px 0;background:#0A0C14;">
+  <section style="padding:80px 0;background:#ffffff;">
     <div class="container">
       <div class="contact-form-wrapper">
         <!-- Left: Form -->
