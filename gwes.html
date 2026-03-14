@@ -57,8 +57,8 @@
 
     /* ── GWES Logo (centered hero) — V4 Grid Dominant Refined ── */
     .gw-logo {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 0;
+      display: flex; flex-direction: row; align-items: center; justify-content: center;
+      gap: 20px;
     }
     .gw-logo__mark {
       width: 140px; height: 140px;
@@ -69,29 +69,22 @@
       display: block;
     }
     .gw-logo__text {
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      padding-top: 10px;
+      display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
     }
     .gw-logo__text::before {
-      content: '';
-      display: block;
-      width: 40px; height: 1px;
-      background: rgba(106,198,236,0.45);
-      margin-bottom: 2px;
+      display: none;
     }
     .gw-logo__name {
       font-family: 'Archivo', sans-serif;
-      font-size: 1.5rem; font-weight: 400;
-      color: #FFFFFF; letter-spacing: 0.28em;
-      padding-right: 0.28em; /* symmetry: offset letter-spacing */
+      font-size: 2.8rem; font-weight: 700;
+      color: #FFFFFF; letter-spacing: 0.03em;
       line-height: 1;
     }
     .gw-logo__full {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.6rem; font-weight: 400;
-      letter-spacing: 0.12em;
-      padding-right: 0.12em; /* symmetry: offset letter-spacing */
-      color: rgba(255,255,255,0.7);
+      font-family: 'Archivo', sans-serif;
+      font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 0.03em;
+      color: rgba(255,255,255,0.55);
       line-height: 1;
     }
 
@@ -834,11 +827,11 @@
       }
     }
     @media (max-width: 768px) {
-      .gw-logo__mark { width: 100px; height: 100px; }
-      .gw-logo__text { padding-top: 8px; gap: 4px; }
-      .gw-logo__text::before { width: 32px; }
-      .gw-logo__name { font-size: 1.2rem; }
-      .gw-logo__full { font-size: 0.5rem; }
+      .gw-logo { gap: 14px; }
+      .gw-logo__mark { width: 90px; height: 90px; }
+      .gw-logo__text { gap: 4px; }
+      .gw-logo__name { font-size: 2rem; }
+      .gw-logo__full { font-size: 0.65rem; }
       .gw-laptop__screen { padding: 10px 10px 0; border-radius: 8px 8px 0 0; }
       .gw-laptop__base { height: 6px; }
       .gw-laptop__screen-glow { inset: -30px -40px -10px -40px; }
@@ -1067,7 +1060,7 @@
       <div class="gw-hero__logo-row">
         <div class="gw-logo">
           <div class="gw-logo__mark">
-            <img src="img/gwes-particle-grid.svg?v=5" alt="GWES" data-de-id="de-2">
+            <img src="img/gwes-particle-grid.svg?v=8" alt="GWES" data-de-id="de-2">
           </div>
           <div class="gw-logo__text" data-de-id="de-8">
             <span class="gw-logo__name" data-de-id="de-7">GWES</span>

@@ -1,117 +1,86 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 44">
-  <!-- GROUND + GWES Combined Lockup — Brand Identity Guidelines v1.0 -->
-  <!-- Background: #0A0C14, Horizontal: GROUND (left) | divider | GWES (right) -->
-
-  <defs>
-    <!-- Ambient glow for GWES particle grid: #5BC0EB (GWES Cyan) -->
-    <radialGradient id="gridGlow" cx="50%" cy="50%" r="55%">
-      <stop offset="0%" stop-color="#5BC0EB" stop-opacity="0.10"/>
-      <stop offset="100%" stop-color="#5BC0EB" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
+  <!-- GROUND + GWES Combined Lockup — Brand Guidelines v1.2 -->
+  <!-- Horizontal: GROUND (left) | divider | GWES Phyllotaxis + text (right) -->
 
   <!-- === GROUND Logo (left) === -->
   <g transform="translate(0, 4)">
-    <!-- G Mark: 36×24px, Color: #FFFFFF -->
-    <path fill="#FFFFFF"
-          d="M0 0 H36 V2.4 H2.4 V21.6 H33.6 V12 H36 V24 H0 Z"/>
-    <!-- GROUND Wordmark: Archivo Bold 700, 22px, ls: 0.03em (0.66px) -->
+    <!-- G Mark: 36×24px, #FFFFFF -->
+    <path fill="#FFFFFF" d="M0 0 H36 V2.4 H2.4 V21.6 H33.6 V12 H36 V24 H0 Z"/>
+    <!-- GROUND: Archivo Bold 700, 22px, ls: 0.03em -->
     <text x="46" y="19.5"
           font-family="'Archivo','Helvetica Neue',Arial,sans-serif"
           font-weight="700" font-size="22" letter-spacing="0.66"
           fill="#FFFFFF">GROUND</text>
   </g>
 
-  <!-- === Vertical Divider === -->
-  <!-- 1px, rgba(200,205,216,0.22), height: 32px, 36px gaps each side -->
-  <line x1="200" y1="6" x2="200" y2="38" stroke="#C8CDD8" stroke-opacity="0.22" stroke-width="1"/>
+  <!-- === Vertical Divider: 0.5px, rgba(200,205,216,0.2) === -->
+  <line x1="200" y1="6" x2="200" y2="38" stroke="#C8CDD8" stroke-opacity="0.2" stroke-width="0.5"/>
 
   <!-- === GWES Lockup (right) === -->
-  <g transform="translate(218, 2)">
-    <!-- Particle grid icon: 28×28px → scale 200→28 = 0.14 -->
-    <!-- Grid placed at (0, 4), centered within 28×28 area -->
-    <g transform="translate(0, 4) scale(0.14)">
-
-      <!-- Ambient glow -->
-      <circle cx="100" cy="100" r="90" fill="url(#gridGlow)"/>
-
-      <!-- GLOW LAYER (explicit glow circles — no filters) -->
-      <!-- Row 3 mid-zone glow -->
-      <circle cx="80"  cy="80"  r="14" fill="#ceeaf8" opacity="0.07"/>
-      <circle cx="100" cy="80"  r="16" fill="#dff0fb" opacity="0.09"/>
-      <circle cx="120" cy="80"  r="14" fill="#ceeaf8" opacity="0.07"/>
-      <!-- Row 4 center glow -->
-      <circle cx="80"  cy="100" r="16" fill="#dff0fb" opacity="0.09"/>
-      <circle cx="100" cy="100" r="22" fill="#ffffff" opacity="0.12"/>
-      <circle cx="120" cy="100" r="16" fill="#dff0fb" opacity="0.09"/>
-      <!-- Row 5 glow -->
-      <circle cx="80"  cy="120" r="14" fill="#ceeaf8" opacity="0.07"/>
-      <circle cx="100" cy="120" r="16" fill="#dff0fb" opacity="0.09"/>
-      <circle cx="120" cy="120" r="14" fill="#ceeaf8" opacity="0.07"/>
-
-      <!-- HALO LAYER -->
-      <circle cx="100" cy="80"  r="11" fill="#dff0fb" opacity="0.04"/>
-      <circle cx="80"  cy="100" r="11" fill="#dff0fb" opacity="0.04"/>
-      <circle cx="120" cy="100" r="11" fill="#dff0fb" opacity="0.04"/>
-      <circle cx="100" cy="120" r="11" fill="#dff0fb" opacity="0.04"/>
-      <circle cx="100" cy="100" r="13" fill="#ffffff" opacity="0.08"/>
-
-      <!-- DOT LAYER -->
-      <!-- Row 1: 3 dots -->
-      <circle cx="80"  cy="40"  r="3.9" fill="#80d0f0" opacity="0.28"/>
-      <circle cx="100" cy="40"  r="4.1" fill="#8ad4f1" opacity="0.36"/>
-      <circle cx="120" cy="40"  r="3.9" fill="#80d0f0" opacity="0.28"/>
-      <!-- Row 2: 5 dots -->
-      <circle cx="60"  cy="60"  r="4.1" fill="#8ad4f1" opacity="0.36"/>
-      <circle cx="80"  cy="60"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
-      <circle cx="100" cy="60"  r="5.0" fill="#b4e2f5" opacity="0.74"/>
-      <circle cx="120" cy="60"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
-      <circle cx="140" cy="60"  r="4.1" fill="#8ad4f1" opacity="0.36"/>
-      <!-- Row 3: 7 dots -->
-      <circle cx="40"  cy="80"  r="3.9" fill="#80d0f0" opacity="0.28"/>
-      <circle cx="60"  cy="80"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
-      <circle cx="80"  cy="80"  r="5.5" fill="#ceeaf8" opacity="0.86"/>
-      <circle cx="100" cy="80"  r="5.9" fill="#dff0fb" opacity="0.92"/>
-      <circle cx="120" cy="80"  r="5.5" fill="#ceeaf8" opacity="0.86"/>
-      <circle cx="140" cy="80"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
-      <circle cx="160" cy="80"  r="3.9" fill="#80d0f0" opacity="0.28"/>
-      <!-- Row 4: 7 dots (center) -->
-      <circle cx="40"  cy="100" r="4.1" fill="#8ad4f1" opacity="0.36"/>
-      <circle cx="60"  cy="100" r="5.0" fill="#b4e2f5" opacity="0.74"/>
-      <circle cx="80"  cy="100" r="5.9" fill="#dff0fb" opacity="0.92"/>
-      <circle cx="100" cy="100" r="6.8" fill="#ffffff" opacity="1.0"/>
-      <circle cx="120" cy="100" r="5.9" fill="#dff0fb" opacity="0.92"/>
-      <circle cx="140" cy="100" r="5.0" fill="#b4e2f5" opacity="0.74"/>
-      <circle cx="160" cy="100" r="4.1" fill="#8ad4f1" opacity="0.36"/>
-      <!-- Row 5: 7 dots -->
-      <circle cx="40"  cy="120" r="3.9" fill="#80d0f0" opacity="0.28"/>
-      <circle cx="60"  cy="120" r="4.8" fill="#a8ddf4" opacity="0.66"/>
-      <circle cx="80"  cy="120" r="5.5" fill="#ceeaf8" opacity="0.86"/>
-      <circle cx="100" cy="120" r="5.9" fill="#dff0fb" opacity="0.92"/>
-      <circle cx="120" cy="120" r="5.5" fill="#ceeaf8" opacity="0.86"/>
-      <circle cx="140" cy="120" r="4.8" fill="#a8ddf4" opacity="0.66"/>
-      <circle cx="160" cy="120" r="3.9" fill="#80d0f0" opacity="0.28"/>
-      <!-- Row 6: 5 dots -->
-      <circle cx="60"  cy="140" r="4.1" fill="#8ad4f1" opacity="0.36"/>
-      <circle cx="80"  cy="140" r="4.8" fill="#a8ddf4" opacity="0.66"/>
-      <circle cx="100" cy="140" r="5.0" fill="#b4e2f5" opacity="0.74"/>
-      <circle cx="120" cy="140" r="4.8" fill="#a8ddf4" opacity="0.66"/>
-      <circle cx="140" cy="140" r="4.1" fill="#8ad4f1" opacity="0.36"/>
-      <!-- Row 7: 3 dots -->
-      <circle cx="80"  cy="160" r="3.9" fill="#80d0f0" opacity="0.28"/>
-      <circle cx="100" cy="160" r="4.1" fill="#8ad4f1" opacity="0.36"/>
-      <circle cx="120" cy="160" r="3.9" fill="#80d0f0" opacity="0.28"/>
-    </g>
-
-    <!-- GWES text: Archivo Regular 400, 19px, ls: 0.28em (5.32px), #FFFFFF -->
-    <text x="46" y="19"
-          font-family="'Archivo','Helvetica Neue',Arial,sans-serif"
-          font-weight="400" font-size="19" letter-spacing="5.32"
-          fill="#FFFFFF">GWES</text>
-    <!-- Tagline: Inter Regular 400, 7px, ls: 0.12em (0.84px), rgba(255,255,255,0.7) -->
-    <text x="46" y="32"
-          font-family="'Inter',sans-serif"
-          font-weight="400" font-size="7" fill="#FFFFFF" opacity="0.7"
-          letter-spacing="0.84">The OS for Autonomous Warehouse</text>
-  </g>
+  <!-- Phyllotaxis Intelligence Mark -->
+    <circle cx="234.00" cy="22.00" r="0.74" fill="#FFFFFF" opacity="1.0"/>
+    <circle cx="232.61" cy="23.28" r="0.73" fill="#FFFFFF" opacity="0.986"/>
+    <circle cx="234.23" cy="19.34" r="0.72" fill="#FFFFFF" opacity="0.971"/>
+    <circle cx="235.99" cy="24.59" r="0.71" fill="#FFFFFF" opacity="0.957"/>
+    <circle cx="230.28" cy="21.34" r="0.70" fill="#FFFFFF" opacity="0.942"/>
+    <circle cx="237.56" cy="19.73" r="0.69" fill="#FFFFFF" opacity="0.928"/>
+    <circle cx="232.80" cy="26.47" r="0.68" fill="#FFFFFF" opacity="0.913"/>
+    <circle cx="231.70" cy="17.57" r="0.67" fill="#FFFFFF" opacity="0.899"/>
+    <circle cx="239.02" cy="23.83" r="0.66" fill="#FFFFFF" opacity="0.884"/>
+    <circle cx="228.77" cy="24.16" r="0.66" fill="#FFFFFF" opacity="0.87"/>
+    <circle cx="236.53" cy="16.59" r="0.65" fill="#FFFFFF" opacity="0.856"/>
+    <circle cx="235.87" cy="27.97" r="0.64" fill="#FFFFFF" opacity="0.841"/>
+    <circle cx="228.34" cy="18.72" r="0.63" fill="#FFFFFF" opacity="0.827"/>
+    <circle cx="240.65" cy="20.54" r="0.62" fill="#FFFFFF" opacity="0.812"/>
+    <circle cx="229.94" cy="27.78" r="0.61" fill="#FFFFFF" opacity="0.798"/>
+    <circle cx="233.06" cy="14.75" r="0.60" fill="#FFFFFF" opacity="0.783"/>
+    <circle cx="239.77" cy="26.87" r="0.59" fill="#FFFFFF" opacity="0.769"/>
+    <circle cx="226.22" cy="22.32" r="0.58" fill="#FFFFFF" opacity="0.754"/>
+    <circle cx="239.68" cy="16.35" r="0.58" fill="#FFFFFF" opacity="0.74"/>
+    <circle cx="233.62" cy="30.22" r="0.57" fill="#FFFFFF" opacity="0.726"/>
+    <circle cx="228.59" cy="15.52" r="0.56" fill="#FFFFFF" opacity="0.711"/>
+    <circle cx="242.57" cy="23.15" r="0.55" fill="#FFFFFF" opacity="0.697"/>
+    <circle cx="226.73" cy="27.06" r="0.54" fill="#FFFFFF" opacity="0.682"/>
+    <circle cx="235.99" cy="13.17" r="0.53" fill="#FFFFFF" opacity="0.668"/>
+    <circle cx="238.60" cy="30.02" r="0.52" fill="#FFFFFF" opacity="0.653"/>
+    <circle cx="225.01" cy="19.13" r="0.51" fill="#FFFFFF" opacity="0.639"/>
+    <circle cx="242.74" cy="17.96" r="0.50" fill="#FFFFFF" opacity="0.624"/>
+    <circle cx="230.21" cy="31.05" r="0.50" fill="#FFFFFF" opacity="0.61"/>
+    <circle cx="230.62" cy="12.60" r="0.49" fill="#FFFFFF" opacity="0.596"/>
+    <circle cx="243.00" cy="26.73" r="0.48" fill="#FFFFFF" opacity="0.581"/>
+    <circle cx="224.00" cy="24.64" r="0.47" fill="#FFFFFF" opacity="0.567"/>
+    <circle cx="239.68" cy="13.16" r="0.46" fill="#FFFFFF" opacity="0.552"/>
+    <circle cx="235.81" cy="32.52" r="0.45" fill="#FFFFFF" opacity="0.538"/>
+    <circle cx="225.43" cy="15.36" r="0.44" fill="#FFFFFF" opacity="0.523"/>
+    <circle cx="244.97" cy="21.09" r="0.43" fill="#FFFFFF" opacity="0.509"/>
+    <circle cx="226.42" cy="30.20" r="0.42" fill="#FFFFFF" opacity="0.494"/>
+    <circle cx="234.05" cy="10.67" r="0.42" fill="#FFFFFF" opacity="0.48"/>
+    <circle cx="241.72" cy="30.50" r="0.41" fill="#FFFFFF" opacity="0.466"/>
+    <circle cx="222.41" cy="20.93" r="0.40" fill="#FFFFFF" opacity="0.451"/>
+    <circle cx="243.39" cy="14.87" r="0.39" fill="#FFFFFF" opacity="0.437"/>
+    <circle cx="231.86" cy="33.75" r="0.38" fill="#FFFFFF" opacity="0.422"/>
+    <circle cx="227.56" cy="11.77" r="0.37" fill="#FFFFFF" opacity="0.408"/>
+    <circle cx="245.80" cy="25.23" r="0.36" fill="#FFFFFF" opacity="0.393"/>
+    <circle cx="222.99" cy="27.65" r="0.35" fill="#FFFFFF" opacity="0.379"/>
+    <circle cx="238.35" cy="10.26" r="0.34" fill="#FFFFFF" opacity="0.364"/>
+    <circle cx="238.78" cy="33.73" r="0.34" fill="#FFFFFF" opacity="0.35"/>
+    <circle cx="222.43" cy="16.52" r="0.33" fill="#FFFFFF" opacity="0.336"/>
+    <circle cx="246.37" cy="18.19" r="0.32" fill="#FFFFFF" opacity="0.321"/>
+    <circle cx="227.39" cy="33.28" r="0.31" fill="#FFFFFF" opacity="0.307"/>
+    <circle cx="231.22" cy="9.08" r="0.30" fill="#FFFFFF" opacity="0.292"/>
+    <circle cx="244.88" cy="29.73" r="0.29" fill="#FFFFFF" opacity="0.278"/>
+    <circle cx="220.62" cy="23.67" r="0.28" fill="#FFFFFF" opacity="0.263"/>
+    <circle cx="242.82" cy="11.63" r="0.27" fill="#FFFFFF" opacity="0.249"/>
+    <circle cx="234.50" cy="35.73" r="0.26" fill="#FFFFFF" opacity="0.234"/>
+    <circle cx="224.26" cy="12.12" r="0.26" fill="#FFFFFF" opacity="0.22"/>
+  <!-- GWES: Archivo Bold 700, 19px, ls: 0.03em -->
+  <text x="260" y="24.0"
+        font-family="'Archivo','Helvetica Neue',Arial,sans-serif"
+        font-weight="700" font-size="19" letter-spacing="0.57"
+        fill="#FFFFFF">GWES</text>
+  <!-- Tagline: Archivo Bold 700, 7px, opacity 0.55 -->
+  <text x="260" y="36.0"
+        font-family="'Archivo','Helvetica Neue',Arial,sans-serif"
+        font-weight="700" font-size="7" letter-spacing="0.21"
+        fill="#FFFFFF" opacity="0.55">The OS for Autonomous Warehouse</text>
 </svg>
