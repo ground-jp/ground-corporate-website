@@ -43,30 +43,37 @@
        ===================================================== */
     .header { z-index: 350 !important; background: #0A0C14 !important; }
     .hamburger { display: flex !important; flex-direction: column; justify-content: center; align-items: center; gap: 6px; width: 52px; height: 52px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 400; position: relative; margin-right: -8px; }
-    .hamburger__line { display: block; width: 26px; height: 2px; background: #fff; border-radius: 1px; transition: all 0.3s ease; }
-    .hamburger.active .hamburger__line:nth-child(1) { transform: rotate(45deg) translateY(10px); }
-    .hamburger.active .hamburger__line:nth-child(2) { opacity: 0; }
-    .hamburger.active .hamburger__line:nth-child(3) { transform: rotate(-45deg) translateY(-10px); }
+    .hamburger__line { display: block; width: 26px; height: 1.5px; background: #fff; border-radius: 1px; transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.25s ease; transform-origin: center; }
+    .hamburger.active .hamburger__line:nth-child(1) { transform: rotate(45deg) translate(5.5px,5.5px); }
+    .hamburger.active .hamburger__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active .hamburger__line:nth-child(3) { transform: rotate(-45deg) translate(5.5px,-5.5px); }
 
-    .overlay-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #FFFFFF; z-index: 300; display: none; opacity: 0; transition: opacity 0.3s ease; }
-    .overlay-menu.active { display: flex; opacity: 1; }
-    .overlay-menu__inner { width: 100%; max-width: 1200px; margin: 0 auto; padding: 120px 56px 56px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; align-items: flex-start; }
-    .overlay-menu__label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: #999999; margin-bottom: 24px; }
-    .overlay-menu__nav-list { display: flex; flex-direction: column; gap: 12px; }
-    .overlay-menu__nav-item { font-size: 36px; font-weight: 700; color: #1A1A24; text-decoration: none; transition: color 0.3s ease; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-    .overlay-menu__nav-item:hover { color: var(--color-primary); }
-    .overlay-menu__nav-item.is-active { color: var(--color-primary); }
-    .overlay-menu__nav-arrow { opacity: 0; transition: opacity 0.3s ease; }
-    .overlay-menu__nav-item:hover .overlay-menu__nav-arrow { opacity: 1; }
-    .overlay-menu__cta-btn { display: inline-block; padding: 12px 28px; background: var(--color-primary); color: white; text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 14px; transition: background 0.3s ease; margin-bottom: 32px; }
-    .overlay-menu__cta-btn:hover { background: rgba(59, 130, 246, 0.9); }
-    .overlay-menu__contact-info { font-size: 13px; color: #999999; margin-bottom: 40px; }
-    .lang-switch-bar { display: flex; gap: 16px; margin-bottom: 40px; }
-    .lang-switch { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #999999; text-decoration: none; transition: color 0.3s ease; padding: 6px 12px; border: 1px solid transparent; border-radius: 4px; }
-    .lang-switch:hover { color: #1A1A24; }
-    .lang-switch--current { color: #1A1A24; border-color: var(--color-line); }
-    .lang-switch__globe { width: 16px; height: 16px; }
-    .overlay-menu__copyright { font-size: 12px; color: #999999; }
+    .overlay-menu { position: fixed; inset: 0; z-index: 300; background: #0A0C14; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-20px); transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s, transform 0.4s cubic-bezier(0.23,1,0.32,1); overflow-y: auto; }
+    .overlay-menu.active { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
+    .overlay-menu__inner { display: grid; grid-template-columns: 280px 1fr 340px; gap: 0 48px; max-width: 1200px; width: 100%; margin: 0 auto; padding: 100px 56px 60px; min-height: 100vh; align-content: start; }
+    .overlay-menu__label { display: block; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px; }
+    .overlay-menu__col-nav { grid-column: 1; }
+    .overlay-menu__nav-list { display: flex; flex-direction: column; gap: 0; }
+    .overlay-menu__nav-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; text-decoration: none; color: #fff; font-size: 17px; font-weight: 500; letter-spacing: 0.01em; cursor: pointer; transition: background 0.15s ease; }
+    .overlay-menu__nav-item:hover, .overlay-menu__nav-item.is-active { background: rgba(255,255,255,0.06); }
+    .overlay-menu__nav-arrow { font-size: 16px; color: rgba(255,255,255,0.4); }
+    .overlay-menu__col-sub { grid-column: 2; }
+    .overlay-menu__panel { display: none; flex-direction: column; gap: 0; }
+    .overlay-menu__panel.is-visible { display: flex; }
+    .overlay-menu__sub-item { display: block; padding: 12px 0; text-decoration: none; color: rgba(255,255,255,0.85); font-size: 16px; font-weight: 400; transition: color 0.15s; }
+    .overlay-menu__sub-item:hover { color: #fff; }
+    .overlay-menu__col-info { grid-column: 3; display: flex; flex-direction: column; justify-content: flex-start; }
+    .overlay-menu__cta-btn { display: block; padding: 16px 32px; border: 1px solid rgba(255,255,255,0.25); color: #fff; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 12px; font-weight: 500; text-align: center; text-decoration: none; letter-spacing: 0.14em; text-transform: uppercase; }
+    .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
+    .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.3); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
+    .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
+    .lang-switch-bar { display: flex; align-items: center; gap: 16px; padding: 20px 0 0; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .lang-switch { display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono',monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,0.35); padding: 8px 12px; border: 1px solid rgba(255,255,255,0.1); border-radius: 2px; transition: all 0.25s ease; background: none; }
+    .lang-switch:hover { color: #fff; border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.04); }
+    .lang-switch--current { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.06); pointer-events: none; }
+    .lang-switch__globe { width: 14px; height: 14px; opacity: 0.5; }
+    .lang-switch:hover .lang-switch__globe { opacity: 1; }
+    .lang-switch--current .lang-switch__globe { opacity: 0.7; }
 
     /* Breadcrumb */
     .breadcrumb { border-bottom: 1px solid var(--color-line); background: #FAFBFC; }
@@ -926,21 +933,59 @@
   </header>
 
   <!-- Overlay Menu -->
-  <nav class="overlay-menu" id="overlayMenu">
+  <div class="overlay-menu" id="overlayMenu">
     <div class="overlay-menu__inner">
+      <!-- Col 1: Navigation -->
       <div class="overlay-menu__col-nav">
-        <div class="overlay-menu__label">Navigation</div>
+        <span class="overlay-menu__label">[NAVIGATION]</span>
         <div class="overlay-menu__nav-list">
-          <a href="index.html" class="overlay-menu__nav-item">Home<span class="overlay-menu__nav-arrow">→</span></a>
-          <a href="about.html" class="overlay-menu__nav-item">企業情報<span class="overlay-menu__nav-arrow">→</span></a>
-          <a href="history.html" class="overlay-menu__nav-item is-active">GROUNDの歩み<span class="overlay-menu__nav-arrow">→</span></a>
-          <a href="contact.html" class="overlay-menu__nav-item">お問い合わせ<span class="overlay-menu__nav-arrow">→</span></a>
+          <a class="overlay-menu__nav-item" data-panel="company" href="/about">会社情報<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" data-panel="gpim" href="/gpim">GPIM<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" data-panel="service" href="/service">製品・サービス<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" href="/works">導入事例</a>
+          <a class="overlay-menu__nav-item" href="/news">ニュース</a>
+          <a class="overlay-menu__nav-item" href="/blog">WAREHOUSE TECH WEEKLY</a>
+          <a class="overlay-menu__nav-item" data-panel="careers" href="/careers">採用情報<span class="overlay-menu__nav-arrow">›</span></a>
         </div>
       </div>
-      <div class="overlay-menu__col-sub"></div>
+      <!-- Col 2: Sub-panels -->
+      <div class="overlay-menu__col-sub">
+        <div class="overlay-menu__panel" data-panel="company">
+          <span class="overlay-menu__label">[会社情報]</span>
+          <a class="overlay-menu__sub-item" href="/about">会社概要</a>
+          <a class="overlay-menu__sub-item" href="/history">GROUNDの歩み</a>
+          <a class="overlay-menu__sub-item" href="/about#ceo">CEOメッセージ</a>
+          <a class="overlay-menu__sub-item" href="/about#vision">ビジョン・ミッション</a>
+          <a class="overlay-menu__sub-item" href="/about#bp">行動原則(BP)・価値創造(VCP)プロセス</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="service">
+          <span class="overlay-menu__label">[製品・サービス]</span>
+          <a class="overlay-menu__sub-item" href="/gwes">GWES</a>
+          <a class="overlay-menu__sub-item" href="/gwes#technology" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
+          <a class="overlay-menu__sub-item" href="/gwes#modules" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
+          <a class="overlay-menu__sub-item" href="/gwes#implementation" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
+          <a class="overlay-menu__sub-item" href="/digital-integration">デジタルインテグレーション</a>
+          <a class="overlay-menu__sub-item" href="/consulting">コンサルティング＆エンジニアリング</a>
+          <a class="overlay-menu__sub-item" href="/peer">PEER</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="gpim">
+          <span class="overlay-menu__label">[GPIM]</span>
+          <a class="overlay-menu__sub-item" href="/gpim">GPIMとは</a>
+          <a class="overlay-menu__sub-item" href="/gpim-consulting">GPIMコンサルティング</a>
+        </div>
+        <div class="overlay-menu__panel" data-panel="careers">
+          <span class="overlay-menu__label">[採用情報]</span>
+          <a class="overlay-menu__sub-item" href="/careers">募集ポジション</a>
+          <a class="overlay-menu__sub-item" href="/about">カルチャー</a>
+        </div>
+      </div>
+      <!-- Col 3: CTA + Contact -->
       <div class="overlay-menu__col-info">
-        <a href="contact.html" class="overlay-menu__cta-btn">お問い合わせ</a>
-        <div class="overlay-menu__contact-info"><span>Tokyo, Japan</span></div>
+        <a class="overlay-menu__cta-btn" href="/contact" style="background-color: rgb(37, 99, 235);">お問い合わせ</a>
+        <div class="overlay-menu__contact-info">
+          <span>info@groundinc.co.jp</span>
+          <span>03-6441-2975</span>
+        </div>
         <div class="lang-switch-bar">
           <a href="#" class="lang-switch lang-switch--current">
             <svg class="lang-switch__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
@@ -951,10 +996,10 @@
             EN
           </a>
         </div>
-        <div class="overlay-menu__copyright">© 2015–2025 GROUND Inc.</div>
+        <p class="overlay-menu__copyright">© GROUND Inc.</p>
       </div>
     </div>
-  </nav>
+  </div>
 
   <!-- Breadcrumb -->
   <div class="breadcrumb">
