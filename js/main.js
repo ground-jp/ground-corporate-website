@@ -50,6 +50,9 @@ function initParticles() {
   const canvas = document.getElementById('particles');
   if (!canvas) return;
 
+  // Skip on low-power devices for performance
+  if (window.matchMedia('(max-width: 768px)').matches || navigator.hardwareConcurrency <= 2) return;
+
   const ctx = canvas.getContext('2d');
   let particles = [];
   let animId;
@@ -91,14 +94,15 @@ function initParticles() {
       ctx.fillStyle = `rgba(0, 212, 255, ${p.opacity})`;
       ctx.fill();
 
-      // Draw connections
+      // Draw connections (use squared distance to avoid sqrt)
       for (let j = i + 1; j < particles.length; j++) {
         const p2 = particles[j];
         const dx = p.x - p2.x;
         const dy = p.y - p2.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+        const distSq = dx * dx + dy * dy;
 
-        if (dist < 150) {
+        if (distSq < 22500) { // 150^2
+          const dist = Math.sqrt(distSq);
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(p2.x, p2.y);
