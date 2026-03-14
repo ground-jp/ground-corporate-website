@@ -11,10 +11,11 @@
   <meta property="og:description" content="AMRとGTPシステムの融合が加速。統合プラットフォーム上での協調動作が変えるフルフィルメントの未来。">
   <meta property="og:type" content="article">
     <meta property="og:image" content="https://groundinc.co.jp/img/ogp-default.svg">
+  <meta property="og:url" content="https://groundinc.co.jp/blog-weekly-050.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700&amp;family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=60">
+  <link rel="stylesheet" href="css/style.css?v=61">
   <script>
     // design-settings instant apply: localStorageキャッシュからCSS変数を即座適用（フラッシュ防止）
     (function(){try{var c=localStorage.getItem('ds-cache');if(c){var s=JSON.parse(c),r=document.documentElement.style;if(s.logo_height)r.setProperty('--ds-logo-height',s.logo_height+'px');if(s.header_height)r.setProperty('--ds-header-height',s.header_height+'px');if(s.header_bg_color)r.setProperty('--ds-header-bg',s.header_bg_color);}}catch(e){}})();document.addEventListener('DOMContentLoaded',function(){var l=document.querySelector('.header__logo-img');if(l){l.style.setProperty('outline','none','important');l.style.border='none';}var a=document.querySelector('.header__logo');if(a)a.style.setProperty('outline','none','important');});
@@ -669,6 +670,7 @@
     </div>
   </div>
 
+  <main>
     <nav class="breadcrumb-nav" aria-label="パンくずリスト">
       <ol class="breadcrumb-nav__list">
         <li class="breadcrumb-nav__item"><a href="index.html" class="breadcrumb-nav__link breadcrumb-nav__link--home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a></li>
@@ -677,6 +679,20 @@
       </ol>
     </nav>
 
+    <!-- ═══ Article Header ═══ -->
+    <section class="ar-header">
+      <div class="ar-container">
+        <p class="ar-header__eyebrow">Warehouse Tech Weekly #050</p>
+        <h1 class="ar-header__title">2026年の倉庫自動化トレンド：<br>AMRとGTPの融合</h1>
+
+        <div class="ar-author-strip">
+          <div class="ar-author-strip__profile">
+            <div class="ar-author-strip__avatar">TM</div>
+            <div>
+              <p class="ar-author-strip__name">宮田 啓友</p>
+              <p class="ar-author-strip__role">Founder &amp; CEO</p>
+            </div>
+          </div>
           <div class="ar-author-strip__meta">
             <span class="ar-author-strip__date">2026.03.03</span>
             <div class="ar-author-strip__tags">
@@ -797,7 +813,10 @@
     <div class="container">
       <div class="footer__grid">
         <div>
-          <img src="img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
+          <div class="footer__brand-logos">
+            <img src="img/ground-logo-v2.svg?v=6" alt="GROUND" class="footer__ground-logo-img" style="height: 28px; width: auto;">
+            <img src="img/gwes-lockup-vertical-nobg.svg?v=6" alt="GWES" class="footer__gwes-logo-img" style="height: 80px; width: auto;">
+          </div>
           <p class="footer__brand-desc">
             AI・数理最適化・ロボティクスで、<br>
             物流の未来を変革する。
@@ -846,7 +865,7 @@
     </div>
   </footer>
 
-  <script defer src="js/main.js?v=31"></script>
+  <script defer src="js/main.js?v=32"></script>
   <script>
     // Reading progress bar
     window.addEventListener('scroll', () => {

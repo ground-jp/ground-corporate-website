@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Sans+JP:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=60">
+  <link rel="stylesheet" href="css/style.css?v=61">
   <style>
     /* ── Page base: white background ── */
     body { background: #fff !important; }
@@ -34,7 +34,7 @@
 
     /* ── Hero ── */
     .gp-hero {
-      padding: 60px 0 40px;
+      padding: 24px 0 40px;
       text-align: center;
     }
     .gp-hero__label {
@@ -624,7 +624,10 @@
     <div class="container">
       <div class="footer__grid">
         <div>
-          <img src="img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
+          <div class="footer__brand-logos">
+            <img src="img/ground-logo-v2.svg?v=6" alt="GROUND" class="footer__ground-logo-img" style="height: 28px; width: auto;">
+            <img src="img/gwes-lockup-vertical-nobg.svg?v=6" alt="GWES" class="footer__gwes-logo-img" style="height: 80px; width: auto;">
+          </div>
           <p class="footer__brand-desc">
             AI・数理最適化・ロボティクスで、<br>
             物流の未来を変革する。
@@ -686,7 +689,7 @@
       document.querySelectorAll('.gp-fade:not(.is-visible)').forEach(el => el.classList.add('is-visible'));
     }, 2000);
   </script>
-  <script defer="" src="js/main.js?v=31"></script>
+  <script defer="" src="js/main.js?v=32"></script>
 <script defer="" src="js/design-settings.js"></script>
 
 

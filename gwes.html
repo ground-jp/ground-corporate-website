@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Sans+JP:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=60">
+  <link rel="stylesheet" href="css/style.css?v=61">
   <script>
     // design-settings instant apply: localStorageキャッシュからCSS変数を即座適用（フラッシュ防止）
     (function(){try{var c=localStorage.getItem('ds-cache');if(c){var s=JSON.parse(c),r=document.documentElement.style;if(s.logo_height)r.setProperty('--ds-logo-height',s.logo_height+'px');if(s.header_height)r.setProperty('--ds-header-height',s.header_height+'px');if(s.header_bg_color)r.setProperty('--ds-header-bg',s.header_bg_color);}}catch(e){}})();document.addEventListener('DOMContentLoaded',function(){var l=document.querySelector('.header__logo-img');if(l){l.style.setProperty('outline','none','important');l.style.border='none';}var a=document.querySelector('.header__logo');if(a)a.style.setProperty('outline','none','important');});
@@ -133,7 +133,7 @@
     .gw-showcase__viewport {
       position: relative;
       width: 100%;
-      max-width: 900px;
+      max-width: 680px;
       margin: 0 auto;
       padding: 0 20px;
     }
@@ -526,7 +526,7 @@
     }
     .gw-mod__abbr {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 1.1rem; font-weight: 700;
+      font-size: 1.6rem; font-weight: 700;
       color: var(--gw-text-1); letter-spacing: 0.08em;
     }
     .gw-mod__levels {
@@ -578,12 +578,13 @@
     /* ── KPI ── */
     .gw-kpis {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1fr;
       gap: 1px;
       margin-top: 48px;
       background: #545867;
       border-radius: 10px;
       overflow: hidden;
+      max-width: 360px;
     }
     .gw-kpi {
       background: var(--gw-box-bg);
@@ -1066,7 +1067,7 @@
       <div class="gw-hero__logo-row">
         <div class="gw-logo">
           <div class="gw-logo__mark">
-            <img src="img/gwes-particle-grid.svg" alt="GWES" data-de-id="de-2">
+            <img src="img/gwes-particle-grid.svg?v=5" alt="GWES" data-de-id="de-2">
           </div>
           <div class="gw-logo__text" data-de-id="de-8">
             <span class="gw-logo__name" data-de-id="de-7">GWES</span>
@@ -1605,65 +1606,7 @@
     </div>
   </section>
 
-  <!-- ==================== GWES SOLUTIONS NAV ==================== -->
-  <section class="gw-section" style="padding-top: 0;">
-    <div class="container">
-      <div class="gw-fade is-visible">
-        <span class="gw-section__label">Solutions</span>
-        <h2 class="gw-section__heading">GWES ソリューション</h2>
-      </div>
-      <div class="gw-nav-cards gw-fade is-visible">
-        <a href="#technology" class="gw-nav-card">
-          <div class="gw-nav-card__icon">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="4" y="6" width="24" height="20" rx="2"></rect>
-              <path d="M4 14h24"></path>
-              <circle cx="10" cy="10" r="1.5" fill="currentColor" stroke="none"></circle>
-            </svg>
-          </div>
-          <h3 class="gw-nav-card__title">テクノロジー・プラットフォーム</h3>
-          <p class="gw-nav-card__desc">AI・4つのアルゴリズムにより、物流施設の知能化を実現するプラットフォーム</p>
-          <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳しく見る</span></span>
-        </a>
-        <a href="#modules" class="gw-nav-card">
-          <div class="gw-nav-card__icon">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="5" y="5" width="8" height="8" rx="1"></rect>
-              <rect x="19" y="5" width="8" height="8" rx="1"></rect>
-              <rect x="5" y="19" width="8" height="8" rx="1"></rect>
-              <rect x="19" y="19" width="8" height="8" rx="1"></rect>
-            </svg>
-          </div>
-          <h3 class="gw-nav-card__title">3レイヤー 12モジュール</h3>
-          <p class="gw-nav-card__desc">インフラ層・可視化層・最適化層からなるモジュールアーキテクチャ</p>
-          <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳しく見る</span></span>
-        </a>
-        <a href="#implementation" class="gw-nav-card">
-          <div class="gw-nav-card__icon">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M7 14l4 4 10-10"></path>
-              <circle cx="16" cy="16" r="11"></circle>
-            </svg>
-          </div>
-          <h3 class="gw-nav-card__title">導入・効果</h3>
-          <p class="gw-nav-card__desc">段階的導入アプローチと導入実績</p>
-          <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">詳しく見る</span></span>
-        </a>
-        <a href="/gwes-simulation" class="gw-nav-card">
-          <div class="gw-nav-card__icon">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="16,4 28,28 4,28"></polygon>
-              <line x1="16" y1="12" x2="16" y2="20"></line>
-              <circle cx="16" cy="24" r="1" fill="currentColor"></circle>
-            </svg>
-          </div>
-          <h3 class="gw-nav-card__title">物流施設DX診断</h3>
-          <p class="gw-nav-card__desc">12の質問で貴社施設のDX成熟度をレーダーチャートで可視化</p>
-          <span class="cta-stream"><span class="cta-stream__icon"></span><span class="cta-stream__label">診断を開始</span></span>
-        </a>
-      </div>
-    </div>
-  </section>
+  <!-- GWES Solutions Nav section removed per request -->
 
 
 <!-- ==================== CTA ==================== -->
@@ -1687,7 +1630,10 @@
     <div class="container">
       <div class="footer__grid">
         <div>
-          <img src="img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
+          <div class="footer__brand-logos">
+            <img src="img/ground-logo-v2.svg?v=6" alt="GROUND" class="footer__ground-logo-img" style="height: 28px; width: auto;">
+            <img src="img/gwes-lockup-vertical-nobg.svg?v=6" alt="GWES" class="footer__gwes-logo-img" style="height: 80px; width: auto;">
+          </div>
           <p class="footer__brand-desc">
             AI・数理最適化・ロボティクスで、<br>
             物流の未来を変革する。
@@ -1735,7 +1681,7 @@
     </div>
   </footer>
 
-<script defer="" src="js/main.js?v=31"></script>
+<script defer="" src="js/main.js?v=32"></script>
   <script>
     const gwObs = new IntersectionObserver((entries) => {
       entries.forEach(e => {

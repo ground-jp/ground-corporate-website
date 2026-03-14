@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- GWES Vertical Lockup — No background (for dark surfaces) -->
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#7dd3f0" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#7dd3f0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="shadow" cx="50%" cy="50%" r="80%">
+      <stop offset="0%" stop-color="#7dd3f0" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#7dd3f0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Grid centered at (100, 72), scale 0.56 to fit ~112px mark -->
+  <g transform="translate(44, 16) scale(0.56)">
+    <!-- Background ambient glow -->
+    <circle cx="100" cy="100" r="110" fill="url(#glow)"/>
+
+    <!-- GLOW LAYER -->
+    <circle cx="80"  cy="60"  r="14" fill="#a8ddf4" opacity="0.06"/>
+    <circle cx="100" cy="60"  r="16" fill="#b4e2f5" opacity="0.07"/>
+    <circle cx="120" cy="60"  r="14" fill="#a8ddf4" opacity="0.06"/>
+    <circle cx="60"  cy="80"  r="14" fill="#a8ddf4" opacity="0.06"/>
+    <circle cx="80"  cy="80"  r="17" fill="#ceeaf8" opacity="0.09"/>
+    <circle cx="100" cy="80"  r="20" fill="#dff0fb" opacity="0.11"/>
+    <circle cx="120" cy="80"  r="17" fill="#ceeaf8" opacity="0.09"/>
+    <circle cx="140" cy="80"  r="14" fill="#a8ddf4" opacity="0.06"/>
+    <circle cx="60"  cy="100" r="16" fill="#b4e2f5" opacity="0.07"/>
+    <circle cx="80"  cy="100" r="20" fill="#dff0fb" opacity="0.11"/>
+    <circle cx="100" cy="100" r="28" fill="#ffffff" opacity="0.14"/>
+    <circle cx="120" cy="100" r="20" fill="#dff0fb" opacity="0.11"/>
+    <circle cx="140" cy="100" r="16" fill="#b4e2f5" opacity="0.07"/>
+    <circle cx="60"  cy="120" r="14" fill="#a8ddf4" opacity="0.06"/>
+    <circle cx="80"  cy="120" r="17" fill="#ceeaf8" opacity="0.09"/>
+    <circle cx="100" cy="120" r="20" fill="#dff0fb" opacity="0.11"/>
+    <circle cx="120" cy="120" r="17" fill="#ceeaf8" opacity="0.09"/>
+    <circle cx="140" cy="120" r="14" fill="#a8ddf4" opacity="0.06"/>
+    <circle cx="80"  cy="140" r="14" fill="#a8ddf4" opacity="0.06"/>
+    <circle cx="100" cy="140" r="16" fill="#b4e2f5" opacity="0.07"/>
+    <circle cx="120" cy="140" r="14" fill="#a8ddf4" opacity="0.06"/>
+
+    <!-- HALO LAYER -->
+    <circle cx="100" cy="80"  r="11" fill="#dff0fb" opacity="0.04"/>
+    <circle cx="80"  cy="100" r="11" fill="#dff0fb" opacity="0.04"/>
+    <circle cx="120" cy="100" r="11" fill="#dff0fb" opacity="0.04"/>
+    <circle cx="100" cy="120" r="11" fill="#dff0fb" opacity="0.04"/>
+    <circle cx="100" cy="100" r="13" fill="#ffffff" opacity="0.08"/>
+
+    <!-- DOT LAYER -->
+    <circle cx="80"  cy="40"  r="3.9" fill="#80d0f0" opacity="0.28"/>
+    <circle cx="100" cy="40"  r="4.1" fill="#8ad4f1" opacity="0.36"/>
+    <circle cx="120" cy="40"  r="3.9" fill="#80d0f0" opacity="0.28"/>
+    <circle cx="60"  cy="60"  r="4.1" fill="#8ad4f1" opacity="0.36"/>
+    <circle cx="80"  cy="60"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
+    <circle cx="100" cy="60"  r="5.0" fill="#b4e2f5" opacity="0.74"/>
+    <circle cx="120" cy="60"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
+    <circle cx="140" cy="60"  r="4.1" fill="#8ad4f1" opacity="0.36"/>
+    <circle cx="40"  cy="80"  r="3.9" fill="#80d0f0" opacity="0.28"/>
+    <circle cx="60"  cy="80"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
+    <circle cx="80"  cy="80"  r="5.5" fill="#ceeaf8" opacity="0.86"/>
+    <circle cx="100" cy="80"  r="5.9" fill="#dff0fb" opacity="0.92"/>
+    <circle cx="120" cy="80"  r="5.5" fill="#ceeaf8" opacity="0.86"/>
+    <circle cx="140" cy="80"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
+    <circle cx="160" cy="80"  r="3.9" fill="#80d0f0" opacity="0.28"/>
+    <circle cx="40"  cy="100" r="4.1" fill="#8ad4f1" opacity="0.36"/>
+    <circle cx="60"  cy="100" r="5.0" fill="#b4e2f5" opacity="0.74"/>
+    <circle cx="80"  cy="100" r="5.9" fill="#dff0fb" opacity="0.92"/>
+    <circle cx="100" cy="100" r="6.8" fill="#ffffff" opacity="1.0"/>
+    <circle cx="120" cy="100" r="5.9" fill="#dff0fb" opacity="0.92"/>
+    <circle cx="140" cy="100" r="5.0" fill="#b4e2f5" opacity="0.74"/>
+    <circle cx="160" cy="100" r="4.1" fill="#8ad4f1" opacity="0.36"/>
+    <circle cx="40"  cy="120" r="3.9" fill="#80d0f0" opacity="0.28"/>
+    <circle cx="60"  cy="120" r="4.8" fill="#a8ddf4" opacity="0.66"/>
+    <circle cx="80"  cy="120" r="5.5" fill="#ceeaf8" opacity="0.86"/>
+    <circle cx="100" cy="120" r="5.9" fill="#dff0fb" opacity="0.92"/>
+    <circle cx="120" cy="120" r="5.5" fill="#ceeaf8" opacity="0.86"/>
+    <circle cx="140" cy="120" r="4.8" fill="#a8ddf4" opacity="0.66"/>
+    <circle cx="160" cy="120" r="3.9" fill="#80d0f0" opacity="0.28"/>
+    <circle cx="60"  cy="140" r="4.1" fill="#8ad4f1" opacity="0.36"/>
+    <circle cx="80"  cy="140" r="4.8" fill="#a8ddf4" opacity="0.66"/>
+    <circle cx="100" cy="140" r="5.0" fill="#b4e2f5" opacity="0.74"/>
+    <circle cx="120" cy="140" r="4.8" fill="#a8ddf4" opacity="0.66"/>
+    <circle cx="140" cy="140" r="4.1" fill="#8ad4f1" opacity="0.36"/>
+    <circle cx="80"  cy="160" r="3.9" fill="#80d0f0" opacity="0.28"/>
+    <circle cx="100" cy="160" r="4.1" fill="#8ad4f1" opacity="0.36"/>
+    <circle cx="120" cy="160" r="3.9" fill="#80d0f0" opacity="0.28"/>
+  </g>
+
+  <!-- Shadow ellipse -->
+  <ellipse cx="100" cy="130" rx="30" ry="6" fill="url(#shadow)"/>
+
+  <!-- Divider line -->
+  <line x1="82" y1="138" x2="118" y2="138" stroke="#6ac6ec" stroke-width="0.8" opacity="0.4"/>
+
+  <!-- GWES text -->
+  <text x="100" y="158" text-anchor="middle"
+        font-family="'Archivo','Helvetica Neue',Arial,sans-serif"
+        font-weight="400" font-size="18" letter-spacing="5"
+        fill="#FFFFFF">GWES</text>
+
+  <!-- Tagline -->
+  <text x="100" y="172" text-anchor="middle"
+        font-family="'Inter',sans-serif"
+        font-weight="400" font-size="7" letter-spacing="0.84"
+        fill="#FFFFFF" opacity="0.7">The OS for Autonomous Warehouse</text>
+</svg>

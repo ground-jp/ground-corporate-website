@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Sans+JP:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css?v=60">
+  <link rel="stylesheet" href="../css/style.css?v=61">
   <script>
     // design-settings instant apply
     (function(){try{var c=localStorage.getItem('ds-cache');if(c){var s=JSON.parse(c),r=document.documentElement.style;if(s.logo_height)r.setProperty('--ds-logo-height',s.logo_height+'px');if(s.header_height)r.setProperty('--ds-header-height',s.header_height+'px');if(s.header_bg_color)r.setProperty('--ds-header-bg',s.header_bg_color);}}catch(e){}})();document.addEventListener('DOMContentLoaded',function(){var l=document.querySelector('.header__logo-img');if(l){l.style.setProperty('outline','none','important');l.style.border='none';}var a=document.querySelector('.header__logo');if(a)a.style.setProperty('outline','none','important');});
@@ -1165,7 +1165,7 @@
       <div class="gw-hero__logo-row" style="">
         <div class="gw-logo">
           <div class="gw-logo__mark" style="">
-            <img src="../img/gwes-particle-grid.svg" alt="GWES" data-de-id="de-2">
+            <img src="../img/gwes-particle-grid.svg?v=5" alt="GWES" data-de-id="de-2">
           </div>
           <div class="gw-logo__text">
             <span class="gw-logo__name" style="">GWES</span>
@@ -1786,7 +1786,10 @@
     <div class="container">
       <div class="footer__grid">
         <div>
-          <img src="../img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
+          <div class="footer__brand-logos">
+            <img src="../img/ground-logo-v2.svg?v=6" alt="GROUND" class="footer__ground-logo-img" style="height: 28px; width: auto;">
+            <img src="../img/gwes-lockup-vertical-nobg.svg?v=6" alt="GWES" class="footer__gwes-logo-img" style="height: 80px; width: auto;">
+          </div>
           <p class="footer__brand-desc">
             Transforming the future of logistics<br>
             through AI, mathematical optimization, and robotics.
@@ -1835,7 +1838,7 @@
     </div>
   </footer>
 
-<script defer="" src="../js/main.js?v=31"></script>
+<script defer="" src="../js/main.js?v=32"></script>
   <script>
     const gwObs = new IntersectionObserver((entries) => {
       entries.forEach(e => {

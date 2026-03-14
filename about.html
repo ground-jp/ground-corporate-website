@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700&amp;family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=60">
+  <link rel="stylesheet" href="css/style.css?v=61">
   <style>
     /* ===================================================================
        About Page — Swiss-Inspired, White & Refined
@@ -97,7 +97,7 @@
     }
     .ab-sh__title {
       font-family: 'Inter', sans-serif;
-      font-size: clamp(28px, 3.5vw, 40px);
+      font-size: clamp(32px, 4vw, 48px);
       font-weight: 700; color: #1A1A1A;
       letter-spacing: -0.03em; line-height: 1.2;
       margin-top: 8px;
@@ -127,7 +127,7 @@
     }
     .ab-phil__en {
       font-family: 'Inter', sans-serif;
-      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
       font-weight: 600; color: #1A1A1A;
       letter-spacing: -0.03em; line-height: 1.45;
     }
@@ -136,20 +136,20 @@
     }
     .ab-phil__ja {
       font-family: 'Inter', sans-serif;
-      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
       font-weight: 600; color: #1A1A1A;
       letter-spacing: -0.03em; line-height: 1.45;
       margin-top: 16px;
     }
     .ab-phil--mission .ab-phil__en {
-      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-size: clamp(1.5rem, 2.8vw, 2.1rem);
       font-weight: 500; line-height: 1.9;
-      max-width: 640px; margin: 0 auto;
+      max-width: 720px; margin: 0 auto;
     }
     .ab-phil--mission .ab-phil__ja {
-      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-size: clamp(1.5rem, 2.8vw, 2.1rem);
       font-weight: 500; line-height: 1.9;
-      max-width: 640px; margin: 16px auto 0;
+      max-width: 720px; margin: 16px auto 0;
     }
 
     /* ── BP — Clean Numbered List ── */
@@ -856,20 +856,7 @@
             東京都千代田区神田須田町1-3-33<br>
             Bizflex神田 10F
           </div>
-          <div class="ab-stats">
-            <div>
-              <div class="ab-stat__val">2015</div>
-              <div class="ab-stat__lbl">EST.</div>
-            </div>
-            <div>
-              <div class="ab-stat__val">50+</div>
-              <div class="ab-stat__lbl">MEMBERS</div>
-            </div>
-            <div>
-              <div class="ab-stat__val">100+</div>
-              <div class="ab-stat__lbl">SITES</div>
-            </div>
-          </div>
+          <!-- Stats removed per request -->
           <!-- Google Map -->
           <div class="ab-map">
             <div class="ab-map__frame">
@@ -999,7 +986,10 @@
     <div class="container">
       <div class="footer__grid">
         <div>
-          <img src="img/combined-lockup-dark.svg" alt="GROUND x GWES" class="footer__lockup-img" style="height: 44px; width: auto;">
+          <div class="footer__brand-logos">
+            <img src="img/ground-logo-v2.svg?v=6" alt="GROUND" class="footer__ground-logo-img" style="height: 28px; width: auto;">
+            <img src="img/gwes-lockup-vertical-nobg.svg?v=6" alt="GWES" class="footer__gwes-logo-img" style="height: 80px; width: auto;">
+          </div>
           <p class="footer__brand-desc">
             AI・数理最適化・ロボティクスで、<br>
             物流の未来を変革する。
@@ -1048,7 +1038,7 @@
     </div>
   </footer>
 
-  <script defer src="js/main.js?v=31"></script>
+  <script defer src="js/main.js?v=32"></script>
   <script>
     // Intersection Observer for fade-in
     const observer = new IntersectionObserver((entries) => {

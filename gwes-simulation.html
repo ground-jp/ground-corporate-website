@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=60">
+  <link rel="stylesheet" href="css/style.css?v=61">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -1606,7 +1606,7 @@
 
         <!-- Report Header -->
         <div class="rpt-header sim-fade">
-          <img src="img/ground-logo-dark.svg?v=2" alt="GROUND" class="rpt-header__logo">
+          <img src="img/ground-logo-dark.svg?v=5" alt="GROUND" class="rpt-header__logo">
           <div class="rpt-header__company" id="rptCompany"></div>
           <h2 class="rpt-header__title">物流施設DX診断レポート</h2>
           <div class="rpt-header__date" id="rptDate"></div>
@@ -1711,8 +1711,10 @@
     <div class="container">
       <div class="footer__grid">
         <div class="footer__col">
-          <img src="img/ground-logo-v2.svg?v=2" alt="GROUND Inc." class="footer__logo" style="height: 22px; width: auto;">
-          <p class="footer__tagline" style="color: rgba(255, 255, 255, 0.55);">Autonomous Warehouse</p>
+          <div class="footer__brand-logos">
+            <img src="img/ground-logo-v2.svg?v=6" alt="GROUND" class="footer__ground-logo-img" style="height: 28px; width: auto;">
+            <img src="img/gwes-lockup-vertical-nobg.svg?v=6" alt="GWES" class="footer__gwes-logo-img" style="height: 80px; width: auto;">
+          </div>
         </div>
         <div class="footer__col">
           <span class="footer__heading">Company</span>
@@ -1739,7 +1741,7 @@
         </div>
       </div>
       <div class="footer__bottom">
-        <span class="footer__copy">© 2015 - 2025 GROUND Inc.</span>
+        <p class="footer__copy">© 2026 GROUND Inc. All rights reserved.</p>
         <div class="footer__social">
           <a href="https://www.linkedin.com/company/ground-inc/" target="_blank" rel="noopener" class="footer__social-link" aria-label="LinkedIn">in</a>
           <a href="https://note.com/and_and_and" target="_blank" rel="noopener" class="footer__social-link" aria-label="Note">N</a>
@@ -1750,7 +1752,7 @@
 
 
   <!-- ===== JAVASCRIPT ===== -->
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=32"></script>
   <script>
     // ── Supabase Config ──
     var SUPABASE_URL = 'https://wmfxyimxqnjwdzumolua.supabase.co';

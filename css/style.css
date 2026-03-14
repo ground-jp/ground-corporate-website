@@ -162,6 +162,24 @@ button {
   width: auto;
   display: block;
 }
+/* Footer brand logos: GROUND + GWES vertical stack */
+.footer__brand-logos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.footer__ground-logo-img {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+.footer__gwes-logo-img {
+  height: 80px;
+  width: auto;
+  display: block;
+}
 
 /* ===================== HAMBURGER BUTTON (o9-style) ===================== */
 .hamburger {
@@ -1645,6 +1663,7 @@ img.hero__bg-image {
   font-weight: 700;
   color: #fff;
   margin-bottom: 2px;
+  white-space: nowrap;
 }
 
 .solution-card__sub {
@@ -1752,6 +1771,10 @@ img.hero__bg-image {
   overflow: hidden;
   border-bottom: 1px solid rgba(255,255,255,0.06);
   margin: 0 -16px;
+}
+.solution-card--with-img:first-child .solution-card__img {
+  object-fit: contain;
+  padding: 12px 0;
 }
 
 .solution-card__img {
@@ -2008,7 +2031,7 @@ img.hero__bg-image {
 
 .our-clients__item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
 }
 
 .our-clients__logo {
