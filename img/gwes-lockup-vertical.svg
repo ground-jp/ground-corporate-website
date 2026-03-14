@@ -1,5 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="125 105 150 175">
   <!-- GWES Lockup for Solutions Card — Brand Guidelines v1.2 -->
+  <defs>
+    <linearGradient id="fadeToText" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0A0C14" stop-opacity="0"/>
+      <stop offset="0.6" stop-color="#0A0C14" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#0A0C14" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
   <rect width="400" height="400" fill="#0A0C14"/>
   <circle cx="200.00" cy="170.00" r="4.6" fill="#FFFFFF" opacity="1.0"/>
   <circle cx="194.63" cy="174.92" r="4.5" fill="#FFFFFF" opacity="0.986"/>
@@ -56,6 +63,8 @@
   <circle cx="234.03" cy="130.01" r="1.7" fill="#FFFFFF" opacity="0.249"/>
   <circle cx="201.93" cy="222.97" r="1.7" fill="#FFFFFF" opacity="0.234"/>
   <circle cx="162.44" cy="131.89" r="1.6" fill="#FFFFFF" opacity="0.22"/>
+  <!-- Shadow gradient between dots and text -->
+  <rect x="100" y="210" width="200" height="35" fill="url(#fadeToText)"/>
   <text x="200" y="250" text-anchor="middle" font-family="'Archivo','Helvetica Neue',Arial,sans-serif" font-weight="700" font-size="32" letter-spacing="0.03em" fill="#FFFFFF">GWES</text>
   <text x="200" y="268" text-anchor="middle" font-family="'Archivo','Helvetica Neue',Arial,sans-serif" font-weight="700" font-size="5.5" letter-spacing="0" fill="#FFFFFF" opacity="0.55">The OS for Autonomous Warehouse</text>
 </svg>
