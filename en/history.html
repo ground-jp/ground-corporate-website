@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css?v=57">
+  <link rel="stylesheet" href="../css/style.css?v=58">
 
   <style>
     :root {
@@ -903,12 +903,15 @@
 
 <body>
   <!-- Hamburger Menu -->
-  <header class="header">
-    <button class="hamburger" id="hamburgerBtn">
-      <span class="hamburger__line"></span>
-      <span class="hamburger__line"></span>
-      <span class="hamburger__line"></span>
-    </button>
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a class="header__logo" href="/en/"><img src="../img/ground-logo-v2.svg?v=2" alt="GROUND Inc." class="header__logo-img"></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+    </div>
   </header>
 
   <!-- Overlay Menu -->
