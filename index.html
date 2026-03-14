@@ -276,14 +276,21 @@
         var vid = document.getElementById('heroVideo');
         var src = document.getElementById('heroVideoSrc');
         if (!vid || !src) return;
-        src.src = videos[idx];
-        vid.load();
-        vid.play().catch(function(){});
+
+        function loadAndPlay(i) {
+          src.src = videos[i];
+          vid.load();
+          vid.oncanplay = function() {
+            vid.oncanplay = null;
+            vid.play().catch(function(){});
+          };
+        }
+
+        loadAndPlay(idx);
+
         vid.addEventListener('ended', function(){
           idx = (idx + 1) % videos.length;
-          src.src = videos[idx];
-          vid.load();
-          vid.play().catch(function(){});
+          loadAndPlay(idx);
         });
       })();
     </script>
