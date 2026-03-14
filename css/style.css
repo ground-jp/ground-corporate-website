@@ -133,8 +133,8 @@ button {
 }
 
 .header__logo-img {
-  height: 50px;
-  height: var(--ds-logo-height, 50px);
+  height: 30px;
+  height: var(--ds-logo-height, 30px);
   width: auto;
   display: block;
   outline: none !important;
