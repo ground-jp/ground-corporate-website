@@ -2027,11 +2027,10 @@ img.hero__bg-image {
   background: #fff;
   border-radius: 10px;
   padding: 20px 24px;
-  transition: transform 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);
+  transition: box-shadow 0.3s var(--ease-smooth);
 }
 
 .our-clients__item:hover {
-  transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
 }
 
