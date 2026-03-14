@@ -1773,9 +1773,16 @@ img.hero__bg-image {
   border-bottom: 1px solid rgba(255,255,255,0.06);
   margin: 0 -16px;
 }
+.solution-card--with-img:first-child .solution-card__img-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111;
+}
 .solution-card--with-img:first-child .solution-card__img {
   object-fit: contain;
-  padding: 12px 0;
+  width: 70%;
+  height: 70%;
 }
 
 .solution-card__img {
