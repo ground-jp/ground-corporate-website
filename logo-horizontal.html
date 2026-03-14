@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GROUND Logo — Archivo Bold 700 No Divider Variations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #EDEDEF; font-family: system-ui; }
+
+  .section-title {
+    text-align: center;
+    padding: 48px 0 8px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #888;
+    text-transform: uppercase;
+  }
+  .section-desc {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 36px;
+    line-height: 1.7;
+  }
+
+  .header-mock {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+  }
+  .header-mock.dark { background: #0A0C14; }
+  .header-mock.light { background: #FFFFFF; border-bottom: 1px solid #E5E5E5; }
+
+  .logo-group {
+    display: flex;
+    align-items: center;
+  }
+  .header-mock .g-mark { height: 30px; flex-shrink: 0; }
+
+  .header-mock .logo-text {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .header-mock .nav {
+    margin-left: auto;
+    display: flex;
+    gap: 28px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0.45;
+  }
+  .header-mock.dark .nav { color: #fff; }
+  .header-mock.light .nav { color: #000; }
+
+  .hero-mock {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-mock.dark { background: #0A0C14; }
+  .hero-mock.light { background: #FFFFFF; }
+  .hero-mock .g-mark { height: 52px; }
+  .hero-mock .logo-text {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 0 auto 20px;
+    max-width: 900px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .card-header {
+    padding: 16px 24px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .card-id {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #3B82F6;
+    flex-shrink: 0;
+  }
+  .card-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111;
+  }
+  .card-detail {
+    font-size: 12px;
+    color: #999;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  .sep { height: 1px; background: #eee; margin: 0 24px; }
+</style>
+</head>
+<body>
+
+<div class="section-title">Archivo Bold 700 — No Divider Variations</div>
+<div class="section-desc">
+  ディバイダーなし × Archivo Bold 700<br>
+  gap・letter-spacing・フォントサイズ・大小文字を変えた8パターン
+</div>
+
+<!-- ===== N1: gap 10px / ls 0.04em / 18px ===== -->
+<div class="card">
+  <div class="card-header">
+    <span class="card-id">N1</span>
+    <span class="card-name">標準バランス</span>
+    <span class="card-detail">gap:10px / ls:0.04em / 18px</span>
+  </div>
+  <div class="header-mock dark">
+    <div class="logo-group">
+      <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+      <span class="logo-text" style="font-size:18px; color:#fff; letter-spacing:0.04em; margin-left:10px;">GROUND</span>
+    </div>
+    <div class="nav"><span>Solutions</span><span>Technology</span><span>About</span></div>
+  </div>
+  <div class="hero-mock dark">
+    <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+    <span class="logo-text" style="font-size:38px; color:#fff; letter-spacing:0.04em; margin-left:14px;">GROUND</span>
+  </div>
+  <div class="sep"></div>
+  <div class="header-mock light">
+    <div class="logo-group">
+      <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+      <span class="logo-text" style="font-size:18px; color:#0A0C14; letter-spacing:0.04em; margin-left:10px;">GROUND</span>
+    </div>
+    <div class="nav"><span>Solutions</span><span>Technology</span><span>About</span></div>
+  </div>
+</div>
+
+<!-- ===== N2: gap 8px / ls 0.02em / 18px（密着・タイト） ===== -->
+<div class="card">
+  <div class="card-header">
+    <span class="card-id">N2</span>
+    <span class="card-name">密着 × タイトスペーシング</span>
+    <span class="card-detail">gap:8px / ls:0.02em / 18px</span>
+  </div>
+  <div class="header-mock dark">
+    <div class="logo-group">
+      <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+      <span class="logo-text" style="font-size:18px; color:#fff; letter-spacing:0.02em; margin-left:8px;">GROUND</span>
+    </div>
+    <div class="nav"><span>Solutions</span><span>Technology</span><span>About</span></div>
+  </div>
+  <div class="hero-mock dark">
+    <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+    <span class="logo-text" style="font-size:38px; color:#fff; letter-spacing:0.02em; margin-left:12px;">GROUND</span>
+  </div>
+  <div class="sep"></div>
+  <div class="header-mock light">
+    <div class="logo-group">
+      <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+      <span class="logo-text" style="font-size:18px; color:#0A0C14; letter-spacing:0.02em; margin-left:8px;">GROUND</span>
+    </div>
+    <div class="nav"><span>Solutions</span><span>Technology</span><span>About</span></div>
+  </div>
+</div>
+
+<!-- ===== N3: gap 14px / ls 0.06em / 17px（余裕あり） ===== -->
+<div class="card">
+  <div class="card-header">
+    <span class="card-id">N3</span>
+    <span class="card-name">ゆとり × ワイドスペーシング</span>
+    <span class="card-detail">gap:14px / ls:0.06em / 17px</span>
+  </div>
+  <div class="header-mock dark">
+    <div class="logo-group">
+      <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+      <span class="logo-text" style="font-size:17px; color:#fff; letter-spacing:0.06em; margin-left:14px;">GROUND</span>
+    </div>
+    <div class="nav"><span>Solutions</span><span>Technology</span><span>About</span></div>
+  </div>
+  <div class="hero-mock dark">
+    <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+    <span class="logo-text" style="font-size:36px; color:#fff; letter-spacing:0.06em; margin-left:18px;">GROUND</span>
+  </div>
+  <div class="sep"></div>
+  <div class="header-mock light">
+    <div class="logo-group">
+      <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+      <span class="logo-text" style="font-size:17px; color:#0A0C14; letter-spacing:0.06em; margin-left:14px;">GROUND</span>
+    </div>
+    <div class="nav"><span>Solutions</span><span>Technology</span><span>About</span></div>
+  </div>
+</div>
+
+<!-- ===== N4: アイコン大きめ（34px） / テキスト小さめ（15px） ===== -->
+<div class="card">
+  <div class="card-header">
+    <span class="card-id">N4</span>
+    <span class="card-name">アイコン主役（G-mark大きめ）</span>
+    <span class="card-detail">icon:34px / font:15px / ls:0.05em</span>
+  </div>
+  <div class="header-mock dark">
+    <div class="logo-group">
+      <svg class="g-mark" viewBox="0 0 3877 1938" style="height:34px;"><path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+      <span class="logo-text" style="font-size:15px; color:#fff; letter-spacing:0.05em; margin-left:10px;">GROUND</span>
+    </div>
+    <div class="nav"><span>Solutions</span><span>Technology</span><span>About</span></div>
+  </div>
+  <div class="hero-mock dark">
+    <svg class="g-mark" viewBox="0 0 3877 1938" style="height:60px;"><path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+    <span class="logo-text" style="font-size:32px; color:#fff; letter-spacing:0.05em; margin-left:14px;">GROUND</span>
+  </div>
+  <div class="sep"></div>
+  <div class="header-mock light">
+    <div class="logo-group">
+      <svg class="g-mark" viewBox="0 0 3877 1938" style="height:34px;"><path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+      <span class="logo-text" style="font-size:15px; color:#0A0C14; letter-spacing:0.05em; margin-left:10px;">GROUND</span>
+    </div>
+    <div class="nav"><span>Solutions</span><span>Technology</span><span>About</span></div>
+  </div>
+</div>
+
+<!-- ===== N5: テキスト主役（22px） / アイコン小さめ（26px） ===== -->
+<div class="card">
+  <div class="card-header">
+    <span class="card-id">N5</span>
+    <span class="card-name">テキスト主役（テキスト大きめ）</span>
+    <span class="card-detail">icon:26px / font:22px / ls:0.03em</span>
+  </div>
+  <div class="header-mock dark">
+    <div class="logo-group">
+      <svg class="g-mark" viewBox="0 0 3877 1938" style="height:26px;"><path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+      <span class="logo-text" style="font-size:22px; color:#fff; letter-spacing:0.03em; margin-left:10px;">GROUND</span>
+    </div>
+    <div class="nav"><span>Solutions</span><span>Technology</span><span>About</span></div>
+  </div>
+  <div class="hero-mock dark">
+    <svg class="g-mark" viewBox="0 0 3877 1938" style="height:46px;"><path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+    <span class="logo-text" style="font-size:46px; color:#fff; letter-spacing:0.03em; margin-left:14px;">GROUND</span>
+  </div>
+  <div class="sep"></div>
+  <div class="header-mock light">
+    <div class="logo-group">
+      <svg class="g-mark" viewBox="0 0 3877 1938" style="height:26px;"><path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+      <span class="logo-text" style="font-size:22px; color:#0A0C14; letter-spacing:0.03em; margin-left:10px;">GROUND</span>
+    </div>
+    <div class="nav"><span>Solutions</span><span>Technology</span><span>About</span></div>
+  </div>
+</div>
+
+<!-- ===== N6: Title Case "Ground" / gap 10px ===== -->
+<div class="card">
+  <div class="card-header">
+    <span class="card-id">N6</span>
+    <span class="card-name">Title Case "Ground"</span>
+    <span class="card-detail">gap:10px / ls:0.01em / 20px</span>
+  </div>
+  <div class="header-mock dark">
+    <div class="logo-group">
+      <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+      <span class="logo-text" style="font-size:20px; color:#fff; letter-spacing:0.01em; margin-left:10px; text-transform:none;">Ground</span>
+    </div>
+    <div class="nav"><span>Solutions</span><span>Technology</span><span>About</span></div>
+  </div>
+  <div class="hero-mock dark">
+    <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+    <span class="logo-text" style="font-size:42px; color:#fff; letter-spacing:0.01em; margin-left:14px; text-transform:none;">Ground</span>
+  </div>
+  <div class="sep"></div>
+  <div class="header-mock light">
+    <div class="logo-group">
+      <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+      <span class="logo-text" style="font-size:20px; color:#0A0C14; letter-spacing:0.01em; margin-left:10px; text-transform:none;">Ground</span>
+    </div>
+    <div class="nav"><span>Solutions</span><span>Technology</span><span>About</span></div>
+  </div>
+</div>
+
+<!-- ===== N7: 小文字 "ground" / gap 10px ===== -->
+<div class="card">
+  <div class="card-header">
+    <span class="card-id">N7</span>
+    <span class="card-name">小文字 "ground"</span>
+    <span class="card-detail">gap:10px / ls:0.01em / 20px</span>
+  </div>
+  <div class="header-mock dark">
+    <div class="logo-group">
+      <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+      <span class="logo-text" style="font-size:20px; color:#fff; letter-spacing:0.01em; margin-left:10px; text-transform:none;">ground</span>
+    </div>
+    <div class="nav"><span>Solutions</span><span>Technology</span><span>About</span></div>
+  </div>
+  <div class="hero-mock dark">
+    <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+    <span class="logo-text" style="font-size:42px; color:#fff; letter-spacing:0.01em; margin-left:14px; text-transform:none;">ground</span>
+  </div>
+  <div class="sep"></div>
+  <div class="header-mock light">
+    <div class="logo-group">
+      <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+      <span class="logo-text" style="font-size:20px; color:#0A0C14; letter-spacing:0.01em; margin-left:10px; text-transform:none;">ground</span>
+    </div>
+    <div class="nav"><span>Solutions</span><span>Technology</span><span>About</span></div>
+  </div>
+</div>
+
+<!-- ===== N8: ネガティブスペーシング / gap 10px ===== -->
+<div class="card">
+  <div class="card-header">
+    <span class="card-id">N8</span>
+    <span class="card-name">ALL CAPS + ネガティブスペーシング</span>
+    <span class="card-detail">gap:10px / ls:-0.01em / 19px</span>
+  </div>
+  <div class="header-mock dark">
+    <div class="logo-group">
+      <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+      <span class="logo-text" style="font-size:19px; color:#fff; letter-spacing:-0.01em; margin-left:10px;">GROUND</span>
+    </div>
+    <div class="nav"><span>Solutions</span><span>Technology</span><span>About</span></div>
+  </div>
+  <div class="hero-mock dark">
+    <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+    <span class="logo-text" style="font-size:40px; color:#fff; letter-spacing:-0.01em; margin-left:14px;">GROUND</span>
+  </div>
+  <div class="sep"></div>
+  <div class="header-mock light">
+    <div class="logo-group">
+      <svg class="g-mark" viewBox="0 0 3877 1938"><path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/></svg>
+      <span class="logo-text" style="font-size:19px; color:#0A0C14; letter-spacing:-0.01em; margin-left:10px;">GROUND</span>
+    </div>
+    <div class="nav"><span>Solutions</span><span>Technology</span><span>About</span></div>
+  </div>
+</div>
+
+<div style="height:60px;"></div>
+
+</body>
+</html>

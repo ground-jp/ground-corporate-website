@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GROUND Logo — 縦組み vs 横組み vs マーク単体</title>
+<title>GROUND Logo — マーク単体 vs コンパクト比較</title>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -21,7 +21,7 @@
   .proposal__badge { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 3px 10px; border-radius: 3px; }
   .badge--top { background: #00D4AA; color: #0A0C14; }
   .badge--alt { background: rgba(255,255,255,0.08); color: #8890A0; }
-  .badge--cur { background: rgba(91,192,235,0.15); color: #5BC0EB; }
+  .badge--ref { background: rgba(91,192,235,0.15); color: #5BC0EB; }
   .proposal__desc { padding: 10px 32px 20px; font-size: 13px; color: #6C7484; line-height: 1.7; }
 
   .header-sim { height: 64px; display: flex; align-items: center; padding: 0 40px; justify-content: space-between; }
@@ -39,11 +39,13 @@
   .spec { font-size: 11px; color: #4A5060; font-family: monospace; }
   .spec strong { color: #8890A0; font-weight: 500; }
 
-  /* Hero usage showcase */
-  .hero-sim { padding: 80px 40px; text-align: center; }
-  .hero-sim--dark { background: #0A0C14; }
-  .hero-sim--light { background: #F5F5F8; }
-  .hero-sim svg { display: inline-block; }
+  .ref-row { max-width: 1100px; margin: 0 auto 24px; padding: 0 32px; }
+  .ref-row__title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: #4A5060; margin-bottom: 12px; }
+  .ref-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .ref-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 16px; text-align: center; }
+  .ref-card__logo { font-size: 28px; margin-bottom: 8px; }
+  .ref-card__name { font-size: 11px; color: #6C7484; }
+  .ref-card__type { font-size: 9px; color: #4A5060; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
 
   .section-divider { max-width: 1100px; margin: 48px auto 32px; padding: 0 32px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 32px; }
   .section-divider h2 { font-size: 16px; font-weight: 600; color: #8890A0; }
@@ -52,263 +54,243 @@
 <body>
 
 <div class="intro">
-  <h1>縦組みロゴ vs 横 vs マーク単体</h1>
-  <p>ヘッダー（64px高さ）での見え方と、ヒーロー/名刺での大きめ表示を比較</p>
+  <h1>G Mark 単体 vs コンパクト — 方向性比較</h1>
+  <p>「マークだけで統一」するApple方式と、コンパクトな代替案を比較</p>
   <div class="note">
-    <strong>縦組み:</strong> G Markの下にGROUNDを配置。正方形に近いプロポーションで、アイコン的にも機能。<br>
-    ヘッダーでは高さ制約があるため、テキストがかなり小さくなる点がトレードオフ。
+    <strong>論点:</strong> G Markは独自性がありアイコンとして機能する。ただしApple/Nike/Twitterほどの認知度がない段階では、ワードマーク併記も有効。<br>
+    ヘッダーでは<strong>マーク単体</strong>、フッターや名刺では<strong>フルロゴ</strong>という使い分けもあり。
+  </div>
+</div>
+
+<!-- Reference: 先行事例 -->
+<div class="ref-row">
+  <div class="ref-row__title">参考：マーク単体を使う企業</div>
+  <div class="ref-grid">
+    <div class="ref-card">
+      <div class="ref-card__logo"></div>
+      <div class="ref-card__name">Apple</div>
+      <div class="ref-card__type">Mark only</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-card__logo">✓</div>
+      <div class="ref-card__name">Nike</div>
+      <div class="ref-card__type">Mark only</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-card__logo">▶</div>
+      <div class="ref-card__name">YouTube</div>
+      <div class="ref-card__type">Header: mark + text</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-card__logo">◆</div>
+      <div class="ref-card__name">Stripe</div>
+      <div class="ref-card__type">Header: mark + text</div>
+    </div>
   </div>
 </div>
 
 <!-- ============================================================
-     CURRENT: G Mark 単体（現状）
+     CASE A: G Mark 単体 — Apple方式
      ============================================================ -->
 <div class="proposal">
   <div class="proposal__label">
-    <span class="proposal__name">現状 — G Mark 単体</span>
-    <span class="proposal__badge badge--cur">Current</span>
+    <span class="proposal__name">A — G Mark 単体</span>
+    <span class="proposal__badge badge--top">Bold Choice</span>
   </div>
   <div class="proposal__desc">
-    現在のヘッダー。G Markのみ。クリーンだが社名が読めない。
+    G Markだけ。最もクリーンでモダン。Apple、Nike、Twitterと同じ思想。<br>
+    ヘッダーがすっきりし、レスポンシブでも崩れない。マークの存在感が最大化。
   </div>
   <div class="pair-row">
     <div>
-      <div class="pair-label">Header Dark</div>
+      <div class="pair-label">Dark BG</div>
       <div class="header-sim header-sim--dark">
-        <svg viewBox="0 0 3877 1938" height="26" width="auto" style="display:block;">
+        <svg viewBox="0 0 3877 1938" height="28" width="auto" style="display:block;">
           <path fill="#FFFFFF" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
         </svg>
         <div class="ham ham--w"><span></span><span></span><span></span></div>
       </div>
     </div>
     <div>
-      <div class="pair-label">Header Light</div>
+      <div class="pair-label">Light BG</div>
       <div class="header-sim header-sim--light">
-        <svg viewBox="0 0 3877 1938" height="26" width="auto" style="display:block;">
+        <svg viewBox="0 0 3877 1938" height="28" width="auto" style="display:block;">
           <path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
         </svg>
         <div class="ham ham--d"><span></span><span></span><span></span></div>
       </div>
     </div>
   </div>
+  <div class="specs">
+    <div class="spec"><strong>Logo H:</strong> 28px</div>
+    <div class="spec"><strong>Width:</strong> ~56px</div>
+    <div class="spec"><strong>Elements:</strong> G Mark only</div>
+  </div>
 </div>
 
 <!-- ============================================================
-     V1: 縦組み — G Mark + GROUND 下
+     CASE B: G Mark + GROUND（テキストのみ、タグラインなし）
      ============================================================ -->
 <div class="proposal">
   <div class="proposal__label">
-    <span class="proposal__name">V1 — 縦組みスタンダード</span>
-    <span class="proposal__badge badge--top">Top Pick</span>
+    <span class="proposal__name">B — G Mark + GROUND のみ</span>
+    <span class="proposal__badge badge--alt">Safe + Clean</span>
   </div>
   <div class="proposal__desc">
-    G Markの下にGROUND。テキストはG Markの幅にフィット。ヘッダー64pxだとテキストは小さめになるが、マークとセットで認識できる。
+    タグラインを外してワードマークだけ残す。横幅が大幅に短縮。認知構築フェーズではマーク＋社名が安全。Stripe、Linear、Vercel方式。
   </div>
   <div class="pair-row">
     <div>
-      <div class="pair-label">Header Dark</div>
+      <div class="pair-label">Dark BG</div>
       <div class="header-sim header-sim--dark">
-        <svg viewBox="0 0 3877 2700" height="44" width="auto" style="display:block;">
+        <svg viewBox="0 0 12400 1938" height="26" width="auto" style="display:block;">
           <path fill="#FFFFFF" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
-          <text x="1938" y="2520" text-anchor="middle" font-family="'Archivo',sans-serif" font-weight="600" font-size="520" letter-spacing="60" fill="rgba(255,255,255,0.6)">GROUND</text>
+          <text x="4469" y="1560" font-family="'Archivo',sans-serif" font-weight="600" font-size="1860" letter-spacing="-30" fill="#FFFFFF">GROUND</text>
         </svg>
         <div class="ham ham--w"><span></span><span></span><span></span></div>
       </div>
     </div>
     <div>
-      <div class="pair-label">Header Light</div>
+      <div class="pair-label">Light BG</div>
       <div class="header-sim header-sim--light">
-        <svg viewBox="0 0 3877 2700" height="44" width="auto" style="display:block;">
+        <svg viewBox="0 0 12400 1938" height="26" width="auto" style="display:block;">
           <path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
-          <text x="1938" y="2520" text-anchor="middle" font-family="'Archivo',sans-serif" font-weight="600" font-size="520" letter-spacing="60" fill="rgba(10,12,20,0.5)">GROUND</text>
+          <text x="4469" y="1560" font-family="'Archivo',sans-serif" font-weight="600" font-size="1860" letter-spacing="-30" fill="#0A0C14">GROUND</text>
         </svg>
         <div class="ham ham--d"><span></span><span></span><span></span></div>
       </div>
     </div>
   </div>
-  <div class="pair-row">
-    <div>
-      <div class="pair-label">Hero / Large</div>
-      <div class="hero-sim hero-sim--dark">
-        <svg viewBox="0 0 3877 2700" height="160" width="auto">
-          <path fill="#FFFFFF" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
-          <text x="1938" y="2520" text-anchor="middle" font-family="'Archivo',sans-serif" font-weight="600" font-size="520" letter-spacing="60" fill="rgba(255,255,255,0.6)">GROUND</text>
-        </svg>
-      </div>
-    </div>
-    <div>
-      <div class="pair-label">Hero / Large</div>
-      <div class="hero-sim hero-sim--light">
-        <svg viewBox="0 0 3877 2700" height="160" width="auto">
-          <path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
-          <text x="1938" y="2520" text-anchor="middle" font-family="'Archivo',sans-serif" font-weight="600" font-size="520" letter-spacing="60" fill="rgba(10,12,20,0.5)">GROUND</text>
-        </svg>
-      </div>
-    </div>
-  </div>
   <div class="specs">
-    <div class="spec"><strong>Header H:</strong> 44px</div>
-    <div class="spec"><strong>Text:</strong> 520u, center</div>
-    <div class="spec"><strong>Spacing:</strong> 60</div>
+    <div class="spec"><strong>Logo H:</strong> 26px</div>
+    <div class="spec"><strong>Elements:</strong> Mark + Wordmark</div>
+    <div class="spec"><strong>No tagline</strong></div>
   </div>
 </div>
 
 <!-- ============================================================
-     V2: 縦組み — テキスト大きめ、ギャップ狭め
+     CASE C: G Mark + GROUND 小さめ（コンパクト比率）
      ============================================================ -->
 <div class="proposal">
   <div class="proposal__label">
-    <span class="proposal__name">V2 — 縦組みタイト</span>
-    <span class="proposal__badge badge--alt">Compact</span>
+    <span class="proposal__name">C — コンパクトロックアップ</span>
+    <span class="proposal__badge badge--alt">Tight</span>
   </div>
   <div class="proposal__desc">
-    G Markとテキストの間を詰めて一体感UP。テキストはやや大きめ600u、letter-spacingも広めでモダンに。
+    G Markをやや大きく、GROUNDを小さめにして比率を変える。マーク主導のレイアウトで、マーク単体への移行準備にもなる。間合いを詰めて一体感。
   </div>
   <div class="pair-row">
     <div>
-      <div class="pair-label">Header Dark</div>
+      <div class="pair-label">Dark BG</div>
       <div class="header-sim header-sim--dark">
-        <svg viewBox="0 0 3877 2800" height="44" width="auto" style="display:block;">
+        <svg viewBox="0 0 9400 1938" height="28" width="auto" style="display:block;">
           <path fill="#FFFFFF" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
-          <text x="1938" y="2600" text-anchor="middle" font-family="'Archivo',sans-serif" font-weight="700" font-size="600" letter-spacing="100" fill="rgba(255,255,255,0.55)">GROUND</text>
+          <text x="4300" y="1460" font-family="'Archivo',sans-serif" font-weight="600" font-size="1500" letter-spacing="-20" fill="#FFFFFF">GROUND</text>
         </svg>
         <div class="ham ham--w"><span></span><span></span><span></span></div>
       </div>
     </div>
     <div>
-      <div class="pair-label">Header Light</div>
+      <div class="pair-label">Light BG</div>
       <div class="header-sim header-sim--light">
-        <svg viewBox="0 0 3877 2800" height="44" width="auto" style="display:block;">
+        <svg viewBox="0 0 9400 1938" height="28" width="auto" style="display:block;">
           <path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
-          <text x="1938" y="2600" text-anchor="middle" font-family="'Archivo',sans-serif" font-weight="700" font-size="600" letter-spacing="100" fill="rgba(10,12,20,0.45)">GROUND</text>
+          <text x="4300" y="1460" font-family="'Archivo',sans-serif" font-weight="600" font-size="1500" letter-spacing="-20" fill="#0A0C14">GROUND</text>
         </svg>
         <div class="ham ham--d"><span></span><span></span><span></span></div>
       </div>
     </div>
   </div>
-  <div class="pair-row">
-    <div>
-      <div class="pair-label">Hero / Large</div>
-      <div class="hero-sim hero-sim--dark">
-        <svg viewBox="0 0 3877 2800" height="160" width="auto">
-          <path fill="#FFFFFF" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
-          <text x="1938" y="2600" text-anchor="middle" font-family="'Archivo',sans-serif" font-weight="700" font-size="600" letter-spacing="100" fill="rgba(255,255,255,0.55)">GROUND</text>
-        </svg>
-      </div>
-    </div>
-    <div>
-      <div class="pair-label">Hero / Large</div>
-      <div class="hero-sim hero-sim--light">
-        <svg viewBox="0 0 3877 2800" height="160" width="auto">
-          <path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
-          <text x="1938" y="2600" text-anchor="middle" font-family="'Archivo',sans-serif" font-weight="700" font-size="600" letter-spacing="100" fill="rgba(10,12,20,0.45)">GROUND</text>
-        </svg>
-      </div>
-    </div>
-  </div>
   <div class="specs">
-    <div class="spec"><strong>Header H:</strong> 44px</div>
-    <div class="spec"><strong>Text:</strong> 600u, Bold 700</div>
-    <div class="spec"><strong>Spacing:</strong> 100</div>
+    <div class="spec"><strong>Logo H:</strong> 28px</div>
+    <div class="spec"><strong>Wordmark:</strong> 1500u (80%)</div>
+    <div class="spec"><strong>Gap:</strong> 420u (tight)</div>
   </div>
 </div>
 
+<div class="section-divider">
+  <h2>タグラインを入れたい場合のコンパクト案</h2>
+</div>
+
 <!-- ============================================================
-     V3: 縦組み — テキスト左揃え
+     CASE D: G Mark + GROUND / 2段コンパクト（タグライン下）
      ============================================================ -->
 <div class="proposal">
   <div class="proposal__label">
-    <span class="proposal__name">V3 — 縦組み左揃え</span>
-    <span class="proposal__badge badge--alt">Edge Aligned</span>
+    <span class="proposal__name">D — 2段コンパクト</span>
+    <span class="proposal__badge badge--alt">With Tagline</span>
   </div>
   <div class="proposal__desc">
-    テキストをG Markの左端に揃えてエッジィに。センター揃えより硬派でテック感が出る。
+    タグラインをGROUNDの直下に小さく配置。横幅を抑えつつ情報量を維持。タグラインはGROUNDの幅に収める。
   </div>
   <div class="pair-row">
     <div>
-      <div class="pair-label">Header Dark</div>
+      <div class="pair-label">Dark BG</div>
       <div class="header-sim header-sim--dark">
-        <svg viewBox="0 0 3877 2700" height="44" width="auto" style="display:block;">
+        <svg viewBox="0 0 12400 2500" height="32" width="auto" style="display:block;">
           <path fill="#FFFFFF" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
-          <text x="0" y="2520" font-family="'Archivo',sans-serif" font-weight="600" font-size="520" letter-spacing="80" fill="rgba(255,255,255,0.6)">GROUND</text>
+          <text x="4469" y="1500" font-family="'Archivo',sans-serif" font-weight="600" font-size="1760" letter-spacing="-30" fill="#FFFFFF">GROUND</text>
+          <text x="4469" y="2280" font-family="'Archivo',sans-serif" font-weight="400" font-size="420" letter-spacing="80" fill="rgba(255,255,255,0.35)" textLength="7500" lengthAdjust="spacing">AUTONOMOUS WAREHOUSE</text>
         </svg>
         <div class="ham ham--w"><span></span><span></span><span></span></div>
       </div>
     </div>
     <div>
-      <div class="pair-label">Header Light</div>
+      <div class="pair-label">Light BG</div>
       <div class="header-sim header-sim--light">
-        <svg viewBox="0 0 3877 2700" height="44" width="auto" style="display:block;">
+        <svg viewBox="0 0 12400 2500" height="32" width="auto" style="display:block;">
           <path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
-          <text x="0" y="2520" font-family="'Archivo',sans-serif" font-weight="600" font-size="520" letter-spacing="80" fill="rgba(10,12,20,0.5)">GROUND</text>
+          <text x="4469" y="1500" font-family="'Archivo',sans-serif" font-weight="600" font-size="1760" letter-spacing="-30" fill="#0A0C14">GROUND</text>
+          <text x="4469" y="2280" font-family="'Archivo',sans-serif" font-weight="400" font-size="420" letter-spacing="80" fill="rgba(10,12,20,0.3)" textLength="7500" lengthAdjust="spacing">AUTONOMOUS WAREHOUSE</text>
         </svg>
         <div class="ham ham--d"><span></span><span></span><span></span></div>
       </div>
     </div>
   </div>
-  <div class="pair-row">
-    <div>
-      <div class="pair-label">Hero / Large</div>
-      <div class="hero-sim hero-sim--dark">
-        <svg viewBox="0 0 3877 2700" height="160" width="auto">
-          <path fill="#FFFFFF" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
-          <text x="0" y="2520" font-family="'Archivo',sans-serif" font-weight="600" font-size="520" letter-spacing="80" fill="rgba(255,255,255,0.6)">GROUND</text>
-        </svg>
-      </div>
-    </div>
-    <div>
-      <div class="pair-label">Hero / Large</div>
-      <div class="hero-sim hero-sim--light">
-        <svg viewBox="0 0 3877 2700" height="160" width="auto">
-          <path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
-          <text x="0" y="2520" font-family="'Archivo',sans-serif" font-weight="600" font-size="520" letter-spacing="80" fill="rgba(10,12,20,0.5)">GROUND</text>
-        </svg>
-      </div>
-    </div>
-  </div>
   <div class="specs">
-    <div class="spec"><strong>Header H:</strong> 44px</div>
-    <div class="spec"><strong>Text:</strong> 520u, left-aligned</div>
-    <div class="spec"><strong>Spacing:</strong> 80</div>
+    <div class="spec"><strong>Logo H:</strong> 32px</div>
+    <div class="spec"><strong>Tagline:</strong> 420u, GROUND幅に収める</div>
+    <div class="spec"><strong>Layout:</strong> 2-tier compact</div>
   </div>
 </div>
 
 <!-- ============================================================
-     V4: 縦組み — GROUND + Tagline 2段
+     CASE E: 使い分け提案
      ============================================================ -->
 <div class="proposal">
   <div class="proposal__label">
-    <span class="proposal__name">V4 — 縦組みフル（GROUND + Tagline）</span>
-    <span class="proposal__badge badge--alt">Full Stack</span>
+    <span class="proposal__name">E — 使い分けシステム（推奨運用）</span>
+    <span class="proposal__badge badge--ref">System</span>
   </div>
   <div class="proposal__desc">
-    G Mark → GROUND → Autonomous Warehouse の3段。情報量最大だがヘッダーでは小さくなる。名刺やプレゼン向き。
+    場面に応じて使い分ける。ヘッダー/ファビコン/アプリアイコンはG Mark単体（Case A）。フッターや名刺はフルロゴ（Case B or D）。<br>
+    これにより「横長すぎ」問題を解決しつつ、認知構築も両立。Apple・Google・GitHubも場面で使い分け。
   </div>
   <div class="pair-row">
     <div>
-      <div class="pair-label">Hero Only (header向きではない)</div>
-      <div class="hero-sim hero-sim--dark">
-        <svg viewBox="0 0 3877 3300" height="180" width="auto">
+      <div class="pair-label">Header — Mark Only</div>
+      <div class="header-sim header-sim--dark">
+        <svg viewBox="0 0 3877 1938" height="28" width="auto" style="display:block;">
           <path fill="#FFFFFF" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
-          <text x="1938" y="2520" text-anchor="middle" font-family="'Archivo',sans-serif" font-weight="600" font-size="520" letter-spacing="60" fill="rgba(255,255,255,0.6)">GROUND</text>
-          <text x="1938" y="3100" text-anchor="middle" font-family="'Archivo',sans-serif" font-weight="400" font-size="280" letter-spacing="80" fill="rgba(255,255,255,0.3)">AUTONOMOUS WAREHOUSE</text>
         </svg>
+        <div class="ham ham--w"><span></span><span></span><span></span></div>
       </div>
     </div>
     <div>
-      <div class="pair-label">Hero Only</div>
-      <div class="hero-sim hero-sim--light">
-        <svg viewBox="0 0 3877 3300" height="180" width="auto">
-          <path fill="#0A0C14" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
-          <text x="1938" y="2520" text-anchor="middle" font-family="'Archivo',sans-serif" font-weight="600" font-size="520" letter-spacing="60" fill="rgba(10,12,20,0.5)">GROUND</text>
-          <text x="1938" y="3100" text-anchor="middle" font-family="'Archivo',sans-serif" font-weight="400" font-size="280" letter-spacing="80" fill="rgba(10,12,20,0.3)">AUTONOMOUS WAREHOUSE</text>
+      <div class="pair-label">Footer / Card — Full Logo</div>
+      <div style="background: #0A0C14; padding: 24px 40px; display: flex; align-items: center;">
+        <svg viewBox="0 0 12400 2500" height="40" width="auto" style="display:block;">
+          <path fill="#FFFFFF" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
+          <text x="4469" y="1500" font-family="'Archivo',sans-serif" font-weight="600" font-size="1760" letter-spacing="-30" fill="#FFFFFF">GROUND</text>
+          <text x="4469" y="2280" font-family="'Archivo',sans-serif" font-weight="400" font-size="420" letter-spacing="80" fill="rgba(255,255,255,0.35)" textLength="7500" lengthAdjust="spacing">AUTONOMOUS WAREHOUSE</text>
         </svg>
       </div>
     </div>
   </div>
   <div class="specs">
-    <div class="spec"><strong>Use:</strong> ヒーロー / 名刺 / プレゼン</div>
-    <div class="spec"><strong>3-tier:</strong> Mark + Name + Tagline</div>
+    <div class="spec"><strong>Header:</strong> G Mark 28px</div>
+    <div class="spec"><strong>Footer:</strong> Full logo 40px</div>
+    <div class="spec"><strong>Strategy:</strong> 場面別使い分け</div>
   </div>
 </div>
 
