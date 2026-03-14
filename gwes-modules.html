@@ -35,7 +35,7 @@
     /* ── Breadcrumb ── */
     .page-header { padding: 0; }
     .gw-bc {
-      display: flex; align-items: center; gap: 8px;
+      display: flex; align-items: center; gap: 4px;
       font-size: 0.72rem; color: var(--gw-text-3);
     }
     .gw-bc a { color: var(--gw-text-3); text-decoration: none; transition: color 0.2s; }
@@ -55,27 +55,29 @@
       display: block;
     }
     .gw-logo__text {
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      padding-top: 16px;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      padding-top: 10px;
     }
     .gw-logo__text::before {
       content: '';
       display: block;
       width: 40px; height: 1px;
       background: rgba(106,198,236,0.45);
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
     .gw-logo__name {
       font-family: 'Inter', sans-serif;
       font-size: 1.5rem; font-weight: 500;
       color: #FFFFFF; letter-spacing: 0.28em;
+      padding-right: 0.28em;
       line-height: 1;
     }
     .gw-logo__full {
       font-family: 'Inter', sans-serif;
       font-size: 0.6rem; font-weight: 400;
       letter-spacing: 0.12em;
-      color: rgba(255,255,255,0.38);
+      padding-right: 0.12em;
+      color: rgba(255,255,255,0.7);
       line-height: 1;
     }
 
@@ -489,7 +491,7 @@
     .gw-mod__level-tag--l5 { background: rgba(52,211,153,0.15); color: #34D399; }
     .gw-mod__name {
       font-size: 0.82rem; font-weight: 600;
-      color: var(--gw-text-1); margin-bottom: 4px;
+      color: var(--gw-text-1); margin-bottom: 2px;
       text-align: left;
       line-height: 1.4;
       min-height: 2.3em;
@@ -640,9 +642,9 @@
     /* ── Module Link ── */
     .gw-mod { cursor: pointer; position: relative; }
     .gw-mod__link {
-      display: inline-flex; align-items: center; gap: 6px;
+      display: inline-flex; align-items: center; gap: 4px;
       font-size: 0.7rem; color: var(--gw-accent);
-      margin-top: auto; padding-top: 12px; transition: color 0.2s;
+      margin-top: auto; padding-top: 8px; transition: color 0.2s;
       text-decoration: none;
     }
     .gw-mod:hover .gw-mod__link { color: #60A5FA; }
@@ -756,7 +758,7 @@
       font-size: 0.95rem;
       font-weight: 600;
       color: #fff;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
     .gw-tech-item__name-en {
       font-family: 'JetBrains Mono', monospace;
@@ -780,7 +782,7 @@
     }
     @media (max-width: 768px) {
       .gw-logo__mark { width: 100px; height: 100px; }
-      .gw-logo__text { padding-top: 12px; gap: 6px; }
+      .gw-logo__text { padding-top: 8px; gap: 4px; }
       .gw-logo__text::before { width: 32px; }
       .gw-logo__name { font-size: 1.2rem; }
       .gw-logo__full { font-size: 0.5rem; }
@@ -813,7 +815,7 @@
   
     /* Language Switcher — inside overlay menu */
     .lang-switch-bar { display: flex; align-items: center; gap: 16px; padding: 20px 0 0; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
-    .lang-switch { display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono',monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,0.35); padding: 8px 12px; border: 1px solid rgba(255,255,255,0.1); border-radius: 2px; transition: all 0.25s ease; background: none; }
+    .lang-switch { display: inline-flex; align-items: center; gap: 4px; font-family: 'JetBrains Mono',monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,0.35); padding: 8px 12px; border: 1px solid rgba(255,255,255,0.1); border-radius: 2px; transition: all 0.25s ease; background: none; }
     .lang-switch:hover { color: #fff; border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.04); }
     .lang-switch--current { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.06); pointer-events: none; }
     .lang-switch__globe { width: 14px; height: 14px; opacity: 0.5; }
@@ -823,7 +825,7 @@
   <style>
     .header { z-index: 350 !important; }
     /* Hamburger + Overlay inline fallback (o9-style v30) */
-    .hamburger { display: flex !important; flex-direction: column; justify-content: center; align-items: center; gap: 6px; width: 52px; height: 52px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 400; position: relative; margin-right: -8px; }
+    .hamburger { display: flex !important; flex-direction: column; justify-content: center; align-items: center; gap: 4px; width: 52px; height: 52px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 400; position: relative; margin-right: -8px; }
     .hamburger__line { display: block; width: 26px; height: 1.5px; background: #fff; border-radius: 1px; transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.25s ease; transform-origin: center; }
     .hamburger.active .hamburger__line:nth-child(1) { transform: rotate(45deg) translate(5.5px,5.5px); }
     .hamburger.active .hamburger__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
@@ -844,7 +846,7 @@
     .overlay-menu__sub-item:hover { color: #fff; }
     .overlay-menu__col-info { grid-column: 3; display: flex; flex-direction: column; justify-content: flex-start; }
     .overlay-menu__cta-btn { display: block; padding: 16px 32px; border: 1px solid rgba(255,255,255,0.25); color: #fff; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 12px; font-weight: 500; text-align: center; text-decoration: none; letter-spacing: 0.14em; text-transform: uppercase; }
-    .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
+    .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 4px; }
     .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.3); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
     .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
   
@@ -1407,7 +1409,7 @@
 
     .cc-banner__buttons {
       width: 100%;
-      gap: 8px;
+      gap: 4px;
     }
 
     .cc-banner__button {
