@@ -214,6 +214,9 @@
     .breadcrumb-nav { background: #ffffff; }
     .breadcrumb-nav__link--home svg { fill: #6B7280; }
     .breadcrumb-nav__current, .breadcrumb-nav__separator { color: #6B7280; }
+    /* Reduce spacing for light contact page */
+    .page-header.contact-header { padding: calc(var(--header-height) + 24px) 0 24px; border-bottom: none; }
+    .contact-form-wrapper { margin-top: 0; }
 
     /* Language Switcher — inside overlay menu */
     .lang-switch-bar { display: flex; align-items: center; gap: 16px; padding: 20px 0 0; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
@@ -371,7 +374,7 @@
   </section>
 
   <!-- Contact Form Section -->
-  <section style="padding:80px 0;background:#ffffff;">
+  <section style="padding:32px 0 64px;background:#ffffff;">
     <div class="container">
       <div class="contact-form-wrapper">
         <!-- Left: Form -->
