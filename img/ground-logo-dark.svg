@@ -1,16 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3877 1938">
-  <defs>
-    <!-- P2: Light BG — Titanium gradient for G Mark: #3F4250 → #636A78 -->
-    <linearGradient id="tm" x1="0" y1="0" x2="0" y2="1938" gradientUnits="userSpaceOnUse">
-      <stop offset="0%"   stop-color="#3F4250"/>
-      <stop offset="60%"  stop-color="#3F4250"/>
-      <stop offset="75%"  stop-color="#474C5A"/>
-      <stop offset="85%"  stop-color="#515866"/>
-      <stop offset="92%"  stop-color="#5B6270"/>
-      <stop offset="100%" stop-color="#636A78"/>
-    </linearGradient>
-  </defs>
-  <!-- G Mark -->
-  <path fill="url(#tm)"
-        d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 44">
+  <!-- GROUND Full Lockup — Dark Background -->
+  <!-- Spec v2: G Mark #FFFFFF + Wordmark Archivo Bold 700, 38px, ls:0.03em -->
+  <!-- G Mark Height: 44px, Aspect 2:1, Mark-to-Wordmark Gap: 18px -->
+
+  <!-- G Mark: 88×44px (2:1 aspect), fill #FFFFFF -->
+  <svg x="0" y="0" width="88" height="44" viewBox="0 0 3877 1938">
+    <path fill="#FFFFFF"
+          d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"/>
+  </svg>
+
+  <!-- Wordmark: starts at x=106 (88 + 18px gap) -->
+  <text x="106" y="32"
+        font-family="'Archivo','Helvetica Neue',Arial,sans-serif"
+        font-weight="700" font-size="38" letter-spacing="1.14"
+        fill="#FFFFFF">GROUND</text>
 </svg>

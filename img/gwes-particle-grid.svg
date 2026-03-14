@@ -1,58 +1,108 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- GWES Particle Grid — Brand Identity Guidelines v1.0 -->
+  <!-- ViewBox: 0 0 200 200, Dot Spacing: ~20px center-to-center -->
+  <!-- Glow implemented with explicit circles (no filters — filters break in <img> tags) -->
+
   <defs>
+    <!-- Background ambient glow: #5BC0EB (GWES Cyan), 12% opacity, r=55% -->
     <radialGradient id="glow" cx="50%" cy="50%" r="55%">
-      <stop offset="0%" stop-color="#7dd3f0" stop-opacity="0.12"/>
-      <stop offset="100%" stop-color="#7dd3f0" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#5BC0EB" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#5BC0EB" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <!-- Ambient glow -->
-  <circle cx="100" cy="100" r="80" fill="url(#glow)"/>
-  <!-- Row 1 (3 dots) -->
+
+  <!-- Background ambient glow -->
+  <circle cx="100" cy="100" r="90" fill="url(#glow)"/>
+
+  <!-- === GLOW LAYER (large soft circles behind dots) === -->
+  <!-- Row 2 brighter dots glow -->
+  <circle cx="80"  cy="60"  r="12" fill="#a8ddf4" opacity="0.06"/>
+  <circle cx="100" cy="60"  r="13" fill="#b4e2f5" opacity="0.07"/>
+  <circle cx="120" cy="60"  r="12" fill="#a8ddf4" opacity="0.06"/>
+
+  <!-- Row 3 mid-zone glow -->
+  <circle cx="60"  cy="80"  r="12" fill="#a8ddf4" opacity="0.06"/>
+  <circle cx="80"  cy="80"  r="14" fill="#ceeaf8" opacity="0.08"/>
+  <circle cx="100" cy="80"  r="18" fill="#dff0fb" opacity="0.10"/>
+  <circle cx="120" cy="80"  r="14" fill="#ceeaf8" opacity="0.08"/>
+  <circle cx="140" cy="80"  r="12" fill="#a8ddf4" opacity="0.06"/>
+
+  <!-- Row 4 center glow (strongest) -->
+  <circle cx="60"  cy="100" r="14" fill="#b4e2f5" opacity="0.07"/>
+  <circle cx="80"  cy="100" r="18" fill="#dff0fb" opacity="0.10"/>
+  <circle cx="100" cy="100" r="24" fill="#ffffff" opacity="0.12"/>
+  <circle cx="120" cy="100" r="18" fill="#dff0fb" opacity="0.10"/>
+  <circle cx="140" cy="100" r="14" fill="#b4e2f5" opacity="0.07"/>
+
+  <!-- Row 5 mid-zone glow (mirror of row 3) -->
+  <circle cx="60"  cy="120" r="12" fill="#a8ddf4" opacity="0.06"/>
+  <circle cx="80"  cy="120" r="14" fill="#ceeaf8" opacity="0.08"/>
+  <circle cx="100" cy="120" r="18" fill="#dff0fb" opacity="0.10"/>
+  <circle cx="120" cy="120" r="14" fill="#ceeaf8" opacity="0.08"/>
+  <circle cx="140" cy="120" r="12" fill="#a8ddf4" opacity="0.06"/>
+
+  <!-- Row 6 glow (mirror of row 2) -->
+  <circle cx="80"  cy="140" r="12" fill="#a8ddf4" opacity="0.06"/>
+  <circle cx="100" cy="140" r="13" fill="#b4e2f5" opacity="0.07"/>
+  <circle cx="120" cy="140" r="12" fill="#a8ddf4" opacity="0.06"/>
+
+  <!-- === HALO LAYER (cross-axis and center halos per spec) === -->
+  <!-- Cross-axis halos: r=11, opacity 0.04 -->
+  <circle cx="100" cy="80"  r="11" fill="#dff0fb" opacity="0.04"/>
+  <circle cx="80"  cy="100" r="11" fill="#dff0fb" opacity="0.04"/>
+  <circle cx="120" cy="100" r="11" fill="#dff0fb" opacity="0.04"/>
+  <circle cx="100" cy="120" r="11" fill="#dff0fb" opacity="0.04"/>
+  <!-- Center halo: r=13, opacity 0.08 -->
+  <circle cx="100" cy="100" r="13" fill="#ffffff" opacity="0.08"/>
+
+  <!-- === DOT LAYER (actual visible dots) === -->
+  <!-- Row 1 (y=40): 3 dots — Edge: #80D0F0, r=3.9, opacity 0.28 -->
   <circle cx="80"  cy="40"  r="3.9" fill="#80d0f0" opacity="0.28"/>
   <circle cx="100" cy="40"  r="4.1" fill="#8ad4f1" opacity="0.36"/>
   <circle cx="120" cy="40"  r="3.9" fill="#80d0f0" opacity="0.28"/>
-  <!-- Row 2 (5 dots) -->
-  <circle cx="60"  cy="60"  r="4.2" fill="#8ed6f2" opacity="0.44"/>
+
+  <!-- Row 2 (y=60): 5 dots — Near-edge -->
+  <circle cx="60"  cy="60"  r="4.1" fill="#8ad4f1" opacity="0.36"/>
   <circle cx="80"  cy="60"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
   <circle cx="100" cy="60"  r="5.0" fill="#b4e2f5" opacity="0.74"/>
   <circle cx="120" cy="60"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
-  <circle cx="140" cy="60"  r="4.2" fill="#8ed6f2" opacity="0.44"/>
-  <!-- Row 3 (7 dots) -->
+  <circle cx="140" cy="60"  r="4.1" fill="#8ad4f1" opacity="0.36"/>
+
+  <!-- Row 3 (y=80): 7 dots — Mid-zone -->
   <circle cx="40"  cy="80"  r="3.9" fill="#80d0f0" opacity="0.28"/>
   <circle cx="60"  cy="80"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
   <circle cx="80"  cy="80"  r="5.5" fill="#ceeaf8" opacity="0.86"/>
-  <circle cx="100" cy="80"  r="11"  fill="#dff0fb" opacity="0.04"/>
   <circle cx="100" cy="80"  r="5.9" fill="#dff0fb" opacity="0.92"/>
   <circle cx="120" cy="80"  r="5.5" fill="#ceeaf8" opacity="0.86"/>
   <circle cx="140" cy="80"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
   <circle cx="160" cy="80"  r="3.9" fill="#80d0f0" opacity="0.28"/>
-  <!-- Row 4 center (7 dots) -->
+
+  <!-- Row 4 (y=100): 7 dots — Center row -->
   <circle cx="40"  cy="100" r="4.1" fill="#8ad4f1" opacity="0.36"/>
   <circle cx="60"  cy="100" r="5.0" fill="#b4e2f5" opacity="0.74"/>
-  <circle cx="80"  cy="100" r="11"  fill="#dff0fb" opacity="0.04"/>
   <circle cx="80"  cy="100" r="5.9" fill="#dff0fb" opacity="0.92"/>
-  <circle cx="100" cy="100" r="13"  fill="#ffffff" opacity="0.08"/>
   <circle cx="100" cy="100" r="6.8" fill="#ffffff" opacity="1.0"/>
-  <circle cx="120" cy="100" r="11"  fill="#dff0fb" opacity="0.04"/>
   <circle cx="120" cy="100" r="5.9" fill="#dff0fb" opacity="0.92"/>
   <circle cx="140" cy="100" r="5.0" fill="#b4e2f5" opacity="0.74"/>
   <circle cx="160" cy="100" r="4.1" fill="#8ad4f1" opacity="0.36"/>
-  <!-- Row 5 (7 dots) -->
+
+  <!-- Row 5 (y=120): 7 dots — Mirror of Row 3 -->
   <circle cx="40"  cy="120" r="3.9" fill="#80d0f0" opacity="0.28"/>
   <circle cx="60"  cy="120" r="4.8" fill="#a8ddf4" opacity="0.66"/>
   <circle cx="80"  cy="120" r="5.5" fill="#ceeaf8" opacity="0.86"/>
-  <circle cx="100" cy="120" r="11"  fill="#dff0fb" opacity="0.04"/>
   <circle cx="100" cy="120" r="5.9" fill="#dff0fb" opacity="0.92"/>
   <circle cx="120" cy="120" r="5.5" fill="#ceeaf8" opacity="0.86"/>
   <circle cx="140" cy="120" r="4.8" fill="#a8ddf4" opacity="0.66"/>
   <circle cx="160" cy="120" r="3.9" fill="#80d0f0" opacity="0.28"/>
-  <!-- Row 6 (5 dots) -->
-  <circle cx="60"  cy="140" r="4.2" fill="#8ed6f2" opacity="0.44"/>
+
+  <!-- Row 6 (y=140): 5 dots — Mirror of Row 2 -->
+  <circle cx="60"  cy="140" r="4.1" fill="#8ad4f1" opacity="0.36"/>
   <circle cx="80"  cy="140" r="4.8" fill="#a8ddf4" opacity="0.66"/>
   <circle cx="100" cy="140" r="5.0" fill="#b4e2f5" opacity="0.74"/>
   <circle cx="120" cy="140" r="4.8" fill="#a8ddf4" opacity="0.66"/>
-  <circle cx="140" cy="140" r="4.2" fill="#8ed6f2" opacity="0.44"/>
-  <!-- Row 7 (3 dots) -->
+  <circle cx="140" cy="140" r="4.1" fill="#8ad4f1" opacity="0.36"/>
+
+  <!-- Row 7 (y=160): 3 dots — Mirror of Row 1 -->
   <circle cx="80"  cy="160" r="3.9" fill="#80d0f0" opacity="0.28"/>
   <circle cx="100" cy="160" r="4.1" fill="#8ad4f1" opacity="0.36"/>
   <circle cx="120" cy="160" r="3.9" fill="#80d0f0" opacity="0.28"/>
