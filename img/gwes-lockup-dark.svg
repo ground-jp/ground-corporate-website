@@ -58,5 +58,5 @@
   <circle cx="112.94" cy="180.44" r="1.7" fill="#FFFFFF" opacity="0.234"/>
   <circle cx="52.97" cy="42.13" r="1.6" fill="#FFFFFF" opacity="0.22"/>
   <text x="230" y="104" font-family="'Archivo','Helvetica Neue',Arial,sans-serif" font-weight="700" font-size="52" letter-spacing="0.03em" fill="#FFFFFF">GWES</text>
-  <text x="230" y="132" font-family="'Archivo','Helvetica Neue',Arial,sans-serif" font-weight="700" font-size="13" letter-spacing="0.03em" fill="#FFFFFF" opacity="0.55">The OS for Autonomous Warehouse</text>
+  <text x="230" y="126" font-family="'Archivo','Helvetica Neue',Arial,sans-serif" font-weight="700" font-size="9" letter-spacing="0" fill="#FFFFFF" opacity="0.55">The OS for Autonomous Warehouse</text>
 </svg>

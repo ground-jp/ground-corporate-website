@@ -81,6 +81,6 @@
   <!-- Tagline: Archivo Bold 700, 7px, opacity 0.55 -->
   <text x="260" y="36.0"
         font-family="'Archivo','Helvetica Neue',Arial,sans-serif"
-        font-weight="700" font-size="7" letter-spacing="0.21"
+        font-weight="700" font-size="4" letter-spacing="0"
         fill="#FFFFFF" opacity="0.55">The OS for Autonomous Warehouse</text>
 </svg>
