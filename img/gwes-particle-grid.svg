@@ -1,44 +1,59 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <circle cx="80.0" cy="40.0" r="3.9" fill="#6ac6ec" opacity="0.17"/>
-  <circle cx="100.0" cy="40.0" r="4.1" fill="#72c9ed" opacity="0.24"/>
-  <circle cx="120.0" cy="40.0" r="3.9" fill="#6ac6ec" opacity="0.17"/>
-  <circle cx="60.0" cy="60.0" r="4.2" fill="#7accee" opacity="0.32"/>
-  <circle cx="80.0" cy="60.0" r="4.8" fill="#96d6f2" opacity="0.54"/>
-  <circle cx="100.0" cy="60.0" r="5.0" fill="#a1dbf3" opacity="0.62"/>
-  <circle cx="120.0" cy="60.0" r="4.8" fill="#96d6f2" opacity="0.54"/>
-  <circle cx="140.0" cy="60.0" r="4.2" fill="#7accee" opacity="0.32"/>
-  <circle cx="40.0" cy="80.0" r="3.9" fill="#6ac6ec" opacity="0.17"/>
-  <circle cx="60.0" cy="80.0" r="4.8" fill="#96d6f2" opacity="0.54"/>
-  <circle cx="80.0" cy="80.0" r="5.5" fill="#bce5f6" opacity="0.77"/>
-  <circle cx="100.0" cy="80.0" r="10.6" fill="#d0edf9" opacity="0.014"/>
-  <circle cx="100.0" cy="80.0" r="5.9" fill="#d0edf9" opacity="0.84"/>
-  <circle cx="120.0" cy="80.0" r="5.5" fill="#bce5f6" opacity="0.77"/>
-  <circle cx="140.0" cy="80.0" r="4.8" fill="#96d6f2" opacity="0.54"/>
-  <circle cx="160.0" cy="80.0" r="3.9" fill="#6ac6ec" opacity="0.17"/>
-  <circle cx="40.0" cy="100.0" r="4.1" fill="#72c9ed" opacity="0.24"/>
-  <circle cx="60.0" cy="100.0" r="5.0" fill="#a1dbf3" opacity="0.62"/>
-  <circle cx="80.0" cy="100.0" r="10.6" fill="#d0edf9" opacity="0.014"/>
-  <circle cx="80.0" cy="100.0" r="5.9" fill="#d0edf9" opacity="0.84"/>
-  <circle cx="100.0" cy="100.0" r="12.3" fill="#ffffff" opacity="0.048"/>
-  <circle cx="100.0" cy="100.0" r="6.8" fill="#ffffff" opacity="0.92"/>
-  <circle cx="120.0" cy="100.0" r="10.6" fill="#d0edf9" opacity="0.014"/>
-  <circle cx="120.0" cy="100.0" r="5.9" fill="#d0edf9" opacity="0.84"/>
-  <circle cx="140.0" cy="100.0" r="5.0" fill="#a1dbf3" opacity="0.62"/>
-  <circle cx="160.0" cy="100.0" r="4.1" fill="#72c9ed" opacity="0.24"/>
-  <circle cx="40.0" cy="120.0" r="3.9" fill="#6ac6ec" opacity="0.17"/>
-  <circle cx="60.0" cy="120.0" r="4.8" fill="#96d6f2" opacity="0.54"/>
-  <circle cx="80.0" cy="120.0" r="5.5" fill="#bce5f6" opacity="0.77"/>
-  <circle cx="100.0" cy="120.0" r="10.6" fill="#d0edf9" opacity="0.014"/>
-  <circle cx="100.0" cy="120.0" r="5.9" fill="#d0edf9" opacity="0.84"/>
-  <circle cx="120.0" cy="120.0" r="5.5" fill="#bce5f6" opacity="0.77"/>
-  <circle cx="140.0" cy="120.0" r="4.8" fill="#96d6f2" opacity="0.54"/>
-  <circle cx="160.0" cy="120.0" r="3.9" fill="#6ac6ec" opacity="0.17"/>
-  <circle cx="60.0" cy="140.0" r="4.2" fill="#7accee" opacity="0.32"/>
-  <circle cx="80.0" cy="140.0" r="4.8" fill="#96d6f2" opacity="0.54"/>
-  <circle cx="100.0" cy="140.0" r="5.0" fill="#a1dbf3" opacity="0.62"/>
-  <circle cx="120.0" cy="140.0" r="4.8" fill="#96d6f2" opacity="0.54"/>
-  <circle cx="140.0" cy="140.0" r="4.2" fill="#7accee" opacity="0.32"/>
-  <circle cx="80.0" cy="160.0" r="3.9" fill="#6ac6ec" opacity="0.17"/>
-  <circle cx="100.0" cy="160.0" r="4.1" fill="#72c9ed" opacity="0.24"/>
-  <circle cx="120.0" cy="160.0" r="3.9" fill="#6ac6ec" opacity="0.17"/>
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#7dd3f0" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#7dd3f0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Ambient glow -->
+  <circle cx="100" cy="100" r="80" fill="url(#glow)"/>
+  <!-- Row 1 (3 dots) -->
+  <circle cx="80"  cy="40"  r="3.9" fill="#80d0f0" opacity="0.28"/>
+  <circle cx="100" cy="40"  r="4.1" fill="#8ad4f1" opacity="0.36"/>
+  <circle cx="120" cy="40"  r="3.9" fill="#80d0f0" opacity="0.28"/>
+  <!-- Row 2 (5 dots) -->
+  <circle cx="60"  cy="60"  r="4.2" fill="#8ed6f2" opacity="0.44"/>
+  <circle cx="80"  cy="60"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
+  <circle cx="100" cy="60"  r="5.0" fill="#b4e2f5" opacity="0.74"/>
+  <circle cx="120" cy="60"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
+  <circle cx="140" cy="60"  r="4.2" fill="#8ed6f2" opacity="0.44"/>
+  <!-- Row 3 (7 dots) -->
+  <circle cx="40"  cy="80"  r="3.9" fill="#80d0f0" opacity="0.28"/>
+  <circle cx="60"  cy="80"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
+  <circle cx="80"  cy="80"  r="5.5" fill="#ceeaf8" opacity="0.86"/>
+  <circle cx="100" cy="80"  r="11"  fill="#dff0fb" opacity="0.04"/>
+  <circle cx="100" cy="80"  r="5.9" fill="#dff0fb" opacity="0.92"/>
+  <circle cx="120" cy="80"  r="5.5" fill="#ceeaf8" opacity="0.86"/>
+  <circle cx="140" cy="80"  r="4.8" fill="#a8ddf4" opacity="0.66"/>
+  <circle cx="160" cy="80"  r="3.9" fill="#80d0f0" opacity="0.28"/>
+  <!-- Row 4 center (7 dots) -->
+  <circle cx="40"  cy="100" r="4.1" fill="#8ad4f1" opacity="0.36"/>
+  <circle cx="60"  cy="100" r="5.0" fill="#b4e2f5" opacity="0.74"/>
+  <circle cx="80"  cy="100" r="11"  fill="#dff0fb" opacity="0.04"/>
+  <circle cx="80"  cy="100" r="5.9" fill="#dff0fb" opacity="0.92"/>
+  <circle cx="100" cy="100" r="13"  fill="#ffffff" opacity="0.08"/>
+  <circle cx="100" cy="100" r="6.8" fill="#ffffff" opacity="1.0"/>
+  <circle cx="120" cy="100" r="11"  fill="#dff0fb" opacity="0.04"/>
+  <circle cx="120" cy="100" r="5.9" fill="#dff0fb" opacity="0.92"/>
+  <circle cx="140" cy="100" r="5.0" fill="#b4e2f5" opacity="0.74"/>
+  <circle cx="160" cy="100" r="4.1" fill="#8ad4f1" opacity="0.36"/>
+  <!-- Row 5 (7 dots) -->
+  <circle cx="40"  cy="120" r="3.9" fill="#80d0f0" opacity="0.28"/>
+  <circle cx="60"  cy="120" r="4.8" fill="#a8ddf4" opacity="0.66"/>
+  <circle cx="80"  cy="120" r="5.5" fill="#ceeaf8" opacity="0.86"/>
+  <circle cx="100" cy="120" r="11"  fill="#dff0fb" opacity="0.04"/>
+  <circle cx="100" cy="120" r="5.9" fill="#dff0fb" opacity="0.92"/>
+  <circle cx="120" cy="120" r="5.5" fill="#ceeaf8" opacity="0.86"/>
+  <circle cx="140" cy="120" r="4.8" fill="#a8ddf4" opacity="0.66"/>
+  <circle cx="160" cy="120" r="3.9" fill="#80d0f0" opacity="0.28"/>
+  <!-- Row 6 (5 dots) -->
+  <circle cx="60"  cy="140" r="4.2" fill="#8ed6f2" opacity="0.44"/>
+  <circle cx="80"  cy="140" r="4.8" fill="#a8ddf4" opacity="0.66"/>
+  <circle cx="100" cy="140" r="5.0" fill="#b4e2f5" opacity="0.74"/>
+  <circle cx="120" cy="140" r="4.8" fill="#a8ddf4" opacity="0.66"/>
+  <circle cx="140" cy="140" r="4.2" fill="#8ed6f2" opacity="0.44"/>
+  <!-- Row 7 (3 dots) -->
+  <circle cx="80"  cy="160" r="3.9" fill="#80d0f0" opacity="0.28"/>
+  <circle cx="100" cy="160" r="4.1" fill="#8ad4f1" opacity="0.36"/>
+  <circle cx="120" cy="160" r="3.9" fill="#80d0f0" opacity="0.28"/>
 </svg>
