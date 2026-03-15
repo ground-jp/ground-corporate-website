@@ -51,10 +51,10 @@
     .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
     .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.7); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
     .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.5); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
-    .hero { align-items: center !important; position: relative; }
+    .hero { align-items: center !important; position: relative; overflow: hidden; }
     .hero__content { padding-bottom: 0 !important; padding-top: 0 !important; }
-    /* Override: video background styling */
-    #heroVideo {
+    /* Hero poster fallback — shown when autoplay is blocked (e.g. Low Power Mode) */
+    .hero__poster {
       position: absolute !important;
       inset: 0 !important;
       width: 100% !important;
@@ -63,10 +63,33 @@
       object-position: center 80% !important;
       z-index: 1 !important;
       display: block !important;
-      opacity: 1 !important;
-      visibility: visible !important;
+      animation: heroPosterKenBurns 20s ease-in-out infinite alternate;
     }
-    /* Safari: allow native play button to be clickable when autoplay blocked */
+    @keyframes heroPosterKenBurns {
+      0% { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1.08) translate(-1%, -1%); }
+    }
+    /* Video layer — on top of poster, shown only when playing */
+    #heroVideo {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center 80% !important;
+      z-index: 2 !important;
+      display: block !important;
+      opacity: 0;
+      visibility: visible !important;
+      transition: opacity 0.8s ease;
+    }
+    #heroVideo.is-playing { opacity: 1; }
+    /* Hide Safari native play button */
+    #heroVideo::-webkit-media-controls-panel,
+    #heroVideo::-webkit-media-controls-play-button,
+    #heroVideo::-webkit-media-controls-start-playback-button,
+    #heroVideo::-webkit-media-controls { display: none !important; -webkit-appearance: none; }
+    video::-webkit-media-controls-overlay-play-button { display: none !important; }
 
 
   
@@ -254,10 +277,11 @@
     <span class="weekly-bar__arrow">→</span>
   </a>
 
-  <section class="hero" id="hero" style="cursor:pointer">
+  <section class="hero" id="hero">
+    <img class="hero__poster" src="img/hero-poster.jpg" alt="" aria-hidden="true">
     <video id="heroVideo" autoplay muted playsinline webkit-playsinline preload="auto" loop
            aria-hidden="true"
-           src="img/hero-video-2026.mp4?v=5"></video>
+           src="img/hero-video-2026.mp4?v=6"></video>
     <script>
       // Inline: try autoplay IMMEDIATELY
       (function(){
@@ -266,12 +290,8 @@
         v.muted = true;
         v.volume = 0;
         v.play().then(function(){
-          // Autoplay succeeded — hide any play overlay
-          v.setAttribute('data-playing','1');
-        }).catch(function(){
-          // Autoplay blocked — user must click to start
-          v.setAttribute('data-playing','0');
-        });
+          v.classList.add('is-playing');
+        }).catch(function(){});
       })();
     </script>
     <div class="hero__gradient"></div>
@@ -400,19 +420,20 @@
 
   <script defer="" src="js/main.js?v=32"></script>
   <script>
-    // Video playback: autoplay + click-to-play fallback
+    // Video playback: autoplay + graceful fallback for Low Power Mode
     (function() {
       var v = document.getElementById('heroVideo');
       var hero = document.getElementById('hero');
       if (!v || !hero) return;
-      var videos = ['img/hero-video-2026.mp4?v=5','img/hero-video-neural-v2.mp4?v=5','img/hero-preview.mp4?v=5'];
+      var videos = ['img/hero-video-2026.mp4?v=6','img/hero-video-neural-v2.mp4?v=6','img/hero-preview.mp4?v=6'];
       var idx = 0;
       var playing = false;
 
       function onPlaying() {
+        if (playing) return;
         playing = true;
-        hero.style.cursor = '';
-        // Set up video rotation after first play
+        v.classList.add('is-playing');
+        // Set up video rotation
         v.removeAttribute('loop');
         v.addEventListener('ended', function() {
           idx = (idx + 1) % videos.length;
@@ -422,39 +443,34 @@
         });
       }
 
-      // Listen for successful play
       v.addEventListener('playing', function onFirstPlay() {
         v.removeEventListener('playing', onFirstPlay);
         onPlaying();
       });
 
-      // CRITICAL: Click anywhere on hero section to start video
-      // Safari requires play() inside a direct click handler
-      hero.addEventListener('click', function(e) {
+      // Click/touch on hero to start video (for blocked autoplay)
+      function userPlay(e) {
         if (playing) return;
-        // Don't prevent CTA button navigation
-        if (e.target.closest('.hero__cta')) return;
+        if (e.target.closest && e.target.closest('.hero__cta')) return;
         v.muted = true;
-        v.play().catch(function(){});
-      });
+        v.play().then(function(){ onPlaying(); }).catch(function(){});
+      }
+      hero.addEventListener('click', userPlay);
+      hero.addEventListener('touchend', userPlay);
 
-      // Also handle touch for mobile Safari
-      hero.addEventListener('touchend', function(e) {
-        if (playing) return;
-        if (e.target.closest('.hero__cta')) return;
-        v.muted = true;
-        v.play().catch(function(){});
-      });
-
-      // Retry autoplay on load events
+      // Retry autoplay on visibility/focus changes
       function tryAutoplay() {
         if (playing) return;
         v.muted = true;
-        v.play().catch(function(){});
+        v.play().then(function(){ onPlaying(); }).catch(function(){});
       }
       v.addEventListener('canplay', tryAutoplay);
       document.addEventListener('DOMContentLoaded', tryAutoplay);
-      window.addEventListener('load', function() { setTimeout(tryAutoplay, 200); });
+      window.addEventListener('load', function() { setTimeout(tryAutoplay, 300); });
+      // Retry when tab becomes visible (user may switch from Low Power Mode)
+      document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) tryAutoplay();
+      });
     })();
   </script>
   <!-- Netlify Identity Widget (CMS認証用) -->
