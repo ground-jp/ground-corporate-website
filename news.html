@@ -239,6 +239,8 @@
     /* ── Fade ── */
     .nw-fade { opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
     .nw-fade.is-visible { opacity:1; transform:translateY(0); }
+    /* Ensure all news items are visible (too many for IntersectionObserver) */
+    .nw-item, .nw-year, .nw-list { opacity:1 !important; transform:none !important; }
 
     /* ── Responsive ── */
     @media (max-width:1024px) {
