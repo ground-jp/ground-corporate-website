@@ -269,10 +269,19 @@
   </a>
 
   <section class="hero" id="hero">
-    <video id="heroVideo" autoplay muted playsinline preload="auto" loop
-           poster="img/hero-poster.jpg" aria-hidden="true"
-           src="img/hero-video-2026.mp4?v=3"
-           type="video/mp4"></video>
+    <video id="heroVideo" autoplay muted playsinline webkit-playsinline preload="auto" loop
+           aria-hidden="true"
+           src="img/hero-video-2026.mp4?v=4"></video>
+    <script>
+      // Inline: play video IMMEDIATELY after element is parsed (before rest of DOM loads)
+      (function(){
+        var v = document.getElementById('heroVideo');
+        v.defaultMuted = true;
+        v.muted = true;
+        v.volume = 0;
+        v.play().catch(function(){});
+      })();
+    </script>
     <div class="hero__gradient"></div>
     <div class="hero__content">
       <h1 class="hero__title">Autonomous<br>Warehouse</h1>
@@ -399,36 +408,22 @@
 
   <script defer="" src="js/main.js?v=32"></script>
   <script>
-    // Video autoplay — aggressive approach for Safari compatibility
+    // Video rotation setup (autoplay already triggered inline above video element)
     (function() {
       var v = document.getElementById('heroVideo');
       if (!v) return;
-      var videos = ['img/hero-video-2026.mp4?v=3','img/hero-video-neural-v2.mp4?v=3','img/hero-preview.mp4?v=3'];
+      var videos = ['img/hero-video-2026.mp4?v=4','img/hero-video-neural-v2.mp4?v=4','img/hero-preview.mp4?v=4'];
       var idx = 0;
+      var rotationSet = false;
 
-      function tryPlay() {
-        // Ensure muted (Safari requires this for autoplay)
+      function ensurePlay() {
         v.muted = true;
-        v.setAttribute('muted', '');
-        // webkit specific: force no controls
-        v.controls = false;
-        v.setAttribute('playsinline', '');
-        v.setAttribute('webkit-playsinline', '');
-
-        var p = v.play();
-        if (p && p.then) {
-          p.then(function() {
-            // Success - set up video rotation
-            setupRotation();
-          }).catch(function(e) {
-            // Autoplay failed, retry after a short delay
-            console.log('Autoplay attempt failed:', e.message);
-            setTimeout(tryPlay, 500);
-          });
-        }
+        v.play().catch(function(){});
       }
 
       function setupRotation() {
+        if (rotationSet) return;
+        rotationSet = true;
         v.removeAttribute('loop');
         v.addEventListener('ended', function() {
           idx = (idx + 1) % videos.length;
@@ -438,44 +433,20 @@
         });
       }
 
-      // Strategy 1: Try immediately (video may already be ready from preload)
-      tryPlay();
+      // When video actually starts playing, set up rotation
+      v.addEventListener('playing', function() { setupRotation(); });
 
-      // Strategy 2: Try on canplay event
-      v.addEventListener('canplay', function onCanPlay() {
-        v.removeEventListener('canplay', onCanPlay);
-        if (v.paused) tryPlay();
-      });
+      // Multiple fallback attempts
+      v.addEventListener('canplay', function() { if (v.paused) ensurePlay(); });
+      v.addEventListener('loadedmetadata', function() { if (v.paused) ensurePlay(); });
+      document.addEventListener('DOMContentLoaded', function() { if (v.paused) ensurePlay(); });
+      window.addEventListener('load', function() { if (v.paused) setTimeout(ensurePlay, 100); });
 
-      // Strategy 3: Try on loadeddata event
-      v.addEventListener('loadeddata', function onLoaded() {
-        v.removeEventListener('loadeddata', onLoaded);
-        if (v.paused) tryPlay();
-      });
-
-      // Strategy 4: DOMContentLoaded fallback
-      document.addEventListener('DOMContentLoaded', function() {
-        if (v.paused) {
-          setTimeout(tryPlay, 100);
-        }
-      });
-
-      // Strategy 5: window load fallback
-      window.addEventListener('load', function() {
-        if (v.paused) {
-          setTimeout(tryPlay, 200);
-        }
-      });
-
-      // Strategy 6: Periodic retry for 10 seconds
-      var retryCount = 0;
-      var retryInterval = setInterval(function() {
-        retryCount++;
-        if (!v.paused || retryCount > 20) {
-          clearInterval(retryInterval);
-          return;
-        }
-        tryPlay();
+      // Periodic retry for 10 seconds
+      var n = 0;
+      var t = setInterval(function() {
+        if (++n > 20 || !v.paused) { clearInterval(t); return; }
+        ensurePlay();
       }, 500);
     })();
   </script>

@@ -5,63 +5,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Video Autoplay Test</title>
 <style>
-body { margin: 0; background: #000; color: #fff; font-family: sans-serif; }
-.test { margin: 20px; }
-video { width: 100%; max-width: 640px; display: block; margin: 10px 0; background: #333; }
-.status { padding: 8px; background: #222; margin: 5px 0; font-size: 14px; }
+body { margin: 0; background: #000; color: #fff; font-family: sans-serif; padding: 20px; }
+video { width: 100%; max-width: 480px; display: block; margin: 10px 0; background: #333; }
+.test { margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 20px; }
+.status { padding: 8px; background: #222; margin: 5px 0; font-size: 14px; font-family: monospace; }
+h2 { font-size: 16px; }
 </style>
 </head>
 <body>
+<h1>Safari Video Autoplay Test</h1>
+<p>どのテストで動画が再生されるか確認してください。</p>
+
 <div class="test">
-<h2>Test 1: HTML attributes only (no JS)</h2>
-<video autoplay muted playsinline loop preload="auto">
-  <source src="img/hero-video-2026.mp4?v=3" type="video/mp4">
+<h2>Test 1: autoplay muted playsinline (HTML属性のみ, JSなし)</h2>
+<video autoplay muted playsinline webkit-playsinline loop preload="auto">
+  <source src="img/hero-video-2026.mp4?v=4" type="video/mp4">
 </video>
 <div class="status" id="s1">Loading...</div>
 </div>
 
 <div class="test">
-<h2>Test 2: JS play() on load</h2>
-<video id="v2" muted playsinline loop preload="auto">
-  <source src="img/hero-video-2026.mp4?v=3" type="video/mp4">
-</video>
+<h2>Test 2: JS即時play() (poster なし)</h2>
+<video id="v2" muted playsinline webkit-playsinline loop preload="auto"
+       src="img/hero-video-2026.mp4?v=4"></video>
+<script>
+  var v2 = document.getElementById('v2');
+  v2.defaultMuted = true;
+  v2.muted = true;
+  v2.volume = 0;
+  v2.play().catch(function(e){ document.getElementById('s2').textContent = 'play() error: ' + e.name + ': ' + e.message; });
+</script>
 <div class="status" id="s2">Loading...</div>
 </div>
 
 <div class="test">
-<h2>Test 3: JS play() with user interaction simulation</h2>
-<video id="v3" muted playsinline preload="auto">
-  <source src="img/hero-video-neural-v2.mp4?v=3" type="video/mp4">
-</video>
+<h2>Test 3: poster付き (比較)</h2>
+<video id="v3" autoplay muted playsinline webkit-playsinline loop preload="auto"
+       poster="img/hero-poster.jpg"
+       src="img/hero-video-neural-v2.mp4?v=4"></video>
 <div class="status" id="s3">Loading...</div>
-<button onclick="document.getElementById('v3').play()">Click to Play</button>
+</div>
+
+<div class="test">
+<h2>Test 4: 手動再生ボタン</h2>
+<video id="v4" muted playsinline webkit-playsinline preload="auto"
+       src="img/hero-video-2026.mp4?v=4"></video>
+<div class="status" id="s4">Loading...</div>
+<button onclick="document.getElementById('v4').play().then(function(){document.getElementById('s4').textContent='PLAYING!'}).catch(function(e){document.getElementById('s4').textContent='Error: '+e.message})" style="padding:10px 20px;font-size:16px;margin:10px 0">Click to Play</button>
 </div>
 
 <script>
 function updateStatus(vid, el) {
   var states = ['HAVE_NOTHING','HAVE_METADATA','HAVE_CURRENT_DATA','HAVE_FUTURE_DATA','HAVE_ENOUGH_DATA'];
-  el.textContent = 'readyState=' + states[vid.readyState] +
+  var net = ['EMPTY','IDLE','LOADING','NO_SOURCE'];
+  el.textContent = 'ready=' + states[vid.readyState] +
+    ' net=' + net[vid.networkState] +
     ' paused=' + vid.paused +
     ' muted=' + vid.muted +
-    ' error=' + (vid.error ? vid.error.code : 'none');
+    ' error=' + (vid.error ? vid.error.code + ':' + vid.error.message : 'none') +
+    ' w=' + vid.videoWidth + ' h=' + vid.videoHeight;
 }
 
-// Test 1: just report status
-var v1 = document.querySelector('.test:nth-child(1) video');
-setInterval(function(){ updateStatus(v1, document.getElementById('s1')); }, 500);
-
-// Test 2: try play() immediately
-var v2 = document.getElementById('v2');
-v2.play().then(function(){
-  document.getElementById('s2').textContent = 'PLAYING via JS play()';
-}).catch(function(e){
-  document.getElementById('s2').textContent = 'play() rejected: ' + e.message;
-});
-setInterval(function(){ updateStatus(v2, document.getElementById('s2')); }, 1000);
-
-// Test 3
-var v3 = document.getElementById('v3');
-setInterval(function(){ updateStatus(v3, document.getElementById('s3')); }, 500);
+setInterval(function() {
+  updateStatus(document.querySelector('.test:nth-child(2) video'), document.getElementById('s1'));
+  updateStatus(document.getElementById('v2'), document.getElementById('s2'));
+  updateStatus(document.getElementById('v3'), document.getElementById('s3'));
+  updateStatus(document.getElementById('v4'), document.getElementById('s4'));
+}, 500);
 </script>
 </body>
 </html>
