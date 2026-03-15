@@ -269,36 +269,20 @@
   </a>
 
   <section class="hero" id="hero">
-    <video id="heroVideo" autoplay muted playsinline preload="auto" aria-hidden="true">
-      <source src="img/hero-video-2026.mp4" type="video/mp4">
-    </video>
+    <video id="heroVideo" autoplay muted playsinline preload="auto" aria-hidden="true"
+           src="img/hero-video-2026.mp4"></video>
     <script>
-      // Sequential video rotation — autoplay muted video immediately
+      // Video rotation — let native autoplay handle first video, rotate on end
       (function(){
         var videos = ['img/hero-video-2026.mp4','img/hero-video-neural-v2.mp4','img/hero-preview.mp4'];
-        var idx = Math.floor(Math.random() * videos.length);
+        var idx = 0;
         var vid = document.getElementById('heroVideo');
         if (!vid) return;
-
-        // Force muted + autoplay attributes for Safari
-        vid.muted = true;
-        vid.playsInline = true;
-        vid.autoplay = true;
-        vid.removeAttribute('controls');
-
-        // Set src directly on video element for reliable autoplay
-        vid.src = videos[idx];
-        vid.load();
-        var p = vid.play();
-        if (p && p.then) p.catch(function(){});
-
-        // Rotate to next video when current ends
+        // Do NOT touch src on initial load — let browser autoplay natively
         vid.addEventListener('ended', function(){
           idx = (idx + 1) % videos.length;
           vid.src = videos[idx];
-          vid.load();
-          var p2 = vid.play();
-          if (p2 && p2.then) p2.catch(function(){});
+          vid.play().catch(function(){});
         });
       })();
     </script>
