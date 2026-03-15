@@ -1777,7 +1777,7 @@ img.hero__bg-image {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #111;
+  background: #0A0C14;
 }
 .solution-card--with-img:first-child .solution-card__img {
   object-fit: contain;
