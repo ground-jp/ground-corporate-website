@@ -63,6 +63,32 @@ collections:
       - { label: "概要", name: "summary", widget: "text" }
       - { label: "本文", name: "body", widget: "markdown" }
 
+  # ===== トップページ ニュース管理 =====
+  - name: "top_news"
+    label: "トップページ ニュース"
+    description: "トップページに表示する最新ニュース（最大3件）。追加・編集するとトップページに自動反映されます。"
+    files:
+      - label: "ニュース一覧"
+        name: "news_list"
+        file: "_data/news.json"
+        format: "json"
+        fields:
+          - label: "ニュース記事"
+            name: "items"
+            widget: "list"
+            max: 3
+            min: 1
+            label_singular: "記事"
+            summary: "{{fields.date}} — {{fields.title}}"
+            fields:
+              - { label: "タイトル", name: "title", widget: "string" }
+              - { label: "日付", name: "date", widget: "string", hint: "例: 2026/03/15" }
+              - { label: "カテゴリ", name: "category", widget: "select",
+                  options: ["プレスリリース", "メディア掲載", "イベント", "お知らせ"] }
+              - { label: "サムネイル画像", name: "image", widget: "image", required: false,
+                  default: "img/ext/news-dummy.jpg", hint: "未設定の場合はダミー画像を使用" }
+              - { label: "リンク先", name: "url", widget: "string", hint: "例: _news/20260315.html" }
+
   # ===== デザイン設定 =====
   - name: "design"
     label: "デザイン設定"
