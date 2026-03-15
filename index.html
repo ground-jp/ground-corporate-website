@@ -270,22 +270,7 @@
 
   <section class="hero" id="hero">
     <video id="heroVideo" autoplay muted playsinline preload="auto" aria-hidden="true"
-           src="img/hero-video-2026.mp4"></video>
-    <script>
-      // Video rotation — let native autoplay handle first video, rotate on end
-      (function(){
-        var videos = ['img/hero-video-2026.mp4','img/hero-video-neural-v2.mp4','img/hero-preview.mp4'];
-        var idx = 0;
-        var vid = document.getElementById('heroVideo');
-        if (!vid) return;
-        // Do NOT touch src on initial load — let browser autoplay natively
-        vid.addEventListener('ended', function(){
-          idx = (idx + 1) % videos.length;
-          vid.src = videos[idx];
-          vid.play().catch(function(){});
-        });
-      })();
-    </script>
+           src="img/hero-video-2026.mp4" loop></video>
     <div class="hero__gradient"></div>
     <div class="hero__content">
       <h1 class="hero__title">Autonomous<br>Warehouse</h1>
@@ -412,31 +397,40 @@
 
   <script defer="" src="js/main.js?v=32"></script>
   <script>
-    // Video autoplay fallback — ensure muted playback starts
+    // Video autoplay — single unified handler, no conflicting play() calls
     (function() {
       var v = document.getElementById('heroVideo');
       if (!v) return;
-      v.muted = true;
-      v.setAttribute('playsinline', '');
-      v.removeAttribute('controls');
+      var playing = false;
+      var videos = ['img/hero-video-2026.mp4','img/hero-video-neural-v2.mp4','img/hero-preview.mp4'];
+      var idx = 0;
+
       function tryPlay() {
+        if (playing) return;
         v.muted = true;
         var p = v.play();
-        if (p && p.then) p.catch(function(){});
+        if (p && p.then) {
+          p.then(function() { playing = true; }).catch(function() {});
+        }
       }
-      // Try on key load events
-      document.addEventListener('DOMContentLoaded', tryPlay);
-      window.addEventListener('load', tryPlay);
-      // Retry after short delay to handle timing issues
-      setTimeout(tryPlay, 500);
-      setTimeout(tryPlay, 1500);
-      // Fallback: retry on first user interaction
-      ['click','scroll','touchstart','pointerdown'].forEach(function(e) {
-        document.addEventListener(e, function f() {
-          tryPlay();
-          document.removeEventListener(e, f);
-        }, {once: true});
+
+      // Rotate videos on end
+      v.removeAttribute('loop');
+      v.addEventListener('ended', function() {
+        playing = false;
+        idx = (idx + 1) % videos.length;
+        v.src = videos[idx];
+        tryPlay();
       });
+
+      // Single attempt on window load
+      window.addEventListener('load', tryPlay);
+
+      // Last resort: first user interaction
+      document.addEventListener('click', function f() {
+        tryPlay();
+        document.removeEventListener('click', f);
+      }, {once: true});
     })();
   </script>
   <!-- Netlify Identity Widget (CMS認証用) -->
