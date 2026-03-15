@@ -269,8 +269,10 @@
   </a>
 
   <section class="hero" id="hero">
-    <video id="heroVideo" autoplay muted playsinline preload="auto" aria-hidden="true"
-           src="img/hero-video-2026.mp4" loop></video>
+    <video id="heroVideo" autoplay muted playsinline preload="auto" loop
+           poster="img/hero-poster.jpg" aria-hidden="true">
+      <source src="img/hero-video-2026.mp4" type="video/mp4">
+    </video>
     <div class="hero__gradient"></div>
     <div class="hero__content">
       <h1 class="hero__title">Autonomous<br>Warehouse</h1>
@@ -397,40 +399,36 @@
 
   <script defer="" src="js/main.js?v=32"></script>
   <script>
-    // Video autoplay — single unified handler, no conflicting play() calls
+    // Video autoplay — minimal approach: let browser handle autoplay natively,
+    // only intervene after the first play succeeds to set up rotation.
     (function() {
       var v = document.getElementById('heroVideo');
       if (!v) return;
-      var playing = false;
       var videos = ['img/hero-video-2026.mp4','img/hero-video-neural-v2.mp4','img/hero-preview.mp4'];
       var idx = 0;
+      var rotationReady = false;
 
-      function tryPlay() {
-        if (playing) return;
-        v.muted = true;
-        var p = v.play();
-        if (p && p.then) {
-          p.then(function() { playing = true; }).catch(function() {});
-        }
-      }
-
-      // Rotate videos on end
-      v.removeAttribute('loop');
-      v.addEventListener('ended', function() {
-        playing = false;
-        idx = (idx + 1) % videos.length;
-        v.src = videos[idx];
-        tryPlay();
+      // Once video starts playing, remove loop and set up rotation
+      v.addEventListener('playing', function onFirstPlay() {
+        if (rotationReady) return;
+        rotationReady = true;
+        v.removeEventListener('playing', onFirstPlay);
+        v.removeAttribute('loop');
+        v.addEventListener('ended', function() {
+          idx = (idx + 1) % videos.length;
+          v.src = videos[idx];
+          v.load();
+          v.play().catch(function(){});
+        });
       });
 
-      // Single attempt on window load
-      window.addEventListener('load', tryPlay);
-
-      // Last resort: first user interaction
-      document.addEventListener('click', function f() {
-        tryPlay();
-        document.removeEventListener('click', f);
-      }, {once: true});
+      // Fallback: if native autoplay didn't work after 3s, try JS play()
+      setTimeout(function() {
+        if (v.paused) {
+          v.muted = true;
+          v.play().catch(function(){});
+        }
+      }, 3000);
     })();
   </script>
   <!-- Netlify Identity Widget (CMS認証用) -->
