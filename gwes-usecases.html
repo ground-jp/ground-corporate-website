@@ -405,170 +405,203 @@
       text-transform: uppercase;
     }
 
-    /* ── Premium Chart Components ── */
-    .uc-chart-data-label {
+    /* ── Visual Charts (complementary to timeline — show data flow, KPIs, structure) ── */
+
+    /* Data Cycle (UC1) — circular data flow, NOT module descriptions */
+    .uc-data-cycle {
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+      position: relative;
+    }
+    .uc-data-cycle__ring {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      grid-template-rows: auto auto auto auto auto;
+      gap: 0;
+      align-items: center;
+      width: 100%;
+    }
+    .uc-data-phase {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 18px 20px;
+      transition: border-color 0.4s, box-shadow 0.4s;
+    }
+    .uc-data-phase:hover {
+      border-color: rgba(96,165,250,0.25);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .uc-data-phase__label {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.62rem; letter-spacing: 0.14em;
       text-transform: uppercase;
-      text-align: center;
+      margin-bottom: 8px;
+    }
+    .uc-data-phase__title {
+      font-size: 0.88rem; font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 4px;
+    }
+    .uc-data-phase__detail {
+      font-size: 0.75rem; color: var(--gw-text-3); line-height: 1.6;
+    }
+    .uc-data-arrow {
+      display: flex; align-items: center; justify-content: center;
       padding: 6px 0;
     }
-
-    /* Cycle chart (UC1) — 5-module cycle with center hub */
-    .uc-cycle-chart {
-      display: flex; flex-direction: column; gap: 0;
-      align-items: stretch;
-      position: relative;
+    .uc-data-arrow svg { width: 18px; height: 18px; }
+    .uc-data-arrow--h { padding: 0 8px; }
+    .uc-data-center {
+      text-align: center; padding: 10px 0;
     }
-    .uc-cycle-row {
-      display: flex; gap: 14px; align-items: stretch;
-    }
-    .uc-cycle-node {
-      flex: 1;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px;
-      padding: 20px 16px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.4s, box-shadow 0.4s, background 0.4s;
-    }
-    .uc-cycle-node:hover {
-      background: rgba(255,255,255,0.04);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
-    }
-    .uc-cycle-node::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    }
-    .uc-cycle-node--l2 { border-color: rgba(96,165,250,0.15); }
-    .uc-cycle-node--l2:hover { border-color: rgba(96,165,250,0.35); box-shadow: 0 4px 24px rgba(96,165,250,0.08); }
-    .uc-cycle-node--l2::before { background: linear-gradient(90deg, transparent, #60A5FA, transparent); }
-    .uc-cycle-node--l4 { border-color: rgba(59,130,246,0.15); }
-    .uc-cycle-node--l4:hover { border-color: rgba(59,130,246,0.35); box-shadow: 0 4px 24px rgba(59,130,246,0.08); }
-    .uc-cycle-node--l4::before { background: linear-gradient(90deg, transparent, #3B82F6, transparent); }
-    .uc-cycle-node__code {
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 700; font-size: 1.05rem;
-      margin-bottom: 6px;
-      letter-spacing: 0.04em;
-    }
-    .uc-cycle-node__name {
-      font-size: 0.78rem; font-weight: 600;
-      color: rgba(255,255,255,0.75); margin-bottom: 8px;
-    }
-    .uc-cycle-node__desc {
-      font-size: 0.72rem; color: var(--gw-text-3); line-height: 1.6;
-    }
-    .uc-cycle-arrow {
-      display: flex; align-items: center; justify-content: center;
-      padding: 8px 0;
-    }
-    .uc-cycle-arrow--h {
-      padding: 0 6px;
-      flex-shrink: 0;
-      display: flex; align-items: center;
-    }
-    .uc-cycle-arrow svg { width: 20px; height: 20px; }
-    .uc-cycle-center {
-      text-align: center;
-      padding: 14px 0 10px;
-    }
-    .uc-cycle-center__label {
+    .uc-data-center__pill {
       display: inline-block;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem; letter-spacing: 0.16em;
+      font-size: 0.62rem; letter-spacing: 0.14em;
       text-transform: uppercase;
-      padding: 8px 24px;
-      border-radius: 24px;
-      border: 1px solid rgba(91,192,235,0.15);
-      background: rgba(91,192,235,0.04);
+      padding: 7px 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(91,192,235,0.12);
+      background: rgba(91,192,235,0.03);
       color: var(--gw-accent);
-      backdrop-filter: blur(4px);
     }
 
-    /* Flow chart (UC2, UC3) */
-    .uc-flow-chart {
-      display: flex; flex-direction: column; gap: 0;
+    /* KPI Impact Cards (UC2) — before/after comparison */
+    .uc-kpi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
-    .uc-flow-node {
-      display: flex; align-items: center; gap: 18px;
+    .uc-kpi-card {
       background: rgba(255,255,255,0.02);
       border: 1px solid rgba(255,255,255,0.06);
       border-radius: 12px;
-      padding: 22px 24px;
+      padding: 20px;
+      text-align: center;
+      transition: border-color 0.4s, box-shadow 0.4s;
+    }
+    .uc-kpi-card:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .uc-kpi-card__icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px;
+    }
+    .uc-kpi-card__icon svg { width: 20px; height: 20px; }
+    .uc-kpi-card__value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.5rem; font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .uc-kpi-card__label {
+      font-size: 0.78rem; color: rgba(255,255,255,0.7);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .uc-kpi-card__desc {
+      font-size: 0.68rem; color: var(--gw-text-3); line-height: 1.5;
+    }
+    .uc-kpi-summary {
+      margin-top: 12px;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      text-align: center;
+    }
+    .uc-kpi-summary__text {
+      font-size: 0.78rem; color: var(--gw-text-2); line-height: 1.7;
+    }
+
+    /* Cost Structure (UC3) — optimization equation */
+    .uc-cost-structure {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .uc-cost-block {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 20px 22px;
       position: relative;
       overflow: hidden;
-      transition: border-color 0.4s, box-shadow 0.4s, background 0.4s;
+      transition: border-color 0.4s, box-shadow 0.4s;
     }
-    .uc-flow-node:hover {
-      background: rgba(255,255,255,0.04);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    .uc-cost-block:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
-    .uc-flow-node__bar {
+    .uc-cost-block__bar {
       position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
       border-radius: 3px 0 0 3px;
     }
-    .uc-flow-node__badge {
-      width: 52px; height: 52px; border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
+    .uc-cost-block__head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .uc-cost-block__title {
+      font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.85);
+    }
+    .uc-cost-block__badge {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 1rem; font-weight: 700;
-      flex-shrink: 0;
-      letter-spacing: 0.04em;
+      font-size: 0.62rem; letter-spacing: 0.1em;
+      padding: 4px 12px; border-radius: 8px;
     }
-    .uc-flow-node__info { flex: 1; }
-    .uc-flow-node__name {
-      font-size: 0.88rem; font-weight: 600; color: rgba(255,255,255,0.9);
-      margin-bottom: 5px;
+    .uc-cost-block__items {
+      display: flex; gap: 8px; flex-wrap: wrap;
     }
-    .uc-flow-node__desc {
-      font-size: 0.78rem; color: var(--gw-text-2); line-height: 1.6;
+    .uc-cost-block__item {
+      font-size: 0.72rem; color: var(--gw-text-3);
+      padding: 5px 12px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px;
     }
-    .uc-flow-connector {
+    .uc-cost-eq {
       display: flex; align-items: center; justify-content: center;
-      padding: 6px 0;
-      position: relative;
-      height: 40px;
+      gap: 12px;
+      padding: 12px 0;
     }
-    .uc-flow-connector__line {
-      position: absolute;
-      left: 50%; top: 0; bottom: 0;
-      width: 1px;
-    }
-    .uc-flow-connector__label {
+    .uc-cost-eq__op {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
-      padding: 5px 16px; border-radius: 12px;
-      z-index: 1;
-      backdrop-filter: blur(4px);
+      font-size: 1.2rem; font-weight: 300;
+      color: var(--gw-text-3);
     }
-    .uc-flow-output {
-      display: flex; gap: 10px; margin-top: 10px;
+    .uc-cost-result {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
     }
-    .uc-flow-output__item {
-      flex: 1;
+    .uc-cost-result__value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .uc-cost-result__items {
+      display: flex; gap: 10px; justify-content: center;
+      margin-top: 12px;
+    }
+    .uc-cost-result__item {
+      padding: 10px 16px;
       background: rgba(255,255,255,0.02);
       border: 1px solid rgba(255,255,255,0.06);
       border-radius: 10px;
-      padding: 14px 16px;
       text-align: center;
-      transition: border-color 0.3s, background 0.3s;
     }
-    .uc-flow-output__item:hover {
-      background: rgba(255,255,255,0.04);
+    .uc-cost-result__item-name {
+      font-size: 0.75rem; font-weight: 500;
+      color: rgba(255,255,255,0.65);
     }
-    .uc-flow-output__name {
-      font-size: 0.75rem;
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-    }
-    .uc-flow-output__sub {
-      font-size: 0.62rem;
+    .uc-cost-result__item-sub {
+      font-size: 0.6rem;
       font-family: 'JetBrains Mono', monospace;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      margin-top: 4px;
+      margin-top: 3px;
     }
 
     /* Roadmap chart (UC4) */
@@ -702,8 +735,8 @@
       .uc-detail { padding: 40px 28px; }
       .uc-timeline__track { flex-wrap: wrap; gap: 16px; justify-content: center; }
       .uc-tl-arrow { display: none; }
-      .uc-cycle-row { flex-direction: column; gap: 0; }
-      .uc-cycle-arrow--h { display: none; }
+      .uc-kpi-grid { grid-template-columns: 1fr 1fr; }
+      .uc-cost-result__items { flex-wrap: wrap; }
     }
     @media (max-width: 600px) {
       .uc-overview { grid-template-columns: 1fr; }
@@ -953,50 +986,38 @@
             </div>
           </div>
           <div class="uc-scenario__visual">
-            <div class="uc-scenario__visual-label">Continuous Improvement Cycle</div>
-            <div class="uc-cycle-chart">
-              <!-- Row 1: WF → RA (Plan) -->
-              <div class="uc-cycle-row">
-                <div class="uc-cycle-node uc-cycle-node--l2">
-                  <div class="uc-cycle-node__code" style="color:#93C5FD;">WF</div>
-                  <div class="uc-cycle-node__name">作業量予測</div>
-                  <div class="uc-cycle-node__desc">AIが過去データと外部要因から工程別作業量を高精度に予測</div>
-                </div>
-                <div class="uc-cycle-arrow--h"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(96,165,250,0.35)" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14M14 7l5 5-5 5"/></svg></div>
-                <div class="uc-cycle-node uc-cycle-node--l4">
-                  <div class="uc-cycle-node__code" style="color:#60A5FA;">RA</div>
-                  <div class="uc-cycle-node__name">要員配置計画</div>
-                  <div class="uc-cycle-node__desc">数万通りの配置パターンをシミュレーションし最適解を導出</div>
-                </div>
+            <div class="uc-scenario__visual-label">Data-Driven Improvement Cycle</div>
+            <div class="uc-data-cycle">
+              <!-- Phase 1: Prediction -->
+              <div class="uc-data-phase">
+                <div class="uc-data-phase__label" style="color:#93C5FD;">Phase 1 — Predict</div>
+                <div class="uc-data-phase__title">需要予測データ</div>
+                <div class="uc-data-phase__detail">入荷予定・受注情報・カレンダーイベント等の説明変数から工程別の作業量を予測</div>
               </div>
-              <!-- Center: PA hub -->
-              <div class="uc-cycle-center">
-                <span class="uc-cycle-center__label">Plan → Execute → Review</span>
+              <div class="uc-data-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(96,165,250,0.3)" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M7 14l5 5 5-5"/></svg></div>
+              <!-- Phase 2: Plan -->
+              <div class="uc-data-phase">
+                <div class="uc-data-phase__label" style="color:#60A5FA;">Phase 2 — Optimize</div>
+                <div class="uc-data-phase__title">最適配置プラン</div>
+                <div class="uc-data-phase__detail">スキル・スピード・シフト制約を考慮した数万パターンのシミュレーション結果</div>
               </div>
-              <div class="uc-cycle-row" style="justify-content:center;">
-                <div class="uc-cycle-node uc-cycle-node--l2" style="flex:0.7;">
-                  <div class="uc-cycle-node__code" style="color:#93C5FD;">PA</div>
-                  <div class="uc-cycle-node__name">進捗監視</div>
-                  <div class="uc-cycle-node__desc">計画と実績のギャップをリアルタイムで検知・アラート発出</div>
-                </div>
+              <div class="uc-data-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(96,165,250,0.3)" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M7 14l5 5 5-5"/></svg></div>
+              <!-- Phase 3: Monitor -->
+              <div class="uc-data-phase">
+                <div class="uc-data-phase__label" style="color:#5BC0EB;">Phase 3 — Monitor</div>
+                <div class="uc-data-phase__title">リアルタイム進捗</div>
+                <div class="uc-data-phase__detail">計画vs実績のギャップを即時検知し、遅延の兆候をアラート</div>
               </div>
-              <!-- Center arrow down -->
-              <div class="uc-cycle-center" style="padding:8px 0;">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="rgba(96,165,250,0.3)" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M7 14l5 5 5-5"/></svg>
+              <div class="uc-data-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(96,165,250,0.3)" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M7 14l5 5 5-5"/></svg></div>
+              <!-- Phase 4: Analyze -->
+              <div class="uc-data-phase">
+                <div class="uc-data-phase__label" style="color:#93C5FD;">Phase 4 — Analyze</div>
+                <div class="uc-data-phase__title">予実差異レポート</div>
+                <div class="uc-data-phase__detail">生産性推移・コスト分析・スキル別実績を多角的に集計・評価</div>
               </div>
-              <!-- Row 3: RA → WA (Adjust & Review) -->
-              <div class="uc-cycle-row">
-                <div class="uc-cycle-node uc-cycle-node--l4">
-                  <div class="uc-cycle-node__code" style="color:#60A5FA;">RA</div>
-                  <div class="uc-cycle-node__name">動的再配分</div>
-                  <div class="uc-cycle-node__desc">バイネームで移動指示を自動発行し計画を即時修正</div>
-                </div>
-                <div class="uc-cycle-arrow--h"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(96,165,250,0.35)" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14M14 7l5 5-5 5"/></svg></div>
-                <div class="uc-cycle-node uc-cycle-node--l2">
-                  <div class="uc-cycle-node__code" style="color:#93C5FD;">WA</div>
-                  <div class="uc-cycle-node__name">実績分析</div>
-                  <div class="uc-cycle-node__desc">予実差異を多角的に分析し翌日の予測モデルへフィードバック</div>
-                </div>
+              <!-- Feedback loop -->
+              <div class="uc-data-center">
+                <div class="uc-data-center__pill">&#8593; Feedback Loop — 分析結果が翌日の予測精度を継続改善</div>
               </div>
             </div>
           </div>
@@ -1105,45 +1126,47 @@
             </div>
           </div>
           <div class="uc-scenario__visual">
-            <div class="uc-scenario__visual-label">Warehouse Optimization Flow</div>
-            <div class="uc-flow-chart">
-              <!-- IA -->
-              <div class="uc-flow-node" style="border-color:rgba(96,165,250,0.12);">
-                <div class="uc-flow-node__bar" style="background:linear-gradient(180deg,#93C5FD,#60A5FA);"></div>
-                <div class="uc-flow-node__badge" style="background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.25);color:#93C5FD;">IA</div>
-                <div class="uc-flow-node__info">
-                  <div class="uc-flow-node__name">在庫分析 <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--gw-text-3);font-weight:400;">Inventory Analytics</span></div>
-                  <div class="uc-flow-node__desc">出荷頻度・相関・季節変動をヒートマップで可視化し、ABC分析を自動更新</div>
+            <div class="uc-scenario__visual-label">Expected Improvement</div>
+            <div class="uc-kpi-grid">
+              <!-- KPI 1: Walking distance -->
+              <div class="uc-kpi-card" style="border-color:rgba(52,211,153,0.15);">
+                <div class="uc-kpi-card__icon" style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.5"><path d="M13 17l5-5-5-5M6 17l5-5-5-5"/></svg>
                 </div>
+                <div class="uc-kpi-card__value" style="color:#34D399;">-30%</div>
+                <div class="uc-kpi-card__label">歩行距離</div>
+                <div class="uc-kpi-card__desc">最短ルート算出で無駄な移動を削減</div>
               </div>
-              <!-- Connector -->
-              <div class="uc-flow-connector">
-                <div class="uc-flow-connector__line" style="background:linear-gradient(180deg,rgba(96,165,250,0.25),rgba(52,211,153,0.25));"></div>
-                <div class="uc-flow-connector__label" style="background:rgba(52,211,153,0.04);border:1px solid rgba(52,211,153,0.12);color:rgba(52,211,153,0.55);">frequency data</div>
-              </div>
-              <!-- SO -->
-              <div class="uc-flow-node" style="border-color:rgba(52,211,153,0.12);">
-                <div class="uc-flow-node__bar" style="background:linear-gradient(180deg,#34D399,#10B981);"></div>
-                <div class="uc-flow-node__badge" style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.25);color:#34D399;">SO</div>
-                <div class="uc-flow-node__info">
-                  <div class="uc-flow-node__name">棚入最適化 <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--gw-text-3);font-weight:400;">Slotting Optimization</span></div>
-                  <div class="uc-flow-node__desc">ヒット率に基づき最適なロケーション配置を算出し、移動コストを考慮した改善シミュレーション</div>
+              <!-- KPI 2: Picking efficiency -->
+              <div class="uc-kpi-card" style="border-color:rgba(96,165,250,0.15);">
+                <div class="uc-kpi-card__icon" style="background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.2);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#93C5FD" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
                 </div>
+                <div class="uc-kpi-card__value" style="color:#93C5FD;">+25%</div>
+                <div class="uc-kpi-card__label">ピッキング生産性</div>
+                <div class="uc-kpi-card__desc">マルチオーダー集約でスループット向上</div>
               </div>
-              <!-- Connector -->
-              <div class="uc-flow-connector">
-                <div class="uc-flow-connector__line" style="background:linear-gradient(180deg,rgba(52,211,153,0.25),rgba(59,130,246,0.25));"></div>
-                <div class="uc-flow-connector__label" style="background:rgba(59,130,246,0.04);border:1px solid rgba(59,130,246,0.12);color:rgba(59,130,246,0.55);">layout data</div>
-              </div>
-              <!-- RO -->
-              <div class="uc-flow-node" style="border-color:rgba(59,130,246,0.12);">
-                <div class="uc-flow-node__bar" style="background:linear-gradient(180deg,#60A5FA,#3B82F6);"></div>
-                <div class="uc-flow-node__badge" style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);color:#60A5FA;">RO</div>
-                <div class="uc-flow-node__info">
-                  <div class="uc-flow-node__name">動線最適化 <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--gw-text-3);font-weight:400;">Routing Optimization</span></div>
-                  <div class="uc-flow-node__desc">マルチオーダーの最短ピッキング動線を計画し、WMS指示との効果比較を可視化</div>
+              <!-- KPI 3: Slotting score -->
+              <div class="uc-kpi-card" style="border-color:rgba(52,211,153,0.15);">
+                <div class="uc-kpi-card__icon" style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
                 </div>
+                <div class="uc-kpi-card__value" style="color:#34D399;">A+</div>
+                <div class="uc-kpi-card__label">配置スコア</div>
+                <div class="uc-kpi-card__desc">ヒット率ベースの客観的評価指標</div>
               </div>
+              <!-- KPI 4: Decision speed -->
+              <div class="uc-kpi-card" style="border-color:rgba(96,165,250,0.15);">
+                <div class="uc-kpi-card__icon" style="background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.2);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#93C5FD" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+                </div>
+                <div class="uc-kpi-card__value" style="color:#93C5FD;">1/10</div>
+                <div class="uc-kpi-card__label">判断時間</div>
+                <div class="uc-kpi-card__desc">属人的判断をデータ分析に置き換え</div>
+              </div>
+            </div>
+            <div class="uc-kpi-summary">
+              <div class="uc-kpi-summary__text">分析 → 配置最適化 → 動線最適化の連携で、庫内オペレーション全体の効率を改善</div>
             </div>
           </div>
         </div>
@@ -1236,46 +1259,57 @@
             </div>
           </div>
           <div class="uc-scenario__visual">
-            <div class="uc-scenario__visual-label">Cost Optimization Pipeline</div>
-            <div class="uc-flow-chart">
-              <!-- LO -->
-              <div class="uc-flow-node" style="border-color:rgba(245,158,11,0.12);">
-                <div class="uc-flow-node__bar" style="background:linear-gradient(180deg,#F59E0B,#D97706);"></div>
-                <div class="uc-flow-node__badge" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);color:#F59E0B;">LO</div>
-                <div class="uc-flow-node__info">
-                  <div class="uc-flow-node__name">積付最適化 <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--gw-text-3);font-weight:400;">Loading Optimization</span></div>
-                  <div class="uc-flow-node__desc">3D寸法データから直方体の組み合わせで最適な箱サイズと積付パターンを算出</div>
+            <div class="uc-scenario__visual-label">Cost Optimization Structure</div>
+            <div class="uc-cost-structure">
+              <!-- Block 1: Volume optimization -->
+              <div class="uc-cost-block" style="border-color:rgba(245,158,11,0.15);">
+                <div class="uc-cost-block__bar" style="background:linear-gradient(180deg,#F59E0B,#D97706);"></div>
+                <div class="uc-cost-block__head">
+                  <div class="uc-cost-block__title">容積最適化</div>
+                  <div class="uc-cost-block__badge" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);color:#F59E0B;">Volume</div>
+                </div>
+                <div class="uc-cost-block__items">
+                  <span class="uc-cost-block__item">3D寸法計算</span>
+                  <span class="uc-cost-block__item">箱サイズ最小化</span>
+                  <span class="uc-cost-block__item">積載率最大化</span>
                 </div>
               </div>
-              <!-- Connector -->
-              <div class="uc-flow-connector">
-                <div class="uc-flow-connector__line" style="background:linear-gradient(180deg,rgba(245,158,11,0.25),rgba(249,115,22,0.25));"></div>
-                <div class="uc-flow-connector__label" style="background:rgba(245,158,11,0.04);border:1px solid rgba(245,158,11,0.12);color:rgba(245,158,11,0.55);">volume data</div>
+              <!-- Equation operator -->
+              <div class="uc-cost-eq">
+                <span class="uc-cost-eq__op">&#215;</span>
               </div>
-              <!-- DO -->
-              <div class="uc-flow-node" style="border-color:rgba(249,115,22,0.12);">
-                <div class="uc-flow-node__bar" style="background:linear-gradient(180deg,#FB923C,#F97316);"></div>
-                <div class="uc-flow-node__badge" style="background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.25);color:#FB923C;">DO</div>
-                <div class="uc-flow-node__info">
-                  <div class="uc-flow-node__name">配送最適化 <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--gw-text-3);font-weight:400;">Delivery Optimization</span></div>
-                  <div class="uc-flow-node__desc">宅配便・路線便・自社便・庸車便の制約を考慮し、最安の配送計画を自動策定</div>
+              <!-- Block 2: Route optimization -->
+              <div class="uc-cost-block" style="border-color:rgba(249,115,22,0.15);">
+                <div class="uc-cost-block__bar" style="background:linear-gradient(180deg,#FB923C,#F97316);"></div>
+                <div class="uc-cost-block__head">
+                  <div class="uc-cost-block__title">配送経路最適化</div>
+                  <div class="uc-cost-block__badge" style="background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.2);color:#FB923C;">Route</div>
+                </div>
+                <div class="uc-cost-block__items">
+                  <span class="uc-cost-block__item">4経路比較</span>
+                  <span class="uc-cost-block__item">制約条件充足</span>
+                  <span class="uc-cost-block__item">車両引当</span>
                 </div>
               </div>
-              <!-- Output -->
-              <div style="padding-top:14px;">
-                <div class="uc-chart-data-label" style="color:rgba(249,115,22,0.35);">output</div>
-                <div class="uc-flow-output">
-                  <div class="uc-flow-output__item" style="border-color:rgba(249,115,22,0.12);">
-                    <div class="uc-flow-output__name" style="color:rgba(255,255,255,0.65);">配車表</div>
-                    <div class="uc-flow-output__sub" style="color:rgba(249,115,22,0.4);">dispatch</div>
+              <!-- Equation operator -->
+              <div class="uc-cost-eq">
+                <span class="uc-cost-eq__op">=</span>
+              </div>
+              <!-- Result -->
+              <div class="uc-cost-result" style="border-color:rgba(245,158,11,0.2);">
+                <div class="uc-cost-result__value" style="color:#F59E0B;">Total Cost Minimization</div>
+                <div class="uc-cost-result__items">
+                  <div class="uc-cost-result__item" style="border-color:rgba(245,158,11,0.12);">
+                    <div class="uc-cost-result__item-name">配車表</div>
+                    <div class="uc-cost-result__item-sub" style="color:rgba(245,158,11,0.5);">dispatch</div>
                   </div>
-                  <div class="uc-flow-output__item" style="border-color:rgba(249,115,22,0.12);">
-                    <div class="uc-flow-output__name" style="color:rgba(255,255,255,0.65);">送り状</div>
-                    <div class="uc-flow-output__sub" style="color:rgba(249,115,22,0.4);">invoice</div>
+                  <div class="uc-cost-result__item" style="border-color:rgba(245,158,11,0.12);">
+                    <div class="uc-cost-result__item-name">送り状</div>
+                    <div class="uc-cost-result__item-sub" style="color:rgba(245,158,11,0.5);">invoice</div>
                   </div>
-                  <div class="uc-flow-output__item" style="border-color:rgba(249,115,22,0.12);">
-                    <div class="uc-flow-output__name" style="color:rgba(255,255,255,0.65);">荷札</div>
-                    <div class="uc-flow-output__sub" style="color:rgba(249,115,22,0.4);">label</div>
+                  <div class="uc-cost-result__item" style="border-color:rgba(245,158,11,0.12);">
+                    <div class="uc-cost-result__item-name">荷札</div>
+                    <div class="uc-cost-result__item-sub" style="color:rgba(245,158,11,0.5);">label</div>
                   </div>
                 </div>
               </div>
