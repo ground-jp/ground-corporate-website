@@ -277,20 +277,35 @@
         var src = document.getElementById('heroVideoSrc');
         if (!vid || !src) return;
 
-        function loadAndPlay(i) {
-          src.src = videos[i];
-          vid.load();
-          vid.oncanplay = function() {
-            vid.oncanplay = null;
-            vid.play().catch(function(){});
-          };
+        // Set initial random source without calling load() to preserve native autoplay
+        src.src = videos[idx];
+
+        function tryPlay() {
+          vid.muted = true;
+          var p = vid.play();
+          if (p && p.then) p.catch(function(){});
         }
 
-        loadAndPlay(idx);
+        // Ensure playback starts via multiple strategies
+        vid.addEventListener('loadeddata', function onLoaded() {
+          vid.removeEventListener('loadeddata', onLoaded);
+          tryPlay();
+        });
+        // Fallback: also try on canplay
+        vid.addEventListener('canplay', function onCan() {
+          vid.removeEventListener('canplay', onCan);
+          tryPlay();
+        });
 
+        // Rotate to next video when current ends
         vid.addEventListener('ended', function(){
           idx = (idx + 1) % videos.length;
-          loadAndPlay(idx);
+          src.src = videos[idx];
+          vid.load();
+          vid.addEventListener('canplay', function onNext() {
+            vid.removeEventListener('canplay', onNext);
+            tryPlay();
+          });
         });
       })();
     </script>
@@ -425,16 +440,19 @@
       var v = document.getElementById('heroVideo');
       if (!v) return;
       v.muted = true;
+      v.setAttribute('playsinline', '');
       v.removeAttribute('controls');
       function tryPlay() {
         v.muted = true;
         var p = v.play();
-        if (p && p.catch) p.catch(function(){});
+        if (p && p.then) p.catch(function(){});
       }
       // Try on key load events
-      v.addEventListener('canplay', tryPlay);
       document.addEventListener('DOMContentLoaded', tryPlay);
       window.addEventListener('load', tryPlay);
+      // Retry after short delay to handle timing issues
+      setTimeout(tryPlay, 500);
+      setTimeout(tryPlay, 1500);
       // Fallback: retry on first user interaction
       ['click','scroll','touchstart','pointerdown'].forEach(function(e) {
         document.addEventListener(e, function f() {
