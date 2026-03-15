@@ -52,9 +52,7 @@
     .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.7); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
     .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.5); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
     .hero { align-items: center !important; position: relative; }
-    .hero__content { padding-bottom: 0 !important; padding-top: 0 !important; pointer-events: none; }
-    .hero__content .hero__cta { pointer-events: auto; }
-    .hero__content .hero__title, .hero__content .hero__subtitle { pointer-events: none; }
+    .hero__content { padding-bottom: 0 !important; padding-top: 0 !important; }
     /* Override: video background styling */
     #heroVideo {
       position: absolute !important;
@@ -68,21 +66,7 @@
       opacity: 1 !important;
       visibility: visible !important;
     }
-    /* Hide browser native play button / media controls on hero video */
-    #heroVideo::-webkit-media-controls-panel,
-    #heroVideo::-webkit-media-controls-play-button,
-    #heroVideo::-webkit-media-controls-start-playback-button,
-    #heroVideo::-webkit-media-controls-overlay-play-button,
-    #heroVideo::-webkit-media-controls,
-    #heroVideo::-webkit-media-controls-enclosure {
-      display: none !important;
-      -webkit-appearance: none !important;
-      opacity: 0 !important;
-      visibility: hidden !important;
-      pointer-events: none !important;
-    }
-    #heroVideo::-moz-media-controls { display: none !important; }
-    video[id="heroVideo"] { -webkit-media-controls-overlay-play-button: none; }
+    /* Safari: allow native play button to be clickable when autoplay blocked */
 
 
   
