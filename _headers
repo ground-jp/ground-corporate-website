@@ -17,3 +17,7 @@
 
 /*.html
   Cache-Control: public, max-age=3600
+
+/test-minimal.html
+  Content-Security-Policy: default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;
+  Permissions-Policy: autoplay=*
