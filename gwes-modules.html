@@ -22,7 +22,7 @@
       --gw-border-hover: #545867;
       --gw-text-1: #FFFFFF;
       --gw-text-2: rgba(255,255,255,0.92);
-      --gw-text-3: rgba(255,255,255,0.55);
+      --gw-text-3: #FFFFFF;
       --gw-accent: #3B82F6;
       --gw-infra: #8A8C9A;
       --gw-l2: #60A5FA;
@@ -45,43 +45,42 @@
     .gw-bc a:hover { color: var(--gw-text-2); }
 
     /* ── GWES Logo (centered hero) — V4 Grid Dominant Refined ── */
+    /* ── GWES Logo — C7 Titanium Metal Vertical Lockup ── */
     .gw-logo {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: 0;
     }
     .gw-logo__mark {
-      width: 140px; height: 140px;
+      width: 150px; height: 155px;
       flex-shrink: 0;
     }
-    .gw-logo__mark img {
-      width: 100%; height: 100%;
+    .gw-logo__mark canvas {
+      width: 150px; height: 155px;
       display: block;
     }
     .gw-logo__text {
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      padding-top: 10px;
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+      margin-top: -2px;
     }
     .gw-logo__text::before {
-      content: '';
-      display: block;
-      width: 40px; height: 1px;
-      background: rgba(106,198,236,0.45);
-      margin-bottom: 2px;
+      display: none;
     }
     .gw-logo__name {
       font-family: 'Archivo', sans-serif;
-      font-size: 1.5rem; font-weight: 400;
-      color: #FFFFFF; letter-spacing: 0.28em;
-      padding-right: 0.28em;
+      font-size: 42px; font-weight: 700;
+      color: #FFFFFF; letter-spacing: 0.03em;
       line-height: 1;
+      text-indent: 0.03em;
     }
     .gw-logo__full {
       font-family: 'Archivo', sans-serif;
-      font-size: 0.6rem; font-weight: 400;
-      letter-spacing: 0.12em;
-      padding-right: 0.12em;
-      color: rgba(255,255,255,0.7);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.03em;
+      color: rgba(255,255,255,0.55);
       line-height: 1;
+      white-space: nowrap;
+      margin-top: 2px;
+      text-indent: 0.03em;
     }
 
     /* ── Hero ── */
@@ -515,14 +514,22 @@
       width: 44px; height: 44px;
       margin: 0 0 14px;
       display: flex; align-items: center; justify-content: center;
-      border-radius: 10px;
-      transition: transform 0.3s;
-      flex-shrink: 0;
+      border-radius: 8px;
+      background: rgba(160,165,178, 0.10);
+      border: 1px solid rgba(160,165,178, 0.20);
+      font-family: 'Archivo', sans-serif;
+      font-weight: 600; font-size: 14px;
+      letter-spacing: 0.4px; color: #FFFFFF;
+      position: relative; overflow: hidden;
     }
-    .gw-mod__icon svg { width: 24px; height: 24px; }
-    .gw-mod__icon--infra { background: #1A1A1A; color: #C8CDD8; }
-    .gw-mod__icon--l2 { background: #161822; color: #93C5FD; }
-    .gw-mod__icon--l4 { background: #161822; color: #60A5FA; }
+    .gw-mod__icon::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 6px; right: 6px;
+      height: 2.5px; border-radius: 1.5px;
+      background: rgba(200,205,215, 0.60);
+    }
+    .gw-mod__icon svg { display: none; }
 
     /* (Module detail pages handle expanded content) */
 
@@ -784,11 +791,12 @@
       }
     }
     @media (max-width: 768px) {
-      .gw-logo__mark { width: 100px; height: 100px; }
-      .gw-logo__text { padding-top: 8px; gap: 4px; }
-      .gw-logo__text::before { width: 32px; }
-      .gw-logo__name { font-size: 1.2rem; }
-      .gw-logo__full { font-size: 0.5rem; }
+      .gw-logo { gap: 0; }
+      .gw-logo__mark { width: 120px; height: 124px; }
+      .gw-logo__mark canvas { width: 120px; height: 124px; }
+      .gw-logo__text { gap: 0; }
+      .gw-logo__name { font-size: 32px; }
+      .gw-logo__full { font-size: 9px; }
       .gw-laptop__screen { padding: 10px 10px 0; border-radius: 8px 8px 0 0; }
       .gw-laptop__base { height: 6px; }
       .gw-laptop__screen-glow { inset: -30px -40px -10px -40px; }
@@ -818,7 +826,7 @@
   
     /* Language Switcher — inside overlay menu */
     .lang-switch-bar { display: flex; align-items: center; gap: 16px; padding: 20px 0 0; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
-    .lang-switch { display: inline-flex; align-items: center; gap: 4px; font-family: 'JetBrains Mono',monospace; font-size: 11px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,0.35); padding: 8px 12px; border: 1px solid rgba(255,255,255,0.1); border-radius: 2px; transition: all 0.25s ease; background: none; }
+    .lang-switch { display: inline-flex; align-items: center; gap: 4px; font-family: 'JetBrains Mono',monospace; font-size: 11px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,0.7); padding: 8px 12px; border: 1px solid rgba(255,255,255,0.1); border-radius: 2px; transition: all 0.25s ease; background: none; }
     .lang-switch:hover { color: #fff; border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.04); }
     .lang-switch--current { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.06); pointer-events: none; }
     .lang-switch__globe { width: 14px; height: 14px; opacity: 0.5; }
@@ -836,12 +844,12 @@
     .overlay-menu { position: fixed; inset: 0; z-index: 300; background: #0A0C14; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-20px); transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s, transform 0.4s cubic-bezier(0.23,1,0.32,1); overflow-y: auto; }
     .overlay-menu.active { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
     .overlay-menu__inner { display: grid; grid-template-columns: 280px 1fr 340px; gap: 0 48px; max-width: 1200px; width: 100%; margin: 0 auto; padding: 100px 56px 60px; min-height: 100vh; align-content: start; }
-    .overlay-menu__label { display: block; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px; }
+    .overlay-menu__label { display: block; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.7); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px; }
     .overlay-menu__col-nav { grid-column: 1; }
     .overlay-menu__nav-list { display: flex; flex-direction: column; gap: 0; }
     .overlay-menu__nav-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; text-decoration: none; color: #fff; font-size: 17px; font-weight: 400; letter-spacing: 0.01em; cursor: pointer; transition: background 0.15s ease; }
     .overlay-menu__nav-item:hover, .overlay-menu__nav-item.is-active { background: rgba(255,255,255,0.06); }
-    .overlay-menu__nav-arrow { font-size: 16px; color: rgba(255,255,255,0.4); }
+    .overlay-menu__nav-arrow { font-size: 16px; color: rgba(255,255,255,0.7); }
     .overlay-menu__col-sub { grid-column: 2; }
     .overlay-menu__panel { display: none; flex-direction: column; gap: 0; }
     .overlay-menu__panel.is-visible { display: flex; }
@@ -850,8 +858,8 @@
     .overlay-menu__col-info { grid-column: 3; display: flex; flex-direction: column; justify-content: flex-start; }
     .overlay-menu__cta-btn { display: block; padding: 16px 32px; border: 1px solid rgba(255,255,255,0.25); color: #fff; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 12px; font-weight: 400; text-align: center; text-decoration: none; letter-spacing: 0.14em; text-transform: uppercase; }
     .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 4px; }
-    .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.3); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
-    .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
+    .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.7); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
+    .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.5); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
   
     /* ── GWES Solutions Navigation Cards ── */
     .gw-nav-cards {
@@ -1041,7 +1049,7 @@
         <p class="gw-layer__desc">GWESの全モジュールが利用するデータ収集・連携・変換・処理基盤。すべてのレベルで共通して機能します。</p>
         <div class="gw-modules gw-modules--infra">
           <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=dc'">
-            <div class="gw-mod__icon gw-mod__icon--infra"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="7" height="12" rx="1.5"/><rect x="20" y="10" width="7" height="12" rx="1.5"/><path d="M12 14h8"/><path d="M12 18h8"/><circle cx="14" cy="14" r="1" fill="currentColor" stroke="none"/><circle cx="18" cy="18" r="1" fill="currentColor" stroke="none"/></svg></div>
+            <div class="gw-mod__icon">DC</div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">DC</span>
               <div class="gw-mod__levels"><span class="gw-mod__level-tag gw-mod__level-tag--infra">ALL LEVELS</span></div>
@@ -1051,7 +1059,7 @@
             <span class="gw-mod__link">詳細を見る</span>
           </div>
           <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=bm'">
-            <div class="gw-mod__icon gw-mod__icon--infra"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="9" rx="10" ry="3"/><path d="M6 9v6c0 1.66 4.48 3 10 3s10-1.34 10-3V9"/><path d="M6 15v6c0 1.66 4.48 3 10 3s10-1.34 10-3v-6"/></svg></div>
+            <div class="gw-mod__icon">BM</div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">BM</span>
               <div class="gw-mod__levels"><span class="gw-mod__level-tag gw-mod__level-tag--infra">ALL LEVELS</span></div>
@@ -1061,7 +1069,7 @@
             <span class="gw-mod__link">詳細を見る</span>
           </div>
           <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=me'">
-            <div class="gw-mod__icon gw-mod__icon--infra"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="4.5"/><path d="M16 4v3.5M16 24.5V28M4 16h3.5M24.5 16H28M7.8 7.8l2.5 2.5M21.7 21.7l2.5 2.5M24.2 7.8l-2.5 2.5M10.3 21.7l-2.5 2.5"/></svg></div>
+            <div class="gw-mod__icon">ME</div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">ME</span>
               <div class="gw-mod__levels"><span class="gw-mod__level-tag gw-mod__level-tag--infra">ALL LEVELS</span></div>
@@ -1082,7 +1090,7 @@
         <p class="gw-layer__desc">Level 2（可視化）で主要機能を発揮するモジュール群。特にWFはL2・L4・L5を横断する中核的な役割を担います。</p>
         <div class="gw-modules gw-modules--l2">
           <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=wf'">
-            <div class="gw-mod__icon gw-mod__icon--l2"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 26V6"/><path d="M4 26h24"/><path d="M7 20l5-6 4 3 5-7 4-2"/><circle cx="25" cy="8" r="1.5" fill="currentColor" stroke="none"/></svg></div>
+            <div class="gw-mod__icon">WF</div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">WF</span>
               <div class="gw-mod__levels">
@@ -1096,7 +1104,7 @@
             <span class="gw-mod__link">詳細を見る</span>
           </div>
           <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=pa'">
-            <div class="gw-mod__icon gw-mod__icon--l2"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="11" opacity="0.25"/><path d="M16 5a11 11 0 0 1 9.5 16.5" stroke-width="2"/><path d="M16 11v5l3.5 3.5"/></svg></div>
+            <div class="gw-mod__icon">PA</div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">PA</span>
               <div class="gw-mod__levels"><span class="gw-mod__level-tag gw-mod__level-tag--l2">L2</span></div>
@@ -1106,7 +1114,7 @@
             <span class="gw-mod__link">詳細を見る</span>
           </div>
           <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=wa'">
-            <div class="gw-mod__icon gw-mod__icon--l2"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="18" width="4" height="8" rx="1"/><rect x="11" y="12" width="4" height="14" rx="1"/><rect x="17" y="8" width="4" height="18" rx="1"/><rect x="23" y="14" width="4" height="12" rx="1"/></svg></div>
+            <div class="gw-mod__icon">WA</div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">WA</span>
               <div class="gw-mod__levels"><span class="gw-mod__level-tag gw-mod__level-tag--l2">L2</span></div>
@@ -1116,7 +1124,7 @@
             <span class="gw-mod__link">詳細を見る</span>
           </div>
           <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=ia'">
-            <div class="gw-mod__icon gw-mod__icon--l2"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="10" height="10" rx="2"/><rect x="18" y="4" width="10" height="10" rx="2"/><rect x="4" y="18" width="10" height="10" rx="2"/><rect x="18" y="18" width="10" height="10" rx="2"/><path d="M9 4v10M4 9h10"/></svg></div>
+            <div class="gw-mod__icon">IA</div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">IA</span>
               <div class="gw-mod__levels"><span class="gw-mod__level-tag gw-mod__level-tag--l2">L2</span></div>
@@ -1137,7 +1145,7 @@
         <p class="gw-layer__desc">L4で「あるべき判断ロジック」を定義し、L5ではそのロジックをシステムが自律的に実行。L4→L5の進化は「人が最適解を選ぶ」から「システムが最適解を自動実行する」への転換です。</p>
         <div class="gw-modules gw-modules--l4">
           <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=so'">
-            <div class="gw-mod__icon gw-mod__icon--l4"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="22" height="24" rx="2"/><path d="M5 12h22M5 20h22"/><path d="M14 4v24"/></svg></div>
+            <div class="gw-mod__icon">SO</div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">SO</span>
               <div class="gw-mod__levels">
@@ -1150,7 +1158,7 @@
             <span class="gw-mod__link">詳細を見る</span>
           </div>
           <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=ro'">
-            <div class="gw-mod__icon gw-mod__icon--l4"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="26" r="2.5"/><circle cx="26" cy="6" r="2.5"/><path d="M8 24c4-4 4-8 8-10s8-2 8-6"/><circle cx="16" cy="16" r="1.5" fill="currentColor" stroke="none"/></svg></div>
+            <div class="gw-mod__icon">RO</div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">RO</span>
               <div class="gw-mod__levels">
@@ -1163,7 +1171,7 @@
             <span class="gw-mod__link">詳細を見る</span>
           </div>
           <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=lo'">
-            <div class="gw-mod__icon gw-mod__icon--l4"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="16" height="13" rx="2"/><path d="M19 14h6l4 5v3H19v-8z"/><circle cx="9" cy="25" r="2.5"/><circle cx="23" cy="25" r="2.5"/><path d="M3 21h3.5M19.5 21h1"/></svg></div>
+            <div class="gw-mod__icon">LO</div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">LO</span>
               <div class="gw-mod__levels">
@@ -1176,7 +1184,7 @@
             <span class="gw-mod__link">詳細を見る</span>
           </div>
           <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=do'">
-            <div class="gw-mod__icon gw-mod__icon--l4"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16h14"/><path d="M17 10l6 6-6 6"/><rect x="4" y="6" width="2" height="20" rx="1"/></svg></div>
+            <div class="gw-mod__icon">DO</div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">DO</span>
               <div class="gw-mod__levels">
@@ -1189,7 +1197,7 @@
             <span class="gw-mod__link">詳細を見る</span>
           </div>
           <div class="gw-mod" onclick="location.href='gwes-detail.html?mod=ra'">
-            <div class="gw-mod__icon gw-mod__icon--l4"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="8" r="3.5"/><path d="M9 28v-3a7 7 0 0 1 14 0v3"/><circle cx="6" cy="14" r="2.5"/><path d="M2 24v-2a4 4 0 0 1 4-4"/><circle cx="26" cy="14" r="2.5"/><path d="M30 24v-2a4 4 0 0 0-4-4"/></svg></div>
+            <div class="gw-mod__icon">RA</div>
             <div class="gw-mod__top">
               <span class="gw-mod__abbr">RA</span>
               <div class="gw-mod__levels">
@@ -1487,6 +1495,61 @@
       }
     });
   })();
+</script>
+
+<!-- Phyllotaxis Intelligence Mark — C7 Titanium Metal -->
+<script>
+(function(){
+  var canvas = document.getElementById('gwesPhyllotaxis');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var dpr = window.devicePixelRatio || 1;
+  var cssW = 150, cssH = 155;
+  canvas.style.width = cssW + 'px';
+  canvas.style.height = cssH + 'px';
+  canvas.width = cssW * dpr;
+  canvas.height = cssH * dpr;
+  ctx.scale(dpr, dpr);
+
+  var N = 55, S = 9.5;
+  var ga = 137.5077 * Math.PI / 180;
+  var markCX = cssW / 2, markCY = 72, pad = 10;
+  var maxR = S * Math.sqrt(N);
+  var sc = (cssW / 2 - pad) / maxR;
+
+  var hi = [230,233,240];
+  var lo = [145,150,165];
+  var shadowRGB = [140,145,155];
+  var shadowAlpha = 0.10;
+
+  for (var b = 0; b < 3; b++) {
+    ctx.save();
+    ctx.globalAlpha = shadowAlpha;
+    ctx.beginPath();
+    ctx.ellipse(markCX, markCY + maxR*sc + 10 + b*2,
+                10 + b*2.5, 1.8 + b*0.5, 0, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(' + shadowRGB.join(',') + ',1)';
+    ctx.fill();
+    ctx.restore();
+  }
+
+  for (var i = 1; i <= N; i++) {
+    var r  = S * Math.sqrt(i);
+    var th = i * ga;
+    var x  = markCX + r * sc * Math.cos(th);
+    var y  = markCY + r * sc * Math.sin(th);
+    var t  = (i - 1) / (N - 1);
+    var dotR = Math.max(5.3 - t*3.6, 2.5) * sc;
+    var op = 0.93 - t * 0.45;
+    var cr = Math.round(hi[0] + t * (lo[0] - hi[0]));
+    var cg = Math.round(hi[1] + t * (lo[1] - hi[1]));
+    var cb = Math.round(hi[2] + t * (lo[2] - hi[2]));
+    ctx.beginPath();
+    ctx.arc(x, y, dotR, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(' + cr + ',' + cg + ',' + cb + ',' + op + ')';
+    ctx.fill();
+  }
+})();
 </script>
 
 </body>

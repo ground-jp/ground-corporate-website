@@ -224,8 +224,8 @@
   
     /* Language Switcher — inside overlay menu */
     .lang-switch-bar { display: flex; align-items: center; gap: 16px; padding: 20px 0 0; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
-    .lang-switch { display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono',monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,0.35); padding: 8px 12px; border: 1px solid rgba(255,255,255,0.1); border-radius: 2px; transition: all 0.25s ease; background: none; }
-    .lang-switch:hover { color: #fff; border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.04); }
+    .lang-switch { display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono',monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,0.7); padding: 8px 12px; border: 1px solid rgba(255,255,255,0.1); border-radius: 2px; transition: all 0.25s ease; background: none; }
+    .lang-switch:hover { color: #fff; border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.04); }
     .lang-switch--current { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.06); pointer-events: none; }
     .lang-switch__globe { width: 14px; height: 14px; opacity: 0.5; }
     .lang-switch:hover .lang-switch__globe { opacity: 1; }
@@ -242,12 +242,12 @@
     .overlay-menu { position: fixed; inset: 0; z-index: 300; background: #0A0C14; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-20px); transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s, transform 0.4s cubic-bezier(0.23,1,0.32,1); overflow-y: auto; }
     .overlay-menu.active { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
     .overlay-menu__inner { display: grid; grid-template-columns: 280px 1fr 340px; gap: 0 48px; max-width: 1200px; width: 100%; margin: 0 auto; padding: 100px 56px 60px; min-height: 100vh; align-content: start; }
-    .overlay-menu__label { display: block; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px; }
+    .overlay-menu__label { display: block; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.7); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px; }
     .overlay-menu__col-nav { grid-column: 1; }
     .overlay-menu__nav-list { display: flex; flex-direction: column; gap: 0; }
     .overlay-menu__nav-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; text-decoration: none; color: #fff; font-size: 17px; font-weight: 500; letter-spacing: 0.01em; cursor: pointer; transition: background 0.15s ease; }
     .overlay-menu__nav-item:hover, .overlay-menu__nav-item.is-active { background: rgba(255,255,255,0.06); }
-    .overlay-menu__nav-arrow { font-size: 16px; color: rgba(255,255,255,0.4); }
+    .overlay-menu__nav-arrow { font-size: 16px; color: rgba(255,255,255,0.7); }
     .overlay-menu__col-sub { grid-column: 2; }
     .overlay-menu__panel { display: none; flex-direction: column; gap: 0; }
     .overlay-menu__panel.is-visible { display: flex; }
@@ -256,8 +256,8 @@
     .overlay-menu__col-info { grid-column: 3; display: flex; flex-direction: column; justify-content: flex-start; }
     .overlay-menu__cta-btn { display: block; padding: 16px 32px; border: 1px solid rgba(255,255,255,0.25); color: #fff; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 12px; font-weight: 500; text-align: center; text-decoration: none; letter-spacing: 0.14em; text-transform: uppercase; }
     .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
-    .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.3); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
-    .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
+    .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.7); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
+    .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: #FFFFFF; font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
   </style>
   <link rel="canonical" href="https://groundinc.co.jp/gpim-consulting.html">
 <script type="application/ld+json">

@@ -22,7 +22,7 @@
       --gw-border-hover: #545867;
       --gw-text-1: #FFFFFF;
       --gw-text-2: rgba(255,255,255,0.92);
-      --gw-text-3: rgba(255,255,255,0.55);
+      --gw-text-3: #FFFFFF;
       --gw-accent: #3B82F6;
       --gw-infra: #8A8C9A;
       --gw-l2: #60A5FA;
@@ -45,43 +45,42 @@
     .gw-bc a:hover { color: var(--gw-text-2); }
 
     /* ── GWES Logo (centered hero) — V4 Grid Dominant Refined ── */
+    /* ── GWES Logo — C7 Titanium Metal Vertical Lockup ── */
     .gw-logo {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: 0;
     }
     .gw-logo__mark {
-      width: 140px; height: 140px;
+      width: 150px; height: 155px;
       flex-shrink: 0;
     }
-    .gw-logo__mark img {
-      width: 100%; height: 100%;
+    .gw-logo__mark canvas {
+      width: 150px; height: 155px;
       display: block;
     }
     .gw-logo__text {
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      padding-top: 10px;
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+      margin-top: -2px;
     }
     .gw-logo__text::before {
-      content: '';
-      display: block;
-      width: 40px; height: 1px;
-      background: rgba(106,198,236,0.45);
-      margin-bottom: 2px;
+      display: none;
     }
     .gw-logo__name {
       font-family: 'Archivo', sans-serif;
-      font-size: 1.5rem; font-weight: 400;
-      color: #FFFFFF; letter-spacing: 0.28em;
-      padding-right: 0.28em;
+      font-size: 42px; font-weight: 700;
+      color: #FFFFFF; letter-spacing: 0.03em;
       line-height: 1;
+      text-indent: 0.03em;
     }
     .gw-logo__full {
       font-family: 'Archivo', sans-serif;
-      font-size: 0.6rem; font-weight: 400;
-      letter-spacing: 0.12em;
-      padding-right: 0.12em;
-      color: rgba(255,255,255,0.7);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.03em;
+      color: rgba(255,255,255,0.55);
       line-height: 1;
+      white-space: nowrap;
+      margin-top: 2px;
+      text-indent: 0.03em;
     }
 
     /* ── Hero ── */
@@ -784,11 +783,12 @@
       }
     }
     @media (max-width: 768px) {
-      .gw-logo__mark { width: 100px; height: 100px; }
-      .gw-logo__text { padding-top: 8px; gap: 4px; }
-      .gw-logo__text::before { width: 32px; }
-      .gw-logo__name { font-size: 1.2rem; }
-      .gw-logo__full { font-size: 0.5rem; }
+      .gw-logo { gap: 0; }
+      .gw-logo__mark { width: 120px; height: 124px; }
+      .gw-logo__mark canvas { width: 120px; height: 124px; }
+      .gw-logo__text { gap: 0; }
+      .gw-logo__name { font-size: 32px; }
+      .gw-logo__full { font-size: 9px; }
       .gw-laptop__screen { padding: 10px 10px 0; border-radius: 8px 8px 0 0; }
       .gw-laptop__base { height: 6px; }
       .gw-laptop__screen-glow { inset: -30px -40px -10px -40px; }
@@ -818,7 +818,7 @@
   
     /* Language Switcher — inside overlay menu */
     .lang-switch-bar { display: flex; align-items: center; gap: 16px; padding: 20px 0 0; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
-    .lang-switch { display: inline-flex; align-items: center; gap: 4px; font-family: 'JetBrains Mono',monospace; font-size: 11px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,0.35); padding: 8px 12px; border: 1px solid rgba(255,255,255,0.1); border-radius: 2px; transition: all 0.25s ease; background: none; }
+    .lang-switch { display: inline-flex; align-items: center; gap: 4px; font-family: 'JetBrains Mono',monospace; font-size: 11px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,0.7); padding: 8px 12px; border: 1px solid rgba(255,255,255,0.1); border-radius: 2px; transition: all 0.25s ease; background: none; }
     .lang-switch:hover { color: #fff; border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.04); }
     .lang-switch--current { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.06); pointer-events: none; }
     .lang-switch__globe { width: 14px; height: 14px; opacity: 0.5; }
@@ -836,12 +836,12 @@
     .overlay-menu { position: fixed; inset: 0; z-index: 300; background: #0A0C14; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-20px); transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s, transform 0.4s cubic-bezier(0.23,1,0.32,1); overflow-y: auto; }
     .overlay-menu.active { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
     .overlay-menu__inner { display: grid; grid-template-columns: 280px 1fr 340px; gap: 0 48px; max-width: 1200px; width: 100%; margin: 0 auto; padding: 100px 56px 60px; min-height: 100vh; align-content: start; }
-    .overlay-menu__label { display: block; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px; }
+    .overlay-menu__label { display: block; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.7); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px; }
     .overlay-menu__col-nav { grid-column: 1; }
     .overlay-menu__nav-list { display: flex; flex-direction: column; gap: 0; }
     .overlay-menu__nav-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; text-decoration: none; color: #fff; font-size: 17px; font-weight: 400; letter-spacing: 0.01em; cursor: pointer; transition: background 0.15s ease; }
     .overlay-menu__nav-item:hover, .overlay-menu__nav-item.is-active { background: rgba(255,255,255,0.06); }
-    .overlay-menu__nav-arrow { font-size: 16px; color: rgba(255,255,255,0.4); }
+    .overlay-menu__nav-arrow { font-size: 16px; color: rgba(255,255,255,0.7); }
     .overlay-menu__col-sub { grid-column: 2; }
     .overlay-menu__panel { display: none; flex-direction: column; gap: 0; }
     .overlay-menu__panel.is-visible { display: flex; }
@@ -850,8 +850,8 @@
     .overlay-menu__col-info { grid-column: 3; display: flex; flex-direction: column; justify-content: flex-start; }
     .overlay-menu__cta-btn { display: block; padding: 16px 32px; border: 1px solid rgba(255,255,255,0.25); color: #fff; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 12px; font-weight: 400; text-align: center; text-decoration: none; letter-spacing: 0.14em; text-transform: uppercase; }
     .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 4px; }
-    .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.3); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
-    .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.12); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
+    .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.7); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
+    .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.5); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
   
     /* ── GWES Solutions Navigation Cards ── */
     .gw-nav-cards {
@@ -1392,6 +1392,61 @@
       }
     });
   })();
+</script>
+
+<!-- Phyllotaxis Intelligence Mark — C7 Titanium Metal -->
+<script>
+(function(){
+  var canvas = document.getElementById('gwesPhyllotaxis');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var dpr = window.devicePixelRatio || 1;
+  var cssW = 150, cssH = 155;
+  canvas.style.width = cssW + 'px';
+  canvas.style.height = cssH + 'px';
+  canvas.width = cssW * dpr;
+  canvas.height = cssH * dpr;
+  ctx.scale(dpr, dpr);
+
+  var N = 55, S = 9.5;
+  var ga = 137.5077 * Math.PI / 180;
+  var markCX = cssW / 2, markCY = 72, pad = 10;
+  var maxR = S * Math.sqrt(N);
+  var sc = (cssW / 2 - pad) / maxR;
+
+  var hi = [230,233,240];
+  var lo = [145,150,165];
+  var shadowRGB = [140,145,155];
+  var shadowAlpha = 0.10;
+
+  for (var b = 0; b < 3; b++) {
+    ctx.save();
+    ctx.globalAlpha = shadowAlpha;
+    ctx.beginPath();
+    ctx.ellipse(markCX, markCY + maxR*sc + 10 + b*2,
+                10 + b*2.5, 1.8 + b*0.5, 0, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(' + shadowRGB.join(',') + ',1)';
+    ctx.fill();
+    ctx.restore();
+  }
+
+  for (var i = 1; i <= N; i++) {
+    var r  = S * Math.sqrt(i);
+    var th = i * ga;
+    var x  = markCX + r * sc * Math.cos(th);
+    var y  = markCY + r * sc * Math.sin(th);
+    var t  = (i - 1) / (N - 1);
+    var dotR = Math.max(5.3 - t*3.6, 2.5) * sc;
+    var op = 0.93 - t * 0.45;
+    var cr = Math.round(hi[0] + t * (lo[0] - hi[0]));
+    var cg = Math.round(hi[1] + t * (lo[1] - hi[1]));
+    var cb = Math.round(hi[2] + t * (lo[2] - hi[2]));
+    ctx.beginPath();
+    ctx.arc(x, y, dotR, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(' + cr + ',' + cg + ',' + cb + ',' + op + ')';
+    ctx.fill();
+  }
+})();
 </script>
 
 </body>
