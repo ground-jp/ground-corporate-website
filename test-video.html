@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Autoplay Test</title>
+<style>
+body { margin: 0; background: #000; color: #fff; font-family: sans-serif; }
+.test { margin: 20px; }
+video { width: 100%; max-width: 640px; display: block; margin: 10px 0; background: #333; }
+.status { padding: 8px; background: #222; margin: 5px 0; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="test">
+<h2>Test 1: HTML attributes only (no JS)</h2>
+<video autoplay muted playsinline loop preload="auto">
+  <source src="img/hero-video-2026.mp4?v=3" type="video/mp4">
+</video>
+<div class="status" id="s1">Loading...</div>
+</div>
+
+<div class="test">
+<h2>Test 2: JS play() on load</h2>
+<video id="v2" muted playsinline loop preload="auto">
+  <source src="img/hero-video-2026.mp4?v=3" type="video/mp4">
+</video>
+<div class="status" id="s2">Loading...</div>
+</div>
+
+<div class="test">
+<h2>Test 3: JS play() with user interaction simulation</h2>
+<video id="v3" muted playsinline preload="auto">
+  <source src="img/hero-video-neural-v2.mp4?v=3" type="video/mp4">
+</video>
+<div class="status" id="s3">Loading...</div>
+<button onclick="document.getElementById('v3').play()">Click to Play</button>
+</div>
+
+<script>
+function updateStatus(vid, el) {
+  var states = ['HAVE_NOTHING','HAVE_METADATA','HAVE_CURRENT_DATA','HAVE_FUTURE_DATA','HAVE_ENOUGH_DATA'];
+  el.textContent = 'readyState=' + states[vid.readyState] +
+    ' paused=' + vid.paused +
+    ' muted=' + vid.muted +
+    ' error=' + (vid.error ? vid.error.code : 'none');
+}
+
+// Test 1: just report status
+var v1 = document.querySelector('.test:nth-child(1) video');
+setInterval(function(){ updateStatus(v1, document.getElementById('s1')); }, 500);
+
+// Test 2: try play() immediately
+var v2 = document.getElementById('v2');
+v2.play().then(function(){
+  document.getElementById('s2').textContent = 'PLAYING via JS play()';
+}).catch(function(e){
+  document.getElementById('s2').textContent = 'play() rejected: ' + e.message;
+});
+setInterval(function(){ updateStatus(v2, document.getElementById('s2')); }, 1000);
+
+// Test 3
+var v3 = document.getElementById('v3');
+setInterval(function(){ updateStatus(v3, document.getElementById('s3')); }, 500);
+</script>
+</body>
+</html>
