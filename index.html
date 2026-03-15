@@ -280,15 +280,19 @@
   <section class="hero" id="hero">
     <img class="hero__poster" src="img/hero-poster.jpg" alt="" aria-hidden="true">
     <video id="heroVideo" autoplay muted playsinline webkit-playsinline preload="metadata" loop
-           aria-hidden="true"
-           src="img/hero-video-2026.mp4?v=6"></video>
+           aria-hidden="true"></video>
     <script>
-      // Inline: try autoplay IMMEDIATELY
+      // Inline: pick random video and try autoplay IMMEDIATELY
       (function(){
+        var heroVideos = ['img/hero-video-2026.mp4?v=6','img/hero-video-neural-v2.mp4?v=6','img/hero-preview.mp4?v=6'];
+        var startIdx = Math.floor(Math.random() * heroVideos.length);
         var v = document.getElementById('heroVideo');
+        v.setAttribute('data-video-idx', startIdx);
+        v.src = heroVideos[startIdx];
         v.defaultMuted = true;
         v.muted = true;
         v.volume = 0;
+        v.load();
         v.play().then(function(){
           v.classList.add('is-playing');
         }).catch(function(){});
@@ -439,7 +443,7 @@
       var hero = document.getElementById('hero');
       if (!v || !hero) return;
       var videos = ['img/hero-video-2026.mp4?v=6','img/hero-video-neural-v2.mp4?v=6','img/hero-preview.mp4?v=6'];
-      var idx = 0;
+      var idx = parseInt(v.getAttribute('data-video-idx') || '0', 10);
       var playing = false;
 
       function onPlaying() {
