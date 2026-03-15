@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ユースケース | GWES - 物流OS | GROUND Inc.">
+  <meta property="og:description" content="GWESモジュールの組み合わせによる活用パターン。要員最適化、在庫・動線最適化、梱包・配送最適化など、課題別に最適なモジュール構成をご紹介します。">
+  <meta property="og:url" content="https://groundinc.co.jp/gwes-usecases.html">
+  <meta property="og:site_name" content="GROUND Inc.">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:image" content="https://groundinc.co.jp/img/ogp-default.svg">
+  <title>ユースケース | GWES - 物流OS | GROUND Inc.</title>
+  <meta name="description" content="GWESの12モジュールを課題に応じて組み合わせる活用パターン。要員最適化サイクル、在庫・動線最適化、梱包・配送最適化、統合プラットフォーム管理の4つのユースケースを紹介。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=61">
+  <script>
+    (function(){try{var c=localStorage.getItem('ds-cache');if(c){var s=JSON.parse(c),r=document.documentElement.style;if(s.logo_height)r.setProperty('--ds-logo-height',s.logo_height+'px');if(s.header_height)r.setProperty('--ds-header-height',s.header_height+'px');if(s.header_bg_color)r.setProperty('--ds-header-bg',s.header_bg_color);}}catch(e){}})();
+  </script>
+  <style>
+    :root {
+      --gw-bg: #0A0C14;
+      --gw-surface: #161822;
+      --gw-surface-2: #1A1A1A;
+      --gw-border: #3F4250;
+      --gw-border-hover: #545867;
+      --gw-text-1: #FFFFFF;
+      --gw-text-2: #FFFFFF;
+      --gw-text-3: #FFFFFF;
+      --gw-accent: #5BC0EB;
+      --gw-infra: #8A8C9A;
+      --gw-l2: #60A5FA;
+      --gw-l4: #3B82F6;
+      --gw-green: #34D399;
+      --gw-box-bg: #1A1A1A;
+      --gw-box-border: #545867;
+    }
+
+    body { background: var(--gw-bg) !important; }
+    .header { background: var(--gw-bg) !important; }
+
+    /* ── Breadcrumb ── */
+    .page-header { padding: 0; }
+    .gw-bc {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; color: var(--gw-text-3);
+    }
+    .gw-bc a { color: var(--gw-text-3); text-decoration: none; transition: color 0.2s; }
+    .gw-bc a:hover { color: var(--gw-text-2); }
+
+    /* ── Hero ── */
+    .uc-hero {
+      padding: 120px 0 80px;
+      background: var(--gw-bg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .uc-hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 600px;
+      background: radial-gradient(ellipse 50% 40% at 50% 30%, rgba(91,192,235,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .uc-hero__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gw-accent);
+      margin-bottom: 16px; display: block;
+    }
+    .uc-hero__title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 600; color: #FFFFFF;
+      letter-spacing: -0.02em; line-height: 1.4;
+      margin: 0 0 16px;
+    }
+    .uc-hero__desc {
+      font-size: 0.88rem; color: var(--gw-text-2);
+      line-height: 2.0; max-width: 640px;
+      margin: 0 auto;
+      opacity: 0.85;
+    }
+
+    /* ── Section Common ── */
+    .gw-section {
+      padding: 80px 0;
+      background: var(--gw-bg);
+    }
+    .gw-section--alt {
+      background: #0D0F18;
+    }
+    .gw-section__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gw-accent);
+      opacity: 1; margin-bottom: 12px; display: block;
+    }
+    .gw-section__heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--gw-text-1); letter-spacing: -0.02em;
+      line-height: 1.4; margin-bottom: 16px;
+    }
+    .gw-section__desc {
+      font-size: 0.85rem; color: var(--gw-text-2);
+      line-height: 2.0; max-width: 640px;
+      margin-bottom: 48px;
+    }
+
+    /* ── Use Case Card ── */
+    .uc-card {
+      background: var(--gw-surface);
+      border: 1px solid var(--gw-border);
+      border-radius: 16px;
+      padding: 48px 44px;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .uc-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .uc-card--workforce::before { background: linear-gradient(90deg, #5BC0EB, #3B82F6); }
+    .uc-card--inventory::before { background: linear-gradient(90deg, #34D399, #5BC0EB); }
+    .uc-card--packing::before { background: linear-gradient(90deg, #F59E0B, #F97316); }
+    .uc-card--platform::before { background: linear-gradient(90deg, #8B5CF6, #6366F1); }
+
+    .uc-card__header {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .uc-card__num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2.4rem; font-weight: 700;
+      line-height: 1;
+      flex-shrink: 0;
+      width: 72px;
+    }
+    .uc-card--workforce .uc-card__num { color: #5BC0EB; }
+    .uc-card--inventory .uc-card__num { color: #34D399; }
+    .uc-card--packing .uc-card__num { color: #F59E0B; }
+    .uc-card--platform .uc-card__num { color: #8B5CF6; }
+
+    .uc-card__title-group { flex: 1; }
+    .uc-card__title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.3rem; font-weight: 600;
+      color: var(--gw-text-1);
+      margin: 0 0 8px;
+      letter-spacing: -0.01em;
+    }
+    .uc-card__subtitle {
+      font-size: 0.82rem; color: var(--gw-text-3);
+      opacity: 0.7;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.04em;
+    }
+    .uc-card__desc {
+      font-size: 0.85rem; color: var(--gw-text-2);
+      line-height: 2.0;
+      margin-bottom: 36px;
+      max-width: 640px;
+    }
+
+    /* ── Module Flow ── */
+    .uc-flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+      padding: 28px 32px;
+      background: rgba(10, 12, 20, 0.6);
+      border-radius: 12px;
+      border: 1px solid rgba(63, 66, 80, 0.5);
+    }
+    .uc-flow__step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      min-width: 80px;
+    }
+    .uc-flow__badge {
+      width: 56px; height: 56px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 0.04em;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .uc-flow__badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .uc-flow__badge--l2 {
+      background: rgba(96, 165, 250, 0.15);
+      border: 1px solid rgba(96, 165, 250, 0.35);
+      color: #93C5FD;
+    }
+    .uc-flow__badge--l4 {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      color: #60A5FA;
+    }
+    .uc-flow__badge--infra {
+      background: rgba(139, 149, 165, 0.15);
+      border: 1px solid rgba(139, 149, 165, 0.35);
+      color: #C8CDD8;
+    }
+    .uc-flow__name {
+      font-size: 0.68rem; color: var(--gw-text-3);
+      opacity: 0.7; text-align: center;
+      line-height: 1.3;
+      max-width: 90px;
+    }
+    .uc-flow__arrow {
+      display: flex; align-items: center;
+      padding: 0 8px;
+      color: var(--gw-border-hover);
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    .uc-flow__arrow svg {
+      width: 28px; height: 28px;
+    }
+
+    /* ── Benefits Grid ── */
+    .uc-benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .uc-benefit {
+      padding: 20px 22px;
+      background: rgba(26, 26, 26, 0.6);
+      border: 1px solid rgba(63, 66, 80, 0.5);
+      border-radius: 10px;
+    }
+    .uc-benefit__icon {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .uc-benefit__title {
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--gw-text-1);
+      margin-bottom: 6px;
+    }
+    .uc-benefit__text {
+      font-size: 0.78rem; color: var(--gw-text-3);
+      line-height: 1.7;
+      opacity: 0.8;
+    }
+
+    /* ── Cycle Indicator ── */
+    .uc-cycle {
+      display: inline-flex;
+      align-items: center; gap: 6px;
+      font-size: 0.72rem;
+      color: var(--gw-accent);
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+      padding: 4px 12px;
+      background: rgba(91, 192, 235, 0.08);
+      border-radius: 100px;
+      border: 1px solid rgba(91, 192, 235, 0.2);
+    }
+
+    /* ── How it Works Section ── */
+    .uc-how {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .uc-how__visual {
+      background: rgba(10, 12, 20, 0.5);
+      border: 1px solid rgba(63, 66, 80, 0.5);
+      border-radius: 16px;
+      padding: 36px;
+    }
+    .uc-how__steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .uc-how__step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(63, 66, 80, 0.3);
+    }
+    .uc-how__step:last-child {
+      border-bottom: none;
+    }
+    .uc-how__step-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--gw-accent);
+      letter-spacing: 0.08em;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .uc-how__step-title {
+      font-size: 0.88rem; font-weight: 600;
+      color: var(--gw-text-1);
+      margin-bottom: 4px;
+    }
+    .uc-how__step-desc {
+      font-size: 0.78rem; color: var(--gw-text-3);
+      line-height: 1.7;
+      opacity: 0.8;
+    }
+
+    /* ── CTA ── */
+    .gw-cta {
+      padding: 80px 0;
+      background: var(--gw-bg);
+      text-align: center;
+    }
+    .gw-cta__inner {
+      max-width: 560px; margin: 0 auto;
+    }
+    .gw-cta__title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.6rem; font-weight: 600;
+      color: var(--gw-text-1);
+      margin: 0 0 16px;
+    }
+    .gw-cta__desc {
+      font-size: 0.85rem; color: var(--gw-text-2);
+      line-height: 2.0; margin: 0 0 32px;
+    }
+    .gw-cta__actions {
+      display: flex; gap: 16px; justify-content: center;
+    }
+
+    /* ── Divider ── */
+    .gw-divider {
+      width: 100%; height: 1px;
+      background: #3F4250;
+    }
+
+    /* ── Fade ── */
+    .gw-fade {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .gw-fade.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Summary Grid ── */
+    .uc-summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .uc-summary__card {
+      background: var(--gw-box-bg);
+      border: 1px solid var(--gw-box-border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.35s, background 0.35s, box-shadow 0.35s, transform 0.35s;
+    }
+    .uc-summary__card:hover {
+      border-color: #636A78;
+      background: #3F4250;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+      transform: translateY(-4px);
+    }
+    .uc-summary__icon {
+      font-size: 2rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .uc-summary__name {
+      font-size: 0.95rem; font-weight: 600;
+      color: var(--gw-text-1);
+      margin-bottom: 8px;
+    }
+    .uc-summary__modules {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+    .uc-summary__card:nth-child(1) .uc-summary__modules { color: #5BC0EB; }
+    .uc-summary__card:nth-child(2) .uc-summary__modules { color: #34D399; }
+    .uc-summary__card:nth-child(3) .uc-summary__modules { color: #F59E0B; }
+    .uc-summary__card:nth-child(4) .uc-summary__modules { color: #8B5CF6; }
+    .uc-summary__desc {
+      font-size: 0.78rem; color: var(--gw-text-3);
+      line-height: 1.6;
+      opacity: 0.8;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .uc-summary { grid-template-columns: repeat(2, 1fr); }
+      .uc-benefits { grid-template-columns: 1fr 1fr; }
+      .uc-how { grid-template-columns: 1fr; }
+      .uc-card { padding: 36px 28px; }
+      .uc-flow { padding: 20px 16px; }
+    }
+    @media (max-width: 600px) {
+      .uc-summary { grid-template-columns: 1fr; }
+      .uc-benefits { grid-template-columns: 1fr; }
+      .uc-card__header { flex-direction: column; gap: 12px; }
+      .uc-card__num { font-size: 1.8rem; }
+      .uc-flow { flex-direction: column; gap: 12px; }
+      .uc-flow__arrow { transform: rotate(90deg); padding: 4px 0; margin-bottom: 0; }
+      .uc-hero { padding: 100px 0 60px; }
+    }
+
+    /* ── Overlay menu (same as other GWES pages) ── */
+    .overlay-menu__cta-btn { display: block; padding: 16px 32px; border: 1px solid rgba(255,255,255,0.25); color: #fff; font-family: var(--font-mono,'JetBrains Mono',monospace); font-size: 12px; font-weight: 500; text-align: center; text-decoration: none; letter-spacing: 0.14em; text-transform: uppercase; }
+    .overlay-menu__contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
+    .overlay-menu__contact-info span { font-size: 12px; color: rgba(255,255,255,0.7); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.03em; }
+    .overlay-menu__copyright { margin-top: 40px; font-size: 10px; color: rgba(255,255,255,0.5); font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.06em; }
+  </style>
+  <link rel="canonical" href="https://groundinc.co.jp/gwes-usecases.html">
+  <link rel="alternate" hreflang="ja" href="https://groundinc.co.jp/gwes-usecases.html">
+  <link rel="alternate" hreflang="x-default" href="https://groundinc.co.jp/gwes-usecases.html">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.svg">
+<style id="design-editor-visibility"></style><style id="design-editor-overrides"></style></head>
+<body>
+<header class="header" id="header">
+    <div class="header__inner">
+      <a class="header__logo" href="/" style="outline: currentcolor !important;"><svg class="header__logo-img" viewBox="0 0 3877 1938" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M0 0 H3877 V244 H244 V1694 H3632 V966 H3877 V1938 H0 Z"></path></svg><span class="header__logo-text" style="font-family:'Archivo',sans-serif;font-weight:700;font-size:22px;letter-spacing:0.03em;color:#fff;line-height:1;">GROUND</span></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Fullscreen Overlay Menu -->
+  <div class="overlay-menu" id="overlayMenu">
+    <div class="overlay-menu__inner">
+      <div class="overlay-menu__col-nav">
+        <span class="overlay-menu__label">[NAVIGATION]</span>
+        <div class="overlay-menu__nav-list">
+          <a class="overlay-menu__nav-item" href="/about">会社情報<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" href="/gpim">GPIM<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" href="/service">製品・サービス<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" href="/gwes">GWES<span class="overlay-menu__nav-arrow">›</span></a>
+          <a href="gwes-technology.html" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― テクノロジー</a>
+          <a href="gwes-modules.html" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― モジュール一覧</a>
+          <a href="gwes-usecases.html" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― ユースケース</a>
+          <a href="gwes-implementation.html" class="overlay-menu__sub-item" style="padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.6);">― 導入・効果</a>
+          <a class="overlay-menu__nav-item" href="/works">導入実績<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" href="/news">ニュース<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" href="/blog">ブログ<span class="overlay-menu__nav-arrow">›</span></a>
+          <a class="overlay-menu__nav-item" href="/careers">採用<span class="overlay-menu__nav-arrow">›</span></a>
+        </div>
+      </div>
+      <div class="overlay-menu__col-info">
+        <a class="overlay-menu__cta-btn" href="/contact">CONTACT US</a>
+        <div class="overlay-menu__contact-info">
+          <span>TEL: 03-6457-1650</span>
+          <span>Info@groundinc.co.jp</span>
+        </div>
+        <div class="overlay-menu__copyright">© 2026 GROUND Inc.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Breadcrumb -->
+  <section class="page-header" style="padding-top:80px;">
+    <div class="container">
+      <nav class="gw-bc" aria-label="パンくずリスト">
+        <a href="/">ホーム</a><span>›</span>
+        <a href="/gwes">GWES</a><span>›</span>
+        <span style="color:var(--gw-accent);">ユースケース</span>
+      </nav>
+    </div>
+  </section>
+
+<!-- ==================== HERO ==================== -->
+  <section class="uc-hero">
+    <div class="container">
+      <div class="gw-fade is-visible">
+        <span class="uc-hero__label">Use Cases</span>
+        <h1 class="uc-hero__title">モジュールの組み合わせで<br>課題を解決する</h1>
+        <p class="uc-hero__desc">
+          GWESの12モジュールは、単独でも価値を発揮しますが、複数のモジュールを組み合わせることで
+          課題に対するエンドツーエンドの最適化を実現します。<br>
+          代表的な4つの活用パターンをご紹介します。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><div class="gw-divider"></div></div>
+
+<!-- ==================== OVERVIEW ==================== -->
+  <section class="gw-section">
+    <div class="container">
+      <div class="gw-fade is-visible">
+        <span class="gw-section__label">Overview</span>
+        <h2 class="gw-section__heading">4つのユースケース</h2>
+        <p class="gw-section__desc">
+          物流施設が直面する主要な課題に対して、GWESモジュールの最適な組み合わせパターンを定義しています。
+          各ユースケースは段階的に導入でき、効果を確認しながら拡張が可能です。
+        </p>
+      </div>
+      <div class="uc-summary gw-fade is-visible">
+        <a class="uc-summary__card" href="#uc-workforce" style="text-decoration:none;color:inherit;">
+          <span class="uc-summary__icon">&#9881;</span>
+          <div class="uc-summary__name">要員最適化</div>
+          <div class="uc-summary__modules">WF → RA → PA → RA → WA</div>
+          <div class="uc-summary__desc">作業量予測から要員配置、<br>進捗監視、再配分までのサイクル</div>
+        </a>
+        <a class="uc-summary__card" href="#uc-inventory" style="text-decoration:none;color:inherit;">
+          <span class="uc-summary__icon">&#128230;</span>
+          <div class="uc-summary__name">在庫・動線最適化</div>
+          <div class="uc-summary__modules">IA → SO → RO</div>
+          <div class="uc-summary__desc">在庫分析をもとに、<br>ロケーションと動線を最適化</div>
+        </a>
+        <a class="uc-summary__card" href="#uc-packing" style="text-decoration:none;color:inherit;">
+          <span class="uc-summary__icon">&#128666;</span>
+          <div class="uc-summary__name">梱包・配送最適化</div>
+          <div class="uc-summary__modules">LO → DO</div>
+          <div class="uc-summary__desc">積付計画と出荷判断を<br>連動させて配送を効率化</div>
+        </a>
+        <a class="uc-summary__card" href="#uc-platform" style="text-decoration:none;color:inherit;">
+          <span class="uc-summary__icon">&#127760;</span>
+          <div class="uc-summary__name">統合管理</div>
+          <div class="uc-summary__modules">ALL MODULES</div>
+          <div class="uc-summary__desc">全モジュールを統合し<br>複数拠点を一元管理</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><div class="gw-divider"></div></div>
+
+<!-- ==================== USE CASE 1: Workforce ==================== -->
+  <section class="gw-section" id="uc-workforce">
+    <div class="container">
+      <div class="uc-card uc-card--workforce gw-fade is-visible">
+        <div class="uc-card__header">
+          <div class="uc-card__num">01</div>
+          <div class="uc-card__title-group">
+            <h3 class="uc-card__title">要員最適化サイクル</h3>
+            <span class="uc-card__subtitle">Workforce Optimization Cycle</span>
+          </div>
+        </div>
+        <span class="uc-cycle">&#8635; 継続的改善サイクル</span>
+        <p class="uc-card__desc">
+          作業量の予測から要員の最適配置、リアルタイムの進捗監視、状況変化に応じた動的再配分、
+          そして実績分析まで。5つのモジュールが連携して、要員管理の継続的な改善サイクルを実現します。
+        </p>
+
+        <!-- Module Flow -->
+        <div class="uc-flow">
+          <div class="uc-flow__step">
+            <div class="uc-flow__badge uc-flow__badge--l2">WF</div>
+            <span class="uc-flow__name">予測<br>Forecaster</span>
+          </div>
+          <div class="uc-flow__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="uc-flow__step">
+            <div class="uc-flow__badge uc-flow__badge--l4">RA</div>
+            <span class="uc-flow__name">配分<br>Allocator</span>
+          </div>
+          <div class="uc-flow__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="uc-flow__step">
+            <div class="uc-flow__badge uc-flow__badge--l2">PA</div>
+            <span class="uc-flow__name">進捗管理<br>Analyzer</span>
+          </div>
+          <div class="uc-flow__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="uc-flow__step">
+            <div class="uc-flow__badge uc-flow__badge--l4">RA</div>
+            <span class="uc-flow__name">再配分<br>Reallocate</span>
+          </div>
+          <div class="uc-flow__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="uc-flow__step">
+            <div class="uc-flow__badge uc-flow__badge--l2">WA</div>
+            <span class="uc-flow__name">実績分析<br>Analyzer</span>
+          </div>
+        </div>
+
+        <!-- How it works -->
+        <div class="uc-how">
+          <div class="uc-how__steps">
+            <div class="uc-how__step">
+              <span class="uc-how__step-num">STEP 01</span>
+              <div>
+                <div class="uc-how__step-title">作業量予測（WF）</div>
+                <div class="uc-how__step-desc">過去の実績データ・受注情報・外部要因をもとに、翌日〜数週間先の工程別作業量を高精度に予測します。</div>
+              </div>
+            </div>
+            <div class="uc-how__step">
+              <span class="uc-how__step-num">STEP 02</span>
+              <div>
+                <div class="uc-how__step-title">要員最適配置（RA）</div>
+                <div class="uc-how__step-desc">予測された作業量に基づき、スキル・経験・シフト制約を考慮して最適な人員配分計画を算出します。</div>
+              </div>
+            </div>
+            <div class="uc-how__step">
+              <span class="uc-how__step-num">STEP 03</span>
+              <div>
+                <div class="uc-how__step-title">リアルタイム進捗監視（PA）</div>
+                <div class="uc-how__step-desc">作業の進捗をリアルタイムで可視化。計画と実績のギャップを自動検知し、遅延の兆候を早期にアラートします。</div>
+              </div>
+            </div>
+            <div class="uc-how__step">
+              <span class="uc-how__step-num">STEP 04</span>
+              <div>
+                <div class="uc-how__step-title">動的リソース再配分（RA）</div>
+                <div class="uc-how__step-desc">進捗状況の変化に応じて、余剰リソースを遅延工程にリアルタイムで再配分。全体最適を維持します。</div>
+              </div>
+            </div>
+            <div class="uc-how__step">
+              <span class="uc-how__step-num">STEP 05</span>
+              <div>
+                <div class="uc-how__step-title">実績分析・改善（WA）</div>
+                <div class="uc-how__step-desc">作業実績を多角的に分析。工程別の生産性・個人別パフォーマンス・時間帯別負荷を可視化し、次回の改善につなげます。</div>
+              </div>
+            </div>
+          </div>
+          <div class="uc-how__visual">
+            <div style="text-align:center;color:var(--gw-text-3);opacity:0.6;font-size:0.78rem;margin-bottom:20px;font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;">OPTIMIZATION CYCLE</div>
+            <svg viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:280px;margin:0 auto;display:block;">
+              <!-- Circle path -->
+              <circle cx="140" cy="140" r="105" stroke="rgba(63,66,80,0.4)" stroke-width="1.5" fill="none"/>
+              <circle cx="140" cy="140" r="105" stroke="url(#cycleGrad)" stroke-width="2" fill="none" stroke-dasharray="8 4" opacity="0.6"/>
+              <!-- Nodes -->
+              <circle cx="140" cy="35" r="24" fill="rgba(96,165,250,0.15)" stroke="rgba(96,165,250,0.5)" stroke-width="1.5"/>
+              <text x="140" y="39" text-anchor="middle" fill="#93C5FD" font-family="JetBrains Mono" font-size="11" font-weight="700">WF</text>
+              <circle cx="240" cy="108" r="24" fill="rgba(59,130,246,0.15)" stroke="rgba(59,130,246,0.5)" stroke-width="1.5"/>
+              <text x="240" y="112" text-anchor="middle" fill="#60A5FA" font-family="JetBrains Mono" font-size="11" font-weight="700">RA</text>
+              <circle cx="202" cy="228" r="24" fill="rgba(96,165,250,0.15)" stroke="rgba(96,165,250,0.5)" stroke-width="1.5"/>
+              <text x="202" y="232" text-anchor="middle" fill="#93C5FD" font-family="JetBrains Mono" font-size="11" font-weight="700">PA</text>
+              <circle cx="78" cy="228" r="24" fill="rgba(59,130,246,0.15)" stroke="rgba(59,130,246,0.5)" stroke-width="1.5"/>
+              <text x="78" y="232" text-anchor="middle" fill="#60A5FA" font-family="JetBrains Mono" font-size="11" font-weight="700">RA</text>
+              <circle cx="40" cy="108" r="24" fill="rgba(96,165,250,0.15)" stroke="rgba(96,165,250,0.5)" stroke-width="1.5"/>
+              <text x="40" y="112" text-anchor="middle" fill="#93C5FD" font-family="JetBrains Mono" font-size="11" font-weight="700">WA</text>
+              <!-- Center label -->
+              <text x="140" y="136" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">CONTINUOUS</text>
+              <text x="140" y="150" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">IMPROVEMENT</text>
+              <!-- Arrows -->
+              <path d="M162 40 L218 90" stroke="rgba(96,165,250,0.3)" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+              <path d="M248 132 L218 210" stroke="rgba(96,165,250,0.3)" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+              <path d="M178 236 L102 236" stroke="rgba(96,165,250,0.3)" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+              <path d="M62 210 L32 132" stroke="rgba(96,165,250,0.3)" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+              <path d="M52 88 L122 42" stroke="rgba(96,165,250,0.3)" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+              <defs>
+                <linearGradient id="cycleGrad" x1="0" y1="0" x2="280" y2="280"><stop stop-color="#5BC0EB"/><stop offset="1" stop-color="#3B82F6"/></linearGradient>
+                <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="rgba(96,165,250,0.4)"/></marker>
+              </defs>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Benefits -->
+        <div style="margin-top:36px;">
+          <div class="uc-benefits">
+            <div class="uc-benefit">
+              <span class="uc-benefit__icon">&#128200;</span>
+              <div class="uc-benefit__title">生産性向上</div>
+              <div class="uc-benefit__text">予測に基づく最適配置で、作業効率を最大化</div>
+            </div>
+            <div class="uc-benefit">
+              <span class="uc-benefit__icon">&#9201;</span>
+              <div class="uc-benefit__title">リアルタイム対応</div>
+              <div class="uc-benefit__text">状況変化を即座に検知し、動的にリソースを再配分</div>
+            </div>
+            <div class="uc-benefit">
+              <span class="uc-benefit__icon">&#128202;</span>
+              <div class="uc-benefit__title">継続的改善</div>
+              <div class="uc-benefit__text">実績データの蓄積で予測精度が継続的に向上</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- ==================== USE CASE 2: Inventory ==================== -->
+  <section class="gw-section gw-section--alt" id="uc-inventory">
+    <div class="container">
+      <div class="uc-card uc-card--inventory gw-fade is-visible">
+        <div class="uc-card__header">
+          <div class="uc-card__num">02</div>
+          <div class="uc-card__title-group">
+            <h3 class="uc-card__title">在庫・動線最適化</h3>
+            <span class="uc-card__subtitle">Inventory &amp; Routing Optimization</span>
+          </div>
+        </div>
+        <p class="uc-card__desc">
+          在庫の出荷頻度・相関分析をもとに最適なロケーション配置を算出し、
+          それに基づいてピッキング動線を最短化。3つのモジュールの連携で庫内効率を飛躍的に改善します。
+        </p>
+
+        <!-- Module Flow -->
+        <div class="uc-flow">
+          <div class="uc-flow__step">
+            <div class="uc-flow__badge uc-flow__badge--l2">IA</div>
+            <span class="uc-flow__name">在庫分析<br>Analyzer</span>
+          </div>
+          <div class="uc-flow__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="uc-flow__step">
+            <div class="uc-flow__badge uc-flow__badge--l4">SO</div>
+            <span class="uc-flow__name">棚入最適化<br>Optimizer</span>
+          </div>
+          <div class="uc-flow__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="uc-flow__step">
+            <div class="uc-flow__badge uc-flow__badge--l4">RO</div>
+            <span class="uc-flow__name">動線最適化<br>Optimizer</span>
+          </div>
+        </div>
+
+        <!-- How it works -->
+        <div class="uc-how">
+          <div class="uc-how__steps">
+            <div class="uc-how__step">
+              <span class="uc-how__step-num">STEP 01</span>
+              <div>
+                <div class="uc-how__step-title">在庫特性分析（IA）</div>
+                <div class="uc-how__step-desc">SKUごとの出荷頻度、同時出荷パターン、季節変動を分析。ABC分類を超えた多次元的な在庫特性を把握します。</div>
+              </div>
+            </div>
+            <div class="uc-how__step">
+              <span class="uc-how__step-num">STEP 02</span>
+              <div>
+                <div class="uc-how__step-title">ロケーション最適配置（SO）</div>
+                <div class="uc-how__step-desc">分析結果をもとに、高頻度商品を取り出しやすい位置へ。同時出荷商品を近接配置し、ピッキング効率を最大化します。</div>
+              </div>
+            </div>
+            <div class="uc-how__step">
+              <span class="uc-how__step-num">STEP 03</span>
+              <div>
+                <div class="uc-how__step-title">ピッキング動線最適化（RO）</div>
+                <div class="uc-how__step-desc">最適化されたロケーション配置のもとで、注文単位のピッキングルートを最短距離で算出。歩行距離を大幅に削減します。</div>
+              </div>
+            </div>
+          </div>
+          <div class="uc-how__visual">
+            <div style="text-align:center;color:var(--gw-text-3);opacity:0.6;font-size:0.78rem;margin-bottom:20px;font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;">DATA FLOW</div>
+            <svg viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:280px;margin:0 auto;display:block;">
+              <!-- IA -->
+              <rect x="20" y="20" width="80" height="50" rx="8" fill="rgba(96,165,250,0.12)" stroke="rgba(96,165,250,0.4)" stroke-width="1.5"/>
+              <text x="60" y="42" text-anchor="middle" fill="#93C5FD" font-family="JetBrains Mono" font-size="13" font-weight="700">IA</text>
+              <text x="60" y="58" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Inter" font-size="7">在庫分析</text>
+              <!-- Arrow down-right -->
+              <path d="M100 50 L140 85" stroke="rgba(52,211,153,0.4)" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+              <!-- SO -->
+              <rect x="100" y="75" width="80" height="50" rx="8" fill="rgba(52,211,153,0.12)" stroke="rgba(52,211,153,0.4)" stroke-width="1.5"/>
+              <text x="140" y="97" text-anchor="middle" fill="#34D399" font-family="JetBrains Mono" font-size="13" font-weight="700">SO</text>
+              <text x="140" y="113" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Inter" font-size="7">棚入最適化</text>
+              <!-- Arrow down-right -->
+              <path d="M180 105 L218 140" stroke="rgba(52,211,153,0.4)" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+              <!-- RO -->
+              <rect x="180" y="130" width="80" height="50" rx="8" fill="rgba(59,130,246,0.12)" stroke="rgba(59,130,246,0.4)" stroke-width="1.5"/>
+              <text x="220" y="152" text-anchor="middle" fill="#60A5FA" font-family="JetBrains Mono" font-size="13" font-weight="700">RO</text>
+              <text x="220" y="168" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Inter" font-size="7">動線最適化</text>
+              <defs>
+                <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="rgba(52,211,153,0.5)"/></marker>
+              </defs>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Benefits -->
+        <div style="margin-top:36px;">
+          <div class="uc-benefits">
+            <div class="uc-benefit">
+              <span class="uc-benefit__icon">&#128099;</span>
+              <div class="uc-benefit__title">歩行距離削減</div>
+              <div class="uc-benefit__text">最適なロケーション配置と動線で、ピッキング時の移動距離を削減</div>
+            </div>
+            <div class="uc-benefit">
+              <span class="uc-benefit__icon">&#128230;</span>
+              <div class="uc-benefit__title">保管効率向上</div>
+              <div class="uc-benefit__text">出荷特性に基づく合理的な配置で、スペース利用率を改善</div>
+            </div>
+            <div class="uc-benefit">
+              <span class="uc-benefit__icon">&#9889;</span>
+              <div class="uc-benefit__title">処理速度向上</div>
+              <div class="uc-benefit__text">動線の短縮により、ピッキング処理件数が向上</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- ==================== USE CASE 3: Packing/Delivery ==================== -->
+  <section class="gw-section" id="uc-packing">
+    <div class="container">
+      <div class="uc-card uc-card--packing gw-fade is-visible">
+        <div class="uc-card__header">
+          <div class="uc-card__num">03</div>
+          <div class="uc-card__title-group">
+            <h3 class="uc-card__title">梱包・配送最適化</h3>
+            <span class="uc-card__subtitle">Loading &amp; Dispatch Optimization</span>
+          </div>
+        </div>
+        <p class="uc-card__desc">
+          積付計画の最適化と出荷タイミングの判断を連動させ、配送効率を最大化します。
+          荷姿・積載制約・配送順序・納期を総合的に考慮した最適解を算出します。
+        </p>
+
+        <!-- Module Flow -->
+        <div class="uc-flow">
+          <div class="uc-flow__step">
+            <div class="uc-flow__badge uc-flow__badge--l4">LO</div>
+            <span class="uc-flow__name">積付最適化<br>Optimizer</span>
+          </div>
+          <div class="uc-flow__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="uc-flow__step">
+            <div class="uc-flow__badge uc-flow__badge--l4">DO</div>
+            <span class="uc-flow__name">出荷判断<br>Optimizer</span>
+          </div>
+        </div>
+
+        <!-- How it works -->
+        <div class="uc-how">
+          <div class="uc-how__steps">
+            <div class="uc-how__step">
+              <span class="uc-how__step-num">STEP 01</span>
+              <div>
+                <div class="uc-how__step-title">積付計画最適化（LO）</div>
+                <div class="uc-how__step-desc">商品の荷姿・重量・破損リスクを考慮し、配送順序に応じた最適な積付パターンを算出。積載率を最大化しつつ、荷下ろし効率も両立します。</div>
+              </div>
+            </div>
+            <div class="uc-how__step">
+              <span class="uc-how__step-num">STEP 02</span>
+              <div>
+                <div class="uc-how__step-title">出荷タイミング最適化（DO）</div>
+                <div class="uc-how__step-desc">納期・コスト・顧客優先度・車両稼働状況を総合的に判断し、最適な出荷タイミングと便の選定を行います。</div>
+              </div>
+            </div>
+          </div>
+          <div class="uc-how__visual">
+            <div style="text-align:center;color:var(--gw-text-3);opacity:0.6;font-size:0.78rem;margin-bottom:20px;font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;">CONNECTED FLOW</div>
+            <svg viewBox="0 0 280 160" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:280px;margin:0 auto;display:block;">
+              <!-- LO -->
+              <rect x="20" y="45" width="100" height="70" rx="12" fill="rgba(245,158,11,0.10)" stroke="rgba(245,158,11,0.4)" stroke-width="1.5"/>
+              <text x="70" y="75" text-anchor="middle" fill="#F59E0B" font-family="JetBrains Mono" font-size="16" font-weight="700">LO</text>
+              <text x="70" y="98" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Inter" font-size="8">積付最適化</text>
+              <!-- Arrow -->
+              <path d="M120 80 L160 80" stroke="rgba(245,158,11,0.4)" stroke-width="2" marker-end="url(#arrowOrange)"/>
+              <!-- DO -->
+              <rect x="160" y="45" width="100" height="70" rx="12" fill="rgba(249,115,22,0.10)" stroke="rgba(249,115,22,0.4)" stroke-width="1.5"/>
+              <text x="210" y="75" text-anchor="middle" fill="#F97316" font-family="JetBrains Mono" font-size="16" font-weight="700">DO</text>
+              <text x="210" y="98" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Inter" font-size="8">出荷判断最適化</text>
+              <defs>
+                <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="rgba(245,158,11,0.5)"/></marker>
+              </defs>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Benefits -->
+        <div style="margin-top:36px;">
+          <div class="uc-benefits">
+            <div class="uc-benefit">
+              <span class="uc-benefit__icon">&#128666;</span>
+              <div class="uc-benefit__title">積載率向上</div>
+              <div class="uc-benefit__text">最適な積付計画で車両の積載率を最大化し、配送コストを削減</div>
+            </div>
+            <div class="uc-benefit">
+              <span class="uc-benefit__icon">&#128337;</span>
+              <div class="uc-benefit__title">納期遵守率向上</div>
+              <div class="uc-benefit__text">最適な出荷タイミング判断で、納期遅延リスクを最小化</div>
+            </div>
+            <div class="uc-benefit">
+              <span class="uc-benefit__icon">&#128176;</span>
+              <div class="uc-benefit__title">配送コスト削減</div>
+              <div class="uc-benefit__text">積付と出荷判断の連動で、トータル配送コストを最適化</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- ==================== USE CASE 4: Platform ==================== -->
+  <section class="gw-section gw-section--alt" id="uc-platform">
+    <div class="container">
+      <div class="uc-card uc-card--platform gw-fade is-visible">
+        <div class="uc-card__header">
+          <div class="uc-card__num">04</div>
+          <div class="uc-card__title-group">
+            <h3 class="uc-card__title">統合プラットフォーム管理</h3>
+            <span class="uc-card__subtitle">Integrated Platform Management</span>
+          </div>
+        </div>
+        <p class="uc-card__desc">
+          複数拠点の運営を統合的に管理・最適化するプラットフォームとしてGWESを活用。
+          インフラ層のデータ連携（DC・BM・ME）を基盤に、可視化層と最適化層の全モジュールを
+          横断的に稼働させ、企業全体のサプライチェーンを最適化します。
+        </p>
+
+        <!-- Module Flow — 3 layers -->
+        <div style="margin-bottom:36px;">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+            <!-- Infrastructure -->
+            <div style="background:rgba(139,149,165,0.08);border:1px solid rgba(139,149,165,0.25);border-radius:12px;padding:24px 20px;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;color:#C8CDD8;margin-bottom:16px;text-transform:uppercase;">Infrastructure</div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <div class="uc-flow__badge uc-flow__badge--infra" style="width:44px;height:44px;font-size:0.75rem;">DC</div>
+                <div class="uc-flow__badge uc-flow__badge--infra" style="width:44px;height:44px;font-size:0.75rem;">BM</div>
+                <div class="uc-flow__badge uc-flow__badge--infra" style="width:44px;height:44px;font-size:0.75rem;">ME</div>
+              </div>
+              <div style="font-size:0.72rem;color:var(--gw-text-3);opacity:0.6;margin-top:12px;line-height:1.5;">データ統合・基盤管理・MHE連携</div>
+            </div>
+            <!-- Visualization -->
+            <div style="background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.25);border-radius:12px;padding:24px 20px;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;color:#93C5FD;margin-bottom:16px;text-transform:uppercase;">Visualization</div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <div class="uc-flow__badge uc-flow__badge--l2" style="width:44px;height:44px;font-size:0.75rem;">WF</div>
+                <div class="uc-flow__badge uc-flow__badge--l2" style="width:44px;height:44px;font-size:0.75rem;">PA</div>
+                <div class="uc-flow__badge uc-flow__badge--l2" style="width:44px;height:44px;font-size:0.75rem;">WA</div>
+                <div class="uc-flow__badge uc-flow__badge--l2" style="width:44px;height:44px;font-size:0.75rem;">IA</div>
+              </div>
+              <div style="font-size:0.72rem;color:var(--gw-text-3);opacity:0.6;margin-top:12px;line-height:1.5;">予測・進捗管理・実績分析・在庫分析</div>
+            </div>
+            <!-- Optimization -->
+            <div style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);border-radius:12px;padding:24px 20px;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;color:#60A5FA;margin-bottom:16px;text-transform:uppercase;">Optimization</div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <div class="uc-flow__badge uc-flow__badge--l4" style="width:44px;height:44px;font-size:0.75rem;">SO</div>
+                <div class="uc-flow__badge uc-flow__badge--l4" style="width:44px;height:44px;font-size:0.75rem;">RO</div>
+                <div class="uc-flow__badge uc-flow__badge--l4" style="width:44px;height:44px;font-size:0.75rem;">LO</div>
+                <div class="uc-flow__badge uc-flow__badge--l4" style="width:44px;height:44px;font-size:0.75rem;">DO</div>
+                <div class="uc-flow__badge uc-flow__badge--l4" style="width:44px;height:44px;font-size:0.75rem;">RA</div>
+              </div>
+              <div style="font-size:0.72rem;color:var(--gw-text-3);opacity:0.6;margin-top:12px;line-height:1.5;">棚入・動線・積付・出荷・リソース最適化</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Benefits -->
+        <div class="uc-benefits">
+          <div class="uc-benefit">
+            <span class="uc-benefit__icon">&#127760;</span>
+            <div class="uc-benefit__title">複数拠点一元管理</div>
+            <div class="uc-benefit__text">全拠点のKPIを統合ダッシュボードで横断比較・監視</div>
+          </div>
+          <div class="uc-benefit">
+            <span class="uc-benefit__icon">&#128279;</span>
+            <div class="uc-benefit__title">モジュール間連携</div>
+            <div class="uc-benefit__text">可視化層のデータが最適化層に自動連携し、全体最適を実現</div>
+          </div>
+          <div class="uc-benefit">
+            <span class="uc-benefit__icon">&#128640;</span>
+            <div class="uc-benefit__title">段階的拡張</div>
+            <div class="uc-benefit__text">必要なモジュールから導入し、効果を見ながら拡張が可能</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- ==================== CTA ==================== -->
+  <section class="gw-cta">
+    <div class="container">
+      <div class="gw-cta__inner gw-fade is-visible">
+        <h2 class="gw-cta__title">貴社に最適な活用パターンを<br>ご提案します</h2>
+        <p class="gw-cta__desc">
+          現在の課題やオペレーション状況をヒアリングし、<br>
+          最適なモジュール構成と導入ステップをご提案します。
+        </p>
+        <div class="gw-cta__actions">
+          <a class="gw-btn--primary" href="/contact">お問い合わせ</a>
+          <a class="gw-btn--outline" href="/gwes">GWESトップへ</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-logos">
+            <img src="img/ground-logo-v2.svg?v=6" alt="GROUND" class="footer__ground-logo-img" style="height: 28px; width: auto;">
+          </div>
+          <p class="footer__brand-desc">
+            AI・数理最適化・ロボティクスで、<br>
+            物流の未来を変革する。
+          </p>
+        </div>
+        <div>
+          <h4 class="footer__heading">Company</h4>
+          <div class="footer__links">
+            <a class="footer__link" href="/about">会社概要</a>
+            <a class="footer__link" href="/about#vision">ビジョン・ミッション</a>
+            <a class="footer__link" href="/about#ceo">CEOメッセージ</a>
+            <a class="footer__link" href="/careers">採用情報</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Solutions</h4>
+          <div class="footer__links">
+            <a class="footer__link" href="/gwes">GWES</a>
+            <a class="footer__link" href="/digital-integration">デジタルインテグレーション</a>
+            <a class="footer__link" href="/consulting">コンサルティング</a>
+            <a class="footer__link" href="/peer">PEER</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Contact</h4>
+          <div class="footer__links">
+            <a class="footer__link" href="/contact">お問い合わせ</a>
+            <span class="footer__link" style="cursor: default;">TEL: 03-6457-1650</span>
+            <a href="mailto:Info@groundinc.co.jp" class="footer__link">Info@groundinc.co.jp</a>
+            <span class="footer__link" style="cursor: default;">
+              〒101-0041<br>
+              東京都千代田区神田須田町1-3-33<br>
+              Bizflex神田 10F
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 GROUND Inc. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social" aria-label="LinkedIn">in</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Hamburger menu
+    document.addEventListener('DOMContentLoaded', function() {
+      var btn = document.getElementById('hamburgerBtn');
+      var menu = document.getElementById('overlayMenu');
+      if (btn && menu) {
+        btn.addEventListener('click', function() {
+          var isOpen = menu.classList.toggle('is-open');
+          btn.classList.toggle('is-active', isOpen);
+          document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+      }
+      // Fade in on scroll
+      var fades = document.querySelectorAll('.gw-fade');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      }, { threshold: 0.1 });
+      fades.forEach(function(el) { observer.observe(el); });
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+          var target = document.querySelector(a.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
