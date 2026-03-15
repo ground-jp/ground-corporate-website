@@ -358,7 +358,7 @@
     /* ── Scenario Section (How it Works) ── */
     .uc-scenario {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 48px;
       align-items: start;
     }
@@ -388,284 +388,6 @@
       font-size: 0.78rem; color: var(--gw-text-3);
       line-height: 1.8;
     }
-    .uc-scenario__visual {
-      background: linear-gradient(135deg, rgba(10,12,20,0.7), rgba(22,24,34,0.6));
-      border: 1px solid rgba(63,66,80,0.4);
-      border-radius: 16px;
-      padding: 40px 28px;
-      display: flex; flex-direction: column;
-      align-items: stretch; justify-content: center;
-    }
-    .uc-scenario__visual-label {
-      text-align: center; color: var(--gw-text-3);
-      font-size: 0.68rem;
-      font-family: 'JetBrains Mono', monospace;
-      letter-spacing: 0.12em;
-      margin-bottom: 28px;
-      text-transform: uppercase;
-    }
-
-    /* ── Visual Charts (complementary to timeline — show data flow, KPIs, structure) ── */
-
-    /* Data Cycle (UC1) — circular data flow, NOT module descriptions */
-    .uc-data-cycle {
-      display: flex; flex-direction: column; align-items: center; gap: 0;
-      position: relative;
-    }
-    .uc-data-cycle__ring {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      grid-template-rows: auto auto auto auto auto;
-      gap: 0;
-      align-items: center;
-      width: 100%;
-    }
-    .uc-data-phase {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px;
-      padding: 18px 20px;
-      transition: border-color 0.4s, box-shadow 0.4s;
-    }
-    .uc-data-phase:hover {
-      border-color: rgba(96,165,250,0.25);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-    .uc-data-phase__label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem; letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-    .uc-data-phase__title {
-      font-size: 0.88rem; font-weight: 600;
-      color: rgba(255,255,255,0.85);
-      margin-bottom: 4px;
-    }
-    .uc-data-phase__detail {
-      font-size: 0.75rem; color: var(--gw-text-3); line-height: 1.6;
-    }
-    .uc-data-arrow {
-      display: flex; align-items: center; justify-content: center;
-      padding: 6px 0;
-    }
-    .uc-data-arrow svg { width: 18px; height: 18px; }
-    .uc-data-arrow--h { padding: 0 8px; }
-    .uc-data-center {
-      text-align: center; padding: 10px 0;
-    }
-    .uc-data-center__pill {
-      display: inline-block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem; letter-spacing: 0.14em;
-      text-transform: uppercase;
-      padding: 7px 20px;
-      border-radius: 20px;
-      border: 1px solid rgba(91,192,235,0.12);
-      background: rgba(91,192,235,0.03);
-      color: var(--gw-accent);
-    }
-
-    /* KPI Impact Cards (UC2) — before/after comparison */
-    .uc-kpi-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .uc-kpi-card {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      transition: border-color 0.4s, box-shadow 0.4s;
-    }
-    .uc-kpi-card:hover {
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-    .uc-kpi-card__icon {
-      width: 40px; height: 40px;
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 14px;
-    }
-    .uc-kpi-card__icon svg { width: 20px; height: 20px; }
-    .uc-kpi-card__value {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.5rem; font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 4px;
-    }
-    .uc-kpi-card__label {
-      font-size: 0.78rem; color: rgba(255,255,255,0.7);
-      font-weight: 500;
-      margin-bottom: 8px;
-    }
-    .uc-kpi-card__desc {
-      font-size: 0.68rem; color: var(--gw-text-3); line-height: 1.5;
-    }
-    .uc-kpi-summary {
-      margin-top: 12px;
-      padding: 16px 20px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px;
-      text-align: center;
-    }
-    .uc-kpi-summary__text {
-      font-size: 0.78rem; color: var(--gw-text-2); line-height: 1.7;
-    }
-
-    /* Cost Structure (UC3) — optimization equation */
-    .uc-cost-structure {
-      display: flex; flex-direction: column; gap: 12px;
-    }
-    .uc-cost-block {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px;
-      padding: 20px 22px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.4s, box-shadow 0.4s;
-    }
-    .uc-cost-block:hover {
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-    .uc-cost-block__bar {
-      position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-      border-radius: 3px 0 0 3px;
-    }
-    .uc-cost-block__head {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 10px;
-    }
-    .uc-cost-block__title {
-      font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.85);
-    }
-    .uc-cost-block__badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem; letter-spacing: 0.1em;
-      padding: 4px 12px; border-radius: 8px;
-    }
-    .uc-cost-block__items {
-      display: flex; gap: 8px; flex-wrap: wrap;
-    }
-    .uc-cost-block__item {
-      font-size: 0.72rem; color: var(--gw-text-3);
-      padding: 5px 12px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 8px;
-    }
-    .uc-cost-eq {
-      display: flex; align-items: center; justify-content: center;
-      gap: 12px;
-      padding: 12px 0;
-    }
-    .uc-cost-eq__op {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.2rem; font-weight: 300;
-      color: var(--gw-text-3);
-    }
-    .uc-cost-result {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-    }
-    .uc-cost-result__value {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem; letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-    .uc-cost-result__items {
-      display: flex; gap: 10px; justify-content: center;
-      margin-top: 12px;
-    }
-    .uc-cost-result__item {
-      padding: 10px 16px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 10px;
-      text-align: center;
-    }
-    .uc-cost-result__item-name {
-      font-size: 0.75rem; font-weight: 500;
-      color: rgba(255,255,255,0.65);
-    }
-    .uc-cost-result__item-sub {
-      font-size: 0.6rem;
-      font-family: 'JetBrains Mono', monospace;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-top: 3px;
-    }
-
-    /* Roadmap chart (UC4) */
-    .uc-roadmap {
-      display: flex; flex-direction: column; gap: 0;
-      position: relative;
-      padding-left: 40px;
-    }
-    .uc-roadmap__line {
-      position: absolute;
-      left: 15px; top: 28px; bottom: 28px;
-      width: 2px;
-      border-radius: 2px;
-    }
-    .uc-roadmap-step {
-      display: flex; align-items: flex-start;
-      position: relative;
-      padding: 14px 0;
-    }
-    .uc-roadmap-dot {
-      position: absolute; left: -40px;
-      top: 22px;
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      z-index: 1;
-      transition: box-shadow 0.4s;
-    }
-    .uc-roadmap-dot__inner {
-      width: 10px; height: 10px; border-radius: 50%;
-    }
-    .uc-roadmap-card {
-      flex: 1;
-      border-radius: 12px;
-      padding: 20px 24px;
-      border: 1px solid;
-      background-clip: padding-box;
-      transition: border-color 0.4s, box-shadow 0.4s, background 0.4s;
-    }
-    .uc-roadmap-card:hover {
-      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
-    }
-    .uc-roadmap-card__head {
-      display: flex; align-items: center; gap: 12px;
-      margin-bottom: 8px;
-    }
-    .uc-roadmap-card__lv {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem; font-weight: 700;
-      letter-spacing: 0.1em;
-    }
-    .uc-roadmap-card__title {
-      font-size: 0.92rem; font-weight: 600;
-    }
-    .uc-roadmap-card__desc {
-      font-size: 0.78rem; color: var(--gw-text-2); line-height: 1.7;
-    }
-    .uc-roadmap-card--glow {
-      box-shadow: 0 0 24px rgba(139,92,246,0.08);
-    }
-    .uc-roadmap-card--glow:hover {
-      box-shadow: 0 4px 32px rgba(139,92,246,0.15);
-    }
-
     /* ── Outcome Grid ── */
     .uc-outcomes {
       display: grid;
@@ -735,8 +457,6 @@
       .uc-detail { padding: 40px 28px; }
       .uc-timeline__track { flex-wrap: wrap; gap: 16px; justify-content: center; }
       .uc-tl-arrow { display: none; }
-      .uc-kpi-grid { grid-template-columns: 1fr 1fr; }
-      .uc-cost-result__items { flex-wrap: wrap; }
     }
     @media (max-width: 600px) {
       .uc-overview { grid-template-columns: 1fr; }
@@ -985,43 +705,7 @@
               </div>
             </div>
           </div>
-          <div class="uc-scenario__visual">
-            <div class="uc-scenario__visual-label">Data-Driven Improvement Cycle</div>
-            <div class="uc-data-cycle">
-              <!-- Phase 1: Prediction -->
-              <div class="uc-data-phase">
-                <div class="uc-data-phase__label" style="color:#93C5FD;">Phase 1 — Predict</div>
-                <div class="uc-data-phase__title">需要予測データ</div>
-                <div class="uc-data-phase__detail">入荷予定・受注情報・カレンダーイベント等の説明変数から工程別の作業量を予測</div>
-              </div>
-              <div class="uc-data-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(96,165,250,0.3)" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M7 14l5 5 5-5"/></svg></div>
-              <!-- Phase 2: Plan -->
-              <div class="uc-data-phase">
-                <div class="uc-data-phase__label" style="color:#60A5FA;">Phase 2 — Optimize</div>
-                <div class="uc-data-phase__title">最適配置プラン</div>
-                <div class="uc-data-phase__detail">スキル・スピード・シフト制約を考慮した数万パターンのシミュレーション結果</div>
-              </div>
-              <div class="uc-data-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(96,165,250,0.3)" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M7 14l5 5 5-5"/></svg></div>
-              <!-- Phase 3: Monitor -->
-              <div class="uc-data-phase">
-                <div class="uc-data-phase__label" style="color:#5BC0EB;">Phase 3 — Monitor</div>
-                <div class="uc-data-phase__title">リアルタイム進捗</div>
-                <div class="uc-data-phase__detail">計画vs実績のギャップを即時検知し、遅延の兆候をアラート</div>
-              </div>
-              <div class="uc-data-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(96,165,250,0.3)" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M7 14l5 5 5-5"/></svg></div>
-              <!-- Phase 4: Analyze -->
-              <div class="uc-data-phase">
-                <div class="uc-data-phase__label" style="color:#93C5FD;">Phase 4 — Analyze</div>
-                <div class="uc-data-phase__title">予実差異レポート</div>
-                <div class="uc-data-phase__detail">生産性推移・コスト分析・スキル別実績を多角的に集計・評価</div>
-              </div>
-              <!-- Feedback loop -->
-              <div class="uc-data-center">
-                <div class="uc-data-center__pill">&#8593; Feedback Loop — 分析結果が翌日の予測精度を継続改善</div>
-              </div>
-            </div>
           </div>
-        </div>
 
         <!-- Outcomes -->
         <div class="uc-outcomes">
@@ -1125,51 +809,7 @@
               </div>
             </div>
           </div>
-          <div class="uc-scenario__visual">
-            <div class="uc-scenario__visual-label">Expected Improvement</div>
-            <div class="uc-kpi-grid">
-              <!-- KPI 1: Walking distance -->
-              <div class="uc-kpi-card" style="border-color:rgba(52,211,153,0.15);">
-                <div class="uc-kpi-card__icon" style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.5"><path d="M13 17l5-5-5-5M6 17l5-5-5-5"/></svg>
-                </div>
-                <div class="uc-kpi-card__value" style="color:#34D399;">-30%</div>
-                <div class="uc-kpi-card__label">歩行距離</div>
-                <div class="uc-kpi-card__desc">最短ルート算出で無駄な移動を削減</div>
-              </div>
-              <!-- KPI 2: Picking efficiency -->
-              <div class="uc-kpi-card" style="border-color:rgba(96,165,250,0.15);">
-                <div class="uc-kpi-card__icon" style="background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.2);">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#93C5FD" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
-                </div>
-                <div class="uc-kpi-card__value" style="color:#93C5FD;">+25%</div>
-                <div class="uc-kpi-card__label">ピッキング生産性</div>
-                <div class="uc-kpi-card__desc">マルチオーダー集約でスループット向上</div>
-              </div>
-              <!-- KPI 3: Slotting score -->
-              <div class="uc-kpi-card" style="border-color:rgba(52,211,153,0.15);">
-                <div class="uc-kpi-card__icon" style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
-                </div>
-                <div class="uc-kpi-card__value" style="color:#34D399;">A+</div>
-                <div class="uc-kpi-card__label">配置スコア</div>
-                <div class="uc-kpi-card__desc">ヒット率ベースの客観的評価指標</div>
-              </div>
-              <!-- KPI 4: Decision speed -->
-              <div class="uc-kpi-card" style="border-color:rgba(96,165,250,0.15);">
-                <div class="uc-kpi-card__icon" style="background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.2);">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#93C5FD" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-                </div>
-                <div class="uc-kpi-card__value" style="color:#93C5FD;">1/10</div>
-                <div class="uc-kpi-card__label">判断時間</div>
-                <div class="uc-kpi-card__desc">属人的判断をデータ分析に置き換え</div>
-              </div>
-            </div>
-            <div class="uc-kpi-summary">
-              <div class="uc-kpi-summary__text">分析 → 配置最適化 → 動線最適化の連携で、庫内オペレーション全体の効率を改善</div>
-            </div>
           </div>
-        </div>
 
         <!-- Outcomes -->
         <div class="uc-outcomes">
@@ -1258,64 +898,7 @@
               </div>
             </div>
           </div>
-          <div class="uc-scenario__visual">
-            <div class="uc-scenario__visual-label">Cost Optimization Structure</div>
-            <div class="uc-cost-structure">
-              <!-- Block 1: Volume optimization -->
-              <div class="uc-cost-block" style="border-color:rgba(245,158,11,0.15);">
-                <div class="uc-cost-block__bar" style="background:linear-gradient(180deg,#F59E0B,#D97706);"></div>
-                <div class="uc-cost-block__head">
-                  <div class="uc-cost-block__title">容積最適化</div>
-                  <div class="uc-cost-block__badge" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);color:#F59E0B;">Volume</div>
-                </div>
-                <div class="uc-cost-block__items">
-                  <span class="uc-cost-block__item">3D寸法計算</span>
-                  <span class="uc-cost-block__item">箱サイズ最小化</span>
-                  <span class="uc-cost-block__item">積載率最大化</span>
-                </div>
-              </div>
-              <!-- Equation operator -->
-              <div class="uc-cost-eq">
-                <span class="uc-cost-eq__op">&#215;</span>
-              </div>
-              <!-- Block 2: Route optimization -->
-              <div class="uc-cost-block" style="border-color:rgba(249,115,22,0.15);">
-                <div class="uc-cost-block__bar" style="background:linear-gradient(180deg,#FB923C,#F97316);"></div>
-                <div class="uc-cost-block__head">
-                  <div class="uc-cost-block__title">配送経路最適化</div>
-                  <div class="uc-cost-block__badge" style="background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.2);color:#FB923C;">Route</div>
-                </div>
-                <div class="uc-cost-block__items">
-                  <span class="uc-cost-block__item">4経路比較</span>
-                  <span class="uc-cost-block__item">制約条件充足</span>
-                  <span class="uc-cost-block__item">車両引当</span>
-                </div>
-              </div>
-              <!-- Equation operator -->
-              <div class="uc-cost-eq">
-                <span class="uc-cost-eq__op">=</span>
-              </div>
-              <!-- Result -->
-              <div class="uc-cost-result" style="border-color:rgba(245,158,11,0.2);">
-                <div class="uc-cost-result__value" style="color:#F59E0B;">Total Cost Minimization</div>
-                <div class="uc-cost-result__items">
-                  <div class="uc-cost-result__item" style="border-color:rgba(245,158,11,0.12);">
-                    <div class="uc-cost-result__item-name">配車表</div>
-                    <div class="uc-cost-result__item-sub" style="color:rgba(245,158,11,0.5);">dispatch</div>
-                  </div>
-                  <div class="uc-cost-result__item" style="border-color:rgba(245,158,11,0.12);">
-                    <div class="uc-cost-result__item-name">送り状</div>
-                    <div class="uc-cost-result__item-sub" style="color:rgba(245,158,11,0.5);">invoice</div>
-                  </div>
-                  <div class="uc-cost-result__item" style="border-color:rgba(245,158,11,0.12);">
-                    <div class="uc-cost-result__item-name">荷札</div>
-                    <div class="uc-cost-result__item-sub" style="color:rgba(245,158,11,0.5);">label</div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
 
         <!-- Outcomes -->
         <div class="uc-outcomes">
@@ -1429,65 +1012,7 @@
               </div>
             </div>
           </div>
-          <div class="uc-scenario__visual">
-            <div class="uc-scenario__visual-label">Evolution Roadmap</div>
-            <div class="uc-roadmap">
-              <div class="uc-roadmap__line" style="background:linear-gradient(180deg,rgba(139,149,165,0.2),rgba(96,165,250,0.25),rgba(59,130,246,0.35),rgba(139,92,246,0.45));"></div>
-              <!-- LV.1 -->
-              <div class="uc-roadmap-step">
-                <div class="uc-roadmap-dot" style="background:rgba(139,149,165,0.08);border:1px solid rgba(139,149,165,0.25);">
-                  <div class="uc-roadmap-dot__inner" style="background:#C8CDD8;"></div>
-                </div>
-                <div class="uc-roadmap-card" style="background:rgba(255,255,255,0.02);border-color:rgba(139,149,165,0.12);">
-                  <div class="uc-roadmap-card__head">
-                    <span class="uc-roadmap-card__lv" style="color:#C8CDD8;">LV.1</span>
-                    <span class="uc-roadmap-card__title" style="color:#C8CDD8;">可視化</span>
-                  </div>
-                  <div class="uc-roadmap-card__desc">KPIダッシュボードの構築と分析環境の整備。現場の状況をデータで「見える化」</div>
-                </div>
-              </div>
-              <!-- LV.2 -->
-              <div class="uc-roadmap-step">
-                <div class="uc-roadmap-dot" style="background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.25);">
-                  <div class="uc-roadmap-dot__inner" style="background:#93C5FD;"></div>
-                </div>
-                <div class="uc-roadmap-card" style="background:rgba(96,165,250,0.02);border-color:rgba(96,165,250,0.12);">
-                  <div class="uc-roadmap-card__head">
-                    <span class="uc-roadmap-card__lv" style="color:#93C5FD;">LV.2</span>
-                    <span class="uc-roadmap-card__title" style="color:#93C5FD;">自動化</span>
-                  </div>
-                  <div class="uc-roadmap-card__desc">定常業務のルールベース自動化。計画作成・帳票出力等の手作業を削減</div>
-                </div>
-              </div>
-              <!-- LV.3 -->
-              <div class="uc-roadmap-step">
-                <div class="uc-roadmap-dot" style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.3);">
-                  <div class="uc-roadmap-dot__inner" style="background:#60A5FA;"></div>
-                </div>
-                <div class="uc-roadmap-card" style="background:rgba(59,130,246,0.02);border-color:rgba(59,130,246,0.15);">
-                  <div class="uc-roadmap-card__head">
-                    <span class="uc-roadmap-card__lv" style="color:#60A5FA;">LV.3</span>
-                    <span class="uc-roadmap-card__title" style="color:#60A5FA;">最適化</span>
-                  </div>
-                  <div class="uc-roadmap-card__desc">複数リソースの統合管理とAIによる判断支援。要員・在庫・配送の横断最適化</div>
-                </div>
-              </div>
-              <!-- LV.4 -->
-              <div class="uc-roadmap-step">
-                <div class="uc-roadmap-dot" style="background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.35);box-shadow:0 0 16px rgba(139,92,246,0.12);">
-                  <div class="uc-roadmap-dot__inner" style="background:#8B5CF6;box-shadow:0 0 10px rgba(139,92,246,0.4);"></div>
-                </div>
-                <div class="uc-roadmap-card uc-roadmap-card--glow" style="background:rgba(139,92,246,0.04);border-color:rgba(139,92,246,0.25);">
-                  <div class="uc-roadmap-card__head">
-                    <span class="uc-roadmap-card__lv" style="color:#8B5CF6;">LV.4</span>
-                    <span class="uc-roadmap-card__title" style="color:rgba(255,255,255,0.9);">自律化</span>
-                  </div>
-                  <div class="uc-roadmap-card__desc">環境変化に自律的に適応し、人の介在なく最適状態を維持し続ける知的システム</div>
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
       </div>
     </div>
   </section>
