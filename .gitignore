@@ -20,3 +20,7 @@ convert-video.sh
 
 # Node (future use)
 node_modules/
+_build/
+GENERATION_COMPLETE.txt
+all_news_articles.json
+generate_article_pages.py
